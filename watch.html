@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watch Episode</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+            background: radial-gradient(circle at 20% 15%, rgba(255,80,40,0.14), transparent 30%), #05070c;
+        }
+        .page { width: min(1100px, 90%); margin: auto; padding: 35px 0 80px; }
+        .back-button {
+            display: inline-flex; padding: 10px 16px; border-radius: 10px; text-decoration: none;
+            color: #a7b0bd; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+        }
+        .player-card {
+            margin-top: 36px; padding: 28px; border-radius: 20px;
+            background: rgba(255,255,255,0.035); border: 1px solid rgba(255,255,255,0.07);
+        }
+        .label { color: #ff784d; font-size: 12px; font-weight: 800; letter-spacing: 3px; }
+        h1 { margin: 8px 0 6px; font-size: clamp(28px, 5vw, 48px); }
+        .episode-title { color: #9aa4b1; margin-bottom: 24px; }
+        video { width: 100%; max-height: 70vh; border-radius: 14px; background: #000; }
+        .missing {
+            padding: 30px; border-radius: 14px; color: #aab3bf; line-height: 1.7;
+            background: rgba(0,0,0,0.28); border: 1px dashed rgba(255,255,255,0.12);
+        }
+        .external-link {
+            display: inline-block; margin-top: 12px; padding: 12px 16px; border-radius: 10px;
+            color: white; text-decoration: none; background: linear-gradient(90deg, #ff5c47, #ff364f);
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <a id="backButton" href="anime.html" class="back-button">← Back</a>
+        <section class="player-card">
+            <p class="label">NOW WATCHING</p>
+            <h1 id="animeTitle">Anime</h1>
+            <p class="episode-title" id="episodeTitle">Episode</p>
+            <div id="playerArea"></div>
+        </section>
+    </main>
+
+    <script src="anime-data.js?v=3"></script>
+    <script>
+        (function () {
+            const params = new URLSearchParams(window.location.search);
+            const animeId = params.get("anime") || "";
+            const episode = Number.parseInt(params.get("episode"), 10) || 1;
+            const data = Array.isArray(window.ANIME_DATA) ? window.ANIME_DATA : [];
+            const anime = data.find(function (item) { return String(item.id) === animeId; });
+            const playerArea = document.getElementById("playerArea");
+
+            if (!anime) {
+                playerArea.innerHTML = '<div class="missing">Anime not found. Check anime-data.js.</div>';
+                return;
+            }
+
+            document.title = `${anime.title} - Episode ${episode}`;
+            document.getElementById("animeTitle").textContent = anime.title;
+            document.getElementById("episodeTitle").textContent = `Episode ${episode}`;
+            document.getElementById("backButton").href = `anime-details.html?id=${encodeURIComponent(anime.id)}`;
+
+            const links = anime.episodeLinks || {};
+
+const source =
+    links[episode] ||
+    links[String(episode)] ||
+    `videos/${anime.id}/episode-${episode}.mp4`;
+
+            
+
+            const cleanSource = String(source).split("?")[0].toLowerCase();
+            const directVideo = [".mp4", ".webm", ".ogg", ".m4v"].some(function (ext) {
+                return cleanSource.endsWith(ext);
+            });
+
+            if (directVideo) {
+                const video = document.createElement("video");
+                video.controls = true;
+                video.preload = "metadata";
+                video.src = source;
+                playerArea.appendChild(video);
+            } else {
+                const note = document.createElement("div");
+                note.className = "missing";
+                note.textContent = "This episode uses an external link.";
+                const link = document.createElement("a");
+                link.className = "external-link";
+                link.href = source;
+                link.target = "_blank";
+                link.rel = "noopener noreferrer";
+                link.textContent = "Open Episode";
+                note.appendChild(document.createElement("br"));
+                note.appendChild(link);
+                playerArea.appendChild(note);
+            }
+        })();
+    </script>
+</body>
+</html>

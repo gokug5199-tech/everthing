@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        User Collection | The Everything
+    </title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            color: white;
+            overflow-x: hidden;
+
+            background:
+
+                radial-gradient(
+                    circle at 12% 22%,
+                    rgba(36,255,194,0.11),
+                    transparent 28%
+                ),
+
+                radial-gradient(
+                    circle at 88% 28%,
+                    rgba(118,78,255,0.12),
+                    transparent 31%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #030609 0%,
+                    #071018 45%,
+                    #04070c 100%
+                );
+
+        }
+
+
+        .top-header {
+
+            min-height: 74px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6%;
+
+            position: sticky;
+            top: 0;
+            z-index: 500;
+
+            background:
+                rgba(3,7,12,0.96);
+
+            border-bottom:
+                1px solid
+                rgba(255,255,255,0.06);
+
+        }
+
+
+        .logo {
+
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: 2px;
+
+        }
+
+
+        .back-button {
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-height: 40px;
+            padding: 0 15px;
+
+            border-radius: 10px;
+
+            color: #dbe4ea;
+            text-decoration: none;
+
+            font-size: 12px;
+            font-weight: 800;
+
+            background:
+                rgba(255,255,255,0.04);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.09);
+
+            transition: 0.2s ease;
+
+        }
+
+
+        .back-button:hover {
+
+            color: #5ff7d1;
+
+            background:
+                rgba(83,245,205,0.07);
+
+            border-color:
+                rgba(83,245,205,0.35);
+
+        }
+
+
+        .collection-hero {
+
+            width: min(980px, 90%);
+            margin: 0 auto;
+
+            padding:
+                65px 0
+                48px;
+
+            text-align: center;
+
+        }
+
+
+        .collection-label {
+
+            margin: 0 0 18px;
+
+            color: #59f5cd;
+
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 4px;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .owner-avatar {
+
+            width: 100px;
+            height: 100px;
+
+            margin: 0 auto 18px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+
+            border-radius: 50%;
+
+            color: #62efd0;
+
+            font-size: 28px;
+            font-weight: 900;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(124,58,237,0.42),
+                    rgba(32,201,187,0.36)
+                );
+
+            border:
+                2px solid
+                rgba(92,242,207,0.30);
+
+            box-shadow:
+                0 16px 45px
+                rgba(0,0,0,0.30);
+
+        }
+
+
+        .owner-avatar img {
+
+            width: 100%;
+            height: 100%;
+
+            display: none;
+            object-fit: cover;
+
+        }
+
+
+        .collection-title {
+
+            margin: 0;
+
+            font-size:
+                clamp(34px, 5vw, 54px);
+
+            line-height: 1.08;
+
+        }
+
+
+        .collection-username {
+
+            margin:
+                10px 0 0;
+
+            color:
+                #59efc9;
+
+            font-size:
+                13px;
+
+            font-weight:
+                800;
+
+            letter-spacing:
+                0.5px;
+
+        }
+
+
+        .collection-description {
+
+            max-width: 620px;
+
+            margin:
+                14px auto
+                0;
+
+            color: #84909e;
+
+            font-size: 14px;
+            line-height: 1.7;
+
+        }
+
+
+        .collection-info {
+
+            width: min(1400px, 90%);
+
+            margin:
+                0 auto
+                18px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+
+        }
+
+
+        .count-text {
+
+            color: #7f8b99;
+
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .count-text strong {
+            color: #55eec7;
+        }
+
+
+        .collection-note {
+
+            color: #697584;
+            font-size: 11px;
+
+        }
+
+
+        .status {
+
+            width: min(1400px, 90%);
+
+            margin: 25px auto;
+            padding: 60px 20px;
+
+            text-align: center;
+
+            color: #84909e;
+            font-size: 14px;
+
+        }
+
+
+        .wallpaper-grid {
+
+            width: min(1400px, 90%);
+
+            margin:
+                0 auto
+                90px;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 22px;
+
+        }
+
+
+        .wallpaper-card {
+
+            position: relative;
+            height: 290px;
+
+            overflow: hidden;
+
+            border-radius: 18px;
+
+            background: #080d13;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.07);
+
+            box-shadow:
+                0 10px 28px
+                rgba(0,0,0,0.24);
+
+            transition:
+                transform 0.22s ease,
+                border-color 0.22s ease,
+                box-shadow 0.22s ease;
+
+        }
+
+
+        .wallpaper-card:hover {
+
+            transform:
+                translateY(-4px);
+
+            border-color:
+                rgba(83,245,205,0.35);
+
+            box-shadow:
+                0 15px 35px
+                rgba(0,0,0,0.34);
+
+        }
+
+
+        .wallpaper-image {
+
+            position: absolute;
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+
+            display: block;
+            object-fit: cover;
+
+            transition:
+                transform 0.3s ease;
+
+        }
+
+
+        .wallpaper-card:hover
+        .wallpaper-image {
+
+            transform:
+                scale(1.035);
+
+        }
+
+
+        .wallpaper-card::after {
+
+            content: "";
+
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+
+            pointer-events: none;
+
+            background:
+                linear-gradient(
+                    to top,
+                    rgba(2,5,8,0.96) 0%,
+                    rgba(2,5,8,0.48) 42%,
+                    transparent 78%
+                );
+
+        }
+
+
+        .category-badge {
+
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            z-index: 5;
+
+            padding: 7px 11px;
+
+            border-radius: 50px;
+
+            color: #6affd8;
+
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+
+            background:
+                rgba(4,11,12,0.90);
+
+            border:
+                1px solid
+                rgba(91,255,213,0.22);
+
+        }
+
+
+        .card-content {
+
+            position: absolute;
+            inset: 0;
+            z-index: 4;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+
+            padding: 19px;
+
+        }
+
+
+        .wallpaper-title {
+
+            margin: 0;
+
+            font-size: 20px;
+            font-weight: 800;
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+        }
+
+
+        .wallpaper-date {
+
+            margin:
+                6px 0
+                13px;
+
+            color: #84909e;
+            font-size: 10px;
+
+        }
+
+
+        .card-actions {
+
+            display: flex;
+            gap: 9px;
+
+        }
+
+
+        .action-button {
+
+            flex: 1;
+            min-height: 39px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 9px;
+
+            cursor: pointer;
+
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 800;
+
+            text-decoration: none;
+
+        }
+
+
+        .preview-button {
+
+            color: white;
+
+            background:
+                rgba(255,255,255,0.14);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.14);
+
+        }
+
+
+        .download-button {
+
+            color: #03110d;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #45f1bd,
+                    #66ebdb
+                );
+
+            border: none;
+
+        }
+
+
+        .preview {
+
+            position: fixed;
+            inset: 0;
+            z-index: 20000;
+
+            display: none;
+            align-items: center;
+            justify-content: center;
+
+            padding: 50px;
+
+            background:
+                rgba(0,0,0,0.96);
+
+        }
+
+
+        .preview.show {
+            display: flex;
+        }
+
+
+        .preview-image {
+
+            max-width: 92vw;
+            max-height: 84vh;
+
+            object-fit: contain;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 25px 70px
+                rgba(0,0,0,0.70);
+
+        }
+
+
+        .close-preview {
+
+            position: absolute;
+            top: 22px;
+            right: 30px;
+
+            width: 46px;
+            height: 46px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            cursor: pointer;
+
+            color: white;
+            font-size: 32px;
+
+            background:
+                rgba(255,255,255,0.08);
+
+        }
+
+
+        @media (max-width: 1050px) {
+
+            .wallpaper-grid {
+
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .top-header {
+
+                min-height: 68px;
+                padding: 0 15px;
+
+            }
+
+
+            .logo {
+                font-size: 14px;
+            }
+
+
+            .collection-hero {
+
+                padding:
+                    45px 0
+                    35px;
+
+            }
+
+
+            .owner-avatar {
+
+                width: 84px;
+                height: 84px;
+
+            }
+
+
+            .collection-info {
+
+                flex-direction: column;
+                align-items: flex-start;
+
+            }
+
+
+            .wallpaper-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .wallpaper-card {
+                height: 270px;
+            }
+
+
+            .preview {
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <header class="top-header">
+
+        <div class="logo">
+            THE EVERYTHING
+        </div>
+
+        <a
+            href="wallpaper.html"
+            class="back-button"
+        >
+            &larr; Wallpapers
+        </a>
+
+    </header>
+
+
+    <section class="collection-hero">
+
+        <p class="collection-label">
+            Community Collection
+        </p>
+
+
+        <div
+            class="owner-avatar"
+            id="ownerAvatar"
+        >
+
+            <img
+                src=""
+                alt="Collection owner"
+                id="ownerAvatarImage"
+            >
+
+            <span id="ownerAvatarPlaceholder">
+                U
+            </span>
+
+        </div>
+
+
+        <h1
+            class="collection-title"
+            id="collectionTitle"
+        >
+            User Collection
+        </h1>
+
+
+        <p
+            class="collection-username"
+            id="collectionUsername"
+        >
+            @user
+        </p>
+
+
+        <p class="collection-description">
+            Wallpapers shared by this community member. You can preview and download them here.
+        </p>
+
+    </section>
+
+
+    <div class="collection-info">
+
+        <div class="count-text">
+
+            <strong id="wallpaperCount">
+                0
+            </strong>
+
+            wallpapers
+
+        </div>
+
+
+        <div class="collection-note">
+            Public collection • Download only
+        </div>
+
+    </div>
+
+
+    <div
+        class="status"
+        id="statusMessage"
+    >
+        Loading collection...
+    </div>
+
+
+    <main
+        class="wallpaper-grid"
+        id="wallpaperGrid"
+    >
+    </main>
+
+
+    <div
+        class="preview"
+        id="preview"
+    >
+
+        <span
+            class="close-preview"
+            id="closePreview"
+        >
+            &times;
+        </span>
+
+        <img
+            src=""
+            alt="Wallpaper preview"
+            class="preview-image"
+            id="previewImage"
+        >
+
+    </div>
+
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+    <script>
+
+        const SUPABASE_URL =
+            "https://tnavsfbolastevebukxl.supabase.co";
+
+
+        const SUPABASE_KEY =
+            "sb_publishable_3FX_mPM-A6dIY-nQTtFZQg_5HPoWO9B";
+
+
+        const collectionSupabase =
+            supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
+            );
+
+
+        const wallpaperGrid =
+            document.getElementById(
+                "wallpaperGrid"
+            );
+
+
+        const wallpaperCount =
+            document.getElementById(
+                "wallpaperCount"
+            );
+
+
+        const statusMessage =
+            document.getElementById(
+                "statusMessage"
+            );
+
+
+        const collectionTitle =
+            document.getElementById(
+                "collectionTitle"
+            );
+
+
+        const collectionUsername =
+            document.getElementById(
+                "collectionUsername"
+            );
+
+
+        const ownerAvatarImage =
+            document.getElementById(
+                "ownerAvatarImage"
+            );
+
+
+        const ownerAvatarPlaceholder =
+            document.getElementById(
+                "ownerAvatarPlaceholder"
+            );
+
+
+        const preview =
+            document.getElementById(
+                "preview"
+            );
+
+
+        const previewImage =
+            document.getElementById(
+                "previewImage"
+            );
+
+
+        const closePreview =
+            document.getElementById(
+                "closePreview"
+            );
+
+
+        function formatCategory(
+            category
+        ) {
+
+            if (!category) {
+                return "Other";
+            }
+
+
+            return category
+
+                .replace(
+                    /[-_]+/g,
+                    " "
+                )
+
+                .split(" ")
+
+                .map(
+
+                    word => {
+
+                        if (!word) {
+                            return "";
+                        }
+
+
+                        return (
+
+                            word
+                                .charAt(0)
+                                .toUpperCase()
+
+                            +
+
+                            word.slice(1)
+
+                        );
+
+                    }
+
+                )
+
+                .join(" ");
+
+        }
+
+
+        function formatDate(
+            value
+        ) {
+
+            if (!value) {
+                return "";
+            }
+
+
+            const date =
+                new Date(
+                    value
+                );
+
+
+            return date
+                .toLocaleDateString(
+
+                    undefined,
+
+                    {
+                        year:
+                            "numeric",
+
+                        month:
+                            "short",
+
+                        day:
+                            "numeric"
+                    }
+
+                );
+
+        }
+
+
+
+        function resolveAvatarUrl(value) {
+
+            const cleanValue =
+                typeof value === "string"
+                    ? value.trim()
+                    : "";
+
+            if (!cleanValue) {
+                return null;
+            }
+
+            if (
+                cleanValue.startsWith("http://")
+                ||
+                cleanValue.startsWith("https://")
+            ) {
+                return cleanValue;
+            }
+
+            const { data } =
+                collectionSupabase
+                    .storage
+                    .from("avatars")
+                    .getPublicUrl(cleanValue);
+
+            return data?.publicUrl || null;
+        }
+
+        function setOwnerAvatar(
+            avatarUrl,
+            username
+        ) {
+
+            if (avatarUrl) {
+
+                ownerAvatarImage.src =
+                    avatarUrl;
+
+
+                ownerAvatarImage.style.display =
+                    "block";
+
+
+                ownerAvatarPlaceholder.style.display =
+                    "none";
+
+
+                return;
+
+            }
+
+
+            ownerAvatarImage.style.display =
+                "none";
+
+
+            ownerAvatarImage.removeAttribute(
+                "src"
+            );
+
+
+            ownerAvatarPlaceholder.style.display =
+                "inline";
+
+
+            const cleanName =
+                (
+                    username
+                    ||
+                    "User"
+                )
+                .trim();
+
+
+            ownerAvatarPlaceholder.textContent =
+
+                cleanName
+                    .split(/\s+/)
+                    .filter(Boolean)
+                    .slice(0, 2)
+                    .map(
+                        part =>
+                            part
+                                .charAt(0)
+                                .toUpperCase()
+                    )
+                    .join("")
+
+                ||
+
+                "U";
+
+        }
+
+
+        function openPreview(
+            imageUrl
+        ) {
+
+            previewImage.src =
+                imageUrl;
+
+
+            preview.classList.add(
+                "show"
+            );
+
+
+            document.body.style.overflow =
+                "hidden";
+
+        }
+
+
+        function hidePreview() {
+
+            preview.classList.remove(
+                "show"
+            );
+
+
+            previewImage.src =
+                "";
+
+
+            document.body.style.overflow =
+                "";
+
+        }
+
+
+        closePreview.addEventListener(
+            "click",
+            hidePreview
+        );
+
+
+        preview.addEventListener(
+
+            "click",
+
+            function(event) {
+
+                if (
+                    event.target ===
+                    preview
+                ) {
+
+                    hidePreview();
+
+                }
+
+            }
+
+        );
+
+
+        document.addEventListener(
+
+            "keydown",
+
+            function(event) {
+
+                if (
+                    event.key ===
+                    "Escape"
+                ) {
+
+                    hidePreview();
+
+                }
+
+            }
+
+        );
+
+
+        function createWallpaperCard(
+            wallpaper
+        ) {
+
+            const {
+                data:
+                    publicUrlData
+            } =
+                collectionSupabase
+
+                    .storage
+
+                    .from(
+                        "wallpapers"
+                    )
+
+                    .getPublicUrl(
+                        wallpaper.file_path
+                    );
+
+
+            const {
+                data:
+                    downloadUrlData
+            } =
+                collectionSupabase
+
+                    .storage
+
+                    .from(
+                        "wallpapers"
+                    )
+
+                    .getPublicUrl(
+
+                        wallpaper.file_path,
+
+                        {
+                            download:
+                                true
+                        }
+
+                    );
+
+
+            const imageUrl =
+                publicUrlData.publicUrl;
+
+
+            const downloadUrl =
+                downloadUrlData.publicUrl;
+
+
+            const card =
+                document.createElement(
+                    "article"
+                );
+
+
+            card.className =
+                "wallpaper-card";
+
+
+            const image =
+                document.createElement(
+                    "img"
+                );
+
+
+            image.className =
+                "wallpaper-image";
+
+
+            image.src =
+                imageUrl;
+
+
+            image.alt =
+                wallpaper.title;
+
+
+            image.loading =
+                "lazy";
+
+
+            const category =
+                document.createElement(
+                    "span"
+                );
+
+
+            category.className =
+                "category-badge";
+
+
+            category.textContent =
+                formatCategory(
+                    wallpaper.category
+                );
+
+
+            const content =
+                document.createElement(
+                    "div"
+                );
+
+
+            content.className =
+                "card-content";
+
+
+            const title =
+                document.createElement(
+                    "h3"
+                );
+
+
+            title.className =
+                "wallpaper-title";
+
+
+            title.textContent =
+                wallpaper.title;
+
+
+            const date =
+                document.createElement(
+                    "p"
+                );
+
+
+            date.className =
+                "wallpaper-date";
+
+
+            date.textContent =
+
+                "Uploaded "
+
+                +
+
+                formatDate(
+                    wallpaper.created_at
+                );
+
+
+            const actions =
+                document.createElement(
+                    "div"
+                );
+
+
+            actions.className =
+                "card-actions";
+
+
+            const previewButton =
+                document.createElement(
+                    "button"
+                );
+
+
+            previewButton.type =
+                "button";
+
+
+            previewButton.className =
+                "action-button preview-button";
+
+
+            previewButton.textContent =
+                "Preview";
+
+
+            previewButton.addEventListener(
+
+                "click",
+
+                function() {
+
+                    openPreview(
+                        imageUrl
+                    );
+
+                }
+
+            );
+
+
+            const downloadButton =
+                document.createElement(
+                    "a"
+                );
+
+
+            downloadButton.className =
+                "action-button download-button";
+
+
+            downloadButton.href =
+                downloadUrl;
+
+
+            downloadButton.download =
+                "";
+
+
+            downloadButton.innerHTML =
+                "Download &darr;";
+
+
+            actions.append(
+                previewButton,
+                downloadButton
+            );
+
+
+            content.append(
+                title,
+                date,
+                actions
+            );
+
+
+            card.append(
+                image,
+                category,
+                content
+            );
+
+
+            wallpaperGrid.appendChild(
+                card
+            );
+
+        }
+
+
+        function getSafePublicUsername(
+            value
+        ) {
+
+            const username =
+                typeof value === "string"
+
+                ?
+                value.trim()
+
+                :
+                "";
+
+
+            if (
+                !username
+                ||
+                username.includes("@")
+            ) {
+
+                return "Community User";
+
+            }
+
+
+            return username;
+
+        }
+
+
+
+        async function loadCollection() {
+
+            const params =
+                new URLSearchParams(
+                    window.location.search
+                );
+
+
+            const userId =
+                params.get(
+                    "user"
+                );
+
+
+            if (!userId) {
+
+                statusMessage.textContent =
+                    "This collection link is invalid.";
+
+
+                return;
+
+            }
+
+
+            const [
+                profileResult,
+                wallpapersResult
+            ] =
+                await Promise.all([
+
+                    collectionSupabase
+                        .from(
+                            "profiles"
+                        )
+                        .select(
+                            "username, avatar_url"
+                        )
+                        .eq(
+                            "id",
+                            userId
+                        )
+                        .maybeSingle(),
+
+                    collectionSupabase
+                        .from(
+                            "wallpapers"
+                        )
+                        .select(
+                            "id, user_id, title, category, file_path, created_at"
+                        )
+                        .eq(
+                            "user_id",
+                            userId
+                        )
+                        .order(
+                            "created_at",
+                            {
+                                ascending:
+                                    false
+                            }
+                        )
+
+                ]);
+
+
+            if (
+                wallpapersResult.error
+            ) {
+
+                console.error(
+                    "Collection load error:",
+                    wallpapersResult.error
+                );
+
+
+                statusMessage.textContent =
+                    "Could not load this collection.";
+
+
+                return;
+
+            }
+
+
+            if (
+                profileResult.error
+            ) {
+
+                console.warn(
+                    "Could not load this public profile. Run SUPABASE-COMMUNITY-FIX.sql in Supabase:",
+                    profileResult.error
+                );
+
+            }
+
+
+            const profile =
+                profileResult.data
+                ||
+                null;
+
+
+            const username =
+
+                getSafePublicUsername(
+                    profile
+                        ?.username
+                );
+
+
+            collectionTitle.textContent =
+                username
+                +
+                "'s Collection";
+
+
+            collectionUsername.textContent =
+                "@"
+                +
+                username
+                    .replace(/^@+/, "");
+
+
+            document.title =
+                username
+                +
+                "'s Wallpapers | The Everything";
+
+
+            setOwnerAvatar(
+
+                resolveAvatarUrl(
+                    profile
+                        ?.avatar_url
+                    ||
+                    null
+                ),
+
+                username
+
+            );
+
+
+            const wallpapers =
+                wallpapersResult.data
+                ||
+                [];
+
+
+            wallpaperCount.textContent =
+                wallpapers.length;
+
+
+            wallpaperGrid.innerHTML =
+                "";
+
+
+            if (
+                wallpapers.length === 0
+            ) {
+
+                statusMessage.textContent =
+                    "This user has not uploaded any wallpapers yet.";
+
+
+                return;
+
+            }
+
+
+            statusMessage.style.display =
+                "none";
+
+
+            wallpapers.forEach(
+
+                wallpaper => {
+
+                    createWallpaperCard(
+                        wallpaper
+                    );
+
+                }
+
+            );
+
+        }
+
+
+        loadCollection();
+
+    </script>
+
+
+    <script src="account-menu.js"></script>
+
+</body>
+
+</html>

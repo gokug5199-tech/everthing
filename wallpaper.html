@@ -1,0 +1,6034 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        http-equiv="Cache-Control"
+        content="no-cache, no-store, must-revalidate"
+    >
+
+    <meta
+        http-equiv="Pragma"
+        content="no-cache"
+    >
+
+    <meta
+        http-equiv="Expires"
+        content="0"
+    >
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Wallpapers | The Everything
+    </title>
+
+
+    <style>
+
+        /* =================================
+           RESET
+        ================================= */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: auto;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            color: white;
+
+            overflow-x: hidden;
+
+            background:
+
+                radial-gradient(
+                    circle at 10% 25%,
+                    rgba(36,255,194,0.11),
+                    transparent 27%
+                ),
+
+                radial-gradient(
+                    circle at 90% 35%,
+                    rgba(118,78,255,0.12),
+                    transparent 30%
+                ),
+
+                radial-gradient(
+                    circle at 50% 95%,
+                    rgba(0,149,255,0.07),
+                    transparent 35%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #030609 0%,
+                    #071018 45%,
+                    #04070c 100%
+                );
+
+        }
+
+
+        body::before {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            min-height: 100%;
+
+            pointer-events: none;
+
+            z-index: -1;
+
+            opacity: 0.18;
+
+            background-image:
+
+                linear-gradient(
+                    rgba(255,255,255,0.012) 1px,
+                    transparent 1px
+                ),
+
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,0.012) 1px,
+                    transparent 1px
+                );
+
+            background-size:
+                50px 50px;
+
+        }
+
+
+
+        /* =================================
+           TOP NAVIGATION
+        ================================= */
+
+        .top-header {
+
+            width: 100%;
+
+            min-height: 74px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 6%;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 500;
+
+            background:
+                rgba(3,7,12,0.96);
+
+            border-bottom:
+                1px solid
+                rgba(255,255,255,0.06);
+
+        }
+
+
+        .top-logo {
+
+            color: white;
+
+            font-size: 18px;
+
+            font-weight: 800;
+
+            letter-spacing: 2px;
+
+        }
+
+
+        .top-nav {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 30px;
+
+        }
+
+
+        .top-nav a {
+
+            position: relative;
+
+            color: #8d96a6;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition:
+                color 0.2s ease;
+
+        }
+
+
+        .top-nav a:hover {
+            color: white;
+        }
+
+
+        .top-nav a::after {
+
+            content: "";
+
+            position: absolute;
+
+            left: 50%;
+
+            bottom: -10px;
+
+            width: 0;
+
+            height: 2px;
+
+            transform:
+                translateX(-50%);
+
+            border-radius: 10px;
+
+            background:
+                #49f5c5;
+
+            transition:
+                width 0.2s ease;
+
+        }
+
+
+        .top-nav a:hover::after {
+            width: 100%;
+        }
+
+
+        .top-nav a.active {
+            color: #54f1c8;
+        }
+
+
+        .top-nav a.active::after {
+            width: 100%;
+        }
+
+
+
+        /* =================================
+           TOP BAR
+        ================================= */
+
+        .top-bar {
+
+            padding:
+                27px 6%
+                5px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content:
+                space-between;
+
+            gap: 20px;
+
+        }
+
+
+
+        /* =================================
+           WALLPAPER SEARCH
+        ================================= */
+
+        .wallpaper-search-box {
+
+            width:
+                min(320px, 32vw);
+
+            height: 42px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            padding:
+                0 14px;
+
+            border-radius:
+                11px;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.18);
+
+            background:
+                rgba(255,255,255,0.015);
+
+            transition:
+                border-color 0.2s ease,
+                background 0.2s ease,
+                box-shadow 0.2s ease;
+
+        }
+
+
+        .wallpaper-search-box:hover {
+
+            border-color:
+                rgba(255,255,255,0.52);
+
+            background:
+                rgba(255,255,255,0.035);
+
+        }
+
+
+        .wallpaper-search-box:focus-within {
+
+            border-color:
+                rgba(255,255,255,0.85);
+
+            background:
+                rgba(255,255,255,0.055);
+
+            box-shadow:
+                0 0 14px
+                rgba(255,255,255,0.05);
+
+        }
+
+
+        .search-icon {
+
+            width: 17px;
+
+            height: 17px;
+
+            flex:
+                0 0 auto;
+
+            color:
+                rgba(255,255,255,0.34);
+
+        }
+
+
+        #wallpaperSearch {
+
+            width: 100%;
+
+            height: 100%;
+
+            padding: 0;
+
+            border: none;
+
+            outline: none;
+
+            background:
+                transparent;
+
+            color:
+                white;
+
+            font-family:
+                inherit;
+
+            font-size:
+                13px;
+
+        }
+
+
+        #wallpaperSearch::placeholder {
+
+            color:
+                rgba(255,255,255,0.35);
+
+        }
+
+
+
+        /* =================================
+           BACK BUTTON
+        ================================= */
+
+        .back-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            text-decoration: none;
+
+            color:
+                #dce5eb;
+
+            background:
+                rgba(255,255,255,0.04);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.09);
+
+            padding:
+                11px 18px;
+
+            border-radius:
+                10px;
+
+            font-size:
+                14px;
+
+            font-weight:
+                600;
+
+            transition:
+                0.2s ease;
+
+        }
+
+
+        .back-button:hover {
+
+            color:
+                #5ff7d1;
+
+            border-color:
+                rgba(83,245,205,0.35);
+
+            background:
+                rgba(83,245,205,0.07);
+
+            transform:
+                translateX(-3px);
+
+        }
+
+
+
+        /* =================================
+           SIDE WALL / PAPER
+        ================================= */
+
+        .side-word {
+
+            position: fixed;
+
+            top: 52%;
+
+            transform:
+                translateY(-50%);
+
+            z-index: 10;
+
+            font-size:
+                clamp(
+                    45px,
+                    5vw,
+                    76px
+                );
+
+            font-weight:
+                900;
+
+            line-height:
+                0.76;
+
+            text-align:
+                center;
+
+            pointer-events:
+                none;
+
+            user-select:
+                none;
+
+        }
+
+
+        .side-word.left {
+            left: 2.5%;
+        }
+
+
+        .side-word.right {
+            right: 2.5%;
+        }
+
+
+        .side-word span {
+
+            display: block;
+
+            margin:
+                14px 0;
+
+            background:
+
+                linear-gradient(
+                    180deg,
+                    #6fffd9,
+                    #35e4b6,
+                    #159d82
+                );
+
+            -webkit-background-clip:
+                text;
+
+            background-clip:
+                text;
+
+            color:
+                transparent;
+
+        }
+
+
+
+        /* =================================
+           HERO
+        ================================= */
+
+        .hero {
+
+            width: 100%;
+
+            text-align: center;
+
+            padding:
+                25px 20px
+                45px;
+
+        }
+
+
+        .hero-content {
+
+            max-width:
+                1000px;
+
+            margin:
+                auto;
+
+        }
+
+
+        .hero-small-title {
+
+            margin: 0;
+
+            color:
+                #59f5cd;
+
+            font-size:
+                12px;
+
+            font-weight:
+                800;
+
+            letter-spacing:
+                5px;
+
+            text-transform:
+                uppercase;
+
+        }
+
+
+        .hero h1 {
+
+            margin:
+                13px 0
+                8px;
+
+            font-size:
+                clamp(
+                    32px,
+                    4vw,
+                    52px
+                );
+
+            letter-spacing:
+                -1px;
+
+            color:
+                white;
+
+        }
+
+
+        .hero-description {
+
+            margin:
+                0 auto
+                28px;
+
+            max-width:
+                600px;
+
+            color:
+                #8e9aa8;
+
+            font-size:
+                15px;
+
+            line-height:
+                1.6;
+
+        }
+
+
+
+        /* =================================
+           CATEGORIES
+        ================================= */
+
+        .categories {
+
+            display: flex;
+
+            justify-content:
+                center;
+
+            align-items:
+                center;
+
+            flex-wrap:
+                wrap;
+
+            gap: 10px;
+
+            max-width:
+                950px;
+
+            margin:
+                auto;
+
+        }
+
+
+        .category-button {
+
+            position:
+                relative;
+
+            outline:
+                none;
+
+            cursor:
+                pointer;
+
+            padding:
+                10px 20px;
+
+            border-radius:
+                50px;
+
+            color:
+                #9ba5b2;
+
+            font-size:
+                13px;
+
+            font-weight:
+                700;
+
+            background:
+                rgba(255,255,255,0.045);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.075);
+
+            transition:
+                0.2s ease;
+
+        }
+
+
+        .category-button:hover {
+
+            color:
+                white;
+
+            transform:
+                translateY(-2px);
+
+            border-color:
+                rgba(83,245,205,0.32);
+
+            background:
+                rgba(83,245,205,0.08);
+
+        }
+
+
+        .category-button.active {
+
+            color:
+                #03110d;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #45f1bd,
+                    #6aebdc
+                );
+
+            border-color:
+                transparent;
+
+        }
+
+
+
+        /* =================================
+           RESULT COUNT
+        ================================= */
+
+        .gallery-info {
+
+            width:
+                calc(100% - 230px);
+
+            max-width:
+                1500px;
+
+            margin:
+                0 auto
+                15px;
+
+            color:
+                #7f8b99;
+
+            font-size:
+                12px;
+
+            text-transform:
+                uppercase;
+
+            letter-spacing:
+                1.3px;
+
+        }
+
+
+        .gallery-info strong {
+            color: #55eec7;
+        }
+
+
+
+        /* =================================
+           GALLERY
+        ================================= */
+
+        .gallery-wrapper {
+
+            width:
+                calc(100% - 230px);
+
+            max-width:
+                1500px;
+
+            margin:
+                0 auto
+                100px;
+
+        }
+
+
+        .wallpaper-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    3,
+                    minmax(0, 1fr)
+                );
+
+            gap:
+                22px;
+
+        }
+
+
+
+        /* =================================
+           WALLPAPER CARD
+        ================================= */
+
+        .wallpaper-card {
+
+            position:
+                relative;
+
+            height:
+                285px;
+
+            overflow:
+                hidden;
+
+            border-radius:
+                18px;
+
+            background:
+                #080d13;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.065);
+
+            box-shadow:
+                0 8px 20px
+                rgba(0,0,0,0.22);
+
+            transition:
+                0.22s ease;
+
+            contain:
+                layout paint;
+
+            content-visibility:
+                auto;
+
+            contain-intrinsic-size:
+                auto 285px;
+
+        }
+
+
+        .wallpaper-card:hover {
+
+            transform:
+                translateY(-4px);
+
+            border-color:
+                rgba(83,245,205,0.35);
+
+            box-shadow:
+                0 12px 28px
+                rgba(0,0,0,0.30);
+
+        }
+
+
+
+        /* =================================
+           IMAGE
+        ================================= */
+
+        .wallpaper-image {
+
+            position:
+                absolute;
+
+            inset:
+                0;
+
+            width:
+                100%;
+
+            height:
+                100%;
+
+            display:
+                block;
+
+            object-fit:
+                cover;
+
+            transition:
+                transform 0.32s ease;
+
+        }
+
+
+        .wallpaper-card:hover
+        .wallpaper-image {
+
+            transform:
+                scale(1.035);
+
+        }
+
+
+        .wallpaper-card::after {
+
+            content: "";
+
+            position:
+                absolute;
+
+            inset: 0;
+
+            z-index: 1;
+
+            pointer-events:
+                none;
+
+            background:
+                linear-gradient(
+                    to top,
+                    rgba(2,5,8,0.93) 0%,
+                    rgba(2,5,8,0.37) 40%,
+                    transparent 75%
+                );
+
+        }
+
+
+
+        /* =================================
+           CATEGORY BADGE
+        ================================= */
+
+        .wallpaper-category {
+
+            position:
+                absolute;
+
+            top:
+                15px;
+
+            left:
+                15px;
+
+            z-index:
+                5;
+
+            padding:
+                7px 11px;
+
+            border-radius:
+                50px;
+
+            color:
+                #6affd8;
+
+            background:
+                rgba(4,11,12,0.88);
+
+            border:
+                1px solid
+                rgba(91,255,213,0.22);
+
+            font-size:
+                10px;
+
+            font-weight:
+                800;
+
+            letter-spacing:
+                1px;
+
+            text-transform:
+                uppercase;
+
+        }
+
+
+
+        /* =================================
+           COMMUNITY UPLOADER BADGE
+        ================================= */
+
+        .wallpaper-uploader-badge {
+
+            position:
+                absolute;
+
+            top:
+                14px;
+
+            right:
+                14px;
+
+            z-index:
+                6;
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            gap:
+                8px;
+
+            max-width:
+                62%;
+
+            padding:
+                6px 9px
+                6px 6px;
+
+            border-radius:
+                999px;
+
+            color:
+                white;
+
+            text-decoration:
+                none;
+
+            background:
+                rgba(4,11,12,0.86);
+
+            border:
+                1px solid
+                rgba(91,255,213,0.20);
+
+            backdrop-filter:
+                blur(8px);
+
+            -webkit-backdrop-filter:
+                blur(8px);
+
+            transition:
+                border-color 0.2s ease,
+                background 0.2s ease,
+                transform 0.2s ease;
+
+        }
+
+
+        .wallpaper-uploader-badge:hover {
+
+            border-color:
+                rgba(91,255,213,0.55);
+
+            background:
+                rgba(5,18,17,0.95);
+
+            transform:
+                translateY(-1px);
+
+        }
+
+
+        .wallpaper-uploader-avatar {
+
+            width:
+                28px;
+
+            height:
+                28px;
+
+            flex:
+                0 0 28px;
+
+            overflow:
+                hidden;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            border-radius:
+                50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(69,241,189,0.32),
+                    rgba(102,235,219,0.20)
+                );
+
+            border:
+                1px solid
+                rgba(102,235,219,0.35);
+
+            color:
+                #7fffe2;
+
+            font-size:
+                10px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .wallpaper-uploader-avatar img {
+
+            width:
+                100%;
+
+            height:
+                100%;
+
+            display:
+                block;
+
+            object-fit:
+                cover;
+
+        }
+
+
+        .wallpaper-uploader-name {
+
+            min-width:
+                0;
+
+            overflow:
+                hidden;
+
+            text-overflow:
+                ellipsis;
+
+            white-space:
+                nowrap;
+
+            color:
+                #dffff7;
+
+            font-size:
+                11px;
+
+            font-weight:
+                800;
+
+        }
+
+
+        /* =================================
+           CARD OVERLAY
+        ================================= */
+
+        .wallpaper-overlay {
+
+            position:
+                absolute;
+
+            inset: 0;
+
+            z-index:
+                4;
+
+            display: flex;
+
+            flex-direction:
+                column;
+
+            justify-content:
+                flex-end;
+
+            padding:
+                20px;
+
+        }
+
+
+        .wallpaper-name {
+
+            margin: 0;
+
+            color:
+                white;
+
+            font-size:
+                21px;
+
+            font-weight:
+                800;
+
+            line-height:
+                1.2;
+
+            text-shadow:
+                0 2px 8px
+                rgba(0,0,0,0.75);
+
+            white-space:
+                nowrap;
+
+            overflow:
+                hidden;
+
+            text-overflow:
+                ellipsis;
+
+            transform:
+                translateY(44px);
+
+            transition:
+                transform 0.25s ease;
+
+        }
+
+
+        .wallpaper-card:hover
+        .wallpaper-name {
+
+            transform:
+                translateY(0);
+
+        }
+
+
+
+        /* =================================
+           CARD BUTTONS
+        ================================= */
+
+        .wallpaper-actions {
+
+            display:
+                flex;
+
+            gap:
+                9px;
+
+            margin-top:
+                13px;
+
+            opacity:
+                0;
+
+            transform:
+                translateY(16px);
+
+            transition:
+                0.22s ease;
+
+        }
+
+
+        .wallpaper-card:hover
+        .wallpaper-actions {
+
+            opacity:
+                1;
+
+            transform:
+                translateY(0);
+
+        }
+
+
+        .wallpaper-button {
+
+            flex:
+                1;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            min-height:
+                39px;
+
+            border-radius:
+                9px;
+
+            text-decoration:
+                none;
+
+            font-family:
+                inherit;
+
+            font-size:
+                12px;
+
+            font-weight:
+                800;
+
+            cursor:
+                pointer;
+
+        }
+
+
+        .preview-button {
+
+            color:
+                white;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.15);
+
+            background:
+                rgba(255,255,255,0.14);
+
+        }
+
+
+        .download-button {
+
+            color:
+                #04110d;
+
+            background:
+                linear-gradient(
+                    100deg,
+                    #42efb8,
+                    #66ebdb
+                );
+
+        }
+
+
+
+        /* =================================
+           NO RESULTS
+        ================================= */
+
+        .no-results {
+
+            display:
+                none;
+
+            text-align:
+                center;
+
+            padding:
+                70px 20px;
+
+            color:
+                #8c98a8;
+
+            font-size:
+                16px;
+
+        }
+
+
+
+        /* =================================
+           ADD WALLPAPER BUTTON
+        ================================= */
+
+        .add-wallpaper-button {
+
+            position:
+                fixed;
+
+            right:
+                32px;
+
+            bottom:
+                32px;
+
+            width:
+                62px;
+
+            height:
+                62px;
+
+            z-index:
+                1000;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            padding:
+                0;
+
+            border:
+                none;
+
+            outline:
+                none;
+
+            border-radius:
+                50%;
+
+            cursor:
+                pointer;
+
+            color:
+                #03110d;
+
+            font-size:
+                39px;
+
+            font-weight:
+                400;
+
+            line-height:
+                1;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #45f1bd,
+                    #66ebdb
+                );
+
+            box-shadow:
+                0 12px 35px
+                rgba(69,241,189,0.28);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+
+        }
+
+
+        .add-wallpaper-button:hover {
+
+            transform:
+                translateY(-4px)
+                scale(1.06);
+
+            box-shadow:
+                0 16px 45px
+                rgba(69,241,189,0.42);
+
+        }
+
+
+        .add-wallpaper-button:disabled {
+
+            opacity:
+                0.6;
+
+            cursor:
+                wait;
+
+        }
+
+
+
+        /* =================================
+           UPLOAD MODAL
+        ================================= */
+
+        .upload-wallpaper-modal {
+
+            position:
+                fixed;
+
+            inset:
+                0;
+
+            z-index:
+                20000;
+
+            display:
+                none;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            padding:
+                20px;
+
+            background:
+                rgba(0,0,0,0.82);
+
+            backdrop-filter:
+                blur(12px);
+
+            -webkit-backdrop-filter:
+                blur(12px);
+
+        }
+
+
+        .upload-wallpaper-modal.show {
+
+            display:
+                flex;
+
+        }
+
+
+        .upload-wallpaper-box {
+
+            position:
+                relative;
+
+            width:
+                min(470px, 100%);
+
+            padding:
+                36px;
+
+            border-radius:
+                22px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #0c121a,
+                    #080d13
+                );
+
+            border:
+                1px solid
+                rgba(255,255,255,0.09);
+
+            box-shadow:
+                0 30px 90px
+                rgba(0,0,0,0.65);
+
+        }
+
+
+        .close-upload-modal {
+
+            position:
+                absolute;
+
+            top:
+                14px;
+
+            right:
+                16px;
+
+            width:
+                38px;
+
+            height:
+                38px;
+
+            border:
+                none;
+
+            border-radius:
+                50%;
+
+            cursor:
+                pointer;
+
+            color:
+                #8d98a7;
+
+            background:
+                rgba(255,255,255,0.05);
+
+            font-size:
+                25px;
+
+        }
+
+
+        .close-upload-modal:hover {
+
+            color:
+                white;
+
+            background:
+                rgba(255,255,255,0.10);
+
+        }
+
+
+        .upload-small-title {
+
+            margin:
+                0 0 9px;
+
+            color:
+                #55eec7;
+
+            font-size:
+                10px;
+
+            font-weight:
+                800;
+
+            letter-spacing:
+                3px;
+
+        }
+
+
+        .upload-wallpaper-box h2 {
+
+            margin:
+                0 0 8px;
+
+            color:
+                white;
+
+            font-size:
+                29px;
+
+        }
+
+
+        .upload-description {
+
+            margin:
+                0 0 26px;
+
+            color:
+                #788494;
+
+            font-size:
+                13px;
+
+            line-height:
+                1.6;
+
+        }
+
+
+        .upload-field {
+
+            margin-bottom:
+                18px;
+
+        }
+
+
+        .upload-field > label:not(.wallpaper-file-picker) {
+
+            display:
+                block;
+
+            margin-bottom:
+                8px;
+
+            color:
+                #aab4c1;
+
+            font-size:
+                12px;
+
+            font-weight:
+                700;
+
+        }
+
+
+        .upload-field input[type="text"],
+        .upload-field select {
+
+            width:
+                100%;
+
+            height:
+                47px;
+
+            padding:
+                0 14px;
+
+            outline:
+                none;
+
+            border-radius:
+                10px;
+
+            color:
+                white;
+
+            font-family:
+                inherit;
+
+            font-size:
+                13px;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.10);
+
+            background:
+                rgba(255,255,255,0.04);
+
+        }
+
+
+        .upload-field input[type="text"]:focus,
+        .upload-field select:focus {
+
+            border-color:
+                rgba(69,241,189,0.58);
+
+        }
+
+
+        .upload-field select option {
+
+            color:
+                white;
+
+            background:
+                #0b1119;
+
+        }
+
+
+        #uploadWallpaperFile {
+
+            display:
+                none;
+
+        }
+
+
+        .wallpaper-file-picker {
+
+            min-height:
+                110px;
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            gap:
+                8px;
+
+            padding:
+                18px;
+
+            cursor:
+                pointer;
+
+            text-align:
+                center;
+
+            border-radius:
+                13px;
+
+            border:
+                1px dashed
+                rgba(69,241,189,0.33);
+
+            background:
+                rgba(69,241,189,0.04);
+
+            transition:
+                0.2s ease;
+
+        }
+
+
+        .wallpaper-file-picker:hover {
+
+            background:
+                rgba(69,241,189,0.08);
+
+            border-color:
+                rgba(69,241,189,0.62);
+
+        }
+
+
+        .wallpaper-file-picker span {
+
+            color:
+                #61ecc8;
+
+            font-size:
+                13px;
+
+            font-weight:
+                800;
+
+        }
+
+
+        .wallpaper-file-picker small {
+
+            color:
+                #697584;
+
+            font-size:
+                11px;
+
+        }
+
+
+        .upload-message {
+
+            min-height:
+                21px;
+
+            margin:
+                2px 0 10px;
+
+            color:
+                #8e99a8;
+
+            text-align:
+                center;
+
+            font-size:
+                12px;
+
+            line-height:
+                1.5;
+
+        }
+
+
+        .submit-wallpaper-button {
+
+            width:
+                100%;
+
+            min-height:
+                48px;
+
+            border:
+                none;
+
+            border-radius:
+                11px;
+
+            cursor:
+                pointer;
+
+            color:
+                #03110d;
+
+            font-family:
+                inherit;
+
+            font-size:
+                13px;
+
+            font-weight:
+                800;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #45f1bd,
+                    #66ebdb
+                );
+
+        }
+
+
+        .submit-wallpaper-button:disabled {
+
+            cursor:
+                not-allowed;
+
+            opacity:
+                0.55;
+
+        }
+
+
+
+        /* =================================
+           PREVIEW
+        ================================= */
+
+        .preview {
+
+            display:
+                none;
+
+            position:
+                fixed;
+
+            inset:
+                0;
+
+            width:
+                100%;
+
+            height:
+                100%;
+
+            z-index:
+                9999;
+
+            justify-content:
+                center;
+
+            align-items:
+                center;
+
+            padding:
+                42px;
+
+            background:
+                rgba(0,0,0,0.96);
+
+            backdrop-filter:
+                blur(8px);
+
+            -webkit-backdrop-filter:
+                blur(8px);
+
+        }
+
+
+        .preview.show {
+
+            display:
+                flex;
+
+        }
+
+
+        .preview-content {
+
+            position:
+                relative;
+
+            width:
+                min(1120px, 94vw);
+
+            max-height:
+                92vh;
+
+            display:
+                grid;
+
+            grid-template-columns:
+                minmax(0, 1fr)
+                320px;
+
+            overflow:
+                hidden;
+
+            border-radius:
+                20px;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.10);
+
+            background:
+                #080d13;
+
+            box-shadow:
+                0 30px 90px
+                rgba(0,0,0,0.70);
+
+        }
+
+
+        .preview-image-area {
+
+            min-width:
+                0;
+
+            min-height:
+                440px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            padding:
+                22px;
+
+            background:
+                #020406;
+
+        }
+
+
+        .preview img {
+
+            display:
+                block;
+
+            max-width:
+                100%;
+
+            max-height:
+                82vh;
+
+            object-fit:
+                contain;
+
+            border-radius:
+                12px;
+
+        }
+
+
+        .preview-info {
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            padding:
+                30px 26px;
+
+            background:
+
+                radial-gradient(
+                    circle at 100% 0%,
+                    rgba(69,241,189,0.10),
+                    transparent 35%
+                ),
+
+                #0b1119;
+
+            border-left:
+                1px solid
+                rgba(255,255,255,0.07);
+
+        }
+
+
+        .preview-small-title {
+
+            margin:
+                0 0 9px;
+
+            color:
+                #55eec7;
+
+            font-size:
+                10px;
+
+            font-weight:
+                800;
+
+            letter-spacing:
+                2.5px;
+
+            text-transform:
+                uppercase;
+
+        }
+
+
+        .preview-name {
+
+            margin:
+                0;
+
+            color:
+                white;
+
+            font-size:
+                25px;
+
+            font-weight:
+                800;
+
+            line-height:
+                1.2;
+
+            overflow-wrap:
+                anywhere;
+
+        }
+
+
+        .preview-meta {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap:
+                10px;
+
+            margin:
+                22px 0;
+
+        }
+
+
+        .preview-meta-item {
+
+            padding:
+                12px;
+
+            border-radius:
+                11px;
+
+            background:
+                rgba(255,255,255,0.04);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.07);
+
+        }
+
+
+        .preview-meta-label {
+
+            display:
+                block;
+
+            margin-bottom:
+                5px;
+
+            color:
+                #697584;
+
+            font-size:
+                9px;
+
+            font-weight:
+                800;
+
+            letter-spacing:
+                1px;
+
+            text-transform:
+                uppercase;
+
+        }
+
+
+        .preview-meta-value {
+
+            display:
+                block;
+
+            color:
+                #dfe7ed;
+
+            font-size:
+                12px;
+
+            font-weight:
+                700;
+
+            overflow-wrap:
+                anywhere;
+
+        }
+
+
+        .preview-uploader-section {
+
+            margin-top:
+                4px;
+
+            padding-top:
+                20px;
+
+            border-top:
+                1px solid
+                rgba(255,255,255,0.07);
+
+        }
+
+
+        .preview-uploader-label {
+
+            margin:
+                0 0 11px;
+
+            color:
+                #74808e;
+
+            font-size:
+                10px;
+
+            font-weight:
+                800;
+
+            letter-spacing:
+                1px;
+
+            text-transform:
+                uppercase;
+
+        }
+
+
+        .preview-uploader {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                12px;
+
+        }
+
+
+        .preview-uploader-avatar {
+
+            width:
+                48px;
+
+            height:
+                48px;
+
+            flex:
+                0 0 auto;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            overflow:
+                hidden;
+
+            border-radius:
+                50%;
+
+            color:
+                #62efd0;
+
+            font-size:
+                15px;
+
+            font-weight:
+                900;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(124,58,237,0.38),
+                    rgba(32,201,187,0.34)
+                );
+
+            border:
+                1px solid
+                rgba(92,242,207,0.24);
+
+        }
+
+
+        .preview-uploader-avatar img {
+
+            width:
+                100%;
+
+            height:
+                100%;
+
+            display:
+                none;
+
+            object-fit:
+                cover;
+
+            border-radius:
+                50%;
+
+        }
+
+
+        .preview-uploader-text {
+
+            min-width:
+                0;
+
+        }
+
+
+        .preview-uploader-name {
+
+            display:
+                block;
+
+            color:
+                white;
+
+            font-size:
+                14px;
+
+            font-weight:
+                800;
+
+            white-space:
+                nowrap;
+
+            overflow:
+                hidden;
+
+            text-overflow:
+                ellipsis;
+
+        }
+
+
+        .preview-uploader-name-row {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                10px;
+
+            min-width:
+                0;
+
+        }
+
+
+        .preview-uploader-name-row
+        .preview-uploader-name {
+
+            min-width:
+                0;
+
+        }
+
+
+        .preview-show-collection {
+
+            flex:
+                0 0 auto;
+
+            display:
+                none;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            min-height:
+                28px;
+
+            padding:
+                0 9px;
+
+            border-radius:
+                8px;
+
+            color:
+                #62efd0;
+
+            text-decoration:
+                none;
+
+            font-size:
+                9px;
+
+            font-weight:
+                800;
+
+            white-space:
+                nowrap;
+
+            background:
+                rgba(69,241,189,0.07);
+
+            border:
+                1px solid
+                rgba(69,241,189,0.22);
+
+            transition:
+                background 0.2s ease,
+                border-color 0.2s ease,
+                transform 0.2s ease;
+
+        }
+
+
+        .preview-show-collection:hover {
+
+            color:
+                white;
+
+            background:
+                rgba(69,241,189,0.14);
+
+            border-color:
+                rgba(69,241,189,0.48);
+
+            transform:
+                translateY(-1px);
+
+        }
+
+
+        .preview-uploader-type {
+
+            display:
+                block;
+
+            margin-top:
+                4px;
+
+            color:
+                #697584;
+
+            font-size:
+                10px;
+
+        }
+
+
+        .preview-download-button {
+
+            width:
+                100%;
+
+            min-height:
+                46px;
+
+            margin-top:
+                auto;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            border-radius:
+                11px;
+
+            color:
+                #03110d;
+
+            text-decoration:
+                none;
+
+            font-size:
+                12px;
+
+            font-weight:
+                800;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #45f1bd,
+                    #66ebdb
+                );
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+
+        }
+
+
+        .preview-download-button:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 10px 26px
+                rgba(69,241,189,0.20);
+
+        }
+
+
+        .close-preview {
+
+            position:
+                fixed;
+
+            top:
+                20px;
+
+            right:
+                28px;
+
+            width:
+                48px;
+
+            height:
+                48px;
+
+            z-index:
+                10001;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            border-radius:
+                50%;
+
+            font-size:
+                34px;
+
+            cursor:
+                pointer;
+
+            color:
+                white;
+
+            background:
+                rgba(255,255,255,0.08);
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+
+        }
+
+
+        .close-preview:hover {
+
+            background:
+                rgba(255,255,255,0.16);
+
+            transform:
+                rotate(90deg);
+
+        }
+
+
+        /* =================================
+           TABLET
+        ================================= */
+
+        @media (max-width: 1200px) {
+
+            .gallery-wrapper,
+            .gallery-info {
+
+                width:
+                    calc(100% - 170px);
+
+            }
+
+
+            .wallpaper-grid {
+
+                grid-template-columns:
+                    repeat(
+                        2,
+                        minmax(0,1fr)
+                    );
+
+            }
+
+
+            .side-word {
+                font-size: 50px;
+            }
+
+        }
+
+
+        @media (max-width: 900px) {
+
+            .side-word {
+                display: none;
+            }
+
+
+            .gallery-wrapper,
+            .gallery-info {
+                width: 90%;
+            }
+
+        }
+
+
+
+        /* =================================
+           PHONE
+        ================================= */
+
+        @media (max-width: 650px) {
+
+            .top-header {
+
+                height: auto;
+
+                flex-direction:
+                    column;
+
+                gap:
+                    16px;
+
+                padding:
+                    18px 15px;
+
+            }
+
+
+            .top-nav {
+
+                gap:
+                    16px;
+
+                flex-wrap:
+                    wrap;
+
+                justify-content:
+                    center;
+
+            }
+
+
+            .top-bar {
+
+                padding:
+                    20px 5%
+                    5px;
+
+                flex-direction:
+                    column;
+
+                align-items:
+                    stretch;
+
+            }
+
+
+            .wallpaper-search-box {
+                width: 100%;
+            }
+
+
+            .hero {
+
+                padding:
+                    30px 16px
+                    35px;
+
+            }
+
+
+            .wallpaper-grid {
+                grid-template-columns: 1fr;
+            }
+
+
+            .wallpaper-card {
+                height: 260px;
+            }
+
+
+            .wallpaper-name {
+                transform: translateY(0);
+            }
+
+
+            .wallpaper-actions {
+
+                opacity:
+                    1;
+
+                transform:
+                    translateY(0);
+
+            }
+
+
+            .add-wallpaper-button {
+
+                width:
+                    55px;
+
+                height:
+                    55px;
+
+                right:
+                    18px;
+
+                bottom:
+                    18px;
+
+                font-size:
+                    34px;
+
+            }
+
+
+            .upload-wallpaper-box {
+
+                padding:
+                    32px 22px
+                    24px;
+
+            }
+
+
+            .preview {
+
+                padding:
+                    70px 14px
+                    18px;
+
+            }
+
+
+            .preview-content {
+
+                width:
+                    100%;
+
+                max-height:
+                    88vh;
+
+                grid-template-columns:
+                    1fr;
+
+                overflow-y:
+                    auto;
+
+            }
+
+
+            .preview-image-area {
+
+                min-height:
+                    280px;
+
+                padding:
+                    12px;
+
+            }
+
+
+            .preview img {
+
+                max-height:
+                    52vh;
+
+            }
+
+
+            .preview-info {
+
+                padding:
+                    22px 18px;
+
+                border-left:
+                    none;
+
+                border-top:
+                    1px solid
+                    rgba(255,255,255,0.07);
+
+            }
+
+
+            .preview-download-button {
+
+                margin-top:
+                    22px;
+
+            }
+
+
+            .close-preview {
+
+                top:
+                    12px;
+
+                right:
+                    14px;
+
+            }
+
+        }
+
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+
+                animation-duration:
+                    0.01ms !important;
+
+                transition-duration:
+                    0.01ms !important;
+
+            }
+
+        }
+
+
+.nav-coming-soon {
+    position: relative;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.nav-coming-soon small {
+    position: absolute;
+    top: -10px;
+    right: -18px;
+    font-size: 7px;
+    color: #ff7a00;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =================================
+         TOP NAVIGATION
+    ================================== -->
+
+    <header class="top-header">
+
+        <div class="top-logo">
+            THE EVERYTHING
+        </div>
+
+
+        <nav class="top-nav">
+
+            <a href="index.html">
+                Home
+            </a>
+
+
+            <span class="nav-coming-soon">
+    Anime
+    <small>SOON</small>
+</span>
+
+<span class="nav-coming-soon">
+    Films
+    <small>SOON</small>
+</span>
+
+
+            <a
+                href="wallpaper.html"
+                class="active"
+            >
+                Wallpapers
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- =================================
+         TOP BAR
+    ================================== -->
+
+    <div class="top-bar">
+
+        <a
+            href="index.html"
+            class="back-button"
+        >
+            &larr; Back to Main
+        </a>
+
+
+        <label
+            class="wallpaper-search-box"
+            for="wallpaperSearch"
+        >
+
+            <svg
+                class="search-icon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+            >
+
+                <path
+                    d="M21 21l-4.35-4.35m1.35-5.65a7 7 0 1 1-14 0 7 7 0 0 1 14 0z"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                />
+
+            </svg>
+
+
+            <input
+                type="search"
+                id="wallpaperSearch"
+                placeholder="Search wallpapers..."
+                autocomplete="off"
+                spellcheck="false"
+            >
+
+        </label>
+
+    </div>
+
+
+
+    <!-- WALL -->
+
+    <div class="side-word left">
+
+        <span>W</span>
+        <span>A</span>
+        <span>L</span>
+        <span>L</span>
+
+    </div>
+
+
+
+    <!-- PAPER -->
+
+    <div class="side-word right">
+
+        <span>P</span>
+        <span>A</span>
+        <span>P</span>
+        <span>E</span>
+        <span>R</span>
+
+    </div>
+
+
+
+    <!-- =================================
+         HERO
+    ================================== -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <p class="hero-small-title">
+                Wallpaper Collection
+            </p>
+
+
+            <h1>
+                Discover Your Next Wallpaper
+            </h1>
+
+
+            <p class="hero-description">
+                Browse stunning wallpapers, preview them in full size and download your favorites.
+            </p>
+
+
+            <div
+                class="categories"
+                id="categories"
+            >
+
+                <button
+                    class="category-button active"
+                    data-category="all"
+                >
+                    All
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================
+         WALLPAPER COUNT
+    ================================== -->
+
+    <div class="gallery-info">
+
+        Showing
+
+        <strong id="wallpaperCount">
+            0
+        </strong>
+
+        wallpapers
+
+    </div>
+
+
+
+    <!-- =================================
+         GALLERY
+    ================================== -->
+
+    <main class="gallery-wrapper">
+
+        <section
+            class="wallpaper-grid"
+            id="wallpaperGrid"
+        >
+        </section>
+
+
+        <div
+            class="no-results"
+            id="noResults"
+        >
+            No wallpapers found.
+        </div>
+
+    </main>
+
+
+
+    <!-- =================================
+         ADD WALLPAPER BUTTON
+    ================================== -->
+
+    <button
+        type="button"
+        class="add-wallpaper-button"
+        id="addWallpaperButton"
+        aria-label="Add wallpaper"
+    >
+        +
+    </button>
+
+
+
+    <!-- =================================
+         UPLOAD MODAL
+    ================================== -->
+
+    <div
+        class="upload-wallpaper-modal"
+        id="uploadWallpaperModal"
+    >
+
+        <div class="upload-wallpaper-box">
+
+            <button
+                type="button"
+                class="close-upload-modal"
+                id="closeUploadModal"
+                aria-label="Close"
+            >
+                &times;
+            </button>
+
+
+            <p class="upload-small-title">
+                WALLPAPER COLLECTION
+            </p>
+
+
+            <h2>
+                Add Wallpaper
+            </h2>
+
+
+            <p class="upload-description">
+                Share a wallpaper with everyone on The Everything.
+            </p>
+
+
+            <div class="upload-field">
+
+                <label for="uploadWallpaperTitle">
+                    Wallpaper name
+                </label>
+
+                <input
+                    type="text"
+                    id="uploadWallpaperTitle"
+                    placeholder="Example: Night City"
+                    maxlength="60"
+                >
+
+            </div>
+
+
+            <div class="upload-field">
+
+                <label for="uploadWallpaperCategory">
+                    Category
+                </label>
+
+                <select id="uploadWallpaperCategory">
+
+                    <option value="anime">
+                        Anime
+                    </option>
+
+                    <option value="nature">
+                        Nature
+                    </option>
+
+                    <option value="other">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="upload-field">
+
+                <label
+                    for="uploadWallpaperFile"
+                    class="wallpaper-file-picker"
+                >
+
+                    <span>
+                        Choose Wallpaper
+                    </span>
+
+                    <small id="selectedWallpaperName">
+                        JPG, PNG or WEBP • Maximum 10 MB
+                    </small>
+
+                </label>
+
+
+                <input
+                    type="file"
+                    id="uploadWallpaperFile"
+                    accept="image/jpeg,image/png,image/webp"
+                >
+
+            </div>
+
+
+            <div
+                class="upload-message"
+                id="uploadWallpaperMessage"
+            >
+            </div>
+
+
+            <button
+                type="button"
+                class="submit-wallpaper-button"
+                id="submitWallpaperButton"
+            >
+                Upload Wallpaper
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================
+         PREVIEW
+    ================================== -->
+
+    <div
+        class="preview"
+        id="preview"
+    >
+
+        <span
+            class="close-preview"
+            id="closePreview"
+            aria-label="Close preview"
+        >
+            &times;
+        </span>
+
+
+        <div class="preview-content">
+
+            <div class="preview-image-area">
+
+                <img
+                    id="previewImage"
+                    src=""
+                    alt="Wallpaper Preview"
+                >
+
+            </div>
+
+
+            <aside class="preview-info">
+
+                <p class="preview-small-title">
+                    Wallpaper Details
+                </p>
+
+
+                <h2
+                    class="preview-name"
+                    id="previewName"
+                >
+                </h2>
+
+
+                <div class="preview-meta">
+
+                    <div class="preview-meta-item">
+
+                        <span class="preview-meta-label">
+                            Category
+                        </span>
+
+                        <span
+                            class="preview-meta-value"
+                            id="previewCategory"
+                        >
+                            Other
+                        </span>
+
+                    </div>
+
+
+                    <div class="preview-meta-item">
+
+                        <span class="preview-meta-label">
+                            Uploaded
+                        </span>
+
+                        <span
+                            class="preview-meta-value"
+                            id="previewDate"
+                        >
+                            The Everything
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="preview-uploader-section">
+
+                    <p class="preview-uploader-label">
+                        Uploaded by
+                    </p>
+
+
+                    <div class="preview-uploader">
+
+                        <div
+                            class="preview-uploader-avatar"
+                            id="previewUploaderAvatar"
+                        >
+
+                            <img
+                                src=""
+                                alt="Uploader"
+                                id="previewUploaderImage"
+                            >
+
+                            <span id="previewUploaderPlaceholder">
+                                TE
+                            </span>
+
+                        </div>
+
+
+                        <div class="preview-uploader-text">
+
+                            <div class="preview-uploader-name-row">
+
+                                <span
+                                    class="preview-uploader-name"
+                                    id="previewUploaderName"
+                                >
+                                    The Everything
+                                </span>
+
+                                <a
+                                    href="#"
+                                    class="preview-show-collection"
+                                    id="previewShowCollection"
+                                >
+                                    Show Collection
+                                </a>
+
+                            </div>
+
+                            <span
+                                class="preview-uploader-type"
+                                id="previewUploaderType"
+                            >
+                                Official collection
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <a
+                    href="#"
+                    class="preview-download-button"
+                    id="previewDownloadButton"
+                    download
+                >
+                    Download Wallpaper &darr;
+                </a>
+
+            </aside>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================
+         SUPABASE LIBRARY
+    ================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+
+    <script>
+
+        /* =================================
+           SUPABASE
+        ================================= */
+
+        const WALLPAPER_SUPABASE_URL =
+            "https://tnavsfbolastevebukxl.supabase.co";
+
+
+        const WALLPAPER_SUPABASE_KEY =
+            "sb_publishable_3FX_mPM-A6dIY-nQTtFZQg_5HPoWO9B";
+
+
+        const wallpaperSupabase =
+            supabase.createClient(
+                WALLPAPER_SUPABASE_URL,
+                WALLPAPER_SUPABASE_KEY
+            );
+
+
+
+        /* =================================
+           LOCAL WALLPAPER FOLDER
+        ================================= */
+
+        const WALLPAPER_FOLDER =
+            "image/wallpapers/";
+
+
+
+        /* =================================
+           LOCAL WALLPAPERS
+        ================================= */
+
+        const wallpaperFiles = [
+
+            /* Root */
+            "wallpaper3.jpg.jpg",
+            "wallpaper4.jpg.jpg",
+            "wallpaper5.jpg.jpg",
+            "wallpaper6.jpg.jpg",
+            "wallpaper7.jpg.jpg",
+            "wallpaper8.jpg.png",
+
+            /* Anime */
+            "anime/Anime Seaside Bus Stop.png",
+            "anime/asa&yoru.jpg",
+            "anime/BW Anime Swordsman Sketch.jpg",
+            "anime/emerald-warrior.jpg",
+            "anime/foxgirl.jpg",
+            "anime/goku-superblue.jpg",
+            "anime/Matoi-manga.jpg",
+            "anime/mikasa.jpg",
+            "anime/Reze.jpg",
+            "anime/shadow.jpg",
+
+            /* Nature */
+            "Nature/ASCII Art Ringed Planet.png",
+            "Nature/Blue Nebula Star.png",
+            "Nature/Giant Cumulus Clouds.jpg",
+            "Nature/Golden Autumn Reflection Lake.jpg",
+            "Nature/Lake Louise Winter Cabin.jpg",
+            "Nature/Madeira Coastal Cliffs.jpg",
+            "Nature/Mountain Road Light Trails.jpg",
+            "Nature/Orange Gas Giant Moons.jpg",
+            "Nature/Post-Apocalyptic London.jpg",
+            "Nature/Purple Canyon Traveler.jpg",
+            "Nature/Purple Planet Horizon.png",
+            "Nature/Purple Spiral Galaxy.jpg",
+            "Nature/Red Grass Game Landscape.jpg",
+            "Nature/Snowy Japanese Alley Mountain.jpg",
+            "Nature/Starry Night Village.jpg",
+            "Nature/Sunset Sailboat.jpg",
+            "Nature/Turquoise Alpine Reservoir.jpg",
+            "Nature/urban-portal.jpg"
+
+        ];
+
+
+
+        /* =================================
+           ELEMENTS
+        ================================= */
+
+        const grid =
+            document.getElementById(
+                "wallpaperGrid"
+            );
+
+
+        const categoriesContainer =
+            document.getElementById(
+                "categories"
+            );
+
+
+        const noResults =
+            document.getElementById(
+                "noResults"
+            );
+
+
+        const wallpaperCount =
+            document.getElementById(
+                "wallpaperCount"
+            );
+
+
+        const preview =
+            document.getElementById(
+                "preview"
+            );
+
+
+        const previewImage =
+            document.getElementById(
+                "previewImage"
+            );
+
+
+        const previewName =
+            document.getElementById(
+                "previewName"
+            );
+
+
+        const previewCategory =
+            document.getElementById(
+                "previewCategory"
+            );
+
+
+        const previewDate =
+            document.getElementById(
+                "previewDate"
+            );
+
+
+        const previewUploaderImage =
+            document.getElementById(
+                "previewUploaderImage"
+            );
+
+
+        const previewUploaderPlaceholder =
+            document.getElementById(
+                "previewUploaderPlaceholder"
+            );
+
+
+        const previewUploaderName =
+            document.getElementById(
+                "previewUploaderName"
+            );
+
+
+        const previewUploaderType =
+            document.getElementById(
+                "previewUploaderType"
+            );
+
+
+        const previewShowCollection =
+            document.getElementById(
+                "previewShowCollection"
+            );
+
+
+        const previewDownloadButton =
+            document.getElementById(
+                "previewDownloadButton"
+            );
+
+
+        const closePreviewButton =
+            document.getElementById(
+                "closePreview"
+            );
+
+
+        const wallpaperSearch =
+            document.getElementById(
+                "wallpaperSearch"
+            );
+
+
+
+        /* =================================
+           UPLOAD ELEMENTS
+        ================================= */
+
+        const addWallpaperButton =
+            document.getElementById(
+                "addWallpaperButton"
+            );
+
+
+        const uploadWallpaperModal =
+            document.getElementById(
+                "uploadWallpaperModal"
+            );
+
+
+        const closeUploadModal =
+            document.getElementById(
+                "closeUploadModal"
+            );
+
+
+        const uploadWallpaperTitle =
+            document.getElementById(
+                "uploadWallpaperTitle"
+            );
+
+
+        const uploadWallpaperCategory =
+            document.getElementById(
+                "uploadWallpaperCategory"
+            );
+
+
+        const uploadWallpaperFile =
+            document.getElementById(
+                "uploadWallpaperFile"
+            );
+
+
+        const selectedWallpaperName =
+            document.getElementById(
+                "selectedWallpaperName"
+            );
+
+
+        const uploadWallpaperMessage =
+            document.getElementById(
+                "uploadWallpaperMessage"
+            );
+
+
+        const submitWallpaperButton =
+            document.getElementById(
+                "submitWallpaperButton"
+            );
+
+
+
+        let currentCategory =
+            "all";
+
+
+        let currentSearch =
+            "";
+
+
+
+        /* =================================
+           ENCODE LOCAL URL PATH
+        ================================= */
+
+        function encodeWallpaperPath(
+            path
+        ) {
+
+            return path
+
+                .split("/")
+
+                .map(
+                    part =>
+                        encodeURIComponent(
+                            part
+                        )
+                )
+
+                .join("/");
+
+        }
+
+
+
+        /* =================================
+           CREATE TITLE
+        ================================= */
+
+        function createWallpaperTitle(
+            filePath
+        ) {
+
+            const fileName =
+                filePath
+                    .split("/")
+                    .pop();
+
+
+            const withoutExtension =
+                fileName.replace(
+                    /\.[^/.]+$/,
+                    ""
+                );
+
+
+            const cleaned =
+                withoutExtension
+
+                    .replace(
+                        /[-_]+/g,
+                        " "
+                    )
+
+                    .replace(
+                        /\s+/g,
+                        " "
+                    )
+
+                    .trim();
+
+
+            return cleaned
+
+                .split(" ")
+
+                .map(
+
+                    word => {
+
+                        if (!word) {
+                            return "";
+                        }
+
+
+                        return (
+                            word
+                                .charAt(0)
+                                .toUpperCase()
+
+                            +
+
+                            word.slice(1)
+                        );
+
+                    }
+
+                )
+
+                .join(" ");
+
+        }
+
+
+
+        /* =================================
+           GET CATEGORY
+        ================================= */
+
+        function getCategory(
+            filePath
+        ) {
+
+            const parts =
+                filePath.split("/");
+
+
+            if (
+                parts.length > 1
+            ) {
+
+                return parts[0]
+                    .toLowerCase();
+
+            }
+
+
+            return "other";
+
+        }
+
+
+
+        /* =================================
+           FORMAT CATEGORY
+        ================================= */
+
+        function formatCategory(
+            category
+        ) {
+
+            return category
+
+                .replace(
+                    /[-_]+/g,
+                    " "
+                )
+
+                .split(" ")
+
+                .map(
+
+                    word => {
+
+                        if (!word) {
+                            return "";
+                        }
+
+
+                        return (
+                            word
+                                .charAt(0)
+                                .toUpperCase()
+
+                            +
+
+                            word.slice(1)
+                        );
+
+                    }
+
+                )
+
+                .join(" ");
+
+        }
+
+
+
+        /* =================================
+           CREATE LOCAL DATA
+        ================================= */
+
+        const wallpapers =
+            wallpaperFiles.map(
+
+                file => {
+
+                    const category =
+                        getCategory(
+                            file
+                        );
+
+
+                    const encodedFile =
+                        encodeWallpaperPath(
+                            file
+                        );
+
+
+                    return {
+
+                        originalFile:
+                            file,
+
+                        file:
+                            WALLPAPER_FOLDER
+                            +
+                            encodedFile,
+
+                        downloadFile:
+                            WALLPAPER_FOLDER
+                            +
+                            encodedFile,
+
+                        title:
+                            createWallpaperTitle(
+                                file
+                            ),
+
+                        category:
+                            category,
+
+                        categoryName:
+                            formatCategory(
+                                category
+                            ),
+
+                        source:
+                            "local",
+
+                        userId:
+                            null,
+
+                        createdAt:
+                            null
+
+                    };
+
+                }
+
+            );
+
+
+
+        /* =================================
+           LOAD SUPABASE WALLPAPERS
+        ================================= */
+
+        function getSafePublicUsername(
+            value
+        ) {
+
+            const username =
+                typeof value === "string"
+
+                ?
+                value.trim()
+
+                :
+                "";
+
+
+            if (
+                !username
+                ||
+                username.includes("@")
+            ) {
+
+                return "Community User";
+
+            }
+
+
+            return username;
+
+        }
+
+
+
+        async function loadUploadedWallpapers() {
+
+            const {
+                data,
+                error
+            } =
+                await wallpaperSupabase
+
+                    .from(
+                        "wallpapers"
+                    )
+
+                    .select(
+                        "id, user_id, title, category, file_path, created_at"
+                    )
+
+                    .order(
+                        "created_at",
+                        {
+                            ascending:
+                                false
+                        }
+                    );
+
+
+            if (
+                error
+            ) {
+
+                console.error(
+                    "Could not load uploaded wallpapers:",
+                    error
+                );
+
+
+                return;
+
+            }
+
+
+            if (
+                !data
+                ||
+                data.length === 0
+            ) {
+
+                return;
+
+            }
+
+
+            /*
+                Load all public uploader profiles in one request.
+                This keeps the cards fast and lets every visitor see
+                the username + avatar for community uploads.
+            */
+
+            const uploaderProfiles =
+                new Map();
+
+
+            const uploaderIds =
+                [
+                    ...new Set(
+                        data
+                            .map(
+                                item =>
+                                    item.user_id
+                            )
+                            .filter(Boolean)
+                    )
+                ];
+
+
+            if (
+                uploaderIds.length > 0
+            ) {
+
+                const {
+                    data:
+                        profileRows,
+                    error:
+                        profileRowsError
+                } =
+                    await wallpaperSupabase
+                        .from("profiles")
+                        .select(
+                            "id, username, avatar_url"
+                        )
+                        .in(
+                            "id",
+                            uploaderIds
+                        );
+
+
+                if (
+                    profileRowsError
+                ) {
+
+                    console.warn(
+                        "Could not load public uploader profiles. Run SUPABASE-COMMUNITY-FIX.sql in Supabase:",
+                        profileRowsError
+                    );
+
+                }
+
+                else {
+
+                    (
+                        profileRows
+                        ||
+                        []
+                    )
+                    .forEach(
+
+                        profile => {
+
+                            uploaderProfiles.set(
+                                profile.id,
+                                profile
+                            );
+
+
+                            uploaderProfileCache.set(
+                                profile.id,
+                                profile
+                            );
+
+                        }
+
+                    );
+
+                }
+
+            }
+
+
+            data.forEach(
+
+                item => {
+
+                    const uploaderProfile =
+                        uploaderProfiles.get(
+                            item.user_id
+                        )
+                        ||
+                        null;
+
+
+                    const {
+                        data:
+                            publicUrlData
+                    } =
+                        wallpaperSupabase
+
+                            .storage
+
+                            .from(
+                                "wallpapers"
+                            )
+
+                            .getPublicUrl(
+                                item.file_path
+                            );
+
+
+                    const {
+                        data:
+                            downloadUrlData
+                    } =
+                        wallpaperSupabase
+
+                            .storage
+
+                            .from(
+                                "wallpapers"
+                            )
+
+                            .getPublicUrl(
+
+                                item.file_path,
+
+                                {
+                                    download:
+                                        true
+                                }
+
+                            );
+
+
+                    wallpapers.unshift({
+
+                        originalFile:
+                            item.file_path,
+
+                        file:
+                            publicUrlData
+                                .publicUrl,
+
+                        downloadFile:
+                            downloadUrlData
+                                .publicUrl,
+
+                        title:
+                            item.title,
+
+                        category:
+                            (
+                                item.category
+                                ||
+                                "other"
+                            )
+                            .toLowerCase(),
+
+                        categoryName:
+                            formatCategory(
+                                item.category
+                                ||
+                                "other"
+                            ),
+
+                        source:
+                            "supabase",
+
+                        id:
+                            item.id,
+
+                        userId:
+                            item.user_id,
+
+                        createdAt:
+                            item.created_at,
+
+                        uploaderName:
+                            getSafePublicUsername(
+                                uploaderProfile
+                                    ?.username
+                            ),
+
+                        uploaderAvatar:
+                            resolveCommunityAvatarUrl(
+                                uploaderProfile
+                                    ?.avatar_url
+                                ||
+                                null
+                            )
+
+                    });
+
+                }
+
+            );
+
+        }
+
+
+
+        /* =================================
+           CREATE CATEGORIES
+        ================================= */
+
+        function createCategories() {
+
+            const oldDynamicButtons =
+                categoriesContainer
+                    .querySelectorAll(
+                        ".category-button:not([data-category='all'])"
+                    );
+
+
+            oldDynamicButtons.forEach(
+                button =>
+                    button.remove()
+            );
+
+
+            const uniqueCategories =
+                [
+                    ...new Set(
+
+                        wallpapers.map(
+                            wallpaper =>
+                                wallpaper.category
+                        )
+
+                    )
+                ];
+
+
+            uniqueCategories.sort();
+
+
+            uniqueCategories.forEach(
+
+                category => {
+
+                    const button =
+                        document.createElement(
+                            "button"
+                        );
+
+
+                    button.type =
+                        "button";
+
+
+                    button.className =
+                        "category-button";
+
+
+                    button.dataset.category =
+                        category;
+
+
+                    button.textContent =
+                        formatCategory(
+                            category
+                        );
+
+
+                    categoriesContainer
+                        .appendChild(
+                            button
+                        );
+
+                }
+
+            );
+
+        }
+
+
+
+        /* =================================
+           DISPLAY WALLPAPERS
+        ================================= */
+
+        function displayWallpapers() {
+
+            grid.innerHTML =
+                "";
+
+
+            const normalizedSearch =
+                currentSearch
+                    .trim()
+                    .toLowerCase();
+
+
+            const filtered =
+                wallpapers.filter(
+
+                    wallpaper => {
+
+                        const categoryMatches =
+
+                            currentCategory ===
+                            "all"
+
+                            ||
+
+                            wallpaper.category ===
+                            currentCategory;
+
+
+                        const searchMatches =
+
+                            normalizedSearch ===
+                            ""
+
+                            ||
+
+                            wallpaper.title
+                                .toLowerCase()
+                                .includes(
+                                    normalizedSearch
+                                )
+
+                            ||
+
+                            wallpaper.categoryName
+                                .toLowerCase()
+                                .includes(
+                                    normalizedSearch
+                                )
+
+                            ||
+
+                            wallpaper.originalFile
+                                .toLowerCase()
+                                .includes(
+                                    normalizedSearch
+                                );
+
+
+                        return (
+                            categoryMatches
+                            &&
+                            searchMatches
+                        );
+
+                    }
+
+                );
+
+
+            wallpaperCount.textContent =
+                filtered.length;
+
+
+            if (
+                filtered.length === 0
+            ) {
+
+                noResults.style.display =
+                    "block";
+
+
+                noResults.textContent =
+
+                    normalizedSearch === ""
+
+                    ?
+                    "No wallpapers found in this category."
+
+                    :
+                    "No wallpapers found for your search.";
+
+
+                return;
+
+            }
+
+
+            noResults.style.display =
+                "none";
+
+
+            filtered.forEach(
+
+                wallpaper => {
+
+                    const card =
+                        document.createElement(
+                            "article"
+                        );
+
+
+                    card.className =
+                        "wallpaper-card";
+
+
+
+                    /* IMAGE */
+
+                    const image =
+                        document.createElement(
+                            "img"
+                        );
+
+
+                    image.className =
+                        "wallpaper-image";
+
+
+                    image.src =
+                        wallpaper.file;
+
+
+                    image.alt =
+                        wallpaper.title;
+
+
+                    image.loading =
+                        "lazy";
+
+
+                    image.decoding =
+                        "async";
+
+
+
+                    /* CATEGORY */
+
+                    const category =
+                        document.createElement(
+                            "span"
+                        );
+
+
+                    category.className =
+                        "wallpaper-category";
+
+
+                    category.textContent =
+                        wallpaper.categoryName;
+
+
+                    /* COMMUNITY UPLOADER */
+
+                    let uploaderBadge =
+                        null;
+
+
+                    if (
+                        wallpaper.source ===
+                        "supabase"
+                    ) {
+
+                        const uploaderName =
+                            wallpaper.uploaderName
+                            ||
+                            "Community User";
+
+
+                        uploaderBadge =
+                            document.createElement(
+                                "a"
+                            );
+
+
+                        uploaderBadge.className =
+                            "wallpaper-uploader-badge";
+
+
+                        uploaderBadge.href =
+                            "user-wallpapers.html?user="
+                            +
+                            encodeURIComponent(
+                                wallpaper.userId
+                                ||
+                                ""
+                            );
+
+
+                        uploaderBadge.title =
+                            "View "
+                            +
+                            uploaderName
+                            +
+                            "'s collection";
+
+
+                        const uploaderAvatar =
+                            document.createElement(
+                                "span"
+                            );
+
+
+                        uploaderAvatar.className =
+                            "wallpaper-uploader-avatar";
+
+
+                        if (
+                            wallpaper.uploaderAvatar
+                        ) {
+
+                            const uploaderImage =
+                                document.createElement(
+                                    "img"
+                                );
+
+
+                            uploaderImage.src =
+                                wallpaper.uploaderAvatar;
+
+
+                            uploaderImage.alt =
+                                uploaderName;
+
+
+                            uploaderImage.loading =
+                                "lazy";
+
+
+                            uploaderAvatar.appendChild(
+                                uploaderImage
+                            );
+
+                        }
+
+                        else {
+
+                            uploaderAvatar.textContent =
+                                getInitials(
+                                    uploaderName
+                                );
+
+                        }
+
+
+                        const uploaderNameElement =
+                            document.createElement(
+                                "span"
+                            );
+
+
+                        uploaderNameElement.className =
+                            "wallpaper-uploader-name";
+
+
+                        uploaderNameElement.textContent =
+                            "@"
+                            +
+                            uploaderName
+                                .replace(/^@+/, "");
+
+
+                        uploaderBadge.append(
+                            uploaderAvatar,
+                            uploaderNameElement
+                        );
+
+
+                        uploaderBadge.addEventListener(
+
+                            "click",
+
+                            function(event) {
+
+                                event.stopPropagation();
+
+                            }
+
+                        );
+
+                    }
+
+
+                    /* OVERLAY */
+
+                    const overlay =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    overlay.className =
+                        "wallpaper-overlay";
+
+
+
+                    /* TITLE */
+
+                    const title =
+                        document.createElement(
+                            "h3"
+                        );
+
+
+                    title.className =
+                        "wallpaper-name";
+
+
+                    title.textContent =
+                        wallpaper.title;
+
+
+
+                    /* ACTIONS */
+
+                    const actions =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    actions.className =
+                        "wallpaper-actions";
+
+
+
+                    /* PREVIEW */
+
+                    const previewButton =
+                        document.createElement(
+                            "button"
+                        );
+
+
+                    previewButton.type =
+                        "button";
+
+
+                    previewButton.className =
+                        "wallpaper-button preview-button";
+
+
+                    previewButton.textContent =
+                        "Preview";
+
+
+                    previewButton
+                        .addEventListener(
+
+                            "click",
+
+                            function() {
+
+                                showPreview(
+                                    wallpaper
+                                );
+
+                            }
+
+                        );
+
+
+
+                    /* DOWNLOAD */
+
+                    const downloadButton =
+                        document.createElement(
+                            "a"
+                        );
+
+
+                    downloadButton.className =
+                        "wallpaper-button download-button";
+
+
+                    downloadButton.href =
+                        wallpaper.downloadFile
+                        ||
+                        wallpaper.file;
+
+
+                    downloadButton.download =
+                        "";
+
+
+                    downloadButton.innerHTML =
+                        "Download &darr;";
+
+
+                    actions.append(
+                        previewButton,
+                        downloadButton
+                    );
+
+
+                    overlay.append(
+                        title,
+                        actions
+                    );
+
+
+                    card.append(
+                        image,
+                        category
+                    );
+
+
+                    if (
+                        uploaderBadge
+                    ) {
+
+                        card.appendChild(
+                            uploaderBadge
+                        );
+
+                    }
+
+
+                    card.appendChild(
+                        overlay
+                    );
+
+
+                    grid.appendChild(
+                        card
+                    );
+
+                }
+
+            );
+
+        }
+
+
+
+        /* =================================
+           CATEGORY FILTER
+        ================================= */
+
+        categoriesContainer
+            .addEventListener(
+
+                "click",
+
+                function(event) {
+
+                    const button =
+                        event.target.closest(
+                            ".category-button"
+                        );
+
+
+                    if (!button) {
+                        return;
+                    }
+
+
+                    document
+                        .querySelectorAll(
+                            ".category-button"
+                        )
+                        .forEach(
+
+                            item => {
+
+                                item
+                                    .classList
+                                    .remove(
+                                        "active"
+                                    );
+
+                            }
+
+                        );
+
+
+                    button
+                        .classList
+                        .add(
+                            "active"
+                        );
+
+
+                    currentCategory =
+                        button.dataset.category;
+
+
+                    displayWallpapers();
+
+                }
+
+            );
+
+
+
+        /* =================================
+           SEARCH
+        ================================= */
+
+        wallpaperSearch
+            .addEventListener(
+
+                "input",
+
+                function() {
+
+                    currentSearch =
+                        this.value;
+
+
+                    displayWallpapers();
+
+                }
+
+            );
+
+
+
+        /* =================================
+           PREVIEW HELPERS
+        ================================= */
+
+        const uploaderProfileCache =
+            new Map();
+
+
+        function resolveCommunityAvatarUrl(
+            value
+        ) {
+
+            const cleanValue =
+                typeof value === "string"
+                    ? value.trim()
+                    : "";
+
+
+            if (!cleanValue) {
+                return null;
+            }
+
+
+            if (
+                cleanValue.startsWith("http://")
+                ||
+                cleanValue.startsWith("https://")
+            ) {
+
+                return cleanValue;
+
+            }
+
+
+            const {
+                data
+            } =
+                wallpaperSupabase
+                    .storage
+                    .from("avatars")
+                    .getPublicUrl(
+                        cleanValue
+                    );
+
+
+            return data?.publicUrl
+                ||
+                null;
+
+        }
+
+
+        function getInitials(
+            username
+        ) {
+
+            const cleanName =
+                (
+                    username
+                    ||
+                    "User"
+                )
+                .trim();
+
+
+            return cleanName
+                .split(/\s+/)
+                .filter(Boolean)
+                .slice(0, 2)
+                .map(
+                    part =>
+                        part
+                            .charAt(0)
+                            .toUpperCase()
+                )
+                .join("")
+                ||
+                "U";
+
+        }
+
+
+        function formatPreviewDate(
+            value
+        ) {
+
+            if (!value) {
+
+                return "Original";
+
+            }
+
+
+            const date =
+                new Date(
+                    value
+                );
+
+
+            if (
+                Number.isNaN(
+                    date.getTime()
+                )
+            ) {
+
+                return "Unknown";
+
+            }
+
+
+            return date
+                .toLocaleDateString(
+
+                    undefined,
+
+                    {
+                        year:
+                            "numeric",
+
+                        month:
+                            "short",
+
+                        day:
+                            "numeric"
+                    }
+
+                );
+
+        }
+
+
+        function setPreviewUploaderAvatar(
+            avatarUrl,
+            username
+        ) {
+
+            const resolvedAvatarUrl =
+                resolveCommunityAvatarUrl(
+                    avatarUrl
+                );
+
+
+            if (resolvedAvatarUrl) {
+
+                previewUploaderImage.src =
+                    resolvedAvatarUrl;
+
+
+                previewUploaderImage.style.display =
+                    "block";
+
+
+                previewUploaderPlaceholder.style.display =
+                    "none";
+
+
+                return;
+
+            }
+
+
+            previewUploaderImage.style.display =
+                "none";
+
+
+            previewUploaderImage.removeAttribute(
+                "src"
+            );
+
+
+            previewUploaderPlaceholder.style.display =
+                "inline";
+
+
+            const cleanName =
+                (
+                    username
+                    ||
+                    "User"
+                )
+                .trim();
+
+
+            previewUploaderPlaceholder.textContent =
+
+                cleanName
+                    .split(/\s+/)
+                    .filter(Boolean)
+                    .slice(0, 2)
+                    .map(
+                        part =>
+                            part
+                                .charAt(0)
+                                .toUpperCase()
+                    )
+                    .join("")
+
+                ||
+
+                "U";
+
+        }
+
+
+        async function loadUploaderProfile(
+            userId
+        ) {
+
+            if (!userId) {
+
+                return null;
+
+            }
+
+
+            if (
+                uploaderProfileCache.has(
+                    userId
+                )
+            ) {
+
+                return uploaderProfileCache.get(
+                    userId
+                );
+
+            }
+
+
+            const {
+                data,
+                error
+            } =
+                await wallpaperSupabase
+
+                    .from(
+                        "profiles"
+                    )
+
+                    .select(
+                        "username, avatar_url"
+                    )
+
+                    .eq(
+                        "id",
+                        userId
+                    )
+
+                    .maybeSingle();
+
+
+            if (error) {
+
+                console.warn(
+                    "Could not load uploader profile:",
+                    error
+                );
+
+
+                uploaderProfileCache.set(
+                    userId,
+                    null
+                );
+
+
+                return null;
+
+            }
+
+
+            uploaderProfileCache.set(
+                userId,
+                data
+                ||
+                null
+            );
+
+
+            return data
+                ||
+                null;
+
+        }
+
+
+
+        /* =================================
+           OPEN PREVIEW
+        ================================= */
+
+        async function showPreview(
+            wallpaper
+        ) {
+
+            previewImage.src =
+                wallpaper.file;
+
+
+            previewImage.alt =
+                wallpaper.title;
+
+
+            previewName.textContent =
+                wallpaper.title;
+
+
+            previewCategory.textContent =
+                wallpaper.categoryName
+                ||
+                formatCategory(
+                    wallpaper.category
+                    ||
+                    "other"
+                );
+
+
+            previewDate.textContent =
+                formatPreviewDate(
+                    wallpaper.createdAt
+                );
+
+
+            previewDownloadButton.href =
+                wallpaper.downloadFile
+                ||
+                wallpaper.file;
+
+
+            /*
+                Local wallpapers do not have
+                a Supabase uploader.
+            */
+
+            if (
+                wallpaper.source ===
+                "local"
+            ) {
+
+                previewUploaderName.textContent =
+                    "The Everything";
+
+
+                previewUploaderType.textContent =
+                    "Official collection";
+
+
+                previewShowCollection.style.display =
+                    "none";
+
+
+                previewShowCollection.href =
+                    "#";
+
+
+                setPreviewUploaderAvatar(
+                    null,
+                    "The Everything"
+                );
+
+            }
+
+            else {
+
+                /*
+                    Show a temporary state while
+                    the profile loads.
+                */
+
+                previewUploaderName.textContent =
+                    "Loading...";
+
+
+                previewUploaderType.textContent =
+                    "Community uploader";
+
+
+                previewShowCollection.href =
+                    "user-wallpapers.html?user="
+                    +
+                    encodeURIComponent(
+                        wallpaper.userId
+                    );
+
+
+                previewShowCollection.style.display =
+                    "inline-flex";
+
+
+                setPreviewUploaderAvatar(
+                    null,
+                    "User"
+                );
+
+
+                const profile =
+                    await loadUploaderProfile(
+                        wallpaper.userId
+                    );
+
+
+                const uploaderName =
+
+                    getSafePublicUsername(
+                        profile
+                            ?.username
+                        ||
+                        wallpaper.uploaderName
+                    );
+
+
+                previewUploaderName.textContent =
+                    uploaderName;
+
+
+                previewUploaderType.textContent =
+                    "Community uploader";
+
+
+                setPreviewUploaderAvatar(
+
+                    profile
+                        ?.avatar_url
+                    ||
+                    wallpaper.uploaderAvatar
+                    ||
+                    null,
+
+                    uploaderName
+
+                );
+
+            }
+
+
+            preview
+                .classList
+                .add(
+                    "show"
+                );
+
+
+            document.body.style.overflow =
+                "hidden";
+
+        }
+
+
+
+        /* =================================
+           CLOSE PREVIEW
+        ================================= */
+
+        function hidePreview() {
+
+            preview
+                .classList
+                .remove(
+                    "show"
+                );
+
+
+            if (
+                !uploadWallpaperModal
+                    .classList
+                    .contains(
+                        "show"
+                    )
+            ) {
+
+                document.body.style.overflow =
+                    "";
+
+            }
+
+
+            setTimeout(
+
+                function() {
+
+                    if (
+                        !preview
+                            .classList
+                            .contains(
+                                "show"
+                            )
+                    ) {
+
+                        previewImage.src =
+                            "";
+
+
+                        previewDownloadButton.href =
+                            "#";
+
+
+                        previewShowCollection.style.display =
+                            "none";
+
+
+                        previewShowCollection.href =
+                            "#";
+
+                    }
+
+                },
+
+                150
+
+            );
+
+        }
+
+
+        closePreviewButton
+            .addEventListener(
+                "click",
+                hidePreview
+            );
+
+
+        preview
+            .addEventListener(
+
+                "click",
+
+                function(event) {
+
+                    if (
+                        event.target ===
+                        preview
+                    ) {
+
+                        hidePreview();
+
+                    }
+
+                }
+
+            );
+
+
+
+        /* =================================
+           OPEN ADD WALLPAPER
+        ================================= */
+
+        addWallpaperButton
+            .addEventListener(
+
+                "click",
+
+                async function() {
+
+                    addWallpaperButton.disabled =
+                        true;
+
+
+                    /*
+                        Verify the user with Supabase.
+                    */
+
+                    const {
+                        data: {
+                            user
+                        },
+                        error
+                    } =
+                        await wallpaperSupabase
+
+                            .auth
+
+                            .getUser();
+
+
+                    addWallpaperButton.disabled =
+                        false;
+
+
+                    /*
+                        Not logged in.
+                    */
+
+                    if (
+                        error
+                        ||
+                        !user
+                    ) {
+
+                        window.location.href =
+                            "login.html";
+
+
+                        return;
+
+                    }
+
+
+                    /*
+                        Logged in.
+                    */
+
+                    uploadWallpaperMessage.textContent =
+                        "";
+
+
+                    uploadWallpaperModal
+                        .classList
+                        .add(
+                            "show"
+                        );
+
+
+                    document.body.style.overflow =
+                        "hidden";
+
+                }
+
+            );
+
+
+
+        /* =================================
+           CLOSE UPLOAD MODAL
+        ================================= */
+
+        function hideUploadModal() {
+
+            uploadWallpaperModal
+                .classList
+                .remove(
+                    "show"
+                );
+
+
+            if (
+                !preview
+                    .classList
+                    .contains(
+                        "show"
+                    )
+            ) {
+
+                document.body.style.overflow =
+                    "";
+
+            }
+
+        }
+
+
+        closeUploadModal
+            .addEventListener(
+
+                "click",
+
+                hideUploadModal
+
+            );
+
+
+        uploadWallpaperModal
+            .addEventListener(
+
+                "click",
+
+                function(event) {
+
+                    if (
+                        event.target ===
+                        uploadWallpaperModal
+                    ) {
+
+                        hideUploadModal();
+
+                    }
+
+                }
+
+            );
+
+
+
+        /* =================================
+           CHOOSE FILE
+        ================================= */
+
+        uploadWallpaperFile
+            .addEventListener(
+
+                "change",
+
+                function() {
+
+                    const file =
+                        this.files[0];
+
+
+                    if (!file) {
+
+                        selectedWallpaperName
+                            .textContent =
+
+                            "JPG, PNG or WEBP • Maximum 10 MB";
+
+
+                        return;
+
+                    }
+
+
+                    selectedWallpaperName
+                        .textContent =
+                            file.name;
+
+
+                    /*
+                        Automatically create title
+                        from file name if empty.
+                    */
+
+                    if (
+                        !uploadWallpaperTitle
+                            .value
+                            .trim()
+                    ) {
+
+                        uploadWallpaperTitle
+                            .value =
+
+                                file.name
+
+                                    .replace(
+                                        /\.[^/.]+$/,
+                                        ""
+                                    )
+
+                                    .replace(
+                                        /[-_]+/g,
+                                        " "
+                                    );
+
+                    }
+
+
+                    uploadWallpaperMessage
+                        .textContent =
+                            "";
+
+                }
+
+            );
+
+
+
+        /* =================================
+           UPLOAD WALLPAPER
+        ================================= */
+
+        submitWallpaperButton
+            .addEventListener(
+
+                "click",
+
+                async function() {
+
+                    const title =
+                        uploadWallpaperTitle
+                            .value
+                            .trim();
+
+
+                    const category =
+                        uploadWallpaperCategory
+                            .value;
+
+
+                    const file =
+                        uploadWallpaperFile
+                            .files[0];
+
+
+
+                    /* =========================
+                       CHECK USER AGAIN
+                    ========================= */
+
+                    const {
+                        data: {
+                            user
+                        },
+                        error:
+                            userError
+                    } =
+                        await wallpaperSupabase
+
+                            .auth
+
+                            .getUser();
+
+
+                    if (
+                        userError
+                        ||
+                        !user
+                    ) {
+
+                        window.location.href =
+                            "login.html";
+
+
+                        return;
+
+                    }
+
+
+
+                    /* =========================
+                       TITLE
+                    ========================= */
+
+                    if (!title) {
+
+                        uploadWallpaperMessage
+                            .textContent =
+                                "Enter a wallpaper name.";
+
+
+                        return;
+
+                    }
+
+
+
+                    /* =========================
+                       FILE
+                    ========================= */
+
+                    if (!file) {
+
+                        uploadWallpaperMessage
+                            .textContent =
+                                "Choose a wallpaper image.";
+
+
+                        return;
+
+                    }
+
+
+
+                    /* =========================
+                       FILE TYPE
+                    ========================= */
+
+                    const extensionByType = {
+
+                        "image/jpeg":
+                            "jpg",
+
+                        "image/png":
+                            "png",
+
+                        "image/webp":
+                            "webp"
+
+                    };
+
+
+                    const extension =
+                        extensionByType[
+                            file.type
+                        ];
+
+
+                    if (!extension) {
+
+                        uploadWallpaperMessage
+                            .textContent =
+
+                            "Only JPG, PNG and WEBP images are allowed.";
+
+
+                        return;
+
+                    }
+
+
+
+                    /* =========================
+                       10 MB LIMIT
+                    ========================= */
+
+                    const maximumSize =
+                        10
+                        *
+                        1024
+                        *
+                        1024;
+
+
+                    if (
+                        file.size >
+                        maximumSize
+                    ) {
+
+                        uploadWallpaperMessage
+                            .textContent =
+
+                            "Wallpaper must be 10 MB or smaller.";
+
+
+                        return;
+
+                    }
+
+
+
+                    /* =========================
+                       UNIQUE FILE
+                    ========================= */
+
+                    const uniqueName =
+
+                        (
+                            window.crypto
+                            &&
+                            typeof window.crypto.randomUUID
+                            ===
+                            "function"
+                        )
+
+                        ?
+
+                        window.crypto.randomUUID()
+
+                        :
+
+                        (
+                            Date.now()
+
+                            +
+
+                            "-"
+
+                            +
+
+                            Math.random()
+                                .toString(36)
+                                .slice(2)
+                        );
+
+
+
+                    /*
+                        IMPORTANT:
+
+                        First folder = user.id
+
+                        This matches the RLS policy
+                        created in Supabase.
+                    */
+
+                    const filePath =
+
+                        user.id
+
+                        +
+
+                        "/"
+
+                        +
+
+                        uniqueName
+
+                        +
+
+                        "."
+
+                        +
+
+                        extension;
+
+
+
+                    /* =========================
+                       UPLOADING STATE
+                    ========================= */
+
+                    submitWallpaperButton.disabled =
+                        true;
+
+
+                    submitWallpaperButton.textContent =
+                        "Uploading...";
+
+
+                    uploadWallpaperMessage.textContent =
+                        "Uploading wallpaper...";
+
+
+
+                    /* =========================
+                       UPLOAD STORAGE
+                    ========================= */
+
+                    const {
+                        error:
+                            uploadError
+                    } =
+                        await wallpaperSupabase
+
+                            .storage
+
+                            .from(
+                                "wallpapers"
+                            )
+
+                            .upload(
+
+                                filePath,
+
+                                file,
+
+                                {
+
+                                    cacheControl:
+                                        "3600",
+
+                                    upsert:
+                                        false,
+
+                                    contentType:
+                                        file.type
+
+                                }
+
+                            );
+
+
+                    if (
+                        uploadError
+                    ) {
+
+                        console.error(
+                            "Wallpaper upload error:",
+                            uploadError
+                        );
+
+
+                        uploadWallpaperMessage
+                            .textContent =
+
+                            "Upload failed: "
+                            +
+                            uploadError.message;
+
+
+                        submitWallpaperButton.disabled =
+                            false;
+
+
+                        submitWallpaperButton.textContent =
+                            "Upload Wallpaper";
+
+
+                        return;
+
+                    }
+
+
+
+                    /* =========================
+                       SAVE DATABASE INFORMATION
+                    ========================= */
+
+                    const {
+                        error:
+                            databaseError
+                    } =
+                        await wallpaperSupabase
+
+                            .from(
+                                "wallpapers"
+                            )
+
+                            .insert({
+
+                                user_id:
+                                    user.id,
+
+                                title:
+                                    title,
+
+                                category:
+                                    category,
+
+                                file_path:
+                                    filePath
+
+                            });
+
+
+
+                    if (
+                        databaseError
+                    ) {
+
+                        console.error(
+                            "Wallpaper database error:",
+                            databaseError
+                        );
+
+
+                        uploadWallpaperMessage
+                            .textContent =
+
+                            "Image uploaded, but wallpaper information could not be saved: "
+                            +
+                            databaseError.message;
+
+
+                        submitWallpaperButton.disabled =
+                            false;
+
+
+                        submitWallpaperButton.textContent =
+                            "Upload Wallpaper";
+
+
+                        return;
+
+                    }
+
+
+
+                    /* =========================
+                       SUCCESS
+                    ========================= */
+
+                    uploadWallpaperMessage.textContent =
+                        "Wallpaper uploaded successfully!";
+
+
+                    submitWallpaperButton.textContent =
+                        "Uploaded ✓";
+
+
+                    /*
+                        Reload so the new wallpaper
+                        appears immediately.
+                    */
+
+                    setTimeout(
+
+                        function() {
+
+                            window.location.reload();
+
+                        },
+
+                        800
+
+                    );
+
+                }
+
+            );
+
+
+
+        /* =================================
+           ESC KEY
+        ================================= */
+
+        document
+            .addEventListener(
+
+                "keydown",
+
+                function(event) {
+
+                    if (
+                        event.key !==
+                        "Escape"
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    if (
+                        uploadWallpaperModal
+                            .classList
+                            .contains(
+                                "show"
+                            )
+                    ) {
+
+                        hideUploadModal();
+
+                        return;
+
+                    }
+
+
+                    if (
+                        preview
+                            .classList
+                            .contains(
+                                "show"
+                            )
+                    ) {
+
+                        hidePreview();
+
+                    }
+
+                }
+
+            );
+
+
+
+        /* =================================
+           START
+        ================================= */
+
+        async function startWallpaperPage() {
+
+            /*
+                First load wallpapers
+                uploaded by users.
+            */
+
+            await loadUploadedWallpapers();
+
+
+            /*
+                Then create categories
+                including uploaded images.
+            */
+
+            createCategories();
+
+
+            /*
+                Display everything.
+            */
+
+            displayWallpapers();
+
+        }
+
+
+        startWallpaperPage();
+
+    </script>
+
+
+
+    <!-- =================================
+         SHARED ACCOUNT MENU
+    ================================== -->
+
+    <script src="account-menu.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1920 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Login | The Everything</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 40px 20px;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            color: white;
+
+            background:
+                radial-gradient(
+                    circle at 20% 20%,
+                    rgba(124,58,237,0.18),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at 80% 70%,
+                    rgba(32,201,187,0.15),
+                    transparent 35%
+                ),
+                #05070d;
+        }
+
+
+        .login-container {
+            width: min(420px, 100%);
+
+            padding: 38px;
+
+            border-radius: 22px;
+
+            background:
+                rgba(13,17,25,0.92);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.08);
+
+            box-shadow:
+                0 25px 70px
+                rgba(0,0,0,0.35);
+        }
+
+
+        .logo {
+            text-align: center;
+
+            margin-bottom: 30px;
+
+            font-size: 18px;
+
+            font-weight: 800;
+
+            letter-spacing: 2px;
+        }
+
+
+        h1 {
+            margin: 0 0 8px;
+
+            text-align: center;
+
+            font-size: 30px;
+        }
+
+
+        .description {
+            margin:
+                0 0 28px;
+
+            text-align: center;
+
+            color: #7e8798;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+
+
+        /* =================================
+           AVATAR
+        ================================= */
+
+        .avatar-section {
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            margin-bottom: 28px;
+        }
+
+
+        .avatar-preview {
+            width: 100px;
+            height: 100px;
+
+            position: relative;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(124,58,237,0.25),
+                    rgba(32,201,187,0.20)
+                );
+
+            border:
+                2px solid
+                rgba(255,255,255,0.10);
+
+            box-shadow:
+                0 12px 35px
+                rgba(0,0,0,0.25);
+        }
+
+
+        #avatarPreviewImage {
+            width: 100%;
+            height: 100%;
+
+            display: none;
+
+            object-fit: cover;
+        }
+
+
+        #avatarPlaceholder {
+            font-size: 42px;
+
+            user-select: none;
+        }
+
+
+        .choose-avatar-button {
+            margin-top: 14px;
+
+            padding:
+                9px 16px;
+
+            border-radius: 9px;
+
+            cursor: pointer;
+
+            color: #72e7db;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            background:
+                rgba(32,201,187,0.08);
+
+            border:
+                1px solid
+                rgba(32,201,187,0.20);
+
+            transition:
+                0.2s ease;
+        }
+
+
+        .choose-avatar-button:hover {
+            background:
+                rgba(32,201,187,0.16);
+
+            border-color:
+                rgba(32,201,187,0.40);
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        #avatarFile {
+            display: none;
+        }
+
+
+        .avatar-note {
+            margin:
+                9px 0
+                0;
+
+            color:
+                #626d7d;
+
+            text-align: center;
+
+            font-size:
+                11px;
+
+            line-height:
+                1.5;
+        }
+
+
+
+        /* =================================
+           FORM
+        ================================= */
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+
+        label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #aeb6c3;
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+
+        .input-note {
+            margin:
+                7px 0
+                0;
+
+            color:
+                #626d7d;
+
+            font-size:
+                11px;
+
+            line-height:
+                1.5;
+        }
+
+
+        input {
+            width: 100%;
+            height: 48px;
+
+            padding:
+                0 14px;
+
+            outline: none;
+
+            border-radius: 10px;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.10);
+
+            background:
+                rgba(255,255,255,0.04);
+
+            color: white;
+
+            font-size: 14px;
+
+            transition:
+                border-color 0.2s ease,
+                background 0.2s ease;
+        }
+
+
+        input:focus {
+            border-color:
+                rgba(32,201,187,0.65);
+
+            background:
+                rgba(255,255,255,0.06);
+        }
+
+
+
+        /* =================================
+           BUTTONS
+        ================================= */
+
+        .buttons {
+            display: flex;
+
+            gap: 10px;
+
+            margin-top: 25px;
+        }
+
+
+        button {
+            flex: 1;
+
+            min-height: 46px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+            transition:
+                transform 0.2s ease,
+                opacity 0.2s ease;
+        }
+
+
+        button:hover {
+            transform:
+                translateY(-2px);
+        }
+
+
+        button:disabled {
+            cursor: not-allowed;
+
+            opacity: 0.55;
+
+            transform: none;
+        }
+
+
+        #loginButton {
+            color: #06100f;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #45f1bd,
+                    #66ebdb
+                );
+        }
+
+
+        #signupButton {
+            color: white;
+
+            background:
+                rgba(255,255,255,0.08);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.10);
+        }
+
+
+
+        /* =================================
+           MESSAGE
+        ================================= */
+
+        #message {
+            min-height: 22px;
+
+            margin-top: 20px;
+
+            text-align: center;
+
+            color: #9ca6b4;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+
+        .back-home {
+            display: block;
+
+            margin-top: 24px;
+
+            text-align: center;
+
+            color: #6fe4d8;
+
+            text-decoration: none;
+
+            font-size: 13px;
+        }
+
+
+        .back-home:hover {
+            text-decoration: underline;
+        }
+
+
+        @media (max-width: 500px) {
+
+            .login-container {
+                padding: 28px 22px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="login-container">
+
+
+        <div class="logo">
+            THE EVERYTHING
+        </div>
+
+
+        <h1>
+            Welcome
+        </h1>
+
+
+        <p class="description">
+            Login to your account or create a new one.
+        </p>
+
+
+
+        <!-- =================================
+             AVATAR
+        ================================== -->
+
+        <div class="avatar-section">
+
+            <div class="avatar-preview">
+
+                <img
+                    id="avatarPreviewImage"
+                    src=""
+                    alt="Profile picture"
+                >
+
+                <span id="avatarPlaceholder">
+                    👤
+                </span>
+
+            </div>
+
+
+            <label
+                for="avatarFile"
+                class="choose-avatar-button"
+            >
+                Choose Profile Picture
+            </label>
+
+
+            <input
+                type="file"
+                id="avatarFile"
+                accept="image/png,image/jpeg,image/webp,image/gif"
+            >
+
+
+            <p class="avatar-note">
+                Optional • Maximum 2 MB
+            </p>
+
+        </div>
+
+
+
+        <!-- =================================
+             USERNAME
+        ================================== -->
+
+        <div class="form-group">
+
+            <label for="username">
+                Username
+            </label>
+
+            <input
+                type="text"
+                id="username"
+                placeholder="Choose a username"
+                autocomplete="username"
+                maxlength="30"
+                spellcheck="false"
+            >
+
+            <p class="input-note">
+                Required for Sign Up • Must be unique • 3–30 characters
+                (letters, numbers, dot, underscore, or hyphen).
+            </p>
+
+        </div>
+
+
+
+        <!-- =================================
+             EMAIL
+        ================================== -->
+
+        <div class="form-group">
+
+            <label for="email">
+                Email
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="you@example.com"
+                autocomplete="email"
+            >
+
+        </div>
+
+
+
+        <!-- =================================
+             PASSWORD
+        ================================== -->
+
+        <div class="form-group">
+
+            <label for="password">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+            >
+
+        </div>
+
+
+
+        <!-- =================================
+             BUTTONS
+        ================================== -->
+
+        <div class="buttons">
+
+            <button
+                type="button"
+                id="loginButton"
+            >
+                Login
+            </button>
+
+
+            <button
+                type="button"
+                id="signupButton"
+            >
+                Sign Up
+            </button>
+
+        </div>
+
+
+        <p id="message"></p>
+
+
+        <a
+            href="index.html"
+            class="back-home"
+        >
+            ← Back to Home
+        </a>
+
+    </div>
+
+
+
+    <!-- =================================
+         SUPABASE
+    ================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+
+    <script>
+
+        /* =================================
+           SUPABASE SETTINGS
+        ================================= */
+
+        const SUPABASE_URL =
+            "https://tnavsfbolastevebukxl.supabase.co";
+
+
+        const SUPABASE_KEY =
+            "sb_publishable_3FX_mPM-A6dIY-nQTtFZQg_5HPoWO9B";
+
+
+        const supabaseClient =
+            supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
+            );
+
+
+
+        /* =================================
+           ELEMENTS
+        ================================= */
+
+        const usernameInput =
+            document.getElementById(
+                "username"
+            );
+
+
+        const emailInput =
+            document.getElementById(
+                "email"
+            );
+
+
+        const passwordInput =
+            document.getElementById(
+                "password"
+            );
+
+
+        const avatarFileInput =
+            document.getElementById(
+                "avatarFile"
+            );
+
+
+        const avatarPreviewImage =
+            document.getElementById(
+                "avatarPreviewImage"
+            );
+
+
+        const avatarPlaceholder =
+            document.getElementById(
+                "avatarPlaceholder"
+            );
+
+
+        const loginButton =
+            document.getElementById(
+                "loginButton"
+            );
+
+
+        const signupButton =
+            document.getElementById(
+                "signupButton"
+            );
+
+
+        const message =
+            document.getElementById(
+                "message"
+            );
+
+
+
+        let selectedAvatarFile =
+            null;
+
+
+        let temporaryAvatarUrl =
+            null;
+
+
+
+        /* =================================
+           BUTTON STATE
+        ================================= */
+
+        function setButtonsDisabled(
+            disabled
+        ) {
+
+            loginButton.disabled =
+                disabled;
+
+
+            signupButton.disabled =
+                disabled;
+
+        }
+
+
+
+        /* =================================
+           SHOW AVATAR
+        ================================= */
+
+        function showAvatar(
+            url
+        ) {
+
+            if (!url) {
+
+                avatarPreviewImage.style.display =
+                    "none";
+
+
+                avatarPlaceholder.style.display =
+                    "block";
+
+
+                return;
+
+            }
+
+
+            avatarPreviewImage.src =
+                url;
+
+
+            avatarPreviewImage.style.display =
+                "block";
+
+
+            avatarPlaceholder.style.display =
+                "none";
+
+        }
+
+
+
+        /* =================================
+           AVATAR FILE CHANGE
+        ================================= */
+
+        avatarFileInput.addEventListener(
+
+            "change",
+
+            function() {
+
+                const file =
+                    this.files[0];
+
+
+                if (!file) {
+
+                    selectedAvatarFile =
+                        null;
+
+                    return;
+
+                }
+
+
+
+                /* IMAGE TYPE */
+
+                if (
+                    !file.type.startsWith(
+                        "image/"
+                    )
+                ) {
+
+                    message.textContent =
+                        "Please choose an image file.";
+
+
+                    avatarFileInput.value =
+                        "";
+
+
+                    selectedAvatarFile =
+                        null;
+
+
+                    return;
+
+                }
+
+
+
+                /* 2 MB LIMIT */
+
+                const maximumSize =
+                    2 * 1024 * 1024;
+
+
+                if (
+                    file.size >
+                    maximumSize
+                ) {
+
+                    message.textContent =
+                        "Profile picture must be 2 MB or smaller.";
+
+
+                    avatarFileInput.value =
+                        "";
+
+
+                    selectedAvatarFile =
+                        null;
+
+
+                    return;
+
+                }
+
+
+
+                selectedAvatarFile =
+                    file;
+
+
+
+                /*
+                    Remove old temporary URL
+                */
+
+                if (
+                    temporaryAvatarUrl
+                ) {
+
+                    URL.revokeObjectURL(
+                        temporaryAvatarUrl
+                    );
+
+                }
+
+
+
+                temporaryAvatarUrl =
+                    URL.createObjectURL(
+                        file
+                    );
+
+
+                showAvatar(
+                    temporaryAvatarUrl
+                );
+
+
+                message.textContent =
+                    "";
+
+            }
+
+        );
+
+
+
+        /* =================================
+           USERNAME RULES / AVAILABILITY
+        ================================= */
+
+        function isValidUsername(
+            username
+        ) {
+
+            return /^[A-Za-z0-9._-]{3,30}$/.test(
+                username
+            );
+
+        }
+
+
+
+        async function isUsernameAvailable(
+            username,
+            excludeUserId = null
+        ) {
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient
+                    .rpc(
+                        "is_username_available",
+                        {
+                            candidate_username:
+                                username,
+
+                            exclude_user_id:
+                                excludeUserId
+                        }
+                    );
+
+
+
+            if (error) {
+
+                console.error(
+                    "Username availability error:",
+                    error
+                );
+
+
+                throw error;
+
+            }
+
+
+
+            return data === true;
+
+        }
+
+
+
+        /* =================================
+           CREATE PROFILE IF NEEDED
+        ================================= */
+
+        async function createProfileIfNeeded(
+            user,
+            enteredUsername = ""
+        ) {
+
+            if (!user) {
+                return null;
+            }
+
+
+
+            const {
+                data: existingProfile,
+                error: profileCheckError
+            } =
+                await supabaseClient
+
+                    .from("profiles")
+
+                    .select(
+                        "id, username, avatar_url"
+                    )
+
+                    .eq(
+                        "id",
+                        user.id
+                    )
+
+                    .maybeSingle();
+
+
+
+            if (profileCheckError) {
+
+                console.error(
+                    "Profile check error:",
+                    profileCheckError
+                );
+
+
+                return null;
+
+            }
+
+
+
+            if (
+                existingProfile
+            ) {
+
+                return existingProfile;
+
+            }
+
+
+
+            const savedUsername =
+
+                enteredUsername.trim()
+
+                ||
+
+                user.user_metadata
+                    ?.username
+                    ?.trim()
+
+                ||
+
+                "";
+
+
+
+            if (
+                !isValidUsername(
+                    savedUsername
+                )
+            ) {
+
+                console.warn(
+                    "A valid username is required before a profile can be created."
+                );
+
+
+                return null;
+
+            }
+
+
+
+            const {
+                error: insertError
+            } =
+                await supabaseClient
+
+                    .from("profiles")
+
+                    .insert({
+
+                        id:
+                            user.id,
+
+                        username:
+                            savedUsername,
+
+                        avatar_url:
+                            null
+
+                    });
+
+
+
+            if (insertError) {
+
+                console.error(
+                    "Profile creation error:",
+                    insertError
+                );
+
+
+                return null;
+
+            }
+
+
+
+            return {
+
+                id:
+                    user.id,
+
+                username:
+                    savedUsername,
+
+                avatar_url:
+                    null
+
+            };
+
+        }
+
+
+
+        /* =================================
+           UPLOAD AVATAR
+        ================================= */
+
+        async function uploadAvatar(
+            user
+        ) {
+
+            if (
+                !user
+                ||
+                !selectedAvatarFile
+            ) {
+
+                return null;
+
+            }
+
+
+
+            /*
+                Get safe extension.
+            */
+
+            let extension =
+                selectedAvatarFile
+                    .name
+                    .split(".")
+                    .pop()
+                    .toLowerCase();
+
+
+
+            const allowedExtensions =
+                [
+                    "jpg",
+                    "jpeg",
+                    "png",
+                    "webp",
+                    "gif"
+                ];
+
+
+
+            if (
+                !allowedExtensions
+                    .includes(
+                        extension
+                    )
+            ) {
+
+                extension =
+                    "jpg";
+
+            }
+
+
+
+            /*
+                IMPORTANT:
+
+                First folder = user.id
+
+                This matches the Storage
+                policy we created.
+            */
+
+            const filePath =
+
+                user.id
+
+                +
+
+                "/avatar-"
+
+                +
+
+                Date.now()
+
+                +
+
+                "."
+
+                +
+
+                extension;
+
+
+
+            message.textContent =
+                "Uploading profile picture...";
+
+
+
+            const {
+                data: uploadData,
+                error: uploadError
+            } =
+                await supabaseClient
+
+                    .storage
+
+                    .from(
+                        "avatars"
+                    )
+
+                    .upload(
+
+                        filePath,
+
+                        selectedAvatarFile,
+
+                        {
+
+                            cacheControl:
+                                "3600",
+
+                            upsert:
+                                false,
+
+                            contentType:
+                                selectedAvatarFile.type
+
+                        }
+
+                    );
+
+
+
+            if (
+                uploadError
+            ) {
+
+                console.error(
+                    "Avatar upload error:",
+                    uploadError
+                );
+
+
+                throw uploadError;
+
+            }
+
+
+
+            /*
+                Get public URL
+            */
+
+            const {
+                data: publicUrlData
+            } =
+                supabaseClient
+
+                    .storage
+
+                    .from(
+                        "avatars"
+                    )
+
+                    .getPublicUrl(
+                        filePath
+                    );
+
+
+
+            const avatarUrl =
+                publicUrlData
+                    .publicUrl;
+
+
+
+            /*
+                Save avatar URL
+                inside profiles table
+            */
+
+            const {
+                error: profileUpdateError
+            } =
+                await supabaseClient
+
+                    .from(
+                        "profiles"
+                    )
+
+                    .update({
+
+                        avatar_url:
+                            avatarUrl
+
+                    })
+
+                    .eq(
+                        "id",
+                        user.id
+                    );
+
+
+
+            if (
+                profileUpdateError
+            ) {
+
+                console.error(
+                    "Avatar profile update error:",
+                    profileUpdateError
+                );
+
+
+                throw profileUpdateError;
+
+            }
+
+
+
+            showAvatar(
+                avatarUrl
+            );
+
+
+            selectedAvatarFile =
+                null;
+
+
+
+            return avatarUrl;
+
+        }
+
+
+
+        /* =================================
+           LOAD CURRENT PROFILE
+        ================================= */
+
+        async function loadCurrentProfile() {
+
+            const {
+                data: {
+                    session
+                }
+            } =
+                await supabaseClient
+                    .auth
+                    .getSession();
+
+
+
+            if (
+                !session
+            ) {
+
+                return;
+
+            }
+
+
+
+            const user =
+                session.user;
+
+
+
+            const {
+                data: profile
+            } =
+                await supabaseClient
+
+                    .from(
+                        "profiles"
+                    )
+
+                    .select(
+                        "username, avatar_url"
+                    )
+
+                    .eq(
+                        "id",
+                        user.id
+                    )
+
+                    .maybeSingle();
+
+
+
+            if (
+                profile?.username
+            ) {
+
+                usernameInput.value =
+                    profile.username;
+
+            }
+
+
+
+            if (
+                profile?.avatar_url
+            ) {
+
+                showAvatar(
+                    profile.avatar_url
+                );
+
+            }
+
+        }
+
+
+
+        /* =================================
+           SIGN UP
+        ================================= */
+
+        signupButton.addEventListener(
+
+            "click",
+
+            async function() {
+
+                const username =
+                    usernameInput
+                        .value
+                        .trim();
+
+
+                const email =
+                    emailInput
+                        .value
+                        .trim();
+
+
+                const password =
+                    passwordInput
+                        .value;
+
+
+
+                if (!username) {
+
+                    message.textContent =
+                        "Enter a username.";
+
+                    return;
+
+                }
+
+
+
+                if (
+                    username.length < 3
+                ) {
+
+                    message.textContent =
+                        "Username must be at least 3 characters.";
+
+                    return;
+
+                }
+
+
+
+                if (
+                    !isValidUsername(
+                        username
+                    )
+                ) {
+
+                    message.textContent =
+                        "Username can only use letters, numbers, dot, underscore, or hyphen (3–30 characters).";
+
+                    return;
+
+                }
+
+
+
+                if (
+                    !email
+                    ||
+                    !password
+                ) {
+
+                    message.textContent =
+                        "Enter your email and password.";
+
+                    return;
+
+                }
+
+
+
+                if (
+                    password.length < 6
+                ) {
+
+                    message.textContent =
+                        "Password must be at least 6 characters.";
+
+                    return;
+
+                }
+
+
+
+                setButtonsDisabled(
+                    true
+                );
+
+
+                message.textContent =
+                    "Checking username...";
+
+
+
+                try {
+
+                    const available =
+                        await isUsernameAvailable(
+                            username
+                        );
+
+
+
+                    if (!available) {
+
+                        message.textContent =
+                            "That username is already taken. Choose another one.";
+
+
+                        setButtonsDisabled(
+                            false
+                        );
+
+
+                        return;
+
+                    }
+
+                }
+
+                catch (availabilityError) {
+
+                    message.textContent =
+                        "Could not check the username. Make sure SUPABASE-USERNAME-FIX.sql has been run.";
+
+
+                    setButtonsDisabled(
+                        false
+                    );
+
+
+                    return;
+
+                }
+
+
+
+                message.textContent =
+                    "Creating account...";
+
+
+
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient
+
+                        .auth
+
+                        .signUp({
+
+                            email:
+                                email,
+
+                            password:
+                                password,
+
+                            options: {
+
+                                data: {
+
+                                    username:
+                                        username
+
+                                }
+
+                            }
+
+                        });
+
+
+
+                if (
+                    error
+                ) {
+
+                    let usernameWasTaken =
+                        false;
+
+
+                    try {
+
+                        usernameWasTaken =
+                            !(
+                                await isUsernameAvailable(
+                                    username
+                                )
+                            );
+
+                    }
+
+                    catch (availabilityError) {
+
+                        console.error(
+                            availabilityError
+                        );
+
+                    }
+
+
+                    message.textContent =
+                        usernameWasTaken
+
+                        ?
+                        "That username is already taken. Choose another one."
+
+                        :
+                        error.message;
+
+
+                    setButtonsDisabled(
+                        false
+                    );
+
+
+                    return;
+
+                }
+
+
+
+                /*
+                    If Supabase immediately
+                    logged the user in.
+                */
+
+                if (
+                    data.user
+                    &&
+                    data.session
+                ) {
+
+                    try {
+
+                        await createProfileIfNeeded(
+
+                            data.user,
+
+                            username
+
+                        );
+
+
+
+                        if (
+                            selectedAvatarFile
+                        ) {
+
+                            await uploadAvatar(
+                                data.user
+                            );
+
+                        }
+
+
+
+                        message.textContent =
+                            "Account created successfully!";
+
+                    }
+
+                    catch (
+                        uploadError
+                    ) {
+
+                        message.textContent =
+                            "Account created, but profile picture could not be uploaded.";
+
+                    }
+
+                }
+
+                else {
+
+                    /*
+                        Email confirmation is
+                        required.
+
+                        User must login before
+                        Storage upload because
+                        avatar upload is for
+                        authenticated users.
+                    */
+
+                    message.textContent =
+                        "Account created! Confirm your email, then login. You can choose your profile picture when you login.";
+
+                }
+
+
+
+                setButtonsDisabled(
+                    false
+                );
+
+            }
+
+        );
+
+
+
+        /* =================================
+           LOGIN
+        ================================= */
+
+        loginButton.addEventListener(
+
+            "click",
+
+            async function() {
+
+                const enteredUsername =
+                    usernameInput
+                        .value
+                        .trim();
+
+
+                const email =
+                    emailInput
+                        .value
+                        .trim();
+
+
+                const password =
+                    passwordInput
+                        .value;
+
+
+
+                if (
+                    !email
+                    ||
+                    !password
+                ) {
+
+                    message.textContent =
+                        "Enter your email and password.";
+
+                    return;
+
+                }
+
+
+
+                setButtonsDisabled(
+                    true
+                );
+
+
+                message.textContent =
+                    "Logging in...";
+
+
+
+                const {
+                    data,
+                    error
+                } =
+                    await supabaseClient
+
+                        .auth
+
+                        .signInWithPassword({
+
+                            email:
+                                email,
+
+                            password:
+                                password
+
+                        });
+
+
+
+                if (
+                    error
+                ) {
+
+                    message.textContent =
+                        error.message;
+
+
+                    setButtonsDisabled(
+                        false
+                    );
+
+
+                    return;
+
+                }
+
+
+
+                /*
+                    Make sure profile exists
+                */
+
+                await createProfileIfNeeded(
+
+                    data.user,
+
+                    enteredUsername
+
+                );
+
+
+
+                /*
+                    Upload avatar only
+                    if user selected one.
+                */
+
+                if (
+                    selectedAvatarFile
+                ) {
+
+                    try {
+
+                        await uploadAvatar(
+                            data.user
+                        );
+
+                    }
+
+                    catch (
+                        uploadError
+                    ) {
+
+                        message.textContent =
+                            "Login worked, but profile picture upload failed: "
+                            +
+                            uploadError.message;
+
+
+                        setButtonsDisabled(
+                            false
+                        );
+
+
+                        return;
+
+                    }
+
+                }
+
+
+
+                message.textContent =
+                    "Login successful!";
+
+
+
+                window.location.href =
+                    "wallpaper.html";
+
+            }
+
+        );
+
+
+
+        /* =================================
+           ENTER KEY
+        ================================= */
+
+        passwordInput.addEventListener(
+
+            "keydown",
+
+            function(event) {
+
+                if (
+                    event.key ===
+                    "Enter"
+                ) {
+
+                    loginButton.click();
+
+                }
+
+            }
+
+        );
+
+
+
+        /* =================================
+           START
+        ================================= */
+
+        loadCurrentProfile();
+
+    </script>
+
+</body>
+
+</html>

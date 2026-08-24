@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Episodes</title>
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            color: white;
+
+            background:
+
+                radial-gradient(
+                    circle at 20% 15%,
+                    rgba(255,80,40,0.14),
+                    transparent 30%
+                ),
+
+                radial-gradient(
+                    circle at 80% 80%,
+                    rgba(80,40,255,0.10),
+                    transparent 35%
+                ),
+
+                #05070c;
+
+        }
+
+
+        /* MAIN PAGE */
+
+        .page {
+
+            width: 90%;
+
+            max-width: 1250px;
+
+            margin: auto;
+
+            padding:
+                35px 0
+                100px;
+
+        }
+
+
+        /* BACK BUTTON */
+
+        .back-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding:
+                10px 16px;
+
+            border-radius:
+                10px;
+
+            text-decoration: none;
+
+            color:
+                #a7b0bd;
+
+            background:
+                rgba(255,255,255,0.04);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.08);
+
+            transition:
+                0.25s;
+
+        }
+
+
+        .back-button:hover {
+
+            color: white;
+
+            border-color:
+                rgba(255,110,60,0.4);
+
+            background:
+                rgba(255,110,60,0.08);
+
+        }
+
+
+        /* ANIME HERO */
+
+        .anime-hero {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 35px;
+
+            margin-top: 45px;
+
+            padding:
+                30px;
+
+            border-radius:
+                22px;
+
+            background:
+                rgba(255,255,255,0.03);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.06);
+
+        }
+
+
+        .anime-poster {
+
+            width: 230px;
+
+            height: 330px;
+
+            object-fit: cover;
+
+            border-radius:
+                18px;
+
+            box-shadow:
+                0 20px 45px
+                rgba(0,0,0,0.45);
+
+        }
+
+
+        .anime-details {
+
+            flex: 1;
+
+        }
+
+
+        .small-title {
+
+            margin:
+                0 0
+                10px;
+
+            color:
+                #ff784d;
+
+            font-size:
+                12px;
+
+            font-weight:
+                800;
+
+            letter-spacing:
+                4px;
+
+        }
+
+
+        .anime-details h1 {
+
+            margin:
+                0 0
+                14px;
+
+            font-size:
+                clamp(
+                    35px,
+                    5vw,
+                    58px
+                );
+
+        }
+
+
+        .genres {
+
+            color:
+                #9aa4b1;
+
+            margin-bottom:
+                18px;
+
+        }
+
+
+        .description {
+
+            max-width:
+                650px;
+
+            color:
+                #8994a2;
+
+            line-height:
+                1.7;
+
+            font-size:
+                15px;
+
+        }
+
+
+        .rating {
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            gap:
+                6px;
+
+            margin-top:
+                12px;
+
+            padding:
+                10px 15px;
+
+            border-radius:
+                10px;
+
+            color:
+                #ffb44d;
+
+            font-weight:
+                800;
+
+            background:
+                rgba(255,170,50,0.08);
+
+            border:
+                1px solid
+                rgba(255,170,50,0.16);
+
+        }
+
+
+        /* EPISODES */
+
+        .episodes-section {
+
+            margin-top:
+                55px;
+
+        }
+
+
+        .episodes-heading p {
+
+            margin: 0;
+
+            color:
+                #ff784d;
+
+            font-size:
+                11px;
+
+            font-weight:
+                800;
+
+            letter-spacing:
+                4px;
+
+        }
+
+
+        .episodes-heading h2 {
+
+            margin:
+                8px 0
+                25px;
+
+            font-size:
+                30px;
+
+        }
+
+
+        .episodes-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    4,
+                    minmax(0,1fr)
+                );
+
+            gap:
+                14px;
+
+        }
+
+
+        .episode {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content:
+                space-between;
+
+            min-height:
+                65px;
+
+            padding:
+                0 18px;
+
+            border-radius:
+                12px;
+
+            color:
+                #dce4ed;
+
+            text-decoration:
+                none;
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.07);
+
+            transition:
+                0.25s;
+
+        }
+
+
+        .episode:hover {
+
+            transform:
+                translateY(-3px);
+
+            color:
+                white;
+
+            background:
+                rgba(255,100,50,0.08);
+
+            border-color:
+                rgba(255,100,50,0.40);
+
+        }
+
+
+        .episode-number {
+
+            font-weight:
+                700;
+
+        }
+
+
+        .play {
+
+            color:
+                #ff784d;
+
+            font-size:
+                12px;
+
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 850px) {
+
+            .anime-hero {
+
+                flex-direction:
+                    column;
+
+                align-items:
+                    flex-start;
+
+            }
+
+
+            .episodes-grid {
+
+                grid-template-columns:
+                    repeat(
+                        2,
+                        minmax(0,1fr)
+                    );
+
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .anime-poster {
+
+                width:
+                    100%;
+
+                height:
+                    auto;
+
+                max-height:
+                    450px;
+
+            }
+
+
+            .episodes-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+    
+
+        .episodes-meta {
+            margin-top: 8px;
+            color: #788391;
+            font-size: 13px;
+        }
+
+        .page-message {
+            margin: 80px auto;
+            max-width: 650px;
+            padding: 28px;
+            border-radius: 18px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: #cbd2dc;
+            line-height: 1.7;
+        }
+</style>
+</head>
+<body>
+    <main class="page" id="animePage">
+        <a href="anime.html" class="back-button">← Back to Anime</a>
+
+        <section class="anime-hero">
+            <img id="animePoster" src="" alt="Anime poster" class="anime-poster">
+
+            <div class="anime-details">
+                <p class="small-title">ANIME SERIES</p>
+                <h1 id="animeTitle">Anime</h1>
+                <p class="genres" id="animeGenres"></p>
+                <p class="description" id="animeDescription"></p>
+                <div class="rating" id="animeRating">★ -</div>
+            </div>
+        </section>
+
+        <section class="episodes-section">
+            <div class="episodes-heading">
+                <p>WATCH NOW</p>
+                <h2>Episodes</h2>
+                <div class="episodes-meta" id="episodeCount"></div>
+            </div>
+
+            <div class="episodes-grid" id="episodesGrid"></div>
+        </section>
+    </main>
+
+    <script src="anime-data.js?v=3"></script>
+    <script src="anime-details.js?v=3"></script>
+</body>
+</html>

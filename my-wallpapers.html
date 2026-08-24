@@ -1,0 +1,2444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        My Wallpapers | The Everything
+    </title>
+
+
+    <style>
+
+        /* =================================
+           RESET
+        ================================= */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            color: white;
+
+            background:
+
+                radial-gradient(
+                    circle at 10% 25%,
+                    rgba(36,255,194,0.11),
+                    transparent 27%
+                ),
+
+                radial-gradient(
+                    circle at 90% 35%,
+                    rgba(118,78,255,0.12),
+                    transparent 30%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #030609 0%,
+                    #071018 45%,
+                    #04070c 100%
+                );
+
+        }
+
+
+
+        /* =================================
+           HEADER
+        ================================= */
+
+        .top-header {
+
+            width: 100%;
+
+            min-height: 74px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding:
+                0 6%;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 500;
+
+            background:
+                rgba(3,7,12,0.96);
+
+            border-bottom:
+                1px solid
+                rgba(255,255,255,0.06);
+
+        }
+
+
+        .logo {
+
+            font-size:
+                18px;
+
+            font-weight:
+                800;
+
+            letter-spacing:
+                2px;
+
+        }
+
+
+        .back-button {
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            gap:
+                8px;
+
+            padding:
+                10px 16px;
+
+            border-radius:
+                10px;
+
+            color:
+                #cdd6df;
+
+            text-decoration:
+                none;
+
+            font-size:
+                13px;
+
+            font-weight:
+                700;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.10);
+
+            background:
+                rgba(255,255,255,0.04);
+
+            transition:
+                0.2s ease;
+
+        }
+
+
+        .back-button:hover {
+
+            color:
+                #5ff7d1;
+
+            border-color:
+                rgba(83,245,205,0.35);
+
+            background:
+                rgba(83,245,205,0.07);
+
+            transform:
+                translateX(-3px);
+
+        }
+
+
+
+        /* =================================
+           HERO
+        ================================= */
+
+        .hero {
+
+            padding:
+                70px 20px
+                45px;
+
+            text-align:
+                center;
+
+        }
+
+
+        .small-title {
+
+            margin:
+                0 0 12px;
+
+            color:
+                #59f5cd;
+
+            font-size:
+                11px;
+
+            font-weight:
+                800;
+
+            letter-spacing:
+                4px;
+
+            text-transform:
+                uppercase;
+
+        }
+
+
+        .hero h1 {
+
+            margin:
+                0 0 12px;
+
+            font-size:
+                clamp(
+                    34px,
+                    5vw,
+                    54px
+                );
+
+        }
+
+
+        .hero-description {
+
+            max-width:
+                600px;
+
+            margin:
+                auto;
+
+            color:
+                #84909e;
+
+            font-size:
+                14px;
+
+            line-height:
+                1.7;
+
+        }
+
+
+
+        /* =================================
+           INFO BAR
+        ================================= */
+
+        .info-bar {
+
+            width:
+                min(
+                    1400px,
+                    90%
+                );
+
+            margin:
+                0 auto
+                22px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            gap:
+                20px;
+
+        }
+
+
+        .count-text {
+
+            color:
+                #7f8b99;
+
+            font-size:
+                12px;
+
+            text-transform:
+                uppercase;
+
+            letter-spacing:
+                1.3px;
+
+        }
+
+
+        .count-text strong {
+
+            color:
+                #55eec7;
+
+        }
+
+
+        .add-button {
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            gap:
+                7px;
+
+            padding:
+                11px 17px;
+
+            border-radius:
+                10px;
+
+            color:
+                #03110d;
+
+            text-decoration:
+                none;
+
+            font-size:
+                12px;
+
+            font-weight:
+                800;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #45f1bd,
+                    #66ebdb
+                );
+
+        }
+
+
+
+        /* =================================
+           STATUS
+        ================================= */
+
+        .status-message {
+
+            width:
+                min(
+                    1400px,
+                    90%
+                );
+
+            margin:
+                30px auto;
+
+            padding:
+                60px 20px;
+
+            text-align:
+                center;
+
+            color:
+                #84909e;
+
+            font-size:
+                15px;
+
+        }
+
+
+
+        /* =================================
+           GRID
+        ================================= */
+
+        .wallpaper-grid {
+
+            width:
+                min(
+                    1400px,
+                    90%
+                );
+
+            margin:
+                0 auto
+                100px;
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(
+                    3,
+                    minmax(0, 1fr)
+                );
+
+            gap:
+                22px;
+
+        }
+
+
+
+        /* =================================
+           CARD
+        ================================= */
+
+        .wallpaper-card {
+
+            position:
+                relative;
+
+            height:
+                290px;
+
+            overflow:
+                hidden;
+
+            border-radius:
+                18px;
+
+            background:
+                #080d13;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.07);
+
+            box-shadow:
+                0 10px 30px
+                rgba(0,0,0,0.25);
+
+            transition:
+                0.22s ease;
+
+        }
+
+
+        .wallpaper-card:hover {
+
+            transform:
+                translateY(-4px);
+
+            border-color:
+                rgba(83,245,205,0.35);
+
+            box-shadow:
+                0 15px 35px
+                rgba(0,0,0,0.35);
+
+        }
+
+
+        .wallpaper-image {
+
+            position:
+                absolute;
+
+            inset:
+                0;
+
+            width:
+                100%;
+
+            height:
+                100%;
+
+            object-fit:
+                cover;
+
+            transition:
+                transform 0.3s ease;
+
+        }
+
+
+        .wallpaper-card:hover
+        .wallpaper-image {
+
+            transform:
+                scale(1.035);
+
+        }
+
+
+        .wallpaper-card::after {
+
+            content: "";
+
+            position:
+                absolute;
+
+            inset:
+                0;
+
+            z-index:
+                1;
+
+            pointer-events:
+                none;
+
+            background:
+                linear-gradient(
+                    to top,
+                    rgba(2,5,8,0.96) 0%,
+                    rgba(2,5,8,0.50) 42%,
+                    transparent 78%
+                );
+
+        }
+
+
+
+        /* =================================
+           CATEGORY
+        ================================= */
+
+        .wallpaper-category {
+
+            position:
+                absolute;
+
+            top:
+                14px;
+
+            left:
+                14px;
+
+            z-index:
+                5;
+
+            padding:
+                7px 11px;
+
+            border-radius:
+                50px;
+
+            color:
+                #6affd8;
+
+            background:
+                rgba(4,11,12,0.90);
+
+            border:
+                1px solid
+                rgba(91,255,213,0.22);
+
+            font-size:
+                10px;
+
+            font-weight:
+                800;
+
+            text-transform:
+                uppercase;
+
+            letter-spacing:
+                1px;
+
+        }
+
+
+
+        /* =================================
+           CARD CONTENT
+        ================================= */
+
+        .wallpaper-content {
+
+            position:
+                absolute;
+
+            inset:
+                0;
+
+            z-index:
+                4;
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            justify-content:
+                flex-end;
+
+            padding:
+                19px;
+
+        }
+
+
+        .wallpaper-title {
+
+            margin:
+                0;
+
+            font-size:
+                20px;
+
+            font-weight:
+                800;
+
+            white-space:
+                nowrap;
+
+            overflow:
+                hidden;
+
+            text-overflow:
+                ellipsis;
+
+        }
+
+
+        .wallpaper-date {
+
+            margin:
+                6px 0
+                13px;
+
+            color:
+                #84909e;
+
+            font-size:
+                10px;
+
+        }
+
+
+
+        /* =================================
+           BUTTONS
+        ================================= */
+
+        .wallpaper-actions {
+
+            display:
+                flex;
+
+            gap:
+                9px;
+
+        }
+
+
+        .action-button {
+
+            flex:
+                1;
+
+            min-height:
+                39px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            border:
+                none;
+
+            border-radius:
+                9px;
+
+            cursor:
+                pointer;
+
+            font-family:
+                inherit;
+
+            font-size:
+                12px;
+
+            font-weight:
+                800;
+
+            transition:
+                0.2s ease;
+
+        }
+
+
+        .preview-button {
+
+            color:
+                white;
+
+            background:
+                rgba(255,255,255,0.14);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.14);
+
+        }
+
+
+        .preview-button:hover {
+
+            background:
+                rgba(255,255,255,0.22);
+
+        }
+
+
+        .delete-button {
+
+            color:
+                #ffb6bc;
+
+            background:
+                rgba(255,70,85,0.12);
+
+            border:
+                1px solid
+                rgba(255,90,104,0.22);
+
+        }
+
+
+        .delete-button:hover {
+
+            color:
+                white;
+
+            background:
+                rgba(255,70,85,0.25);
+
+            border-color:
+                rgba(255,90,104,0.45);
+
+        }
+
+
+        .delete-button:disabled {
+
+            cursor:
+                not-allowed;
+
+            opacity:
+                0.55;
+
+        }
+
+
+
+        /* =================================
+           PREVIEW
+        ================================= */
+
+        .preview {
+
+            position:
+                fixed;
+
+            inset:
+                0;
+
+            z-index:
+                20000;
+
+            display:
+                none;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            padding:
+                50px;
+
+            background:
+                rgba(0,0,0,0.96);
+
+        }
+
+
+        .preview.show {
+
+            display:
+                flex;
+
+        }
+
+
+        .preview-image {
+
+            max-width:
+                92vw;
+
+            max-height:
+                84vh;
+
+            object-fit:
+                contain;
+
+            border-radius:
+                12px;
+
+            box-shadow:
+                0 25px 70px
+                rgba(0,0,0,0.70);
+
+        }
+
+
+        .close-preview {
+
+            position:
+                absolute;
+
+            top:
+                22px;
+
+            right:
+                30px;
+
+            width:
+                46px;
+
+            height:
+                46px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            border-radius:
+                50%;
+
+            cursor:
+                pointer;
+
+            color:
+                white;
+
+            font-size:
+                32px;
+
+            background:
+                rgba(255,255,255,0.08);
+
+        }
+
+
+
+        /* =================================
+           DELETE MODAL
+        ================================= */
+
+        .delete-modal {
+
+            position:
+                fixed;
+
+            inset:
+                0;
+
+            z-index:
+                30000;
+
+            display:
+                none;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            padding:
+                20px;
+
+            background:
+                rgba(0,0,0,0.82);
+
+            backdrop-filter:
+                blur(10px);
+
+        }
+
+
+        .delete-modal.show {
+
+            display:
+                flex;
+
+        }
+
+
+        .delete-box {
+
+            width:
+                min(
+                    420px,
+                    100%
+                );
+
+            padding:
+                30px;
+
+            border-radius:
+                20px;
+
+            text-align:
+                center;
+
+            background:
+                #0b1119;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.09);
+
+            box-shadow:
+                0 30px 80px
+                rgba(0,0,0,0.60);
+
+        }
+
+
+        .delete-icon {
+
+            width:
+                60px;
+
+            height:
+                60px;
+
+            margin:
+                0 auto
+                17px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            border-radius:
+                50%;
+
+            font-size:
+                25px;
+
+            background:
+                rgba(255,70,85,0.12);
+
+            border:
+                1px solid
+                rgba(255,90,104,0.22);
+
+        }
+
+
+        .delete-box h2 {
+
+            margin:
+                0 0 9px;
+
+            font-size:
+                23px;
+
+        }
+
+
+        .delete-box p {
+
+            margin:
+                0;
+
+            color:
+                #84909e;
+
+            font-size:
+                13px;
+
+            line-height:
+                1.6;
+
+        }
+
+
+        .delete-wallpaper-name {
+
+            margin-top:
+                8px !important;
+
+            color:
+                white !important;
+
+            font-weight:
+                700;
+
+        }
+
+
+        .delete-actions {
+
+            display:
+                flex;
+
+            gap:
+                10px;
+
+            margin-top:
+                25px;
+
+        }
+
+
+        .cancel-delete,
+        .confirm-delete {
+
+            flex:
+                1;
+
+            min-height:
+                45px;
+
+            border:
+                none;
+
+            border-radius:
+                10px;
+
+            cursor:
+                pointer;
+
+            font-family:
+                inherit;
+
+            font-size:
+                12px;
+
+            font-weight:
+                800;
+
+        }
+
+
+        .cancel-delete {
+
+            color:
+                white;
+
+            background:
+                rgba(255,255,255,0.08);
+
+        }
+
+
+        .confirm-delete {
+
+            color:
+                white;
+
+            background:
+                #d93d4b;
+
+        }
+
+
+        .confirm-delete:disabled {
+
+            cursor:
+                not-allowed;
+
+            opacity:
+                0.5;
+
+        }
+
+
+
+        /* =================================
+           MOBILE
+        ================================= */
+
+        @media (max-width: 1050px) {
+
+            .wallpaper-grid {
+
+                grid-template-columns:
+                    repeat(
+                        2,
+                        minmax(0, 1fr)
+                    );
+
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .top-header {
+
+                padding:
+                    15px;
+
+                min-height:
+                    68px;
+
+            }
+
+
+            .logo {
+
+                font-size:
+                    14px;
+
+            }
+
+
+            .back-button {
+
+                padding:
+                    9px 12px;
+
+                font-size:
+                    11px;
+
+            }
+
+
+            .hero {
+
+                padding:
+                    50px 18px
+                    35px;
+
+            }
+
+
+            .info-bar {
+
+                flex-direction:
+                    column;
+
+                align-items:
+                    stretch;
+
+            }
+
+
+            .add-button {
+
+                width:
+                    100%;
+
+            }
+
+
+            .wallpaper-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .wallpaper-card {
+
+                height:
+                    270px;
+
+            }
+
+
+            .preview {
+
+                padding:
+                    20px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =================================
+         HEADER
+    ================================== -->
+
+    <header class="top-header">
+
+        <div class="logo">
+            THE EVERYTHING
+        </div>
+
+
+        <a
+            href="wallpaper.html"
+            class="back-button"
+        >
+            &larr; Wallpapers
+        </a>
+
+    </header>
+
+
+
+    <!-- =================================
+         HERO
+    ================================== -->
+
+    <section class="hero">
+
+        <p class="small-title">
+            Your Collection
+        </p>
+
+
+        <h1>
+            My Wallpapers
+        </h1>
+
+
+        <p class="hero-description">
+            View and manage all wallpapers you have uploaded to The Everything.
+        </p>
+
+    </section>
+
+
+
+    <!-- =================================
+         INFO
+    ================================== -->
+
+    <div class="info-bar">
+
+        <div class="count-text">
+
+            You uploaded
+
+            <strong id="wallpaperCount">
+                0
+            </strong>
+
+            wallpapers
+
+        </div>
+
+
+        <a
+            href="wallpaper.html"
+            class="add-button"
+        >
+            + Add Wallpaper
+        </a>
+
+    </div>
+
+
+
+    <!-- =================================
+         STATUS
+    ================================== -->
+
+    <div
+        class="status-message"
+        id="statusMessage"
+    >
+        Loading your wallpapers...
+    </div>
+
+
+
+    <!-- =================================
+         GRID
+    ================================== -->
+
+    <main
+        class="wallpaper-grid"
+        id="wallpaperGrid"
+    >
+    </main>
+
+
+
+    <!-- =================================
+         PREVIEW
+    ================================== -->
+
+    <div
+        class="preview"
+        id="preview"
+    >
+
+        <span
+            class="close-preview"
+            id="closePreview"
+        >
+            &times;
+        </span>
+
+
+        <img
+            src=""
+            alt="Wallpaper preview"
+            class="preview-image"
+            id="previewImage"
+        >
+
+    </div>
+
+
+
+    <!-- =================================
+         DELETE CONFIRMATION
+    ================================== -->
+
+    <div
+        class="delete-modal"
+        id="deleteModal"
+    >
+
+        <div class="delete-box">
+
+            <div class="delete-icon">
+                🗑
+            </div>
+
+
+            <h2>
+                Delete Wallpaper?
+            </h2>
+
+
+            <p>
+                This wallpaper will be permanently removed.
+            </p>
+
+
+            <p
+                class="delete-wallpaper-name"
+                id="deleteWallpaperName"
+            >
+            </p>
+
+
+            <div class="delete-actions">
+
+                <button
+                    type="button"
+                    class="cancel-delete"
+                    id="cancelDelete"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="button"
+                    class="confirm-delete"
+                    id="confirmDelete"
+                >
+                    Delete
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================
+         SUPABASE
+    ================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+
+    <script>
+
+        /* =================================
+           SUPABASE SETTINGS
+        ================================= */
+
+        const SUPABASE_URL =
+            "https://tnavsfbolastevebukxl.supabase.co";
+
+
+        const SUPABASE_KEY =
+            "sb_publishable_3FX_mPM-A6dIY-nQTtFZQg_5HPoWO9B";
+
+
+        const myWallpapersSupabase =
+            supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
+            );
+
+
+
+        /* =================================
+           ELEMENTS
+        ================================= */
+
+        const wallpaperGrid =
+            document.getElementById(
+                "wallpaperGrid"
+            );
+
+
+        const wallpaperCount =
+            document.getElementById(
+                "wallpaperCount"
+            );
+
+
+        const statusMessage =
+            document.getElementById(
+                "statusMessage"
+            );
+
+
+        const preview =
+            document.getElementById(
+                "preview"
+            );
+
+
+        const previewImage =
+            document.getElementById(
+                "previewImage"
+            );
+
+
+        const closePreview =
+            document.getElementById(
+                "closePreview"
+            );
+
+
+        const deleteModal =
+            document.getElementById(
+                "deleteModal"
+            );
+
+
+        const deleteWallpaperName =
+            document.getElementById(
+                "deleteWallpaperName"
+            );
+
+
+        const cancelDelete =
+            document.getElementById(
+                "cancelDelete"
+            );
+
+
+        const confirmDelete =
+            document.getElementById(
+                "confirmDelete"
+            );
+
+
+
+        /* =================================
+           CURRENT DELETE ITEM
+        ================================= */
+
+        let wallpaperToDelete =
+            null;
+
+
+
+        /* =================================
+           FORMAT CATEGORY
+        ================================= */
+
+        function formatCategory(
+            category
+        ) {
+
+            if (!category) {
+                return "Other";
+            }
+
+
+            return category
+
+                .replace(
+                    /[-_]+/g,
+                    " "
+                )
+
+                .split(" ")
+
+                .map(
+
+                    word =>
+
+                        word
+                            .charAt(0)
+                            .toUpperCase()
+
+                        +
+
+                        word.slice(1)
+
+                )
+
+                .join(" ");
+
+        }
+
+
+
+        /* =================================
+           FORMAT DATE
+        ================================= */
+
+        function formatDate(
+            date
+        ) {
+
+            if (!date) {
+                return "";
+            }
+
+
+            const value =
+                new Date(
+                    date
+                );
+
+
+            return value
+                .toLocaleDateString(
+
+                    undefined,
+
+                    {
+
+                        year:
+                            "numeric",
+
+                        month:
+                            "short",
+
+                        day:
+                            "numeric"
+
+                    }
+
+                );
+
+        }
+
+
+
+        /* =================================
+           LOAD MY WALLPAPERS
+        ================================= */
+
+        async function loadMyWallpapers() {
+
+            statusMessage.style.display =
+                "block";
+
+
+            statusMessage.textContent =
+                "Loading your wallpapers...";
+
+
+            wallpaperGrid.innerHTML =
+                "";
+
+
+
+            /* =============================
+               GET CURRENT USER
+            ============================= */
+
+            const {
+                data: {
+                    user
+                },
+                error:
+                    userError
+            } =
+                await myWallpapersSupabase
+
+                    .auth
+
+                    .getUser();
+
+
+
+            if (
+                userError
+                ||
+                !user
+            ) {
+
+                window.location.href =
+                    "login.html";
+
+
+                return;
+
+            }
+
+
+
+            /* =============================
+               LOAD ONLY THIS USER
+            ============================= */
+
+            const {
+                data:
+                    wallpapers,
+                error
+            } =
+                await myWallpapersSupabase
+
+                    .from(
+                        "wallpapers"
+                    )
+
+                    .select(
+                        "id, user_id, title, category, file_path, created_at"
+                    )
+
+                    .eq(
+                        "user_id",
+                        user.id
+                    )
+
+                    .order(
+                        "created_at",
+                        {
+                            ascending:
+                                false
+                        }
+                    );
+
+
+
+            if (
+                error
+            ) {
+
+                console.error(
+                    "Load wallpapers error:",
+                    error
+                );
+
+
+                statusMessage.textContent =
+                    "Could not load your wallpapers.";
+
+
+                return;
+
+            }
+
+
+
+            wallpaperCount.textContent =
+                wallpapers.length;
+
+
+
+            /* =============================
+               EMPTY
+            ============================= */
+
+            if (
+                wallpapers.length === 0
+            ) {
+
+                statusMessage.innerHTML =
+
+                    `
+                        You haven't uploaded any wallpapers yet.
+                        <br><br>
+                        Go to Wallpapers and press the + button.
+                    `;
+
+
+                return;
+
+            }
+
+
+
+            statusMessage.style.display =
+                "none";
+
+
+
+            /* =============================
+               CREATE CARDS
+            ============================= */
+
+            wallpapers.forEach(
+
+                wallpaper => {
+
+                    createWallpaperCard(
+                        wallpaper
+                    );
+
+                }
+
+            );
+
+        }
+
+
+
+        /* =================================
+           CREATE WALLPAPER CARD
+        ================================= */
+
+        function createWallpaperCard(
+            wallpaper
+        ) {
+
+            const {
+                data:
+                    publicUrlData
+            } =
+                myWallpapersSupabase
+
+                    .storage
+
+                    .from(
+                        "wallpapers"
+                    )
+
+                    .getPublicUrl(
+                        wallpaper.file_path
+                    );
+
+
+            const imageUrl =
+                publicUrlData.publicUrl;
+
+
+
+            /* CARD */
+
+            const card =
+                document.createElement(
+                    "article"
+                );
+
+
+            card.className =
+                "wallpaper-card";
+
+
+
+            /* IMAGE */
+
+            const image =
+                document.createElement(
+                    "img"
+                );
+
+
+            image.className =
+                "wallpaper-image";
+
+
+            image.src =
+                imageUrl;
+
+
+            image.alt =
+                wallpaper.title;
+
+
+            image.loading =
+                "lazy";
+
+
+
+            /* CATEGORY */
+
+            const category =
+                document.createElement(
+                    "span"
+                );
+
+
+            category.className =
+                "wallpaper-category";
+
+
+            category.textContent =
+                formatCategory(
+                    wallpaper.category
+                );
+
+
+
+            /* CONTENT */
+
+            const content =
+                document.createElement(
+                    "div"
+                );
+
+
+            content.className =
+                "wallpaper-content";
+
+
+
+            /* TITLE */
+
+            const title =
+                document.createElement(
+                    "h3"
+                );
+
+
+            title.className =
+                "wallpaper-title";
+
+
+            title.textContent =
+                wallpaper.title;
+
+
+
+            /* DATE */
+
+            const date =
+                document.createElement(
+                    "p"
+                );
+
+
+            date.className =
+                "wallpaper-date";
+
+
+            date.textContent =
+
+                "Uploaded "
+
+                +
+
+                formatDate(
+                    wallpaper.created_at
+                );
+
+
+
+            /* ACTIONS */
+
+            const actions =
+                document.createElement(
+                    "div"
+                );
+
+
+            actions.className =
+                "wallpaper-actions";
+
+
+
+            /* PREVIEW */
+
+            const previewButton =
+                document.createElement(
+                    "button"
+                );
+
+
+            previewButton.type =
+                "button";
+
+
+            previewButton.className =
+                "action-button preview-button";
+
+
+            previewButton.textContent =
+                "Preview";
+
+
+            previewButton.addEventListener(
+
+                "click",
+
+                function() {
+
+                    openPreview(
+                        imageUrl
+                    );
+
+                }
+
+            );
+
+
+
+            /* DELETE */
+
+            const deleteButton =
+                document.createElement(
+                    "button"
+                );
+
+
+            deleteButton.type =
+                "button";
+
+
+            deleteButton.className =
+                "action-button delete-button";
+
+
+            deleteButton.textContent =
+                "Delete";
+
+
+            deleteButton.addEventListener(
+
+                "click",
+
+                function() {
+
+                    openDeleteModal(
+                        wallpaper
+                    );
+
+                }
+
+            );
+
+
+
+            actions.append(
+                previewButton,
+                deleteButton
+            );
+
+
+            content.append(
+                title,
+                date,
+                actions
+            );
+
+
+            card.append(
+                image,
+                category,
+                content
+            );
+
+
+            wallpaperGrid.appendChild(
+                card
+            );
+
+        }
+
+
+
+        /* =================================
+           PREVIEW
+        ================================= */
+
+        function openPreview(
+            imageUrl
+        ) {
+
+            previewImage.src =
+                imageUrl;
+
+
+            preview.classList.add(
+                "show"
+            );
+
+
+            document.body.style.overflow =
+                "hidden";
+
+        }
+
+
+        function hidePreview() {
+
+            preview.classList.remove(
+                "show"
+            );
+
+
+            previewImage.src =
+                "";
+
+
+            document.body.style.overflow =
+                "";
+
+        }
+
+
+        closePreview.addEventListener(
+
+            "click",
+
+            hidePreview
+
+        );
+
+
+        preview.addEventListener(
+
+            "click",
+
+            function(event) {
+
+                if (
+                    event.target ===
+                    preview
+                ) {
+
+                    hidePreview();
+
+                }
+
+            }
+
+        );
+
+
+
+        /* =================================
+           OPEN DELETE MODAL
+        ================================= */
+
+        function openDeleteModal(
+            wallpaper
+        ) {
+
+            wallpaperToDelete =
+                wallpaper;
+
+
+            deleteWallpaperName.textContent =
+                wallpaper.title;
+
+
+            deleteModal.classList.add(
+                "show"
+            );
+
+
+            document.body.style.overflow =
+                "hidden";
+
+        }
+
+
+
+        /* =================================
+           CLOSE DELETE MODAL
+        ================================= */
+
+        function closeDeleteModal() {
+
+            deleteModal.classList.remove(
+                "show"
+            );
+
+
+            wallpaperToDelete =
+                null;
+
+
+            confirmDelete.disabled =
+                false;
+
+
+            confirmDelete.textContent =
+                "Delete";
+
+
+            document.body.style.overflow =
+                "";
+
+        }
+
+
+        cancelDelete.addEventListener(
+
+            "click",
+
+            closeDeleteModal
+
+        );
+
+
+        deleteModal.addEventListener(
+
+            "click",
+
+            function(event) {
+
+                if (
+                    event.target ===
+                    deleteModal
+                ) {
+
+                    closeDeleteModal();
+
+                }
+
+            }
+
+        );
+
+
+
+        /* =================================
+           DELETE WALLPAPER
+        ================================= */
+
+        confirmDelete.addEventListener(
+
+            "click",
+
+            async function() {
+
+                if (
+                    !wallpaperToDelete
+                ) {
+
+                    return;
+
+                }
+
+
+                confirmDelete.disabled =
+                    true;
+
+
+                confirmDelete.textContent =
+                    "Deleting...";
+
+
+
+                /* =========================
+                   VERIFY USER
+                ========================= */
+
+                const {
+                    data: {
+                        user
+                    },
+                    error:
+                        userError
+                } =
+                    await myWallpapersSupabase
+
+                        .auth
+
+                        .getUser();
+
+
+
+                if (
+                    userError
+                    ||
+                    !user
+                ) {
+
+                    window.location.href =
+                        "login.html";
+
+
+                    return;
+
+                }
+
+
+
+                /*
+                    Extra frontend check.
+
+                    RLS is still the real
+                    security protection.
+                */
+
+                if (
+                    wallpaperToDelete.user_id
+                    !==
+                    user.id
+                ) {
+
+                    alert(
+                        "You cannot delete this wallpaper."
+                    );
+
+
+                    closeDeleteModal();
+
+
+                    return;
+
+                }
+
+
+
+                const wallpaperId =
+                    wallpaperToDelete.id;
+
+
+                const filePath =
+                    wallpaperToDelete.file_path;
+
+
+
+                /* =========================
+                   DELETE DATABASE RECORD
+                ========================= */
+
+                const {
+                    error:
+                        databaseError
+                } =
+                    await myWallpapersSupabase
+
+                        .from(
+                            "wallpapers"
+                        )
+
+                        .delete()
+
+                        .eq(
+                            "id",
+                            wallpaperId
+                        )
+
+                        .eq(
+                            "user_id",
+                            user.id
+                        );
+
+
+
+                if (
+                    databaseError
+                ) {
+
+                    console.error(
+                        "Database delete error:",
+                        databaseError
+                    );
+
+
+                    alert(
+                        "Could not delete wallpaper."
+                    );
+
+
+                    confirmDelete.disabled =
+                        false;
+
+
+                    confirmDelete.textContent =
+                        "Delete";
+
+
+                    return;
+
+                }
+
+
+
+                /* =========================
+                   DELETE STORAGE FILE
+                ========================= */
+
+                const {
+                    error:
+                        storageError
+                } =
+                    await myWallpapersSupabase
+
+                        .storage
+
+                        .from(
+                            "wallpapers"
+                        )
+
+                        .remove(
+                            [
+                                filePath
+                            ]
+                        );
+
+
+
+                if (
+                    storageError
+                ) {
+
+                    console.error(
+                        "Storage delete error:",
+                        storageError
+                    );
+
+                }
+
+
+
+                /* =========================
+                   SUCCESS
+                ========================= */
+
+                closeDeleteModal();
+
+
+                await loadMyWallpapers();
+
+            }
+
+        );
+
+
+
+        /* =================================
+           ESCAPE
+        ================================= */
+
+        document.addEventListener(
+
+            "keydown",
+
+            function(event) {
+
+                if (
+                    event.key !==
+                    "Escape"
+                ) {
+
+                    return;
+
+                }
+
+
+                if (
+                    deleteModal
+                        .classList
+                        .contains(
+                            "show"
+                        )
+                ) {
+
+                    closeDeleteModal();
+
+                    return;
+
+                }
+
+
+                if (
+                    preview
+                        .classList
+                        .contains(
+                            "show"
+                        )
+                ) {
+
+                    hidePreview();
+
+                }
+
+            }
+
+        );
+
+
+
+        /* =================================
+           START
+        ================================= */
+
+        loadMyWallpapers();
+
+    </script>
+
+
+
+    <!-- =================================
+         ACCOUNT MENU
+    ================================== -->
+
+    <script src="account-menu.js"></script>
+
+
+</body>
+
+</html>

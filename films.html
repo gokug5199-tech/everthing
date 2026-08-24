@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Films | Discover Everything</title>
+
+    <link rel="stylesheet" href="films.css">
+</head>
+
+<body>
+
+<header class="top-header">
+
+    <div class="top-logo">
+        THE EVERYTHING
+    </div>
+
+    <nav class="top-nav">
+
+    <a href="index.html">
+        Home
+    </a>
+
+    <a href="anime.html">
+    Anime
+</a>
+
+    <a href="films.html" class="active">
+        Films
+    </a>
+
+    <a href="wallpaper.html">
+        Wallpapers
+    </a>
+
+</nav>
+
+</header>
+    <!-- ANIMATED CINEMA BACKGROUND -->
+    <div class="cinema-background">
+        <div class="spotlight light-1"></div>
+        <div class="spotlight light-2"></div>
+
+        <div class="film-strip strip-1"></div>
+        <div class="film-strip strip-2"></div>
+    </div>
+
+
+    <!-- BACK BUTTON -->
+    <a href="index.html" class="back-button">
+
+        ← Back to Main
+    </a>
+
+
+    <!-- =========================
+         FILMS HERO
+    ========================== -->
+    <section class="films-hero">
+
+        <!-- Poster Top Left -->
+        <div class="floating-poster poster-1">
+            <img src="images/films/film1.jpg" alt="Film">
+        </div>
+
+        <!-- Poster Top Right -->
+        <div class="floating-poster poster-2">
+            <img src="images/films/film2.jpg" alt="Film">
+        </div>
+
+        <!-- Poster Left -->
+        <div class="floating-poster poster-3">
+            <img src="images/films/film3.jpg" alt="Film">
+        </div>
+
+        <!-- Poster Right -->
+        <div class="floating-poster poster-4">
+            <img src="images/films/film4.jpg" alt="Film">
+        </div>
+
+        <!-- Poster Bottom Left -->
+        <div class="floating-poster poster-5">
+            <img src="images/films/film5.jpg" alt="Film">
+        </div>
+
+        <!-- Poster Bottom Right -->
+        <div class="floating-poster poster-6">
+            <img src="images/films/film6.jpg" alt="Film">
+        </div>
+
+
+        <!-- CENTER TITLE -->
+        <div class="films-center">
+
+            <p class="small-title">
+                ENTER THE CINEMA
+            </p>
+
+            <h1>
+                FIL<span>MS</span>
+            </h1>
+
+            <p class="hero-description">
+                Discover stories, worlds and unforgettable cinematic experiences.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         MOVIE BROWSER
+    ========================== -->
+    <section class="films-browser">
+
+        <!-- LEFT CATEGORIES -->
+        <aside class="category-panel">
+
+            <p class="category-small">
+                BROWSE
+            </p>
+
+            <h2>Genres</h2>
+
+            <button class="genre active" data-category="all">
+                <span>01</span>
+                All Films
+            </button>
+
+            <button class="genre" data-category="action">
+                <span>02</span>
+                Action
+            </button>
+
+            <button class="genre" data-category="romance">
+                <span>03</span>
+                Romance
+            </button>
+
+            <button class="genre" data-category="horror">
+                <span>04</span>
+                Horror
+            </button>
+
+            <button class="genre" data-category="comedy">
+                <span>05</span>
+                Comedy
+            </button>
+
+            <button class="genre" data-category="scifi">
+                <span>06</span>
+                Sci-Fi
+            </button>
+
+            <button class="genre" data-category="drama">
+                <span>07</span>
+                Drama
+            </button>
+
+            <button class="genre" data-category="thriller">
+                <span>08</span>
+                Thriller
+            </button>
+
+        </aside>
+
+
+        <!-- FILMS CONTENT -->
+        <main class="films-content">
+
+            <div class="section-heading">
+
+                <div>
+                    <p>NOW SHOWING</p>
+                    <h2>Popular Films</h2>
+                </div>
+
+                <div class="movie-count">
+                    Discover your next movie
+                </div>
+
+            </div>
+
+
+            <div class="films-grid">
+
+                <!-- FILM 1 -->
+                <article class="film-card" data-category="action">
+
+                    <div class="movie-poster">
+
+                        <img
+                            src="images/films/film1.jpg"
+                            alt="Movie Poster"
+                        >
+
+                        <div class="movie-rating">
+                            ★ 9.1
+                        </div>
+
+                        <div class="movie-overlay">
+                            <button>View Film</button>
+                        </div>
+
+                    </div>
+
+                    <div class="movie-info">
+                        <h3>Movie Name</h3>
+                        <p>Action • Adventure</p>
+                    </div>
+
+                </article>
+
+
+                <!-- FILM 2 -->
+                <article class="film-card" data-category="romance">
+
+                    <div class="movie-poster">
+
+                        <img
+                            src="images/films/film2.jpg"
+                            alt="Movie Poster"
+                        >
+
+                        <div class="movie-rating">
+                            ★ 8.7
+                        </div>
+
+                        <div class="movie-overlay">
+                            <button>View Film</button>
+                        </div>
+
+                    </div>
+
+                    <div class="movie-info">
+                        <h3>Movie Name</h3>
+                        <p>Romance • Drama</p>
+                    </div>
+
+                </article>
+
+
+                <!-- FILM 3 -->
+                <article class="film-card" data-category="horror">
+
+                    <div class="movie-poster">
+
+                        <img
+                            src="images/films/film3.jpg"
+                            alt="Movie Poster"
+                        >
+
+                        <div class="movie-rating">
+                            ★ 8.5
+                        </div>
+
+                        <div class="movie-overlay">
+                            <button>View Film</button>
+                        </div>
+
+                    </div>
+
+                    <div class="movie-info">
+                        <h3>Movie Name</h3>
+                        <p>Horror • Mystery</p>
+                    </div>
+
+                </article>
+
+
+                <!-- FILM 4 -->
+                <article class="film-card" data-category="scifi">
+
+                    <div class="movie-poster">
+
+                        <img
+                            src="images/films/film4.jpg"
+                            alt="Movie Poster"
+                        >
+
+                        <div class="movie-rating">
+                            ★ 9.3
+                        </div>
+
+                        <div class="movie-overlay">
+                            <button>View Film</button>
+                        </div>
+
+                    </div>
+
+                    <div class="movie-info">
+                        <h3>Movie Name</h3>
+                        <p>Sci-Fi • Adventure</p>
+                    </div>
+
+                </article>
+
+
+                <!-- FILM 5 -->
+                <article class="film-card" data-category="comedy">
+
+                    <div class="movie-poster">
+
+                        <img
+                            src="images/films/film5.jpg"
+                            alt="Movie Poster"
+                        >
+
+                        <div class="movie-rating">
+                            ★ 8.2
+                        </div>
+
+                        <div class="movie-overlay">
+                            <button>View Film</button>
+                        </div>
+
+                    </div>
+
+                    <div class="movie-info">
+                        <h3>Movie Name</h3>
+                        <p>Comedy • Family</p>
+                    </div>
+
+                </article>
+
+
+                <!-- FILM 6 -->
+                <article class="film-card" data-category="drama">
+
+                    <div class="movie-poster">
+
+                        <img
+                            src="images/films/film6.jpg"
+                            alt="Movie Poster"
+                        >
+
+                        <div class="movie-rating">
+                            ★ 8.9
+                        </div>
+
+                        <div class="movie-overlay">
+                            <button>View Film</button>
+                        </div>
+
+                    </div>
+
+                    <div class="movie-info">
+                        <h3>Movie Name</h3>
+                        <p>Drama • Biography</p>
+                    </div>
+
+                </article>
+
+
+                <!-- FILM 7 -->
+                <article class="film-card" data-category="thriller">
+
+                    <div class="movie-poster">
+
+                        <img
+                            src="images/films/film7.jpg"
+                            alt="Movie Poster"
+                        >
+
+                        <div class="movie-rating">
+                            ★ 8.8
+                        </div>
+
+                        <div class="movie-overlay">
+                            <button>View Film</button>
+                        </div>
+
+                    </div>
+
+                    <div class="movie-info">
+                        <h3>Movie Name</h3>
+                        <p>Thriller • Crime</p>
+                    </div>
+
+                </article>
+
+
+                <!-- FILM 8 -->
+                <article class="film-card" data-category="action">
+
+                    <div class="movie-poster">
+
+                        <img
+                            src="images/films/film8.jpg"
+                            alt="Movie Poster"
+                        >
+
+                        <div class="movie-rating">
+                            ★ 9.0
+                        </div>
+
+                        <div class="movie-overlay">
+                            <button>View Film</button>
+                        </div>
+
+                    </div>
+
+                    <div class="movie-info">
+                        <h3>Movie Name</h3>
+                        <p>Action • Thriller</p>
+                    </div>
+
+                </article>
+
+            </div>
+
+        </main>
+
+    </section>
+
+
+<!-- <script src="films.js"></script> -->
+
+<script src="account-menu.js"></script>
+
+</body>
+
+</html>

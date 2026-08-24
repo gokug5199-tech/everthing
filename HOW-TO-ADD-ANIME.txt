@@ -1,0 +1,33 @@
+FAST ANIME / EPISODE SETUP
+==========================
+
+The main file you edit now is:
+    anime-data.js
+
+Attack on Titan is already set to:
+    episodes: 24
+
+TO ADD A SECOND ANIME
+1. Put the poster in image/anime/
+2. Open anime-data.js
+3. Copy the commented example block near the bottom.
+4. Change the id, title, image, category, genres, rating and description.
+5. Set episodes to the number you want, for example:
+       episodes: 12
+   or:
+       episodes: 50
+6. Save the file and refresh anime.html.
+
+You do not need to create a separate HTML file for every anime.
+You do not need to type Episode 1, Episode 2, Episode 3, etc. manually.
+
+OPTIONAL VIDEO LINKS
+Inside each anime block there is episodeLinks.
+You can add your own/licensed direct video files like this:
+
+    episodeLinks: {
+        1: "videos/my-anime/episode-1.mp4",
+        2: "videos/my-anime/episode-2.mp4"
+    }
+
+If a link is not added yet, the episode page will simply tell you that the video is not ready.
