@@ -18,7 +18,7 @@
         return;
     }
 
-    document.title = `${anime.title} | Episodes`;
+    document.title = `${anime.title} | Episodes | The Everything`;
 
     const poster = document.getElementById("animePoster");
     poster.src = anime.image || "";

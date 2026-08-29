@@ -1018,3 +1018,740 @@ body {
         transform: translate3d(-25%, 0, 0);
     }
 }
+
+/* =========================================================
+   YOKSO ANIME PAGE - 2026 REFRESH
+   Requested layout: compact cards, clean hero area, brand mark,
+   and a collapsible English genre selector.
+========================================================= */
+
+/* Three-part header: site identity / Yokso wordmark / navigation. */
+.navbar {
+    min-height: 76px;
+    padding: 12px 6%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: 24px;
+}
+
+.site-identity {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    justify-self: start;
+    white-space: nowrap;
+}
+
+.site-identity .logo {
+    flex: 0 0 auto;
+}
+
+.site-tagline {
+    position: relative;
+    padding-left: 13px;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+
+.site-tagline::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 1px;
+    height: 18px;
+    background: linear-gradient(180deg, transparent, rgba(255, 102, 64, 0.85), transparent);
+    transform: translateY(-50%);
+}
+
+.yokso-wordmark {
+    position: relative;
+    isolation: isolate;
+    justify-self: center;
+    width: clamp(190px, 20vw, 300px);
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    transform: skewX(-6deg);
+    filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.32));
+}
+
+.yokso-wordmark::before,
+.yokso-wordmark::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 9%;
+    right: 9%;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, transparent, rgba(255, 212, 81, 0.92), rgba(255, 76, 51, 0.92), transparent);
+    box-shadow: 0 0 18px rgba(255, 94, 48, 0.35);
+}
+
+.yokso-wordmark::before {
+    top: 5px;
+}
+
+.yokso-wordmark::after {
+    bottom: 5px;
+}
+
+.yokso-wordmark span {
+    display: block;
+    transform: skewX(6deg);
+    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+    font-size: clamp(36px, 3.6vw, 51px);
+    line-height: 0.94;
+    letter-spacing: 0.055em;
+    background: linear-gradient(100deg, #fff78b 2%, #ffd84d 30%, #ff7a35 62%, #ff3d2e 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.10);
+    text-shadow: 0 0 22px rgba(255, 105, 48, 0.20);
+}
+
+.nav-links {
+    justify-self: end;
+}
+
+/* The old large ANIME hero has been removed from the HTML.
+   Keep the content close to the top like the requested mock-up. */
+.anime-section {
+    max-width: 1600px;
+    padding: 26px 6% 100px;
+}
+
+.section-title {
+    position: relative;
+    margin-bottom: 22px;
+}
+
+/* =========================
+   GENRE TOGGLE / DROPDOWN
+========================= */
+.genre-picker {
+    position: relative;
+    z-index: 40;
+}
+
+.genres-toggle {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 15px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 13px;
+    color: rgba(255, 255, 255, 0.92);
+    background: rgba(7, 8, 14, 0.62);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+}
+
+.genres-toggle:hover,
+.genres-toggle[aria-expanded="true"] {
+    transform: translateY(-1px);
+    border-color: rgba(255, 119, 62, 0.62);
+    background: rgba(26, 17, 20, 0.78);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.24), 0 0 22px rgba(255, 81, 52, 0.10);
+}
+
+.genres-toggle-icon {
+    position: relative;
+    width: 17px;
+    height: 14px;
+    flex: 0 0 17px;
+    background:
+        linear-gradient(#ffd55c, #ffd55c) 0 1px / 17px 2px no-repeat,
+        linear-gradient(#ff8144, #ff8144) 0 6px / 17px 2px no-repeat,
+        linear-gradient(#ff4d3b, #ff4d3b) 0 11px / 17px 2px no-repeat;
+    border-radius: 4px;
+}
+
+.genres-toggle-icon::before,
+.genres-toggle-icon::after {
+    content: "";
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.90);
+    border-radius: 50%;
+    background: #111018;
+}
+
+.genres-toggle-icon::before {
+    left: 3px;
+    top: 0;
+    box-shadow: 7px 10px 0 -1px #111018, 7px 10px 0 0 rgba(255, 255, 255, 0.90);
+}
+
+.genres-toggle-icon::after {
+    right: 3px;
+    top: 5px;
+}
+
+.genres-chevron {
+    width: 7px;
+    height: 7px;
+    margin-left: 2px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg) translateY(-2px);
+    transition: transform 180ms ease;
+}
+
+.genres-toggle[aria-expanded="true"] .genres-chevron {
+    transform: rotate(225deg) translate(-1px, -1px);
+}
+
+.genre-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: min(330px, calc(100vw - 36px));
+    padding: 12px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 16px;
+    background: rgba(8, 8, 13, 0.90);
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+    box-shadow: 0 20px 55px rgba(0, 0, 0, 0.42), 0 0 30px rgba(255, 67, 57, 0.06);
+}
+
+.genre-menu[hidden] {
+    display: none;
+}
+
+.genre-menu .category {
+    width: 100%;
+    min-height: 39px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 12px;
+    text-align: left;
+}
+
+.genre-menu .category:first-child {
+    grid-column: 1 / -1;
+    text-align: center;
+}
+
+.genre-menu .category:hover {
+    transform: none;
+}
+
+/* =========================
+   SMALLER ANIME CARDS
+========================= */
+.anime-grid {
+    grid-template-columns: repeat(auto-fill, minmax(148px, 176px));
+    justify-content: start;
+    align-items: start;
+    gap: 27px 18px;
+}
+
+.anime-card-link {
+    width: 100%;
+    max-width: 176px;
+}
+
+.poster {
+    border-radius: 14px;
+}
+
+.rating {
+    top: 9px;
+    right: 9px;
+    padding: 5px 7px;
+    border-radius: 7px;
+    font-size: 11px;
+}
+
+.anime-info {
+    padding: 10px 3px 0;
+}
+
+.anime-info h3 {
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.anime-info p {
+    font-size: 11px;
+    line-height: 1.45;
+}
+
+.card-overlay .view-details {
+    padding: 9px 12px;
+    font-size: 11px;
+}
+
+@media (max-width: 1240px) {
+    .site-tagline {
+        display: none;
+    }
+
+    .yokso-wordmark {
+        width: clamp(165px, 18vw, 235px);
+    }
+}
+
+@media (max-width: 900px) {
+    .navbar {
+        padding-inline: 4%;
+        gap: 12px;
+    }
+
+    .logo {
+        font-size: 16px;
+    }
+
+    .yokso-wordmark {
+        width: 155px;
+    }
+
+    .yokso-wordmark span {
+        font-size: 34px;
+    }
+
+    .anime-section {
+        padding-inline: 4%;
+    }
+
+    .anime-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 165px));
+    }
+
+    .anime-card-link {
+        max-width: 165px;
+    }
+}
+
+@media (max-width: 650px) {
+    .navbar {
+        min-height: 68px;
+        grid-template-columns: 1fr auto;
+    }
+
+    .yokso-wordmark {
+        justify-self: end;
+        width: 138px;
+        min-height: 44px;
+    }
+
+    .yokso-wordmark span {
+        font-size: 31px;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .back-button {
+        margin-top: 18px;
+        padding: 11px 17px;
+        font-size: 14px;
+    }
+
+    .section-title {
+        align-items: flex-end;
+    }
+
+    .section-title h2 {
+        font-size: 25px;
+    }
+
+    .anime-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px 12px;
+    }
+
+    .anime-card-link {
+        max-width: 165px;
+    }
+
+    .genre-menu {
+        right: 0;
+        left: auto;
+        width: min(300px, calc(100vw - 36px));
+    }
+}
+
+@media (max-width: 400px) {
+    .logo {
+        font-size: 14px;
+    }
+
+    .yokso-wordmark {
+        width: 115px;
+    }
+
+    .yokso-wordmark span {
+        font-size: 27px;
+    }
+
+    .genres-toggle {
+        min-height: 41px;
+        padding-inline: 12px;
+    }
+}
+
+/* =========================================================
+   GENRES DRAWER V2
+   Icon-only trigger + full-height slide-out list inspired by
+   the supplied reference, adapted to the Yokso anime palette.
+========================================================= */
+
+/* The title no longer needs a right-side dropdown. */
+.section-title {
+    justify-content: flex-start;
+}
+
+/* Keep the back button to the right of the icon-only trigger. */
+.back-button {
+    margin-left: 96px;
+}
+
+.genre-drawer-open {
+    overflow: hidden;
+}
+
+/* No visible word beside this button: only the three-line icon. */
+.genres-toggle {
+    position: fixed;
+    top: 106px;
+    left: 24px;
+    z-index: 10030;
+    width: 52px;
+    height: 52px;
+    min-height: 0;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 14px;
+    color: #ffffff;
+    background: rgba(7, 8, 13, 0.62);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+    cursor: pointer;
+    transform: none;
+    transition: border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+}
+
+.genres-toggle:hover,
+.genres-toggle[aria-expanded="true"] {
+    transform: none;
+    border-color: rgba(255, 130, 69, 0.68);
+    background: rgba(16, 13, 16, 0.90);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34), 0 0 22px rgba(255, 81, 48, 0.11);
+}
+
+.genres-toggle:focus-visible {
+    outline: 2px solid rgba(255, 208, 81, 0.95);
+    outline-offset: 3px;
+}
+
+.genres-toggle-lines {
+    width: 26px;
+    height: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.genres-toggle-lines span {
+    display: block;
+    height: 2.5px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #fff 0%, #fff1c9 66%, #ff8a48 100%);
+    box-shadow: 0 0 9px rgba(255, 165, 95, 0.15);
+    transition: width 180ms ease, transform 180ms ease, opacity 180ms ease;
+}
+
+.genres-toggle-lines span:nth-child(1) {
+    width: 26px;
+}
+
+.genres-toggle-lines span:nth-child(2) {
+    width: 18px;
+}
+
+.genres-toggle-lines span:nth-child(3) {
+    width: 23px;
+}
+
+.genres-toggle.is-open .genres-toggle-lines span:nth-child(2) {
+    width: 26px;
+}
+
+/* Darkens the rest of the page when the genre library is open. */
+.genres-backdrop {
+    position: fixed;
+    inset: 76px 0 0;
+    z-index: 10005;
+    background: rgba(0, 0, 0, 0.56);
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 220ms ease, visibility 220ms ease;
+}
+
+.genres-backdrop.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Tall black slide-out panel, like the supplied menu reference. */
+.genre-drawer {
+    position: fixed;
+    top: 76px;
+    bottom: 0;
+    left: 0;
+    z-index: 10015;
+    width: min(390px, 31vw);
+    min-width: 305px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 132, 74, 0.36) transparent;
+    border-right: 1px solid rgba(255, 255, 255, 0.09);
+    background:
+        radial-gradient(circle at 8% 0%, rgba(255, 104, 55, 0.11), transparent 30%),
+        linear-gradient(180deg, rgba(5, 5, 8, 0.985), rgba(3, 4, 8, 0.985));
+    -webkit-backdrop-filter: blur(22px);
+    backdrop-filter: blur(22px);
+    box-shadow: 24px 0 65px rgba(0, 0, 0, 0.48);
+    transform: translateX(-104%);
+    visibility: hidden;
+    transition: transform 260ms cubic-bezier(.22, .8, .28, 1), visibility 260ms ease;
+}
+
+.genre-drawer::before {
+    content: "";
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: block;
+    height: 78px;
+    margin-bottom: 0;
+    background:
+        linear-gradient(180deg, rgba(5, 5, 8, 0.98) 0%, rgba(5, 5, 8, 0.90) 68%, rgba(5, 5, 8, 0) 100%);
+    pointer-events: none;
+}
+
+.genre-drawer::after {
+    content: "";
+    position: fixed;
+    top: 76px;
+    left: 0;
+    width: min(390px, 31vw);
+    min-width: 305px;
+    height: 1px;
+    background: linear-gradient(90deg, #ffd65a 0%, #ff7d3e 44%, rgba(255, 64, 50, 0) 100%);
+    box-shadow: 0 0 18px rgba(255, 103, 50, 0.22);
+    pointer-events: none;
+}
+
+.genre-drawer.is-open {
+    transform: translateX(0);
+    visibility: visible;
+}
+
+.genre-drawer-list {
+    margin-top: -12px;
+    padding: 0 0 34px;
+}
+
+/* One menu row per genre, with the same separated-list feel as the reference. */
+.genre-drawer .category {
+    position: relative;
+    width: 100%;
+    min-height: 58px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 24px 0 30px;
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 0;
+    color: rgba(244, 244, 248, 0.76);
+    background: transparent;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 650;
+    letter-spacing: 0.015em;
+    text-align: left;
+    cursor: pointer;
+    box-shadow: none;
+    transform: none;
+    transition: color 160ms ease, background 160ms ease, padding-left 160ms ease;
+}
+
+.genre-drawer .category:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.045);
+    border-color: rgba(255, 255, 255, 0.11);
+    transform: none;
+    padding-left: 34px;
+}
+
+.genre-drawer .category.active {
+    color: #fff4d5;
+    background: linear-gradient(90deg, rgba(255, 114, 58, 0.12), rgba(255, 114, 58, 0.025) 72%, transparent);
+    border-color: rgba(255, 255, 255, 0.11);
+    box-shadow: inset 3px 0 0 #ff7b3f;
+}
+
+.genre-drawer .category.active::after {
+    content: "";
+    position: absolute;
+    right: 23px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ff8b45;
+    box-shadow: 0 0 12px rgba(255, 125, 63, 0.72);
+}
+
+/* Small outline tag icon beside every genre name. */
+.genre-item-icon {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
+    border: 1.7px solid currentColor;
+    border-radius: 3px 5px 5px 3px;
+    transform: rotate(45deg) scale(0.78);
+    opacity: 0.78;
+}
+
+.genre-item-icon::after {
+    content: "";
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    top: 2px;
+    left: 2px;
+    border: 1.3px solid currentColor;
+    border-radius: 50%;
+}
+
+.genre-item-label {
+    min-width: 0;
+}
+
+.anime-empty-state {
+    width: min(620px, 100%);
+    margin-top: 20px;
+    padding: 18px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 14px;
+    color: rgba(255, 255, 255, 0.62);
+    background: rgba(5, 6, 11, 0.48);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    font-size: 14px;
+}
+
+.anime-empty-state[hidden] {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    .back-button {
+        margin-left: 90px;
+    }
+
+    .genres-toggle {
+        left: 20px;
+    }
+
+    .genre-drawer,
+    .genre-drawer::after {
+        width: min(360px, 78vw);
+        min-width: 0;
+    }
+}
+
+@media (max-width: 650px) {
+    .genres-toggle {
+        top: 86px;
+        left: 14px;
+        width: 48px;
+        height: 48px;
+        border-radius: 13px;
+    }
+
+    .back-button {
+        margin-left: 76px;
+    }
+
+    .genres-backdrop {
+        inset: 68px 0 0;
+    }
+
+    .genre-drawer {
+        top: 68px;
+        width: min(340px, 84vw);
+    }
+
+    .genre-drawer::after {
+        top: 68px;
+        width: min(340px, 84vw);
+    }
+
+    .genre-drawer::before {
+        height: 72px;
+    }
+
+    .genre-drawer .category {
+        min-height: 56px;
+        padding-left: 25px;
+        font-size: 15px;
+    }
+
+    .genre-drawer .category:hover {
+        padding-left: 29px;
+    }
+}
+
+@media (max-width: 400px) {
+    .genres-toggle {
+        min-height: 0;
+        padding: 0;
+    }
+
+    .genre-drawer {
+        width: 86vw;
+    }
+
+    .genre-drawer::after {
+        width: 86vw;
+    }
+}

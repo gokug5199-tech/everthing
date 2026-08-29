@@ -158,6 +158,12 @@
                 1px solid
                 rgba(255,255,255,0.06);
 
+            transform:
+                translateZ(0);
+
+            backface-visibility:
+                hidden;
+
         }
 
 
@@ -461,7 +467,11 @@
             top: 52%;
 
             transform:
-                translateY(-50%);
+                translateY(-50%)
+                translateZ(0);
+
+            backface-visibility:
+                hidden;
 
             z-index: 10;
 
@@ -829,16 +839,21 @@
                 rgba(0,0,0,0.22);
 
             transition:
-                0.22s ease;
+                transform 0.18s ease,
+                border-color 0.18s ease,
+                box-shadow 0.18s ease;
 
             contain:
-                layout paint;
+                layout paint style;
 
             content-visibility:
                 auto;
 
             contain-intrinsic-size:
-                auto 285px;
+                285px;
+
+            isolation:
+                isolate;
 
         }
 
@@ -883,8 +898,17 @@
             object-fit:
                 cover;
 
+            background:
+                #080d13;
+
+            backface-visibility:
+                hidden;
+
+            transform:
+                translateZ(0);
+
             transition:
-                transform 0.32s ease;
+                transform 0.22s ease;
 
         }
 
@@ -893,7 +917,8 @@
         .wallpaper-image {
 
             transform:
-                scale(1.035);
+                translateZ(0)
+                scale(1.025);
 
         }
 
@@ -1024,11 +1049,10 @@
                 1px solid
                 rgba(91,255,213,0.20);
 
-            backdrop-filter:
-                blur(8px);
-
-            -webkit-backdrop-filter:
-                blur(8px);
+            /*
+                Avoid backdrop-filter here. A blur on every visible card
+                is expensive to repaint while the page is scrolling.
+            */
 
             transition:
                 border-color 0.2s ease,
@@ -2816,6 +2840,50 @@
         }
 
 
+        /* =================================
+           SCROLL PERFORMANCE MODE
+           Prevent hover animations from firing repeatedly while
+           cards move underneath a stationary mouse pointer.
+        ================================= */
+
+        @media (hover: hover) and (pointer: fine) {
+
+            body.is-scrolling .wallpaper-grid {
+                pointer-events: none;
+            }
+
+            body.is-scrolling .wallpaper-card,
+            body.is-scrolling .wallpaper-card:hover {
+                transform: none;
+                border-color: rgba(255,255,255,0.065);
+                box-shadow: 0 8px 20px rgba(0,0,0,0.22);
+            }
+
+            body.is-scrolling .wallpaper-card:hover
+            .wallpaper-image {
+                transform: translateZ(0);
+            }
+
+            body.is-scrolling .wallpaper-card:hover
+            .wallpaper-name {
+                transform: translateY(44px);
+            }
+
+            body.is-scrolling .wallpaper-card:hover
+            .wallpaper-actions {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            body.is-scrolling .wallpaper-card,
+            body.is-scrolling .wallpaper-card *,
+            body.is-scrolling .wallpaper-card::after {
+                transition: none !important;
+            }
+
+        }
+
+
         @media (prefers-reduced-motion: reduce) {
 
             *,
@@ -2852,6 +2920,9 @@
 
     </style>
 
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="site-branding.css">
 </head>
 
 
@@ -3627,6 +3698,314 @@
             "";
 
 
+        /* =================================
+           PERFORMANCE: CONTROL IMAGE LOADING
+        ================================= */
+
+        const TRANSPARENT_WALLPAPER_PIXEL =
+            "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+
+
+        let wallpaperImageObserver =
+            null;
+
+
+        const wallpaperImageLoadTimers =
+            new WeakMap();
+
+
+        const wallpaperImageUnloadTimers =
+            new WeakMap();
+
+
+        function clearWallpaperImageTimer(
+            timerMap,
+            image
+        ) {
+
+            const timer =
+                timerMap.get(
+                    image
+                );
+
+
+            if (timer) {
+
+                clearTimeout(
+                    timer
+                );
+
+
+                timerMap.delete(
+                    image
+                );
+
+            }
+
+        }
+
+
+        function loadWallpaperImage(
+            image
+        ) {
+
+            const realSource =
+                image.dataset.src;
+
+
+            if (
+                !realSource
+                ||
+                image.dataset.loaded === "true"
+            ) {
+
+                return;
+
+            }
+
+
+            image.src =
+                realSource;
+
+
+            image.dataset.loaded =
+                "true";
+
+        }
+
+
+        function unloadWallpaperImage(
+            image
+        ) {
+
+            if (
+                image.dataset.loaded !== "true"
+            ) {
+
+                return;
+
+            }
+
+
+            /*
+                Keep only nearby full-resolution wallpapers decoded.
+                This is important when the gallery contains many 2K/4K
+                images, because decoded images consume much more memory
+                than their file size on disk.
+            */
+
+            image.src =
+                TRANSPARENT_WALLPAPER_PIXEL;
+
+
+            image.dataset.loaded =
+                "false";
+
+        }
+
+
+        function ensureWallpaperImageObserver() {
+
+            if (
+                !("IntersectionObserver" in window)
+            ) {
+
+                return null;
+
+            }
+
+
+            if (
+                wallpaperImageObserver
+            ) {
+
+                return wallpaperImageObserver;
+
+            }
+
+
+            wallpaperImageObserver =
+                new IntersectionObserver(
+
+                    entries => {
+
+                        entries.forEach(
+
+                            entry => {
+
+                                const image =
+                                    entry.target;
+
+
+                                clearWallpaperImageTimer(
+                                    wallpaperImageLoadTimers,
+                                    image
+                                );
+
+
+                                clearWallpaperImageTimer(
+                                    wallpaperImageUnloadTimers,
+                                    image
+                                );
+
+
+                                if (
+                                    entry.isIntersecting
+                                ) {
+
+                                    /*
+                                        A tiny delay avoids decoding images
+                                        that the user flies past during a
+                                        fast wheel scroll.
+                                    */
+
+                                    const loadTimer =
+                                        setTimeout(
+
+                                            function() {
+
+                                                loadWallpaperImage(
+                                                    image
+                                                );
+
+
+                                                wallpaperImageLoadTimers
+                                                    .delete(
+                                                        image
+                                                    );
+
+                                            },
+
+                                            50
+
+                                        );
+
+
+                                    wallpaperImageLoadTimers.set(
+                                        image,
+                                        loadTimer
+                                    );
+
+                                }
+
+                                else if (
+                                    image.dataset.loaded === "true"
+                                ) {
+
+                                    /*
+                                        Release far-away full-size images
+                                        after a short grace period so quick
+                                        direction changes do not flicker.
+                                    */
+
+                                    const unloadTimer =
+                                        setTimeout(
+
+                                            function() {
+
+                                                unloadWallpaperImage(
+                                                    image
+                                                );
+
+
+                                                wallpaperImageUnloadTimers
+                                                    .delete(
+                                                        image
+                                                    );
+
+                                            },
+
+                                            800
+
+                                        );
+
+
+                                    wallpaperImageUnloadTimers.set(
+                                        image,
+                                        unloadTimer
+                                    );
+
+                                }
+
+                            }
+
+                        );
+
+                    },
+
+                    {
+                        root:
+                            null,
+
+                        rootMargin:
+                            "350px 0px",
+
+                        threshold:
+                            0.01
+                    }
+
+                );
+
+
+            return wallpaperImageObserver;
+
+        }
+
+
+        function prepareWallpaperImage(
+            image,
+            source
+        ) {
+
+            image.dataset.src =
+                source;
+
+
+            image.dataset.loaded =
+                "false";
+
+
+            image.src =
+                TRANSPARENT_WALLPAPER_PIXEL;
+
+
+            image.loading =
+                "lazy";
+
+
+            image.decoding =
+                "async";
+
+
+            image.fetchPriority =
+                "low";
+
+
+            const observer =
+                ensureWallpaperImageObserver();
+
+
+            if (
+                observer
+            ) {
+
+                observer.observe(
+                    image
+                );
+
+            }
+
+            else {
+
+                loadWallpaperImage(
+                    image
+                );
+
+            }
+
+        }
+
+
 
         /* =================================
            ENCODE LOCAL URL PATH
@@ -4237,6 +4616,16 @@
 
         function displayWallpapers() {
 
+            if (
+                wallpaperImageObserver
+            ) {
+
+                wallpaperImageObserver
+                    .disconnect();
+
+            }
+
+
             grid.innerHTML =
                 "";
 
@@ -4336,6 +4725,10 @@
                 "none";
 
 
+            const fragment =
+                document.createDocumentFragment();
+
+
             filtered.forEach(
 
                 wallpaper => {
@@ -4363,20 +4756,26 @@
                         "wallpaper-image";
 
 
-                    image.src =
-                        wallpaper.file;
-
-
                     image.alt =
                         wallpaper.title;
 
 
-                    image.loading =
-                        "lazy";
+                    image.width =
+                        640;
 
 
-                    image.decoding =
-                        "async";
+                    image.height =
+                        360;
+
+
+                    image.draggable =
+                        false;
+
+
+                    prepareWallpaperImage(
+                        image,
+                        wallpaper.file
+                    );
 
 
 
@@ -4667,12 +5066,17 @@
                     );
 
 
-                    grid.appendChild(
+                    fragment.appendChild(
                         card
                     );
 
                 }
 
+            );
+
+
+            grid.appendChild(
+                fragment
             );
 
         }
@@ -4743,6 +5147,10 @@
            SEARCH
         ================================= */
 
+        let wallpaperSearchTimer =
+            null;
+
+
         wallpaperSearch
             .addEventListener(
 
@@ -4754,7 +5162,19 @@
                         this.value;
 
 
-                    displayWallpapers();
+                    clearTimeout(
+                        wallpaperSearchTimer
+                    );
+
+
+                    wallpaperSearchTimer =
+                        setTimeout(
+
+                            displayWallpapers,
+
+                            120
+
+                        );
 
                 }
 
@@ -5986,6 +6406,64 @@
 
 
         /* =================================
+           SCROLL PERFORMANCE
+        ================================= */
+
+        let wallpaperScrollEndTimer =
+            null;
+
+
+        window.addEventListener(
+
+            "scroll",
+
+            function() {
+
+                if (
+                    !document.body.classList.contains(
+                        "is-scrolling"
+                    )
+                ) {
+
+                    document.body.classList.add(
+                        "is-scrolling"
+                    );
+
+                }
+
+
+                clearTimeout(
+                    wallpaperScrollEndTimer
+                );
+
+
+                wallpaperScrollEndTimer =
+                    setTimeout(
+
+                        function() {
+
+                            document.body.classList.remove(
+                                "is-scrolling"
+                            );
+
+                        },
+
+                        110
+
+                    );
+
+            },
+
+            {
+                passive:
+                    true
+            }
+
+        );
+
+
+
+        /* =================================
            START
         ================================= */
 
@@ -6029,6 +6507,8 @@
     <script src="account-menu.js"></script>
 
 
+
+    <script src="site-shell.js"></script>
 </body>
 
 </html>

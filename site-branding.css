@@ -1,0 +1,473 @@
+/* =========================================================
+   THE EVERYTHING - SHARED BRANDING + FOOTER
+   Added 2026-08-26
+========================================================= */
+
+:root {
+    --te-bg: #070812;
+    --te-panel: rgba(15, 17, 30, 0.78);
+    --te-text: #f7f7fb;
+    --te-muted: #8f93a7;
+    --te-line: rgba(255,255,255,0.08);
+    --te-orange: #ff8a3d;
+    --te-red: #ff455f;
+    --te-yellow: #ffd94d;
+    --te-green: #62f6ad;
+}
+
+/* ---------- Brand wordmark ---------- */
+.te-brand-host,
+.te-brand-host:visited {
+    display: inline-flex !important;
+    align-items: center !important;
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    color: var(--te-text) !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+.te-brandmark {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.32em;
+    isolation: isolate;
+    line-height: 1;
+    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", Arial, sans-serif;
+    font-size: clamp(18px, 1.8vw, 28px);
+    font-weight: 900;
+    letter-spacing: 0.045em;
+    text-transform: uppercase;
+    filter: drop-shadow(0 0 12px rgba(255, 96, 66, 0.18));
+}
+
+.te-brandmark::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    width: 74%;
+    height: 2px;
+    right: -9%;
+    top: 55%;
+    transform: rotate(-7deg) scaleX(0.58);
+    transform-origin: right center;
+    background: linear-gradient(90deg, transparent, var(--te-green), #fff, transparent);
+    opacity: 0.28;
+    filter: blur(0.2px) drop-shadow(0 0 5px rgba(98,246,173,.55));
+    transition: transform .28s ease, opacity .28s ease;
+}
+
+.te-brand-host:hover .te-brandmark::before,
+.te-brandmark:hover::before {
+    opacity: .78;
+    transform: rotate(-4deg) scaleX(1);
+}
+
+.te-brand-the {
+    align-self: flex-start;
+    margin-top: .18em;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: .39em;
+    font-weight: 950;
+    letter-spacing: .24em;
+    color: var(--te-green);
+    text-shadow: 0 0 10px rgba(98,246,173,.32);
+}
+
+.te-brand-word {
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(92deg, #fff1a6 0%, var(--te-yellow) 24%, var(--te-orange) 56%, var(--te-red) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* The first E carries the film-strip hint while staying readable. */
+.te-brand-e {
+    position: relative;
+    display: inline-block;
+    margin-right: .015em;
+    padding-left: .11em;
+    color: var(--te-yellow);
+    -webkit-text-fill-color: var(--te-yellow);
+    text-shadow: 0 0 10px rgba(255,217,77,.2);
+}
+
+.te-brand-e::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 9%;
+    bottom: 8%;
+    width: .09em;
+    min-width: 3px;
+    border-radius: 2px;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(8,8,16,.92) 0 .12em,
+        transparent .12em .23em
+    );
+    opacity: .92;
+}
+
+.te-brand-rest {
+    display: inline-block;
+}
+
+.te-brand-spark {
+    width: .26em;
+    height: .26em;
+    margin-left: .03em;
+    align-self: flex-start;
+    border: 1px solid rgba(98,246,173,.74);
+    transform: rotate(45deg);
+    box-shadow: 0 0 8px rgba(98,246,173,.38);
+    opacity: .85;
+}
+
+/* Fallback brand for pages that originally had no header/logo. */
+.te-floating-brand {
+    position: fixed;
+    z-index: 9990;
+    top: 18px;
+    right: 22px;
+    padding: 10px 13px;
+    border: 1px solid rgba(255,255,255,.075);
+    border-radius: 13px;
+    background: rgba(7,8,18,.66);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 10px 35px rgba(0,0,0,.18);
+    text-decoration: none;
+}
+
+.te-floating-brand .te-brandmark { font-size: 18px; }
+
+/* ---------- Shared footer ---------- */
+.te-site-footer {
+    position: relative !important;
+    z-index: 20 !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 96px 0 0 !important;
+    padding: 0 !important;
+    color: var(--te-text) !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 14px !important;
+    background:
+        radial-gradient(circle at 8% 0%, rgba(255,69,95,.10), transparent 28%),
+        radial-gradient(circle at 92% 100%, rgba(98,246,173,.08), transparent 28%),
+        linear-gradient(180deg, rgba(8,9,18,.72), rgba(5,6,13,.98)) !important;
+    border-top: 1px solid rgba(255,255,255,.075) !important;
+    overflow: hidden;
+}
+
+.te-site-footer::before {
+    content: "";
+    position: absolute;
+    left: 6%;
+    right: 6%;
+    top: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--te-red), var(--te-yellow), var(--te-green), transparent);
+    opacity: .65;
+}
+
+.te-footer-inner {
+    width: min(1240px, calc(100% - 42px));
+    margin: 0 auto;
+    padding: 48px 0 24px;
+}
+
+.te-footer-main {
+    display: grid;
+    grid-template-columns: minmax(220px, .95fr) minmax(360px, 1.5fr) minmax(220px, .8fr);
+    align-items: start;
+    gap: 38px;
+}
+
+.te-footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.te-footer-brand .te-brandmark { font-size: clamp(20px, 2vw, 28px); }
+
+.te-footer-copyline {
+    margin: 0;
+    max-width: 290px;
+    color: var(--te-muted);
+    font-size: 12px;
+    line-height: 1.8;
+    letter-spacing: .03em;
+}
+
+.te-footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px 20px;
+    padding-top: 4px;
+    direction: rtl;
+}
+
+.te-footer-links a {
+    position: relative;
+    color: #c9cad3 !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    text-decoration: none !important;
+    transition: color .2s ease, transform .2s ease;
+}
+
+.te-footer-links a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -7px;
+    width: 0;
+    height: 2px;
+    transform: translateX(-50%);
+    border-radius: 100px;
+    background: linear-gradient(90deg, var(--te-orange), var(--te-green));
+    transition: width .2s ease;
+}
+
+.te-footer-links a:hover {
+    color: #fff !important;
+    transform: translateY(-2px);
+}
+.te-footer-links a:hover::after { width: 100%; }
+
+.te-footer-social-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+.te-footer-social-title {
+    color: #696d7e;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: .28em;
+}
+
+.te-footer-social {
+    display: flex;
+    gap: 9px;
+}
+
+.te-social-link {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 43px !important;
+    height: 43px !important;
+    padding: 0 !important;
+    color: #d9d9e2 !important;
+    font-size: 17px !important;
+    text-decoration: none !important;
+    border: 1px solid rgba(255,255,255,.11) !important;
+    border-radius: 12px 12px 4px 12px !important;
+    background: linear-gradient(145deg, rgba(255,255,255,.07), rgba(255,255,255,.018)) !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease, color .2s ease !important;
+}
+
+.te-social-link:hover {
+    color: #fff !important;
+    transform: translateY(-3px) rotate(-1deg);
+    border-color: rgba(255,122,73,.45) !important;
+    box-shadow: 0 9px 28px rgba(255,76,81,.11), inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+.te-footer-divider {
+    height: 1px;
+    margin: 34px 0 18px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.09), transparent);
+}
+
+.te-footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    color: #6d7181;
+    font-size: 11px;
+}
+
+.te-footer-bottom p { margin: 0; }
+.te-footer-bottom strong {
+    color: #9ca0ae;
+    font-weight: 800;
+    letter-spacing: .04em;
+}
+
+.te-footer-universe {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #6e7282;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: .18em;
+}
+
+.te-footer-universe::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--te-green);
+    box-shadow: 0 0 10px rgba(98,246,173,.7);
+}
+
+/* Auth pages need room for the shared footer. */
+body.te-auth-with-footer {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    padding: 0 !important;
+}
+body.te-auth-with-footer > .login-container,
+body.te-auth-with-footer > .reset-box {
+    margin: 58px auto !important;
+    width: min(470px, calc(100% - 40px)) !important;
+}
+body.te-auth-with-footer > .login-container {
+    width: min(420px, calc(100% - 40px)) !important;
+}
+body.te-auth-with-footer .te-site-footer { margin-top: auto !important; }
+
+/* ---------- Info / legal pages ---------- */
+body.te-info-page {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--te-text);
+    font-family: Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at 14% 13%, rgba(255,78,73,.14), transparent 31%),
+        radial-gradient(circle at 86% 70%, rgba(78,241,169,.09), transparent 34%),
+        linear-gradient(145deg, #070812, #0b1020 56%, #060812);
+}
+
+.te-info-header {
+    width: min(1180px, calc(100% - 40px));
+    margin: 0 auto;
+    min-height: 84px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.te-info-header a { text-decoration: none; }
+
+.te-info-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 11px;
+    color: #b9bdca;
+    background: rgba(255,255,255,.025);
+    font-size: 12px;
+    font-weight: 800;
+}
+.te-info-back:hover { color: #fff; border-color: rgba(98,246,173,.28); }
+
+.te-info-main {
+    width: min(940px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 72px 0 12px;
+}
+
+.te-info-kicker {
+    margin: 0 0 12px;
+    color: var(--te-green);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+}
+
+.te-info-main h1 {
+    margin: 0 0 18px;
+    font-size: clamp(34px, 6vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -.035em;
+}
+
+.te-info-lead {
+    margin: 0 0 34px;
+    max-width: 760px;
+    color: #a2a7b6;
+    font-size: 16px;
+    line-height: 1.9;
+}
+
+.te-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 16px;
+}
+
+.te-info-card {
+    padding: 25px;
+    border: 1px solid rgba(255,255,255,.075);
+    border-radius: 18px 18px 6px 18px;
+    background: linear-gradient(145deg, rgba(255,255,255,.047), rgba(255,255,255,.018));
+    box-shadow: 0 16px 50px rgba(0,0,0,.12);
+}
+.te-info-card h2,
+.te-info-card h3 { margin: 0 0 10px; font-size: 18px; }
+.te-info-card p,
+.te-info-card li { color: #999eae; line-height: 1.85; font-size: 14px; }
+.te-info-card ul { margin: 10px 0 0; padding-inline-start: 20px; }
+.te-info-card a { color: #7ef7bb; }
+
+.te-info-wide { grid-column: 1 / -1; }
+
+.te-info-note {
+    margin-top: 18px;
+    padding: 15px 18px;
+    border-left: 3px solid var(--te-orange);
+    border-radius: 8px;
+    color: #8f94a4;
+    background: rgba(255,138,61,.055);
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+@media (max-width: 860px) {
+    .te-footer-main { grid-template-columns: 1fr; text-align: center; }
+    .te-footer-brand, .te-footer-social-wrap { align-items: center; }
+    .te-footer-copyline { max-width: 520px; }
+    .te-footer-links { justify-content: center; }
+    .te-info-grid { grid-template-columns: 1fr; }
+    .te-info-wide { grid-column: auto; }
+}
+
+@media (max-width: 620px) {
+    .te-floating-brand { top: 11px; right: 11px; padding: 8px 10px; }
+    .te-floating-brand .te-brandmark { font-size: 15px; }
+    .te-footer-inner { width: min(100% - 28px, 1240px); padding-top: 38px; }
+    .te-footer-links { gap: 13px 17px; }
+    .te-footer-bottom { flex-direction: column; text-align: center; }
+    .te-info-header { min-height: 74px; }
+    .te-info-main { padding-top: 55px; }
+}

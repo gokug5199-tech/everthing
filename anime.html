@@ -11,10 +11,10 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Anime | Discover Everything</title>
+    <title>Anime | The Everything</title>
 
     <!-- ?v=2 helps prevent old CSS cache -->
-    <link rel="stylesheet" href="anime.css?v=4">
+    <link rel="stylesheet" href="anime.css?v=6">
 
 
     <!-- Page-specific visual upgrades: search, background, side characters -->
@@ -212,6 +212,9 @@
         }
     </style>
 
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="site-branding.css">
 </head>
 
 <body>
@@ -283,8 +286,13 @@
     <!-- NAVBAR -->
     <nav class="navbar">
 
-        <a href="/everything/web%207am/index.html" class="logo">
-            Discover Everything
+        <div class="site-identity">
+            <a href="index.html" class="logo">THE EVERYTHING</a>
+            <span class="site-tagline">Enter the Anime World</span>
+        </div>
+
+        <a href="anime.html" class="yokso-wordmark" aria-label="The Everything Anime">
+            <span>ANIME</span>
         </a>
 
         <div class="nav-links">
@@ -316,58 +324,6 @@
     </a>
 
 
-    <!-- HEADER -->
-    <header class="anime-header">
-
-        <p class="small-title">
-            DISCOVER YOUR NEXT WORLD
-        </p>
-
-        <h1>
-            AN<span>IME</span>
-        </h1>
-
-        <p class="description">
-            Explore anime from every genre and discover your next favorite story.
-        </p>
-
-
-        <!-- CATEGORIES -->
-        <div class="categories">
-
-            <button class="category active" data-category="all">
-                All
-            </button>
-
-            <button class="category" data-category="action">
-                Action
-            </button>
-
-            <button class="category" data-category="romance">
-                Romance
-            </button>
-
-            <button class="category" data-category="fantasy">
-                Fantasy
-            </button>
-
-            <button class="category" data-category="comedy">
-                Comedy
-            </button>
-
-            <button class="category" data-category="horror">
-                Horror
-            </button>
-
-            <button class="category" data-category="adventure">
-                Adventure
-            </button>
-
-        </div>
-
-    </header>
-
-
 <!-- Anime Search -->
 <div class="anime-search" role="search">
     <span class="anime-search-icon" aria-hidden="true"></span>
@@ -381,8 +337,27 @@
 </div>
 
 
+    <!-- Icon-only genres menu, styled like a slide-out library panel -->
+    <button
+        class="genres-toggle"
+        id="genresToggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="genreMenu"
+        aria-label="Open anime genres"
+    >
+        <span class="genres-toggle-lines" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+    </button>
 
+    <div class="genres-backdrop" id="genresBackdrop" aria-hidden="true"></div>
 
+    <aside class="genre-drawer" id="genreMenu" aria-hidden="true" aria-label="Anime genres">
+        <nav class="genre-drawer-list" id="genreList" aria-label="Filter anime by genre"></nav>
+    </aside>
 
 
     <!-- ANIME SECTION -->
@@ -395,6 +370,7 @@
                 <h2>Trending Anime</h2>
             </div>
 
+
         </div>
 
         <!-- ANIME GRID: cards are generated from anime-data.js -->
@@ -404,8 +380,8 @@
 
 
     <!-- Anime category filtering -->
-<script src="anime-data.js?v=3"></script>
-<script src="anime.js?v=3"></script>
+<script src="anime-data.js?v=6"></script>
+<script src="anime.js?v=6"></script>
 
 <!-- Shared account menu -->
 <script src="account-menu.js"></script>
@@ -419,6 +395,8 @@
     });
 </script>
 
+
+    <script src="site-shell.js"></script>
 </body>
 
 </html>

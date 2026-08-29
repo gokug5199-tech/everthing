@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Watch Episode</title>
+    <title>Watch Episode | The Everything</title>
     <style>
         * { box-sizing: border-box; }
         body {
@@ -35,6 +35,9 @@
             color: white; text-decoration: none; background: linear-gradient(90deg, #ff5c47, #ff364f);
         }
     </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="site-branding.css">
 </head>
 <body>
     <main class="page">
@@ -62,7 +65,7 @@
                 return;
             }
 
-            document.title = `${anime.title} - Episode ${episode}`;
+            document.title = `${anime.title} - Episode ${episode} | The Everything`;
             document.getElementById("animeTitle").textContent = anime.title;
             document.getElementById("episodeTitle").textContent = `Episode ${episode}`;
             document.getElementById("backButton").href = `anime-details.html?id=${encodeURIComponent(anime.id)}`;
@@ -103,5 +106,7 @@ const source =
             }
         })();
     </script>
+
+    <script src="site-shell.js"></script>
 </body>
 </html>
