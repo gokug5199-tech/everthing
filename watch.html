@@ -26,6 +26,21 @@
         h1 { margin: 8px 0 6px; font-size: clamp(28px, 5vw, 48px); }
         .episode-title { color: #9aa4b1; margin-bottom: 24px; }
         video { width: 100%; max-height: 70vh; border-radius: 14px; background: #000; }
+        .bunny-player {
+            position: relative;
+            padding-top: 56.25%;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 14px;
+            background: #000;
+        }
+        .bunny-player iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
         .missing {
             padding: 30px; border-radius: 14px; color: #aab3bf; line-height: 1.7;
             background: rgba(0,0,0,0.28); border: 1px dashed rgba(255,255,255,0.12);
@@ -72,23 +87,45 @@
 
             const links = anime.episodeLinks || {};
 
-const source =
-    links[episode] ||
-    links[String(episode)] ||
-    `videos/${anime.id}/episode-${episode}.mp4`;
+            // Temporary Bunny Stream mapping for episodes that are not yet in anime-data.js.
+            // Add more episodes here later, or move these URLs into anime-data.js.
+            const bunnyEpisodeLinks = {
+                "attack-on-titan": {
+                    1: "https://player.mediadelivery.net/embed/765707/fb7c2fe9-a635-45fb-b81a-cbbf98958d4d?autoplay=true&loop=false&muted=true&preload=true&responsive=true"
+                }
+            };
 
-            
+            const source =
+                links[episode] ||
+                links[String(episode)] ||
+                (bunnyEpisodeLinks[anime.id] && bunnyEpisodeLinks[anime.id][episode]) ||
+                `videos/${anime.id}/episode-${episode}.mp4`;
 
-            const cleanSource = String(source).split("?")[0].toLowerCase();
+            const sourceText = String(source);
+            const cleanSource = sourceText.split("?")[0].toLowerCase();
             const directVideo = [".mp4", ".webm", ".ogg", ".m4v"].some(function (ext) {
                 return cleanSource.endsWith(ext);
             });
+            const bunnyEmbed = /^https:\/\/player\.mediadelivery\.net\/embed\//i.test(sourceText);
 
-            if (directVideo) {
+            if (bunnyEmbed) {
+                const wrapper = document.createElement("div");
+                wrapper.className = "bunny-player";
+
+                const iframe = document.createElement("iframe");
+                iframe.src = sourceText;
+                iframe.loading = "lazy";
+                iframe.allow = "accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen";
+                iframe.allowFullscreen = true;
+                iframe.referrerPolicy = "strict-origin-when-cross-origin";
+
+                wrapper.appendChild(iframe);
+                playerArea.appendChild(wrapper);
+            } else if (directVideo) {
                 const video = document.createElement("video");
                 video.controls = true;
                 video.preload = "metadata";
-                video.src = source;
+                video.src = sourceText;
                 playerArea.appendChild(video);
             } else {
                 const note = document.createElement("div");
@@ -96,7 +133,7 @@ const source =
                 note.textContent = "This episode uses an external link.";
                 const link = document.createElement("a");
                 link.className = "external-link";
-                link.href = source;
+                link.href = sourceText;
                 link.target = "_blank";
                 link.rel = "noopener noreferrer";
                 link.textContent = "Open Episode";

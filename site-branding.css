@@ -471,3 +471,28 @@ body.te-info-page {
     .te-info-header { min-height: 74px; }
     .te-info-main { padding-top: 55px; }
 }
+
+html,
+body {
+    min-height: 100%;
+    margin: 0;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* محتوى الصفحة */
+main {
+    flex: 1;
+}
+
+/* Footer */
+footer,
+.site-footer {
+    margin-top: auto;
+    position: relative;
+    width: 100%;
+}

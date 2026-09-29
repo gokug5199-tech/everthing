@@ -93,7 +93,6 @@
                 '</div>',
                 '<nav class="te-footer-links" aria-label="روابط الموقع">',
                   '<a href="about.html">About Us</a>',
-                  '<a href="contact.html">Contact Us</a>',
                   '<a href="support.html">Support</a>',
                   '<a href="privacy.html">Privacy policy</a>',
                   '<a href="terms.html">Terms & conditions</a>',

@@ -1,30 +1,311 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الدعم | The Everything</title>
+    <title>Support | The Everything</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="site-branding.css">
+    <style>
+        .support-wrap {
+            max-width: 760px;
+        }
+
+        .support-panel {
+            padding: 28px;
+            border: 1px solid rgba(255,255,255,.075);
+            border-radius: 20px 20px 7px 20px;
+            background: linear-gradient(145deg, rgba(255,255,255,.05), rgba(255,255,255,.018));
+            box-shadow: 0 18px 60px rgba(0,0,0,.14);
+        }
+
+        .support-panel[hidden] {
+            display: none !important;
+        }
+
+        .support-status {
+            margin: 0 0 22px;
+            color: #a2a7b6;
+            line-height: 1.8;
+            font-size: 14px;
+        }
+
+        .support-form {
+            display: grid;
+            gap: 18px;
+        }
+
+        .support-field {
+            display: grid;
+            gap: 8px;
+        }
+
+        .support-field label {
+            color: #f7f7fb;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .support-field input,
+        .support-field textarea {
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid rgba(255,255,255,.09);
+            border-radius: 12px;
+            outline: none;
+            color: #f7f7fb;
+            background: rgba(3,5,13,.58);
+            font: inherit;
+            transition: border-color .2s ease, box-shadow .2s ease;
+        }
+
+        .support-field input {
+            min-height: 48px;
+            padding: 0 14px;
+        }
+
+        .support-field textarea {
+            min-height: 180px;
+            resize: vertical;
+            padding: 14px;
+            line-height: 1.7;
+        }
+
+        .support-field input:focus,
+        .support-field textarea:focus {
+            border-color: rgba(98,246,173,.5);
+            box-shadow: 0 0 0 3px rgba(98,246,173,.08);
+        }
+
+        .support-field input[readonly] {
+            color: #cfd3dd;
+            cursor: default;
+        }
+
+        .support-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .support-button,
+        .support-login-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 46px;
+            padding: 0 18px;
+            border-radius: 11px;
+            font-size: 13px;
+            font-weight: 900;
+            text-decoration: none;
+        }
+
+        .support-button {
+            border: 0;
+            cursor: pointer;
+            color: #10120f;
+            background: linear-gradient(90deg, var(--te-yellow), var(--te-green));
+        }
+
+        .support-button:disabled {
+            opacity: .58;
+            cursor: wait;
+        }
+
+        .support-login-link {
+            color: #10120f !important;
+            background: linear-gradient(90deg, var(--te-yellow), var(--te-orange));
+        }
+
+        .support-feedback {
+            min-height: 20px;
+            margin: 0;
+            color: #a2a7b6;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .support-feedback.is-success {
+            color: var(--te-green);
+        }
+
+        .support-feedback.is-error {
+            color: #ff7a8c;
+        }
+
+        .support-username-note {
+            margin: 0;
+            color: #777d8e;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+    </style>
 </head>
 <body class="te-info-page">
     <header class="te-info-header">
         <a href="index.html" class="te-brand-host" data-te-brand aria-label="The Everything">THE EVERYTHING</a>
-        <a href="index.html" class="te-info-back">العودة للرئيسية ←</a>
+        <a href="index.html" class="te-info-back">← Back to Home</a>
     </header>
 
-    <main class="te-info-main">
+    <main class="te-info-main support-wrap">
         <p class="te-info-kicker">SUPPORT CENTER</p>
-        <h1>الدعم</h1>
-        <p class="te-info-lead">مركز مساعدة مختصر للمشاكل الشائعة في الحساب، تسجيل الدخول، الخلفيات والتنقل داخل الموقع.</p>
-        <section class="te-info-grid">
-            <div class="te-info-card"><h2>الحساب وتسجيل الدخول</h2><p>تأكد من صحة البريد وكلمة المرور، ثم أعد تحميل الصفحة. إذا استمرت المشكلة استخدم خيار إعادة تعيين كلمة المرور.</p></div>
-<div class="te-info-card"><h2>الخلفيات</h2><p>إذا تعذّر رفع صورة، تحقق من صيغة الملف وحجمه واتصال الإنترنت، ثم حاول مرة أخرى.</p></div>
-<div class="te-info-card"><h2>المشاهدة والروابط</h2><p>بعض الصفحات قد تعتمد على ملفات محلية أو روابط خارجية. تحقق من أن الرابط ما زال متاحاً وأن المتصفح يسمح بتشغيل الوسائط.</p></div>
-<div class="te-info-card"><h2>ما زلت تحتاج مساعدة؟</h2><p>انتقل إلى صفحة اتصل بنا واستخدم إحدى القنوات الرسمية الموجودة في الفوتر.</p><p><a href="contact.html">اتصل بنا ←</a></p></div>
+        <h1>Support</h1>
+        <p class="te-info-lead">
+            Need help or want to send us a question? Support requests are available to signed-in members so every message stays connected to the correct account.
+        </p>
+
+        <section class="support-panel" id="supportLoading">
+            <p class="support-status">Checking your account...</p>
+        </section>
+
+        <section class="support-panel" id="supportSignedOut" hidden>
+            <h2>Sign in to contact Support</h2>
+            <p class="support-status">
+                You must be signed in to your The Everything account before you can send a support request.
+            </p>
+            <a class="support-login-link" href="login.html">
+                <i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i>
+                Sign In
+            </a>
+        </section>
+
+        <section class="support-panel" id="supportSignedIn" hidden>
+            <form class="support-form" id="supportForm">
+                <div class="support-field">
+                    <label for="supportUsername">Username</label>
+                    <input id="supportUsername" type="text" readonly aria-readonly="true">
+                    <p class="support-username-note">Your username is taken automatically from your signed-in account.</p>
+                </div>
+
+                <div class="support-field">
+                    <label for="supportMessage">What can we help you with?</label>
+                    <textarea
+                        id="supportMessage"
+                        maxlength="5000"
+                        required
+                        placeholder="Write your message here..."
+                    ></textarea>
+                </div>
+
+                <div class="support-actions">
+                    <button class="support-button" id="supportSubmit" type="submit">
+                        <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+                        Send Request
+                    </button>
+                    <p class="support-feedback" id="supportFeedback" aria-live="polite"></p>
+                </div>
+            </form>
         </section>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = "https://tnavsfbolastevebukxl.supabase.co";
+        const SUPABASE_KEY = "sb_publishable_3FX_mPM-A6dIY-nQTtFZQg_5HPoWO9B";
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        const loadingPanel = document.getElementById("supportLoading");
+        const signedOutPanel = document.getElementById("supportSignedOut");
+        const signedInPanel = document.getElementById("supportSignedIn");
+        const supportForm = document.getElementById("supportForm");
+        const usernameInput = document.getElementById("supportUsername");
+        const messageInput = document.getElementById("supportMessage");
+        const submitButton = document.getElementById("supportSubmit");
+        const feedback = document.getElementById("supportFeedback");
+
+        let currentUser = null;
+        let currentUsername = "";
+
+        function showPanel(panel) {
+            loadingPanel.hidden = panel !== loadingPanel;
+            signedOutPanel.hidden = panel !== signedOutPanel;
+            signedInPanel.hidden = panel !== signedInPanel;
+        }
+
+        function setFeedback(message, type = "") {
+            feedback.textContent = message;
+            feedback.className = "support-feedback";
+            if (type) feedback.classList.add(type);
+        }
+
+        async function loadSignedInUser() {
+            const { data: userData, error: userError } = await supabaseClient.auth.getUser();
+
+            if (userError || !userData?.user) {
+                currentUser = null;
+                showPanel(signedOutPanel);
+                return;
+            }
+
+            currentUser = userData.user;
+
+            const { data: profile } = await supabaseClient
+                .from("profiles")
+                .select("username")
+                .eq("id", currentUser.id)
+                .maybeSingle();
+
+            currentUsername =
+                profile?.username?.trim() ||
+                currentUser.user_metadata?.username?.trim() ||
+                "User";
+
+            usernameInput.value = currentUsername;
+            showPanel(signedInPanel);
+        }
+
+        supportForm.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const message = messageInput.value.trim();
+
+            if (!currentUser) {
+                showPanel(signedOutPanel);
+                return;
+            }
+
+            if (!message) {
+                setFeedback("Please write your message before sending.", "is-error");
+                return;
+            }
+
+            submitButton.disabled = true;
+            setFeedback("Sending your request...");
+
+            const { error } = await supabaseClient
+                .from("support_requests")
+                .insert({
+                    user_id: currentUser.id,
+                    username: currentUsername,
+                    message: message
+                });
+
+            submitButton.disabled = false;
+
+            if (error) {
+                console.error("Support request error:", error);
+                setFeedback(
+                    "Your request could not be sent. Make sure the support database setup has been completed, then try again.",
+                    "is-error"
+                );
+                return;
+            }
+
+            messageInput.value = "";
+            setFeedback(
+                "Your request has been sent successfully.",
+                "is-success"
+            );
+        });
+
+        loadSignedInUser().catch(function (error) {
+            console.error("Support account check error:", error);
+            showPanel(signedOutPanel);
+        });
+    </script>
     <script src="site-shell.js"></script>
 </body>
 </html>
