@@ -1529,11 +1529,78 @@
 
         }
 
-    </style>
+    
+/* ===== PROFILE NEW LAYOUT ===== */
+.content-grid{
+    display:grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.85fr);
+    gap:24px;
+    margin-top:24px;
+    align-items:start;
+}
+
+.left-profile-column,
+.right-profile-column{
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+}
+
+.profile-wallpaper-card{
+    min-height:420px;
+}
+
+.anime-watching-card{
+    min-height:300px;
+}
+
+.empty-anime{
+    height:220px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#7c8896;
+    border-radius:14px;
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(255,255,255,.06);
+}
+
+.recent-grid{
+    grid-template-columns:repeat(3,1fr);
+}
+
+.recent-grid .recent-card{
+    min-height:210px;
+}
+
+@media(max-width:900px){
+    .content-grid{
+        grid-template-columns:1fr;
+    }
+    .right-profile-column{
+        order:2;
+    }
+}
+
+@media(max-width:600px){
+    .profile-hero{
+        grid-template-columns:1fr;
+        text-align:center;
+    }
+    .hero-actions{
+        width:100%;
+    }
+    .recent-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+</style>
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="site-branding.css">
+    <script src="back-navigation.js"></script>
 </head>
 
 
@@ -1686,132 +1753,55 @@
              CONTENT
         ================================== -->
 
+
         <div class="content-grid">
 
+            <div class="left-profile-column">
 
-            <!-- =================================
-                 PROFILE STATS
-            ================================== -->
+                <section class="card profile-wallpaper-card">
 
-            <section class="card">
+                    <div class="recent-header">
 
-                <p class="card-label">
-                    Overview
-                </p>
+                        <div>
+                            <p class="card-label">Collection</p>
+                            <h2>Your Wallpaper</h2>
+                            <p class="card-description">Your latest wallpapers.</p>
+                        </div>
 
-
-                <h2>
-                    Profile Stats
-                </h2>
-
-
-                <p class="card-description">
-                    A quick look at your activity on The Everything.
-                </p>
-
-
-                <div class="stats-list">
-
-                    <div class="stat-item">
-
-                        <span class="stat-name">
-                            Wallpapers Uploaded
-                        </span>
-
-                        <span
-                            class="stat-value"
-                            id="wallpaperCount"
-                        >
-                            0
-                        </span>
+                        <a href="my-wallpapers.html" class="view-all">View All</a>
 
                     </div>
 
-
-                    <div class="stat-item">
-
-                        <span class="stat-name">
-                            Account
-                        </span>
-
-                        <span class="stat-value">
-                            Active
-                        </span>
-
+                    <div class="recent-grid" id="recentGrid">
+                        <div class="empty-recent">
+                            Loading your wallpapers...
+                        </div>
                     </div>
 
+                </section>
 
-                    <div class="stat-item">
+            </div>
 
-                        <span class="stat-name">
-                            Member Since
-                        </span>
 
-                        <span
-                            class="stat-value"
-                            id="memberSince"
-                        >
-                            —
-                        </span>
+            <div class="right-profile-column">
 
+                <section class="card anime-watching-card">
+
+                    <p class="card-label">Collection</p>
+
+                    <h2>Your Anime Watching</h2>
+
+                    <p class="card-description">
+                        Anime you are currently watching.
+                    </p>
+
+                    <div class="empty-anime">
+                        Coming Soon
                     </div>
 
-                </div>
+                </section>
 
-            </section>
-
-
-
-            <!-- =================================
-                 RECENT UPLOADS
-            ================================== -->
-
-            <section class="card">
-
-                <div class="recent-header">
-
-                    <div>
-
-                        <p class="card-label">
-                            Collection
-                        </p>
-
-
-                        <h2>
-                            Recent Uploads
-                        </h2>
-
-
-                        <p class="card-description">
-                            Your latest wallpapers.
-                        </p>
-
-                    </div>
-
-
-                    <a
-                        href="my-wallpapers.html"
-                        class="view-all"
-                    >
-                        View All
-                    </a>
-
-                </div>
-
-
-                <div
-                    class="recent-grid"
-                    id="recentGrid"
-                >
-
-                    <div class="empty-recent">
-                        Loading your wallpapers...
-                    </div>
-
-                </div>
-
-            </section>
-
+            </div>
 
         </div>
 
