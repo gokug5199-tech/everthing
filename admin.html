@@ -1,0 +1,20 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>إدارة الموقع | The Everything</title><link rel="stylesheet" href="admin.css"><script src="back-navigation.js"></script></head><body>
+<header><a href="index.html">The Everything</a><a data-back href="index.html">رجوع</a></header>
+<main><p class="eyebrow">لوحة الإدارة</p><h1>محتوى موقعك، في مكان واحد</h1><p id="status" role="status" aria-live="polite">جارٍ التحقق من حسابك…</p>
+<div id="panel" hidden><nav><button id="animeTab">الأنميات</button><button id="wallTab">خلفيات المستخدمين</button></nav>
+<section id="animeSection"><h2>إضافة / تعديل أنمي</h2><form id="animeForm"><div class="fields">
+<label>معرّف الأنمي (إنجليزي، مثال one-piece)<input id="animeId" required pattern="[a-z0-9][a-z0-9-]{0,79}" maxlength="80" dir="ltr"></label>
+<label>الاسم<input id="title" required maxlength="200"></label>
+<label>رابط الصورة أو مسارها<input id="poster" dir="ltr" placeholder="https://… أو image/anime/…"></label>
+<label>أو رفع صورة (حتى 5 MB)<input id="posterFile" type="file" accept="image/jpeg,image/png,image/webp"></label>
+<label>التصنيف الرئيسي<input id="category" value="action" required></label>
+<label>التصنيفات مفصولة بفاصلة<input id="genres" placeholder="Action, Drama"></label>
+<label>التقييم من 10<input id="rating" type="number" min="0" max="10" step="0.1" value="0" required></label>
+<label>عدد الحلقات<input id="episodes" type="number" min="0" max="2000" value="0" required></label></div>
+<label>الوصف<textarea id="description" rows="3"></textarea></label>
+<label>روابط الحلقات: كل سطر رقم الحلقة ثم | ثم الرابط<textarea id="links" rows="5" dir="ltr" placeholder="1 | https://example.com/episode-1.mp4"></textarea></label>
+<p>تقبل روابط الفيديو المباشرة وروابط Bunny Stream. ترك الرابط فارغًا يعرض أن الحلقة غير متوفرة.</p>
+<button type="submit" id="save">حفظ الأنمي</button><button type="button" id="reset">أنمي جديد / إلغاء التعديل</button></form>
+<h2>الأنميات المنشورة</h2><input id="animeSearch" placeholder="بحث بالاسم"><div id="animeList" class="list"></div></section>
+<section id="wallSection" hidden><h2>خلفيات المستخدمين</h2><form id="wallSearchForm"><input id="wallSearch" placeholder="بحث بعنوان الخلفية"><button>بحث</button></form><div id="wallList" class="list"></div><button id="prev">السابق</button><span id="pageNumber"></span><button id="next">التالي</button><div id="cleanup" role="status"></div></section>
+</div></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="admin.js"></script></body></html>

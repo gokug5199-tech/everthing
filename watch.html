@@ -57,7 +57,7 @@
 </head>
 <body>
     <main class="page">
-        <a id="backButton" href="anime.html" class="back-button">← Back</a>
+        <a data-back id="backButton" href="index.html" class="back-button">← Back</a>
         <section class="player-card">
             <p class="label">NOW WATCHING</p>
             <h1 id="animeTitle">Anime</h1>
@@ -66,9 +66,10 @@
         </section>
     </main>
 
-    <script src="anime-data.js?v=3"></script>
+    <script src="anime-data.js?v=admin1"></script>
     <script>
-        (function () {
+        (async function () {
+            await window.ANIME_READY;
             const params = new URLSearchParams(window.location.search);
             const animeId = params.get("anime") || "";
             const episode = Number.parseInt(params.get("episode"), 10) || 1;
@@ -77,7 +78,7 @@
             const playerArea = document.getElementById("playerArea");
 
             if (!anime) {
-                playerArea.innerHTML = '<div class="missing">Anime not found. Check anime-data.js.</div>';
+                playerArea.innerHTML = '<div class="missing">Anime not found or no longer available.</div>';
                 return;
             }
 
@@ -88,20 +89,16 @@
 
             const links = anime.episodeLinks || {};
 
-            // Temporary Bunny Stream mapping for episodes that are not yet in anime-data.js.
-            // Add more episodes here later, or move these URLs into anime-data.js.
-            const bunnyEpisodeLinks = {
-                "attack-on-titan": {
-                    1: "https://player.mediadelivery.net/embed/765707/fb7c2fe9-a635-45fb-b81a-cbbf98958d4d?autoplay=true&loop=false&muted=true&preload=true&responsive=true"
-                }
-            };
-
-            const source =
-                links[episode] ||
-                links[String(episode)] ||
-                (bunnyEpisodeLinks[anime.id] && bunnyEpisodeLinks[anime.id][episode]) ||
-                `videos/${anime.id}/episode-${episode}.mp4`;
-
+            const source = links[episode] || links[String(episode)];
+            if (episode < 1 || episode > anime.episodes || !source) {
+                playerArea.textContent = "This episode is not available yet.";
+                return;
+            }
+            const resolved = new URL(String(source), location.href);
+            if (!['https:', 'http:'].includes(resolved.protocol) && !(resolved.protocol === 'file:' && location.protocol === 'file:' && !/^[a-z]+:/i.test(source))) {
+                playerArea.textContent = "Invalid episode link.";
+                return;
+            }
             const sourceText = String(source);
             const cleanSource = sourceText.split("?")[0].toLowerCase();
             const directVideo = [".mp4", ".webm", ".ogg", ".m4v"].some(function (ext) {

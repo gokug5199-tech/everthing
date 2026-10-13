@@ -1,4 +1,5 @@
-(function () {
+(async function () {
+    await window.ANIME_READY;
     const data = Array.isArray(window.ANIME_DATA) ? window.ANIME_DATA : [];
     const grid = document.getElementById("animeGrid");
     const searchInput = document.getElementById("animeSearch");

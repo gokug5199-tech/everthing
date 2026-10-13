@@ -2093,6 +2093,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="site-branding.css">
     <script src="back-navigation.js"></script>
+    <link rel="stylesheet" href="home-layout.css">
 </head>
 
 
@@ -2264,6 +2265,7 @@
 
 
 
+                    <a href="admin.html" class="account-option" id="homeAdminLink" style="display:none">⚙ Admin Panel</a>
                     <!-- LOGOUT -->
 
                     <button
@@ -2342,6 +2344,10 @@
     ================================================== -->
 
     <section class="hero">
+        <!-- Add transparent character art at these paths when ready. -->
+        <div class="hero-character hero-character-left" aria-hidden="true">
+            <img data-character-src="image/aizen-hero.png" alt="">
+        </div>
 
         <div class="hero-content">
 
@@ -2379,6 +2385,9 @@
 
         </div>
 
+        <div class="hero-character hero-character-right" aria-hidden="true">
+            <img data-character-src="image/gandalf-hero.png" alt="">
+        </div>
     </section>
 
 
@@ -3133,6 +3142,32 @@
 
 
     <script src="site-shell.js"></script>
+    <script>
+    // Missing optional art stays invisible; no colored placeholders or broken icons.
+    document.querySelectorAll('[data-character-src]').forEach(function (image) {
+        image.addEventListener('load', function () {
+            document.querySelector('.hero').classList.add('has-character-art');
+        });
+        image.addEventListener('error', function () { image.removeAttribute('src'); });
+        image.src = image.dataset.characterSrc;
+    });
+    </script>
+<script>
+(function () {
+    let generation = 0;
+    async function refreshAdminLink() {
+        const current = ++generation;
+        const link = document.getElementById('homeAdminLink');
+        link.style.display = 'none';
+        try {
+            const result = await supabaseClient.rpc('site_is_admin');
+            if (current === generation && !result.error && result.data === true) link.style.display = 'flex';
+        } catch (_) {}
+    }
+    supabaseClient.auth.onAuthStateChange(() => setTimeout(refreshAdminLink, 0));
+    refreshAdminLink();
+})();
+</script>
 </body>
 
 </html>

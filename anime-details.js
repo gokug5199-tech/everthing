@@ -1,4 +1,5 @@
-(function () {
+(async function () {
+    await window.ANIME_READY;
     const data = Array.isArray(window.ANIME_DATA) ? window.ANIME_DATA : [];
     const params = new URLSearchParams(window.location.search);
     const requestedId = params.get("id") || "attack-on-titan";
@@ -12,7 +13,7 @@
         page.innerHTML = `
             <a href="anime.html" class="back-button">← Back to Anime</a>
             <div class="page-message">
-                Anime not found. Check the <strong>id</strong> value in anime-data.js.
+                Anime not found or no longer available.
             </div>
         `;
         return;

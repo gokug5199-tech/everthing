@@ -1,0 +1,209 @@
+/* Home layout: wide category panels and optional transparent character art. */
+.hero {
+    min-height: 0;
+    padding: 38px 24px 30px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: clamp(16px, 3vw, 60px);
+    align-items: center;
+}
+.hero-content { width: 100%; max-width: none; }
+.hero h1 { font-size: clamp(46px, 5.2vw, 105px); line-height: 1; margin: 24px 0 20px; letter-spacing: -3px; }
+.hero-description { max-width: 620px; font-size: clamp(13px, 1vw, 17px); line-height: 1.6; }
+.scroll-line { display: none; }
+.hero-character { min-width: 0; height: clamp(220px, 17vw, 340px); display: flex; align-items: center; justify-content: center; pointer-events: none; }
+.hero-character img { display: block; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 12px 30px rgba(0,0,0,.4)); }
+.hero-character img:not([src]) { visibility: hidden; }
+.cards-section { width: calc(100% - 48px); max-width: none; padding: 0 0 64px; margin: 0 auto; }
+.section-title { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.cards { grid-template-columns: repeat(3, minmax(0,1fr)); gap: 24px; }
+.cards .card { grid-column: auto; min-width: 0; min-height: clamp(480px, 57vh, 740px); padding: clamp(28px, 3vw, 60px); display: flex; flex-direction: column; align-items: flex-start; border-radius: 24px; }
+.cards .card .icon { margin-top: 24px; margin-bottom: 32px; }
+.cards .card h2 { font-size: clamp(30px, 3vw, 58px); line-height: 1.15; overflow-wrap: anywhere; }
+.cards .card p { max-width: 420px; font-size: 16px; line-height: 1.8; }
+.cards .card .entry-button { margin-top: auto; }
+.cards .card:hover { transform: translateY(-5px); }
+@media (max-width: 900px) {
+    .hero { gap: 12px; padding: 28px 20px; grid-template-columns: minmax(0,1fr) minmax(0,2fr) minmax(0,1fr); }
+    .hero h1 { font-size: clamp(36px, 6vw, 58px); letter-spacing: -2px; }
+    .hero-character { height: 220px; }
+    .cards-section { width: calc(100% - 32px); }
+    .cards { gap: 14px; }
+    .cards .card { min-height: 420px; padding: 24px 18px; }
+    .cards .card h2 { font-size: 28px; }
+    .cards .card p { font-size: 14px; }
+}
+@media (max-width: 620px) {
+    .hero { grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
+    .hero-content { grid-column: 1 / -1; grid-row: 1; }
+    .hero-character { height: 160px; grid-row: 2; }
+    .hero:not(.has-character-art) .hero-character { display: none; }
+    .hero h1 { font-size: clamp(44px, 10vw, 62px); }
+    .cards { grid-template-columns: minmax(0,1fr); }
+    .cards .card { min-height: 380px; padding: 30px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .hero-content, .everything { animation: none !important; }
+    .cards .card { transition: none; }
+}
+
+/* Full-width three-panel composition matching the drawn boundaries. */
+.hero {
+    padding: 20px 4vw 22px;
+    min-height: 300px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: 3vw;
+}
+.hero h1 { font-size: clamp(44px, 5vw, 100px); margin: 18px 0 14px; }
+.hero-character { height: clamp(210px, 16vw, 310px); }
+.cards-section { width: 100%; max-width: none; margin: 0; padding: 0; }
+.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; }
+.cards .card {
+    min-height: max(600px, calc(100svh - 400px));
+    border-radius: 0;
+    border: 0;
+    border-top: 1px solid rgba(255,255,255,.09);
+    border-right: 1px solid rgba(255,255,255,.09);
+    padding: clamp(32px, 4vw, 80px);
+    box-shadow: none;
+    background: linear-gradient(180deg, rgba(15,18,28,.8), rgba(5,7,13,.55));
+}
+.cards .card:last-child { border-right: 0; }
+.cards .card:hover { transform: none; }
+.cards .card .icon { margin-top: 30px; margin-bottom: 38px; }
+.cards .card .entry-button { margin-top: auto; }
+@media (max-width: 900px) {
+    .hero { padding: 24px 16px; gap: 16px; }
+    .hero-character { height: 200px; }
+    .hero h1 { font-size: clamp(36px, 5vw, 52px); }
+    .cards .card { padding: 28px 20px; min-height: 520px; }
+}
+@media (max-width: 620px) {
+    .hero { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .hero-content { grid-column: 1 / -1; grid-row: 1; }
+    .hero h1 { font-size: clamp(44px, 10vw, 62px); }
+    .hero-character { height: 170px; grid-row: 2; }
+    .cards { grid-template-columns: 1fr; }
+    .cards .card { min-height: 420px; padding: 32px; border-right: 0; }
+}
+
+/* Unified, seamless category area. */
+.cards-section {
+    background: #1b203b;
+}
+.cards {
+    gap: 0;
+    background: transparent;
+}
+.cards .card,
+.cards .card:hover {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    transform: none;
+}
+.cards .card::before,
+.cards .card::after {
+    content: none;
+    display: none;
+}
+.cards .card .icon {
+    background: rgba(101,234,212,.06);
+    border-color: rgba(101,234,212,.12);
+    box-shadow: none;
+}
+.cards .card .entry-button {
+    color: #83d8cf;
+    background: rgba(101,234,212,.07);
+    border-color: rgba(101,234,212,.17);
+}
+.cards .card a.entry-button:hover {
+    color: #06100f;
+    background: #65cfc2;
+    border-color: #65cfc2;
+}
+.cards .card .disabled-button:hover {
+    color: #83d8cf;
+    background: rgba(101,234,212,.07);
+}
+.cards .soon-badge {
+    color: #83d8cf;
+    background: rgba(101,234,212,.07);
+}
+.hero-character img {
+    opacity: .65;
+    filter: none;
+}
+/* Supplied JPEG has black pixels, so blend them visually into the page. */
+.hero-character-right {
+    mix-blend-mode: screen;
+}
+
+
+/* Correct the controls, badges and the transition into the footer. */
+:root { --home-panel-color: #1b203b; }
+.cards-section, .cards { background: var(--home-panel-color); }
+.cards .card .entry-button { margin-top: 24px; }
+.cards .card p { color: #b1b9ce; }
+.cards .card .card-number {
+    top: 24px;
+    right: 28px;
+    left: auto;
+    line-height: 24px;
+    color: #a0abc7;
+}
+.cards .card .soon-badge {
+    position: absolute;
+    top: 24px;
+    left: 28px;
+    right: auto;
+    margin: 0;
+    line-height: 16px;
+}
+
+/* Clear full-height separators, one shared purple/teal palette per panel. */
+.cards .card, .cards .card:hover {
+    background: linear-gradient(155deg, #292343 0%, #202d43 55%, #183b3f 100%);
+}
+.cards .card + .card {
+    border-left: 2px solid rgba(149, 184, 216, .55);
+}
+/* Restore the shared footer's own background, border and accent line.
+   Only remove its external gap so it follows the panels immediately. */
+body .te-site-footer { margin-top: 0 !important; }
+@media (max-width: 620px) {
+    .cards .card + .card {
+        border-left: 0;
+        border-top: 2px solid rgba(149, 184, 216, .55);
+    }
+}
+
+/* Reveal the site's original background through all three panels. */
+.cards-section,
+.cards,
+.cards .card,
+.cards .card:hover {
+    background: transparent;
+}
+
+/* Horizontal separator above the three sections, matching their vertical borders. */
+.cards-section { border-top: 2px solid rgba(149, 184, 216, .55); }
+
+/* Matched transparent portraits facing toward the title. */
+.hero-character, .hero-character-right {
+    mix-blend-mode: normal;
+    align-items: flex-end;
+}
+.hero-character img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center bottom;
+    opacity: .88;
+    filter: none;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 72%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 72%, transparent 100%);
+}

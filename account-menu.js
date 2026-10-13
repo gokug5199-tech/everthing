@@ -790,6 +790,7 @@
 
 
 
+<a href="admin.html" class="shared-account-option" id="siteAdminLink" style="display:none" hidden>⚙ Admin Panel</a>
 <!-- MY WALLPAPERS -->
 
 <a
@@ -1219,6 +1220,19 @@ return account;
 
 
 
+        const adminLink = document.getElementById('siteAdminLink');
+        if (adminLink) {
+            adminLink.hidden = true;
+            adminLink.style.display = 'none';
+            try {
+                const result = await sharedSupabaseClient.rpc('site_is_admin');
+                if (!result.error && result.data === true) {
+                    adminLink.hidden = false;
+                    adminLink.style.display = 'flex';
+                }
+            } catch (_) { /* Admin setup is optional for the account menu. */ }
+        }
+
         const user =
             session.user;
 
@@ -1579,6 +1593,8 @@ return account;
                                 "SIGNED_OUT"
                             ) {
 
+                                const adminLink = document.getElementById('siteAdminLink');
+                                if (adminLink) { adminLink.hidden = true; adminLink.style.display = 'none'; }
                                 showLoggedOut(
                                     elements
                                 );
