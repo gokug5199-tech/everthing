@@ -443,26 +443,34 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="site-branding.css">
     <script src="back-navigation.js"></script>
+
+<style>
+body.login-page,body.login-page.te-auth-with-footer{display:block!important;padding:0!important;background:radial-gradient(ellipse at 15% 30%,#201b3b66,transparent 50%),radial-gradient(ellipse at 90% 70%,#123d3c44,transparent 50%),#070b12;color:#edf3f5}
+.login-page [hidden]{display:none!important}.auth-header{max-width:1320px;margin:auto;padding:30px 38px;display:flex;justify-content:space-between;align-items:center;gap:20px}.auth-header .logo{margin:0;text-decoration:none;color:#fff}.return-link{font-size:13px;color:#a4b4c0;text-decoration:none}.auth-layout{max-width:1200px;margin:35px auto 80px;display:grid;grid-template-columns:1.15fr 1fr;align-items:center;gap:85px;padding:0 35px}.auth-story{min-width:0}.eyebrow{font-size:10px;letter-spacing:3px;color:#68e0c6;font-weight:800}.story-copy h2{font-size:clamp(40px,4.6vw,66px);line-height:1.04;letter-spacing:-3px;margin:24px 0}.story-copy em{font-style:normal;color:#75e4ca}.story-copy p{max-width:430px;font-size:15px;line-height:1.8;color:#9baabb}.planet-art{height:225px;margin-top:28px;border-radius:16px;position:relative;background:linear-gradient(0deg,#101324aa,transparent 65%),url('image/login-world.jpg') center 48%/cover;border:1px solid #ffffff18;overflow:hidden}.art-caption{position:absolute;bottom:20px;left:22px;font-size:9px;letter-spacing:2px;color:#e7dff6}.feature-list{display:flex;gap:25px;margin:28px 0}.feature-list>div{display:flex;gap:12px;flex:1}.feature-list b{font:12px monospace;color:#68e0c6;padding-top:3px}.feature-list strong{display:block;font-size:12px;margin-bottom:8px}.feature-list small{color:#8fa0b2;font-size:11px;line-height:1.6;display:block}.login-page .login-container{width:100%;margin:0!important;padding:36px;background:linear-gradient(150deg,#151c29ee,#0c141bee);border:1px solid #ffffff15;box-shadow:0 30px 100px #0005;border-radius:24px}.auth-tabs{display:flex;gap:5px;background:#080e17;border:1px solid #ffffff0d;border-radius:11px;padding:5px;margin-bottom:34px}.auth-tabs button{background:transparent;color:#8293a8;min-height:40px;font-size:12px}.auth-tabs button[aria-pressed=true]{background:#223337;color:#8bf4d8;box-shadow:0 2px 10px #0003}.login-page h1{text-align:left;font-size:30px;letter-spacing:-1px}.login-page .description{text-align:left;margin-bottom:28px;color:#93a5b8;font-size:13px}.login-page input{height:50px;background:#0a121c;border-color:#ffffff1c}.login-page label{color:#c1cdd8}.login-page .buttons{margin-top:25px}.login-page .buttons button{min-height:50px}.login-page #signupButton{background:#66e6c6;color:#061410}.password-tools{display:flex;justify-content:space-between;gap:12px}.password-tools button{flex:none;min-height:30px;padding:0;background:none;color:#78d6c5;font-size:11px;font-weight:500}.legal-note{color:#90a1b3;font-size:11px;line-height:1.8;text-align:center;border-top:1px solid #ffffff12;padding-top:20px}.legal-note a{color:#c0cbd6}.guest-link{display:block;text-align:center;font-size:12px;color:#7bdac6;text-decoration:none;margin-top:20px}.login-page .back-home{display:none}.login-page #message{margin-top:15px;color:#b7dcd4}.login-page .avatar-section{margin:0 0 24px;flex-direction:row;gap:12px;flex-wrap:wrap}.login-page .avatar-preview{width:58px;height:58px}.login-page #avatarPlaceholder{font-size:25px}.login-page .choose-avatar-button{margin:0}.login-page .avatar-note{flex-basis:100%;text-align:left;margin:0}.login-page .input-note{color:#91a1b4}.login-page :focus-visible{outline:2px solid #75e4ca;outline-offset:4px}.login-page .te-site-footer{margin-top:0!important}@media(min-width:1600px){.auth-layout{margin-top:65px;margin-bottom:110px}}@media(max-width:850px){.auth-layout{gap:30px;padding:0 24px}.login-page .login-container{padding:25px}.story-copy h2{font-size:45px}.feature-list{flex-direction:column}.planet-art{height:200px}}@media(max-width:640px){.auth-header{padding:22px}.return-link{font-size:11px}.auth-layout{display:flex;flex-direction:column;margin:15px auto 45px;padding:0 20px;gap:25px}.auth-story{width:100%}.story-copy h2{font-size:38px;letter-spacing:-1.5px;margin:15px 0}.story-copy h2 br{display:none}.story-copy p{font-size:13px;margin-bottom:0}.planet-art,.feature-list{display:none}.login-page .login-container{padding:26px 22px}.auth-tabs{margin-bottom:26px}.auth-header .te-brand{transform:scale(.8);transform-origin:left center}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
 </head>
 
 
-<body>
+<body class="login-page">
+<header class="auth-header"><a href="index.html" class="logo">THE EVERYTHING</a><a href="index.html" data-back class="return-link">← Back to exploring</a></header>
+<main class="auth-layout">
+<section class="auth-story" aria-label="Discover The Everything">
+<div class="story-copy"><span class="eyebrow">YOUR NEXT WORLD STARTS HERE</span><h2>One account.<br>Endless <em>worlds.</em></h2><p>From your next anime obsession to a wallpaper that feels like you. Make this corner of the universe your own.</p></div>
+<div class="planet-art"><span class="art-caption">A LITTLE ESCAPE FROM THE ORDINARY</span></div>
+<div class="feature-list"><div><b>01</b><span><strong>Find your next story</strong><small>Explore the anime collection.</small></span></div><div><b>02</b><span><strong>Make it yours</strong><small>Share wallpapers. Personalize your profile.</small></span></div></div>
+</section>
 
     <div class="login-container">
 
 
-        <div class="logo">
-            THE EVERYTHING
-        </div>
+<div class="auth-tabs" aria-label="Account action"><button id="loginTab" type="button" aria-pressed="true">Log in</button><button id="signupTab" type="button" aria-pressed="false">Create account</button></div>
 
 
-        <h1>
-            Welcome
-        </h1>
+        <h1 id="authTitle">Welcome back.</h1>
 
 
         <p class="description">
-            Login to your account or create a new one.
+            Your worlds are waiting. Pick up where you left off.
         </p>
 
 
@@ -471,7 +479,7 @@
              AVATAR
         ================================== -->
 
-        <div class="avatar-section">
+        <div class="avatar-section signup-only" hidden>
 
             <div class="avatar-preview">
 
@@ -515,7 +523,7 @@
              USERNAME
         ================================== -->
 
-        <div class="form-group">
+        <div class="form-group signup-only" hidden>
 
             <label for="username">
                 Username
@@ -585,6 +593,7 @@
              BUTTONS
         ================================== -->
 
+<div class="password-tools"><button id="showPassword" type="button" aria-pressed="false">Show password</button><button id="forgotPassword" type="button">Forgot password?</button></div>
         <div class="buttons">
 
             <button
@@ -597,7 +606,7 @@
 
             <button
                 type="button"
-                id="signupButton"
+                id="signupButton" hidden
             >
                 Sign Up
             </button>
@@ -605,7 +614,7 @@
         </div>
 
 
-        <p id="message"></p>
+        <p id="message" role="status" aria-live="polite"></p><p class="legal-note">By creating an account, you agree to our <a href="terms.html">Terms</a> and <a href="privacy.html">Privacy Policy</a>.</p><a class="guest-link" href="anime.html">Just looking? Explore as a guest →</a>
 
 
         <a data-back
@@ -617,6 +626,7 @@
 
 
 
+    </main>
     <!-- =================================
          SUPABASE
     ================================== -->
@@ -1545,7 +1555,7 @@
                 catch (availabilityError) {
 
                     message.textContent =
-                        "Could not check the username. Make sure SUPABASE-USERNAME-FIX.sql has been run.";
+                        "Could not check this username right now. Please try again later.";
 
 
                     setButtonsDisabled(
@@ -1708,7 +1718,7 @@
                     */
 
                     message.textContent =
-                        "Account created! Confirm your email, then login. You can choose your profile picture when you login.";
+                        "Check your email to confirm your account, then log in. You can add your profile picture from your profile settings.";
 
                 }
 
@@ -1899,7 +1909,7 @@
                     "Enter"
                 ) {
 
-                    loginButton.click();
+                    (document.body.classList.contains('signup-mode') ? signupButton : loginButton).click();
 
                 }
 
@@ -1918,7 +1928,35 @@
     </script>
 
 
-    <script src="site-shell.js"></script>
+    
+<script>
+(function(){
+ const byId=id=>document.getElementById(id);
+ function mode(signup){
+   if(loginButton.disabled||signupButton.disabled)return;
+   document.body.classList.toggle('signup-mode',signup);
+   document.querySelectorAll('.signup-only').forEach(el=>el.hidden=!signup);
+   loginButton.hidden=signup;signupButton.hidden=!signup;
+   byId('loginTab').setAttribute('aria-pressed',String(!signup));byId('signupTab').setAttribute('aria-pressed',String(signup));
+   byId('authTitle').textContent=signup?'Your world starts here.':'Welcome back.';
+   document.querySelector('.description').textContent=signup?'Create an account and make yourself at home.':'Your worlds are waiting. Pick up where you left off.';
+   passwordInput.autocomplete=signup?'new-password':'current-password';
+   byId('forgotPassword').hidden=signup;message.textContent='';
+ }
+ byId('loginTab').onclick=()=>mode(false);byId('signupTab').onclick=()=>mode(true);
+ byId('showPassword').onclick=()=>{const show=passwordInput.type==='password';passwordInput.type=show?'text':'password';byId('showPassword').textContent=show?'Hide password':'Show password';byId('showPassword').setAttribute('aria-pressed',String(show));};
+ byId('forgotPassword').onclick=async()=>{
+  if(!emailInput.value.trim()||!emailInput.checkValidity()){message.textContent='Enter your email above to receive a reset link.';emailInput.focus();return;}
+  if(!['https:','http:'].includes(location.protocol)){message.textContent='Open the hosted website to reset your password.';return;}
+  const button=byId('forgotPassword');button.disabled=true;
+  try{const {error}=await supabaseClient.auth.resetPasswordForEmail(emailInput.value.trim(),{redirectTo:new URL('reset-password.html',location.href).href});if(error)throw error;message.textContent='If an account exists for this email, you will receive a password reset link.';}
+  catch(e){message.textContent=e.message||'Could not send the reset email. Please try again.';}
+  finally{button.disabled=false;}
+ };
+ emailInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();(document.body.classList.contains('signup-mode')?signupButton:loginButton).click();}});
+})();
+</script>
+<script src="site-shell.js"></script>
 </body>
 
 </html>
