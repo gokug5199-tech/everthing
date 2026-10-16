@@ -462,6 +462,12 @@
             color: #cbd2dc;
             line-height: 1.7;
         }
+
+        .season-tabs{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 22px}
+        .season-tab{border-radius:10px;padding:10px 18px;border:1px solid #3b4555;background:#141c28;color:#cbd4e0;font:inherit;cursor:pointer}
+        .season-tab[aria-pressed="true"]{background:rgba(255,114,71,.16);color:white;border-color:#ff784d}
+        .episode.unavailable{opacity:.55}.episode.unavailable .play{color:#88929f}
+        .episode:focus-visible,.season-tab:focus-visible{outline:2px solid #ffb080;outline-offset:3px}
 </style>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
@@ -491,12 +497,15 @@
                 <div class="episodes-meta" id="episodeCount"></div>
             </div>
 
+            <div id="seasonTabs" class="season-tabs" role="group" aria-label="Choose season" hidden></div>
+            <p id="episodeLoadMessage" class="episodes-meta" role="status" hidden></p>
             <div class="episodes-grid" id="episodesGrid"></div>
         </section>
     </main>
 
     <script src="anime-data.js?v=admin1"></script>
-    <script src="anime-details.js?v=admin1"></script>
+    <script src="episode-data.js?v=episodes1"></script>
+    <script src="anime-details.js?v=episodes1"></script>
 
     <script src="site-shell.js"></script>
 </body>

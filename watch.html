@@ -4,144 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Watch Episode | The Everything</title>
-    <style>
-        * { box-sizing: border-box; }
-        body {
-            margin: 0;
-            min-height: 100vh;
-            font-family: Arial, Helvetica, sans-serif;
-            color: white;
-            background: radial-gradient(circle at 20% 15%, rgba(255,80,40,0.14), transparent 30%), #05070c;
-        }
-        .page { width: min(1100px, 90%); margin: auto; padding: 35px 0 80px; }
-        .back-button {
-            display: inline-flex; padding: 10px 16px; border-radius: 10px; text-decoration: none;
-            color: #a7b0bd; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-        }
-        .player-card {
-            margin-top: 36px; padding: 28px; border-radius: 20px;
-            background: rgba(255,255,255,0.035); border: 1px solid rgba(255,255,255,0.07);
-        }
-        .label { color: #ff784d; font-size: 12px; font-weight: 800; letter-spacing: 3px; }
-        h1 { margin: 8px 0 6px; font-size: clamp(28px, 5vw, 48px); }
-        .episode-title { color: #9aa4b1; margin-bottom: 24px; }
-        video { width: 100%; max-height: 70vh; border-radius: 14px; background: #000; }
-        .bunny-player {
-            position: relative;
-            padding-top: 56.25%;
-            width: 100%;
-            overflow: hidden;
-            border-radius: 14px;
-            background: #000;
-        }
-        .bunny-player iframe {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-        .missing {
-            padding: 30px; border-radius: 14px; color: #aab3bf; line-height: 1.7;
-            background: rgba(0,0,0,0.28); border: 1px dashed rgba(255,255,255,0.12);
-        }
-        .external-link {
-            display: inline-block; margin-top: 12px; padding: 12px 16px; border-radius: 10px;
-            color: white; text-decoration: none; background: linear-gradient(90deg, #ff5c47, #ff364f);
-        }
-    </style>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="site-branding.css">
+    <link rel="stylesheet" href="watch.css?v=episodes1">
     <script src="back-navigation.js"></script>
 </head>
 <body>
-    <main class="page">
-        <a data-back id="backButton" href="index.html" class="back-button">← Back</a>
+    <main class="watch-page">
+        <nav class="watch-top"><a data-back id="backButton" href="anime.html" class="back-button">← Back to anime</a><a href="anime.html" class="catalog-button">All anime</a></nav>
         <section class="player-card">
             <p class="label">NOW WATCHING</p>
             <h1 id="animeTitle">Anime</h1>
             <p class="episode-title" id="episodeTitle">Episode</p>
-            <div id="playerArea"></div>
+            <div id="playerArea" aria-live="polite"><p class="missing">Loading player…</p></div>
+            <div id="sourceSection" class="sources" hidden><div class="sources-heading"><h2>Watch servers &amp; quality</h2><small>Choose another source if playback fails.</small></div><div id="serverList" class="server-list" role="group" aria-label="Watch server"></div></div>
+            <p id="playerNotice" class="player-note" role="status" hidden></p>
+            <nav id="episodeNav" class="episode-navigation" aria-label="Episodes" hidden><a id="prevEpisode" href="#" class="episode-navigation-link">← Previous episode</a><a id="episodesBack" href="#" class="episode-navigation-link">Episode list</a><a id="nextEpisode" href="#" class="episode-navigation-link">Next episode →</a></nav>
         </section>
     </main>
-
-    <script src="anime-data.js?v=admin1"></script>
-    <script>
-        (async function () {
-            await window.ANIME_READY;
-            const params = new URLSearchParams(window.location.search);
-            const animeId = params.get("anime") || "";
-            const episode = Number.parseInt(params.get("episode"), 10) || 1;
-            const data = Array.isArray(window.ANIME_DATA) ? window.ANIME_DATA : [];
-            const anime = data.find(function (item) { return String(item.id) === animeId; });
-            const playerArea = document.getElementById("playerArea");
-
-            if (!anime) {
-                playerArea.innerHTML = '<div class="missing">Anime not found or no longer available.</div>';
-                return;
-            }
-
-            document.title = `${anime.title} - Episode ${episode} | The Everything`;
-            document.getElementById("animeTitle").textContent = anime.title;
-            document.getElementById("episodeTitle").textContent = `Episode ${episode}`;
-            document.getElementById("backButton").href = `anime-details.html?id=${encodeURIComponent(anime.id)}`;
-
-            const links = anime.episodeLinks || {};
-
-            const source = links[episode] || links[String(episode)];
-            if (episode < 1 || episode > anime.episodes || !source) {
-                playerArea.textContent = "This episode is not available yet.";
-                return;
-            }
-            const resolved = new URL(String(source), location.href);
-            if (!['https:', 'http:'].includes(resolved.protocol) && !(resolved.protocol === 'file:' && location.protocol === 'file:' && !/^[a-z]+:/i.test(source))) {
-                playerArea.textContent = "Invalid episode link.";
-                return;
-            }
-            const sourceText = String(source);
-            const cleanSource = sourceText.split("?")[0].toLowerCase();
-            const directVideo = [".mp4", ".webm", ".ogg", ".m4v"].some(function (ext) {
-                return cleanSource.endsWith(ext);
-            });
-            const bunnyEmbed = /^https:\/\/player\.mediadelivery\.net\/embed\//i.test(sourceText);
-
-            if (bunnyEmbed) {
-                const wrapper = document.createElement("div");
-                wrapper.className = "bunny-player";
-
-                const iframe = document.createElement("iframe");
-                iframe.src = sourceText;
-                iframe.loading = "lazy";
-                iframe.allow = "accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen";
-                iframe.allowFullscreen = true;
-                iframe.referrerPolicy = "strict-origin-when-cross-origin";
-
-                wrapper.appendChild(iframe);
-                playerArea.appendChild(wrapper);
-            } else if (directVideo) {
-                const video = document.createElement("video");
-                video.controls = true;
-                video.preload = "metadata";
-                video.src = sourceText;
-                playerArea.appendChild(video);
-            } else {
-                const note = document.createElement("div");
-                note.className = "missing";
-                note.textContent = "This episode uses an external link.";
-                const link = document.createElement("a");
-                link.className = "external-link";
-                link.href = sourceText;
-                link.target = "_blank";
-                link.rel = "noopener noreferrer";
-                link.textContent = "Open Episode";
-                note.appendChild(document.createElement("br"));
-                note.appendChild(link);
-                playerArea.appendChild(note);
-            }
-        })();
-    </script>
-
+    <script src="anime-data.js?v=episodes1"></script>
+    <script src="episode-data.js?v=episodes1"></script>
+    <script src="watch.js?v=episodes1"></script>
     <script src="site-shell.js"></script>
 </body>
 </html>
