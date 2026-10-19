@@ -22,6 +22,8 @@
         if (/\.(mp4|webm|ogg|m4v)$/i.test(url.pathname)) return 'video';
         if (url.protocol !== 'https:') return 'external';
         if ((url.hostname === 'hgcloud.to' || url.hostname.endsWith('.hgcloud.to') || url.hostname === 'streamhg.com') && /^\/e\/[a-z0-9_-]+\/?$/i.test(url.pathname)) return 'embed';
+        // VOE uses /e/<video-id> for its embeddable player, not the direct download link.
+        if ((url.hostname === 'voe.sx' || url.hostname === 'www.voe.sx') && /^\/e\/[a-z0-9_-]+\/?$/i.test(url.pathname)) return 'embed';
         if (url.hostname === 'player.mediadelivery.net' && url.pathname.startsWith('/embed/')) return 'embed';
         if ((url.hostname === 'videa.hu' || url.hostname === 'www.videa.hu') && url.pathname === '/player') return 'embed';
         return 'external';
