@@ -2,7 +2,7 @@
 (function () {
     const SUPABASE_URL = "https://tnavsfbolastevebukxl.supabase.co";
     const SUPABASE_KEY = "sb_publishable_3FX_mPM-A6dIY-nQTtFZQg_5HPoWO9B";
-    const supabaseClient = supabase.createClient( SUPABASE_URL, SUPABASE_KEY );
+    const supabaseClient = window.TEAnimeClient || supabase.createClient( SUPABASE_URL, SUPABASE_KEY );
     const profileAvatar = document.getElementById( "profileAvatar" );
     const profileAvatarPlaceholder = document.getElementById( "profileAvatarPlaceholder" );
     const profileUsername = document.getElementById( "profileUsername" );

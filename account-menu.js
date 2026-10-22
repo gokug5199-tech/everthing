@@ -791,6 +791,7 @@
 
 
 <a href="admin.html" class="shared-account-option" id="siteAdminLink" style="display:none" hidden>⚙ Admin Panel</a>
+${/^(anime|anime-details)\.html$/.test(location.pathname.split("/").pop()) ? '<a href="my-anime.html" class="shared-account-option">♡ My Anime Library</a>' : ""}
 <!-- MY WALLPAPERS -->
 
 <a

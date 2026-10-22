@@ -473,10 +473,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="site-branding.css">
     <script src="back-navigation.js"></script>
-</head>
-<body>
+<link rel="stylesheet" href="anime-features.css?v=library1"></head>
+<body class="anime-detail-v2">
     <main class="page" id="animePage">
-        <a data-back href="index.html" class="back-button">← Back</a>
+        <div class="detail-top"><a data-back href="anime.html" class="back-button">← Back</a><a href="my-anime.html">♡ My Anime</a></div>
 
         <section class="anime-hero">
             <img id="animePoster" src="" alt="Anime poster" class="anime-poster">
@@ -486,11 +486,11 @@
                 <h1 id="animeTitle">Anime</h1>
                 <p class="genres" id="animeGenres"></p>
                 <p class="description" id="animeDescription"></p>
-                <div class="rating" id="animeRating">★ -</div>
+                <div class="rating" id="animeRating">★ -</div><div class="anime-facts" id="animeFacts"></div><div id="animeSaveActions"></div><p id="libraryError" class="library-note" role="status" hidden></p>
             </div>
         </section>
 
-        <section class="episodes-section">
+        <section class="detail-features" id="relatedSection" hidden><h2>More from this series</h2><p>Continue the story in order.</p><div class="related-seasons" id="relatedSeasons"></div></section><section class="detail-features"><h2>Meet the characters</h2><p>The faces behind the story.</p><div class="character-grid" id="characterGrid"></div></section><section class="episodes-section">
             <div class="episodes-heading">
                 <p>WATCH NOW</p>
                 <h2>Episodes</h2>
@@ -503,7 +503,7 @@
         </section>
     </main>
 
-    <script src="anime-data.js?v=admin1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="anime-data.js?v=library1"></script><script src="anime-library.js?v=library1"></script><script src="anime-detail-features.js?v=library1"></script>
     <script src="episode-data.js?v=episodes1"></script>
     <script src="anime-details.js?v=episodes1"></script>
 
