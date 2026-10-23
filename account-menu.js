@@ -791,7 +791,7 @@
 
 
 <a href="admin.html" class="shared-account-option" id="siteAdminLink" style="display:none" hidden>⚙ Admin Panel</a>
-${/^(anime|anime-details)\.html$/.test(location.pathname.split("/").pop()) ? '<a href="my-anime.html" class="shared-account-option">♡ My Anime Library</a>' : ""}
+${/^anime(?:\.html)?$/i.test(location.pathname.split("/").pop()) ? '<a href="my-anime.html" class="shared-account-option">♡ My Anime Library</a>' : ""}
 <!-- MY WALLPAPERS -->
 
 <a
@@ -848,25 +848,10 @@ ${/^(anime|anime-details)\.html$/.test(location.pathname.split("/").pop()) ? '<a
 
        `;
 
-const currentPage =
-    window.location.pathname
-        .split("/")
-        .pop()
-        .toLowerCase();
-
-if (currentPage !== "wallpaper.html") {
-
-    const myWallpapersLink =
-        account.querySelector(
-            'a[href="my-wallpapers.html"]'
-        );
-
-    if (myWallpapersLink) {
-        myWallpapersLink.remove();
-    }
-
+const pageName = location.pathname.replace(/\/+$/, '').split('/').pop().toLowerCase();
+if (!/^wallpaper(?:\.html)?$/.test(pageName)) {
+    account.querySelector('a[href="my-wallpapers.html"]')?.remove();
 }
-
 return account;
 
 

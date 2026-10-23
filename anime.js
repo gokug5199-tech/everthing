@@ -188,7 +188,7 @@
 
             const title = escapeHtml(anime.title || "Anime");
             const image = escapeHtml(anime.image || "");
-            const rating = escapeHtml(anime.rating || "-");
+            const ageRating = escapeHtml(anime.age_rating || "Not rated");
             const id = encodeURIComponent(anime.id || "");
 
             return `
@@ -200,7 +200,7 @@
                     <article class="anime-card">
                         <div class="poster">
                             <img src="${image}" alt="${title}" onerror="this.style.opacity='0.15'">
-                            <div class="rating">★ ${rating}</div>
+                            <div class="rating age-classification" aria-label="Age rating: ${ageRating}">${ageRating}</div>
                             <div class="card-overlay"><span class="view-details">View Episodes</span></div>
                         </div>
                         <div class="anime-info">

@@ -473,7 +473,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="site-branding.css">
     <script src="back-navigation.js"></script>
-<link rel="stylesheet" href="anime-features.css?v=library1"></head>
+<link rel="stylesheet" href="anime-features.css?v=20261023-char-toggle"></head>
 <body class="anime-detail-v2">
     <main class="page" id="animePage">
         <div class="detail-top"><a data-back href="anime.html" class="back-button">← Back</a><a href="my-anime.html">♡ My Anime</a></div>
@@ -490,7 +490,7 @@
             </div>
         </section>
 
-        <section class="detail-features" id="relatedSection" hidden><h2>More from this series</h2><p>Continue the story in order.</p><div class="related-seasons" id="relatedSeasons"></div></section><section class="detail-features"><h2>Meet the characters</h2><p>The faces behind the story.</p><div class="character-grid" id="characterGrid"></div></section><section class="episodes-section">
+        <section class="detail-features" id="relatedSection" hidden><h2>More from this series</h2><p>Continue the story in order.</p><div class="related-seasons" id="relatedSeasons"></div></section><section class="episodes-section">
             <div class="episodes-heading">
                 <p>WATCH NOW</p>
                 <h2>Episodes</h2>
@@ -501,9 +501,16 @@
             <p id="episodeLoadMessage" class="episodes-meta" role="status" hidden></p>
             <div class="episodes-grid" id="episodesGrid"></div>
         </section>
+
+        <section class="detail-features character-section" id="characterSection">
+            <h2>Meet the characters</h2>
+            <p>The faces behind the story.</p>
+            <div class="character-grid" id="characterGrid"></div>
+            <button type="button" class="characters-show-all" id="charactersShowAll" aria-expanded="false" aria-controls="characterGrid" hidden>Show All Characters</button>
+        </section>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="anime-data.js?v=library1"></script><script src="anime-library.js?v=library1"></script><script src="anime-detail-features.js?v=library1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="anime-data.js?v=library1"></script><script src="anime-library.js?v=library1"></script><script src="anime-detail-features.js?v=20261023-char-toggle"></script>
     <script src="episode-data.js?v=episodes1"></script>
     <script src="anime-details.js?v=episodes1"></script>
 

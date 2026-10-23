@@ -4,3 +4,16 @@ body.anime-detail-v2{background:#080e16;color:#e8f2f5}.anime-detail-v2 .page{max
 @media(max-width:700px){.anime-detail-v2 .anime-hero{display:flex;flex-direction:column;padding:23px;gap:25px}.anime-detail-v2 .anime-poster{width:170px}.anime-detail-v2 .page{padding:25px 18px 50px}.anime-detail-v2 .episodes-section{padding:20px}.library-toolbar{flex-wrap:wrap}.library-toolbar input{flex-basis:100%}.library-page{padding:0 20px}.library-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.library-actions{gap:8px}.library-actions select{width:100%}.character-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.admin-character{grid-template-columns:1fr}.anime-facts{gap:8px}.anime-facts>div{padding:10px}#animeCollection .library-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:380px){.character-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(prefers-reduced-motion:reduce){.anime-library *{scroll-behavior:auto;transition:none}}
 
 .anime-detail-v2 .anime-poster{height:auto;flex-shrink:0}.anime-detail-v2 .anime-details{min-width:0;overflow-wrap:anywhere}.anime-detail-v2 #relatedSection[hidden]{display:none!important}
+
+.anime-schedule{border-top:1px solid #ffffff16;padding-top:18px;margin:22px 0}.anime-detail-v2 .anime-schedule h2{font-size:15px;letter-spacing:.2px;margin:0;color:#b8e7d9}.anime-schedule .anime-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin:14px 0}.anime-schedule strong{overflow-wrap:anywhere}.admin-extra input[type=date]{color-scheme:dark;min-width:0;max-width:100%}
+
+/* Character cast preview beneath episodes */
+.anime-detail-v2 .character-section{margin-top:35px}
+.anime-detail-v2 .character-section .character-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+.anime-detail-v2 .character-grid .character-card[hidden],
+.anime-detail-v2 .characters-show-all[hidden]{display:none!important}
+.anime-detail-v2 .characters-show-all{display:block;margin:20px auto 0;min-width:185px;padding:12px 20px;border:1px solid #7ce7c660;border-radius:10px;background:#193c35;color:#b2f5df;font-size:13px;font-weight:600;cursor:pointer;transition:background .2s}
+.anime-detail-v2 .characters-show-all:hover{background:#26594c}
+.anime-detail-v2 .characters-show-all:focus-visible{outline:2px solid #8ce7ce;outline-offset:3px}
+@media(max-width:700px){.anime-detail-v2 .character-section .character-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:380px){.anime-detail-v2 .character-section .character-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
