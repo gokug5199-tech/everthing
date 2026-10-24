@@ -1,3 +1,337 @@
-/* Mobile-only enhancements; existing desktop styles remain unchanged. */
-.te-latest-wrap{max-width:1140px;margin:55px auto;padding:0 20px;color:#edf8f5;font-family:Arial,sans-serif}.te-latest-section{margin:34px 0}.te-latest-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}.te-latest-heading h2{font-size:clamp(22px,3vw,30px);margin:0}.te-latest-heading a{color:#81efd4;font-size:14px}.te-latest-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:14px}.te-latest-card{display:flex;flex-direction:column;color:#eaf9f6;background:#0e1a24;border:1px solid #2a4851;border-radius:14px;overflow:hidden;text-decoration:none;min-width:0;transition:transform .15s}.te-latest-card:hover{transform:translateY(-3px);border-color:#5abca8}.te-latest-card img{width:100%;height:222px;object-fit:cover;background:#1d2733}.te-latest-card>div{padding:12px}.te-latest-card strong,.te-latest-card small{display:block;overflow-wrap:anywhere}.te-latest-card small{font-size:12px;color:#a3b9c1;margin-top:6px}
-@media(max-width:767px){html,body{max-width:100%;overflow-x:clip}body{padding-bottom:calc(74px + env(safe-area-inset-bottom,0px))!important}main{max-width:100%!important}.te-latest-wrap{padding:0 16px;margin:30px auto}.te-latest-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.te-latest-card img{height:clamp(145px,48vw,240px)}.te-latest-card>div{padding:9px}.te-latest-card strong{font-size:13px}.te-mobile-nav{position:fixed;bottom:0;left:0;right:0;z-index:9000;background:#0a121df5;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #31525a;padding:10px 5px calc(12px + env(safe-area-inset-bottom,0px));backdrop-filter:blur(16px)}.te-mobile-nav a{color:#afc6d0;text-align:center;text-decoration:none;font:600 11px Arial,sans-serif;padding:9px 2px;border-radius:9px}.te-mobile-nav a[aria-current=page]{background:#17423b;color:#a9fbe3}.te-install-banner{position:fixed;bottom:calc(77px + env(safe-area-inset-bottom,0px));left:12px;right:12px;z-index:9001;background:#142431;border:1px solid #4e8786;border-radius:15px;box-shadow:0 8px 32px #0009;padding:12px;display:flex;align-items:center;gap:9px;color:#fff;font:13px Arial,sans-serif}.te-install-banner p{margin:0;flex:1;min-width:0}.te-install-banner span{display:block;color:#b9cad2;font-size:12px;margin-top:4px}.te-install-banner button{border-radius:8px;border:1px solid #4e8a7d;background:#1c5348;color:#c4fff1;padding:8px;font-size:11px;cursor:pointer}.te-install-banner .te-install-close{font-size:20px;background:transparent;border:0}.te-site-footer{padding-bottom:20px}img,video,iframe{max-width:100%}}
+/* The Everything — mobile UI and anime releases (v3).
+   Desktop styling outside the release shelves is intentionally unchanged. */
+
+.te-anime-mobile-hero { display: none; }
+
+/* Consistent, bounded shelves. Never stretch a single entry to full width. */
+.te-latest-wrap {
+  width: 100%;
+  margin: 0 0 28px;
+  padding: 0;
+  color: #f4f8fc;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.te-latest-section {
+  background: rgba(8, 20, 31, .92);
+  border: 1px solid rgba(122, 187, 202, .18);
+  border-radius: 20px;
+  padding: clamp(16px, 2vw, 24px);
+  margin: 0 0 18px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, .16);
+}
+.te-latest-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.te-latest-heading h2 {
+  margin: 0;
+  font-size: clamp(22px, 2.4vw, 30px);
+  line-height: 1.2;
+  color: #fafbff;
+  font-weight: 800;
+}
+.te-latest-heading a {
+  color: #69ddc8;
+  font-size: 13px;
+  text-decoration: none;
+  white-space: nowrap;
+  font-weight: 600;
+}
+.te-latest-heading a:hover { text-decoration: underline; }
+.te-latest-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(10px, 1.3vw, 18px);
+  align-items: start;
+}
+.te-latest-card {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  border-radius: 13px;
+  overflow: hidden;
+  color: #f5f7fd;
+  text-decoration: none;
+  background: #0d1824;
+  border: 1px solid rgba(99, 154, 174, .24);
+  transition: transform .2s ease, border-color .2s ease;
+}
+.te-latest-card:hover, .te-latest-card:focus-visible {
+  transform: translateY(-3px);
+  border-color: #73dfd0;
+}
+.te-latest-poster { width: 100%; aspect-ratio: 2 / 3; overflow: hidden; position: relative; background: #17222b; }
+.te-latest-poster img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.te-latest-chip {
+  position: absolute; right: 8px; top: 8px;
+  padding: 5px 7px; border-radius: 7px;
+  color: #fff; background: rgba(6, 14, 25, .86);
+  font-size: 10px; font-weight: 800;
+  border: 1px solid rgba(255, 255, 255, .25);
+}
+.te-latest-info { padding: 11px 10px 13px; }
+.te-latest-info strong {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.4;
+  min-height: 2.8em;
+}
+.te-latest-info small {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  line-height: 1.4;
+  color: #a4bac6;
+}
+.te-latest-section--episode .te-latest-poster { aspect-ratio: 16 / 11; }
+
+@media (min-width: 768px) and (max-width: 1060px) {
+  .te-latest-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* The mobile app-style layout. */
+@media (max-width: 767px) {
+  html, body { width: 100%; max-width: 100%; overflow-x: clip; }
+  body { padding-bottom: calc(82px + env(safe-area-inset-bottom, 0px)) !important; }
+  img, video, iframe { max-width: 100%; }
+  .te-floating-brand { display: none !important; }
+  .te-site-footer { margin-top: 34px !important; }
+
+  .te-mobile-nav {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    z-index: 9000;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    padding: 8px 6px calc(7px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid rgba(255, 255, 255, .13);
+    background: rgba(9, 14, 23, .96);
+    box-shadow: 0 -6px 25px rgba(0,0,0,.28);
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+  }
+  .te-mobile-nav a {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 3px; min-height: 47px; padding: 5px 2px;
+    color: #96a3b1; border-radius: 12px;
+    text-decoration: none; font: 600 11px Arial, sans-serif;
+  }
+  .te-mobile-nav a svg { width: 21px; height: 21px; flex: 0 0 auto; }
+  .te-mobile-nav a[aria-current="page"] { color: #64e8d3; background: rgba(74, 224, 199, .10); }
+  .te-mobile-nav a:focus-visible { outline: 2px solid #64e8d3; outline-offset: 1px; }
+
+  .te-install-banner {
+    position: fixed; z-index: 9001;
+    left: 12px; right: 12px;
+    bottom: calc(78px + env(safe-area-inset-bottom, 0px));
+    display: flex; align-items: center; gap: 8px;
+    padding: 13px;
+    color: white; font: 13px Arial,sans-serif;
+    background: #152333; border: 1px solid #356b6c;
+    border-radius: 14px; box-shadow: 0 10px 35px rgba(0,0,0,.65);
+  }
+  .te-install-banner p { min-width: 0; margin: 0; flex: 1; line-height: 1.45; }
+  .te-install-banner span { display: block; color: #b7c5d2; font-size: 11px; margin-top: 4px; }
+  .te-install-banner button {
+    flex-shrink: 0; padding: 9px; border: 1px solid #469082; border-radius: 8px;
+    color: #d9fff6; font-size: 11px; background: #1b493f; cursor: pointer;
+  }
+  .te-install-banner .te-install-close { font-size: 20px; background: transparent; border: 0; }
+
+  /* Release shelves inspired by a native streaming app: swipe side-to-side. */
+  .te-latest-wrap { margin: 9px 0 22px; padding: 0; }
+  .te-latest-section {
+    padding: 0;
+    margin: 0 0 25px;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+  }
+  .te-latest-heading { padding: 0 0 12px; margin: 0; }
+  .te-latest-heading h2 { font-size: clamp(21px, 6vw, 26px); }
+  .te-latest-heading a { font-size: 12px; color: #68ead4; }
+  .te-latest-grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(142px, 41vw);
+    grid-template-columns: none;
+    gap: 12px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0 2px 10px;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: 3px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .te-latest-grid::-webkit-scrollbar { display: none; }
+  .te-latest-card { scroll-snap-align: start; border-color: rgba(255,255,255,.12); border-radius: 12px; }
+  .te-latest-info { padding: 9px 8px 10px; }
+  .te-latest-info strong { font-size: 12px; }
+  .te-latest-info small { font-size: 10px; }
+  .te-latest-section--episode .te-latest-grid { grid-auto-columns: minmax(162px, 46vw); }
+
+  /* Anime page: full-bleed show banner with a quiet overlay nav. */
+  .te-page-anime .navbar {
+    position: absolute !important; top: 0; left: 0; right: 0;
+    width: 100%; min-height: 76px;
+    z-index: 100;
+    padding: calc(17px + env(safe-area-inset-top, 0px)) 16px 10px !important;
+    background: transparent !important; border: 0 !important;
+    -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+  }
+  .te-page-anime .navbar .site-identity { width: auto; max-width: calc(100% - 62px); }
+  .te-page-anime .navbar .logo .te-brandmark { font-size: clamp(17px, 5.6vw, 22px); }
+  .te-page-anime .navbar .site-tagline,
+  .te-page-anime .navbar .yokso-wordmark,
+  .te-page-anime .navbar .nav-links { display: none !important; }
+  .te-page-anime .back-button { display: none !important; }
+  .te-page-anime .side-character { display: none !important; }
+  .te-page-anime .te-anime-mobile-hero {
+    display: block;
+    position: relative;
+    width: 100%; height: clamp(490px, 74svh, 730px);
+    min-height: 490px; isolation: isolate;
+    overflow: hidden; background: #10101b;
+  }
+  .te-anime-mobile-hero .te-hero-art {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    display: block; object-fit: cover; object-position: center 27%;
+    z-index: -2; opacity: .9;
+  }
+  .te-anime-hero-shade {
+    position: absolute; inset: 0; z-index: -1;
+    background:
+      linear-gradient(180deg, rgba(1, 4, 12, .58), transparent 28%, rgba(7, 9, 17, .24) 48%, #080b14 98%),
+      linear-gradient(90deg, rgba(4, 6, 15, .20), transparent 90%);
+  }
+  .te-hero-search {
+    position: absolute; z-index: 2;
+    top: calc(15px + env(safe-area-inset-top, 0px)); right: 16px;
+    width: 40px; height: 40px; display: grid; place-items: center;
+    border: 1px solid rgba(255,255,255,.24); border-radius: 50%;
+    color: #fff; background: rgba(4,8,15,.45); cursor: pointer;
+  }
+  .te-hero-search svg { width: 22px; height: 22px; }
+  .te-anime-hero-content {
+    position: absolute; left: 20px; right: 20px;
+    bottom: 31px; max-width: 560px;
+    text-shadow: 0 2px 15px rgba(0,0,0,.55);
+  }
+  .te-hero-eyebrow { font-size: 10px; letter-spacing: .2em; font-weight: 800; color: #a7f8eb; }
+  .te-hero-title {
+    margin: 8px 0 9px;
+    color: #fff;
+    font-size: clamp(28px, 8.5vw, 43px);
+    font-weight: 900;
+    line-height: 1.08;
+    letter-spacing: -.025em;
+    overflow-wrap: anywhere;
+  }
+  .te-hero-genres { font-size: 12px; color: #e1e9ee; line-height: 1.55; margin: 0 0 19px; }
+  .te-hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .te-hero-actions a {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 116px; min-height: 40px; padding: 10px 15px;
+    border-radius: 22px; font-size: 13px; font-weight: 800;
+    color: #fff; text-decoration: none;
+    background: #e72f42; border: 1px solid #e72f42;
+    text-shadow: none;
+  }
+  .te-hero-actions .te-hero-list { background: rgba(10, 12, 22, .25); border-color: rgba(255,255,255,.8); }
+  .te-page-anime .anime-search {
+    position: relative !important; top: auto !important; right: auto !important;
+    width: calc(100% - 36px) !important; height: 48px !important;
+    margin: 4px 18px 16px !important; z-index: 10;
+    background: rgba(21, 26, 37, .9);
+  }
+  .te-page-anime .genres-toggle {
+    position: fixed !important; top: auto !important; left: 16px !important;
+    bottom: calc(91px + env(safe-area-inset-bottom,0px)) !important;
+    width: 52px; height: 52px; z-index: 8500 !important;
+    box-shadow: 0 7px 22px #0008;
+  }
+  .te-page-anime .genre-drawer { width: min(86vw, 330px) !important; }
+  .te-page-anime .anime-section {
+    width: 100%; max-width: 100%; padding: 0 16px 45px !important; margin: 0 !important;
+  }
+  .te-page-anime .anime-section > .section-title { display: block; margin: 8px 0 16px; }
+  .te-page-anime .anime-section > .section-title h2 { font-size: 25px; line-height: 1.2; }
+  .te-page-anime .anime-grid { grid-template-columns: repeat(2,minmax(0,1fr)) !important; gap: 20px 12px !important; }
+  .te-page-anime .anime-info { padding: 9px 2px; }
+  .te-page-anime .anime-info h3 { font-size: 13px; line-height: 1.35; white-space: normal; }
+  .te-page-anime .anime-info p { font-size: 11px; line-height: 1.4; }
+  .te-page-anime .poster { border-radius: 13px; }
+  .te-page-anime .manga-collage-overlay { background: rgba(4, 5, 11, .78); }
+
+  /* Home page: compact mobile identity and feature hero. */
+  .te-page-home > header {
+    width: 100%; height: auto !important; min-height: 0;
+    padding: 16px !important; gap: 12px !important;
+    display: flex !important; flex-direction: column !important; align-items: stretch !important;
+  }
+  .te-page-home .header-left { width: 100%; justify-content: space-between !important; gap: 12px; }
+  .te-page-home > header > nav { width: 100%; gap: 16px !important; justify-content: center !important; flex-wrap: wrap; }
+  .te-page-home > header > nav a { font-size: 14px; }
+  .te-page-home .hero { min-height: 0 !important; padding: 24px 18px 25px !important; display: block !important; }
+  .te-page-home .hero-character { display: none !important; }
+  .te-page-home .hero-content { width: 100%; max-width: 100%; }
+  .te-page-home .hero h1 { font-size: clamp(43px, 12vw, 62px) !important; margin: 17px 0 15px !important; line-height: 1.02; letter-spacing: -2px; }
+  .te-page-home .hero-description { max-width: none; font-size: 14px; line-height: 1.65; }
+  .te-page-home .cards-section { width: 100%; padding: 0 !important; margin: 0 !important; }
+  .te-page-home .cards { display: grid; grid-template-columns: 1fr !important; gap: 0 !important; }
+  .te-page-home .cards .card { min-height: 330px !important; padding: 28px 22px !important; border-right: 0 !important; }
+  .te-page-home .cards .card h2 { font-size: clamp(29px, 8vw, 42px); }
+
+  /* Wallpapers and other pages with the shared top bar. */
+  .te-page-wallpaper .top-header,
+  .te-page-films .top-header {
+    width: 100%; min-height: 0; height: auto !important;
+    padding: 16px 14px 13px !important;
+    display: flex; flex-direction: column; align-items: stretch; gap: 12px;
+  }
+  .te-page-wallpaper .top-logo,
+  .te-page-films .top-logo { text-align: center; }
+  .te-page-wallpaper .top-nav,
+  .te-page-films .top-nav {
+    width: 100%; display: flex; flex-wrap: nowrap;
+    justify-content: flex-start; align-items: center;
+    gap: 18px; overflow-x: auto; padding: 7px 2px 11px;
+    scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  }
+  .te-page-wallpaper .top-nav::-webkit-scrollbar,
+  .te-page-films .top-nav::-webkit-scrollbar { display: none; }
+  .te-page-wallpaper .top-nav a,
+  .te-page-films .top-nav a { flex-shrink: 0; white-space: nowrap; }
+  .te-page-wallpaper .top-bar { padding: 14px 16px !important; gap: 12px; }
+  .te-page-wallpaper .wallpaper-search-box { width: 100%; }
+  .te-page-wallpaper .gallery-wrapper,
+  .te-page-wallpaper .gallery-info { width: calc(100% - 32px); max-width: 600px; }
+  .te-page-wallpaper .wallpaper-grid { grid-template-columns: 1fr; gap: 18px; }
+  .te-page-wallpaper .wallpaper-card { height: clamp(240px, 66vw, 350px); border-radius: 17px; }
+  .te-page-wallpaper .wallpaper-actions,
+  .te-page-wallpaper .wallpaper-name { opacity: 1; transform: none; }
+
+  /* Account, details, settings, and watching keep their established components. */
+  .te-page-profile .profile-layout { max-width: 100%; padding: 0 12px; }
+  .te-page-profile .profile-hero .profile-username { overflow-wrap: anywhere; }
+  .te-page-watch .watch-page { width: calc(100% - 28px); padding-top: 18px; }
+  .te-page-watch .player-card { padding: 16px; }
+  .te-page-watch .server-button { min-width: 0; flex: 1 1 44%; }
+}
+@media (max-width: 365px) {
+  .te-latest-grid { grid-auto-columns: 146px; }
+  .te-latest-section--episode .te-latest-grid { grid-auto-columns: 162px; }
+  .te-page-home > header .te-brandmark { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .te-latest-card { transition: none; }
+  .te-anime-mobile-hero .te-hero-art { animation: none; }
+}

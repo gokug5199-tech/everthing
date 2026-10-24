@@ -216,7 +216,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="site-branding.css">
     <script src="back-navigation.js"></script>
-<link rel="stylesheet" href="catalog-links.css?v=20261023-clean"><link rel="stylesheet" href="mobile-pwa.css?v=20261024"></head>
+<link rel="stylesheet" href="catalog-links.css?v=20261023-clean"><link rel="stylesheet" href="mobile-pwa.css?v=20261024-v3"></head>
 
 <body>
 
@@ -319,6 +319,24 @@
     </nav>
 
 
+    <!-- Mobile-only cinematic banner; image and title are updated from featured anime. -->
+    <section id="teAnimeMobileHero" class="te-anime-mobile-hero" aria-label="Featured anime">
+      <img class="te-hero-art" src="image/anime/attack-on-titan.jpg" alt="">
+      <div class="te-anime-hero-shade"></div>
+      <button id="teHeroSearch" class="te-hero-search" type="button" aria-label="Search anime" title="Search anime">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
+      </button>
+      <div class="te-anime-hero-content">
+        <span class="te-hero-eyebrow">THE EVERYTHING ORIGINAL SELECTION</span>
+        <h1 class="te-hero-title">Explore Anime</h1>
+        <p class="te-hero-genres">Discover your next favorite world</p>
+        <div class="te-hero-actions">
+          <a class="te-hero-view" href="#animeGrid">▶ View Anime</a>
+          <a class="te-hero-list" href="my-anime.html">＋ My List</a>
+        </div>
+      </div>
+    </section>
+
     <!-- BACK BUTTON -->
     <a data-back href="index.html" class="back-button">← Back</a>
 
@@ -395,7 +413,7 @@
 </script>
 
 
-    <script src="featured-public.js?v=20261024"></script><script src="mobile-pwa.js?v=20261024"></script><script src="site-shell.js"></script>
+    <script src="featured-public.js?v=20261024-v3"></script><script src="mobile-pwa.js?v=20261024-v3"></script><script src="site-shell.js"></script>
 </body>
 
 </html>
