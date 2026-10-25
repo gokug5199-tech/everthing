@@ -2924,51 +2924,36 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="site-branding.css">
     <script src="back-navigation.js"></script>
-<link rel="stylesheet" href="catalog-links.css?v=20261023-clean"><link rel="stylesheet" href="mobile-pwa.css?v=20261024-v3"></head>
+<link rel="stylesheet" href="catalog-links.css?v=20261023-clean"><link rel="stylesheet" href="mobile-pwa.css?v=20261024-v3">    <link rel="stylesheet" href="redesign-mobile.css?v=20261025-mobile1">
+<link rel="stylesheet" href="te-v5.css?v=20261025-v5">
+<link rel="stylesheet" href="home-2026.css?v=20261025-v4">
+<link rel="stylesheet" href="shared-header-v6.css?v=20261025-v6">
+<link rel="stylesheet" href="wallpaper-v7-fixes.css?v=clean-v8">
+</head>
 
 
-<body>
+<body class="te-v5 te-v5-wallpaper">
 
 
     <!-- =================================
          TOP NAVIGATION
     ================================== -->
 
-    <header class="top-header">
-
-        <div class="top-logo">
-            THE EVERYTHING
-        </div>
-
-
-        <nav class="top-nav">
-
-            <a href="index.html">
-                Home
-            </a>
-
-
-            <span class="nav-coming-soon">
-    Anime
-    <small>SOON</small>
-</span>
-
-<span class="nav-coming-soon">
-    Films
-    <small>SOON</small>
-</span>
-
-
-            <a
-                href="wallpaper.html"
-                class="active"
-            >
-                Wallpapers
-            </a>
-
-        <a class="personal-library-link" href="my-wallpapers.html">My Wallpapers</a></nav>
-
-    </header>
+    <div class="hm-header-wrap v6-global-header">
+      <div class="hm-header" role="banner">
+        <a class="hm-brand" href="index.html" aria-label="The Everything home">
+          <img src="image/home/te-icon.webp" width="50" height="50" alt="The Everything logo">
+          <span class="hm-brand-label"><b>THE EVERYTHING</b><small>ONE PLACE. ENDLESS WORLDS.</small></span>
+        </a>
+        <nav class="hm-nav" aria-label="Primary navigation">
+          <a href="index.html">Home</a>
+          <a href="anime.html">Anime</a>
+          <a href="wallpaper.html" class="is-active" aria-current="page">Wallpapers</a>
+          <span class="hm-nav-disabled" aria-label="Films coming soon">Films <small>SOON</small></span>
+        </nav>
+        <div class="hm-account-wrap" id="v6AccountMount"></div>
+      </div>
+    </div>
 
 
 
@@ -2983,6 +2968,8 @@
             class="back-button"
         >← Back</a>
 
+
+        <a class="v6-wallpaper-library" href="my-wallpapers.html">♡ My Wallpapers</a>
 
         <label
             class="wallpaper-search-box"
@@ -3061,7 +3048,7 @@
 
 
             <h1>
-                Discover Your Next Wallpaper
+                Make every screen <span class="te-wallpaper-highlight">yours.</span>
             </h1>
 
 
@@ -3085,7 +3072,10 @@
             </div>
 
         </div>
-
+        <div class="te-wallpaper-art" aria-hidden="true">
+           <img src="image/home/world-wallpaper.webp" alt="" loading="eager">
+           <span class="te-wallpaper-art-caption">COLLECT · PREVIEW · DOWNLOAD</span>
+        </div>
     </section>
 
 
@@ -6508,6 +6498,9 @@
 
 
     <script src="featured-public.js?v=20261024"></script><script src="mobile-pwa.js?v=20261024-v3"></script><script src="site-shell.js"></script>
+<script src="redesign-mobile.js?v=20261025-mobile1"></script>
+<script src="te-v5.js?v=20261025-v5"></script>
+<script src="shared-header-v6.js?v=20261025-v6"></script>
 </body>
 
 </html>

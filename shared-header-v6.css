@@ -1,0 +1,44 @@
+/* Home header reused intact on Anime and Wallpapers pages. */
+.v6-global-header{position:sticky;top:0;z-index:10002;padding:12px 20px 0;pointer-events:none}
+.v6-global-header .hm-header{pointer-events:auto;min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:24px;max-width:1360px;margin:auto;padding:10px 19px;border:1px solid rgba(255,255,255,.10);border-radius:22px;background:rgba(13,15,26,.84);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);box-shadow:0 16px 50px rgba(0,0,0,.23)}
+.v6-global-header .hm-brand{flex:0 0 auto;min-width:0;display:inline-flex;align-items:center;gap:11px;white-space:nowrap;color:#fff;text-decoration:none}
+.v6-global-header .hm-brand img{width:49px;height:49px;object-fit:cover;border-radius:13px;box-shadow:0 0 0 1px rgba(143,114,254,.24)}
+.v6-global-header .hm-brand-label{display:flex;flex-direction:column;gap:3px}
+.v6-global-header .hm-brand-label b{color:#f8f8ff;font-family:'Space Grotesk',Arial,sans-serif;font-size:16px;letter-spacing:.095em;line-height:1.1}
+.v6-global-header .hm-brand-label small{font-size:8px;letter-spacing:.20em;color:#9598b1;font-weight:700}
+.v6-global-header .hm-nav{display:flex;align-items:center;gap:4px;margin-left:auto;background:rgba(255,255,255,.028);border-radius:999px;padding:5px;border:1px solid rgba(255,255,255,.05)}
+.v6-global-header .hm-nav a,.v6-global-header .hm-nav-disabled{font-weight:700;font-size:12px;letter-spacing:0;display:inline-flex;align-items:center;gap:6px;padding:12px 18px;border-radius:999px;color:#9fa4bd;text-decoration:none;transition:background .2s,color .2s}
+.v6-global-header .hm-nav a:hover{background:rgba(255,255,255,.08);color:#fff}
+.v6-global-header .hm-nav a.is-active{background:#202138;color:#fff;box-shadow:inset 0 0 0 1px rgba(153,117,255,.18)}
+.v6-global-header .hm-nav-disabled{opacity:.42;cursor:default}.v6-global-header .hm-nav-disabled small{font-size:8px;letter-spacing:.07em;color:#ffc1a4}
+.v6-global-header .hm-account-wrap{display:flex;align-items:center;justify-content:center;flex:0 0 auto;min-width:42px;min-height:44px}
+/* The original account-menu.js still owns the auth logic. Only move its visual widget. */
+.v6-global-header .shared-account-menu{position:relative!important;left:auto!important;top:auto!important;right:auto!important;bottom:auto!important;z-index:10011!important;display:flex;justify-content:center;align-items:center}
+.v6-global-header .shared-login-button{border-radius:13px!important;border:1px solid rgba(164,151,255,.28)!important;background:linear-gradient(130deg,rgba(121,67,251,.27),rgba(24,43,94,.24))!important;color:#fff!important;box-shadow:none!important;min-height:43px!important;padding:11px 19px!important;font-size:13px!important}
+.v6-global-header .shared-avatar-button{box-shadow:none!important;border:2px solid rgba(154,120,255,.54)!important;background:linear-gradient(135deg,#442c8b,#1a2c66)!important;width:44px!important;height:44px!important}
+.v6-global-header .shared-account-dropdown{left:auto!important;right:0!important;transform-origin:top right!important;background:#141827!important;border-color:rgba(162,150,255,.22)!important}
+.v6-global-header .shared-account-dropdown.show{transform:translateY(0) scale(1)!important}
+/* Let Wallpaper share Home exactly, even with legacy top navigation styles. */
+body.te-v5-wallpaper .v6-global-header{top:0!important;left:auto!important;right:auto!important;width:100%!important;max-width:none!important;margin:0!important}
+body.te-v5-wallpaper .v6-global-header .hm-header{max-width:1360px!important;background:rgba(13,15,26,.84)!important}
+body.te-v5-wallpaper .v6-global-header .hm-nav a{color:#9fa4bd!important}
+body.te-v5-wallpaper .v6-global-header .hm-nav a.is-active{color:#fff!important}
+body.te-v5-wallpaper .v6-global-header .hm-brand{color:#fff!important}
+@media(max-width:980px){.v6-global-header .hm-header{gap:12px}.v6-global-header .hm-brand-label small{display:none}.v6-global-header .hm-nav a,.v6-global-header .hm-nav-disabled{padding:11px 12px}}
+@media(max-width:767px){
+  .v6-global-header{padding:10px 12px 0!important;top:0!important;left:auto!important;right:auto!important;width:100%!important;margin:0!important}
+  .v6-global-header .hm-header{width:100%!important;max-width:100%!important;margin:auto!important;min-height:64px!important;border-radius:18px!important;display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important;padding:9px 12px!important;gap:10px!important;background:rgba(13,15,26,.94)!important;border:1px solid rgba(255,255,255,.1)!important}
+  .v6-global-header .hm-brand{flex:1 1 auto!important;gap:8px!important}
+  .v6-global-header .hm-brand img{width:41px!important;height:41px!important}
+  .v6-global-header .hm-brand-label b{font-size:13px!important;letter-spacing:.05em!important}
+  .v6-global-header .hm-brand-label small{display:none!important}
+  .v6-global-header .hm-nav{display:none!important}
+  .v6-global-header .hm-account-wrap{flex:0 0 auto!important;margin:0!important}
+  .v6-global-header .shared-login-button{padding:8px 12px!important;min-height:38px!important;font-size:12px!important}
+  .v6-global-header .shared-avatar-button{width:41px!important;height:41px!important}
+}
+
+/* Keep My Wallpapers accessible on its own page after adopting the home navbar. */
+body.te-v5-wallpaper .v6-wallpaper-library{margin-left:auto;margin-right:14px;white-space:nowrap;display:inline-flex;justify-content:center;align-items:center;min-height:40px;padding:9px 15px;border:1px solid rgba(164,151,255,.24);border-radius:11px;background:rgba(33,32,57,.84);color:#f5efff;font:800 12px 'DM Sans',Arial,sans-serif;text-decoration:none}
+body.te-v5-wallpaper .v6-wallpaper-library:hover{background:rgba(83,59,156,.46)}
+@media(max-width:767px){body.te-v5-wallpaper .v6-wallpaper-library{margin:0;padding:8px 10px;font-size:11px}body.te-v5-wallpaper .top-bar{gap:8px!important;flex-wrap:wrap!important}body.te-v5-wallpaper .top-bar .wallpaper-search-box{flex:1 1 180px;min-width:0;width:auto!important}}

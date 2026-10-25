@@ -1,0 +1,573 @@
+@media (max-width: 767px) {
+  :root {
+    --te-m-bg: #04060d;
+    --te-m-surface: rgba(10, 16, 28, 0.78);
+    --te-m-surface-2: rgba(15, 23, 38, 0.92);
+    --te-m-line: rgba(140, 166, 255, 0.18);
+    --te-m-line-strong: rgba(118, 223, 238, 0.28);
+    --te-m-text: #f6f8ff;
+    --te-m-muted: #9aa9bf;
+    --te-m-cyan: #4dd9ff;
+    --te-m-blue: #2569ff;
+    --te-m-purple: #8d39ff;
+    --te-m-pink: #ff2d74;
+    --te-m-red: #ff2448;
+    --te-m-radius: 26px;
+    --te-m-shadow: 0 18px 44px rgba(0, 0, 0, 0.36);
+  }
+
+  html, body { overflow-x: clip !important; }
+  body.te-mobile-redesign-ready {
+    background:
+      radial-gradient(circle at 18% 0%, rgba(137, 57, 255, 0.24), transparent 34%),
+      radial-gradient(circle at 100% 18%, rgba(37, 105, 255, 0.22), transparent 30%),
+      radial-gradient(circle at 50% 100%, rgba(255, 45, 116, 0.18), transparent 36%),
+      linear-gradient(180deg, #05070f 0%, #060912 28%, #05070d 100%) !important;
+    color: var(--te-m-text);
+    padding-bottom: calc(92px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  body.te-mobile-redesign-ready::before,
+  body.te-mobile-redesign-ready::after {
+    content: "";
+    position: fixed;
+    inset: auto;
+    pointer-events: none;
+    z-index: -2;
+    filter: blur(90px);
+    opacity: .55;
+  }
+  body.te-mobile-redesign-ready::before {
+    width: 200px; height: 200px; left: -70px; top: 100px;
+    background: radial-gradient(circle, rgba(141, 57, 255, .5), transparent 70%);
+  }
+  body.te-mobile-redesign-ready::after {
+    width: 230px; height: 230px; right: -90px; top: 260px;
+    background: radial-gradient(circle, rgba(255, 41, 90, .42), transparent 70%);
+  }
+
+  body.te-mobile-redesign-ready img,
+  body.te-mobile-redesign-ready video,
+  body.te-mobile-redesign-ready iframe { max-width: 100%; }
+
+  /* Top bars */
+  body.te-mobile-redesign-ready header,
+  body.te-mobile-redesign-ready .top-header,
+  body.te-mobile-redesign-ready .navbar,
+  body.te-mobile-redesign-ready .auth-header,
+  body.te-mobile-redesign-ready .library-header,
+  body.te-mobile-redesign-ready .watch-top {
+    position: sticky !important;
+    top: calc(10px + env(safe-area-inset-top, 0px)) !important;
+    left: auto !important;
+    right: auto !important;
+    width: calc(100% - 24px) !important;
+    min-height: 64px !important;
+    margin: 12px auto 0 !important;
+    padding: 12px 14px !important;
+    border-radius: 24px !important;
+    background: linear-gradient(180deg, rgba(14, 20, 33, .94), rgba(8, 13, 24, .9)) !important;
+    border: 1px solid rgba(121, 157, 255, 0.16) !important;
+    box-shadow: 0 12px 36px rgba(0,0,0,.34) !important;
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+    z-index: 1200 !important;
+  }
+
+  body.te-mobile-redesign-ready .navbar,
+  body.te-mobile-redesign-ready .watch-top,
+  body.te-mobile-redesign-ready .auth-header,
+  body.te-mobile-redesign-ready .library-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 10px !important;
+  }
+
+  body.te-mobile-redesign-ready .nav-links,
+  body.te-mobile-redesign-ready .top-nav,
+  body.te-mobile-redesign-ready header nav,
+  body.te-mobile-redesign-ready .site-tagline,
+  body.te-mobile-redesign-ready .yokso-wordmark,
+  body.te-mobile-redesign-ready .nav-subtitle {
+    display: none !important;
+  }
+
+  body.te-mobile-redesign-ready .site-identity,
+  body.te-mobile-redesign-ready .header-left,
+  body.te-mobile-redesign-ready .logo,
+  body.te-mobile-redesign-ready .top-logo,
+  body.te-mobile-redesign-ready .te-brand-host,
+  body.te-mobile-redesign-ready .library-header a:first-child,
+  body.te-mobile-redesign-ready .auth-header a:first-child {
+    min-width: 0;
+  }
+
+  body.te-mobile-redesign-ready .te-logo-image-host,
+  body.te-mobile-redesign-ready .te-logo-lockup {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    color: #fff !important;
+    text-decoration: none !important;
+  }
+
+  body.te-mobile-redesign-ready .te-logo-lockup img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    box-shadow: 0 0 24px rgba(92, 84, 255, 0.28);
+    flex: 0 0 auto;
+  }
+
+  body.te-mobile-redesign-ready .te-logo-lockup span {
+    display: block;
+    line-height: 1;
+  }
+
+  body.te-mobile-redesign-ready .te-logo-lockup .te-logo-title {
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  body.te-mobile-redesign-ready .te-logo-lockup .te-logo-subtitle {
+    margin-top: 5px;
+    font-size: 10px;
+    color: #95a3b7;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+
+  body.te-mobile-redesign-ready .header-login-button,
+  body.te-mobile-redesign-ready .login-button,
+  body.te-mobile-redesign-ready .return-link,
+  body.te-mobile-redesign-ready .back-button,
+  body.te-mobile-redesign-ready .catalog-button,
+  body.te-mobile-redesign-ready .personal-library-link,
+  body.te-mobile-redesign-ready .my-wallpapers-link,
+  body.te-mobile-redesign-ready .account-menu-button,
+  body.te-mobile-redesign-ready .account-avatar-button {
+    flex: 0 0 auto;
+    min-height: 40px !important;
+    padding: 0 14px !important;
+    border-radius: 999px !important;
+    border: 1px solid rgba(101, 228, 207, .26) !important;
+    background: rgba(6, 18, 24, .82) !important;
+    color: #dffff8 !important;
+    box-shadow: none !important;
+    font-size: 12px !important;
+  }
+
+  body.te-mobile-redesign-ready .account-area,
+  body.te-mobile-redesign-ready .header-right {
+    margin-left: auto !important;
+  }
+
+  /* Shared page spacing */
+  body.te-mobile-redesign-ready main,
+  body.te-mobile-redesign-ready .page,
+  body.te-mobile-redesign-ready .anime-section,
+  body.te-mobile-redesign-ready .gallery-wrapper,
+  body.te-mobile-redesign-ready .films-browser,
+  body.te-mobile-redesign-ready .watch-page,
+  body.te-mobile-redesign-ready .library-page,
+  body.te-mobile-redesign-ready .profile-shell,
+  body.te-mobile-redesign-ready .profile-main,
+  body.te-mobile-redesign-ready .cards-section {
+    width: calc(100% - 24px) !important;
+    max-width: none !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  body.te-mobile-redesign-ready main,
+  body.te-mobile-redesign-ready .page,
+  body.te-mobile-redesign-ready .gallery-wrapper,
+  body.te-mobile-redesign-ready .films-browser,
+  body.te-mobile-redesign-ready .watch-page,
+  body.te-mobile-redesign-ready .library-page {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Hero blocks */
+  body.te-mobile-redesign-ready .hero,
+  body.te-mobile-redesign-ready .films-hero,
+  body.te-mobile-redesign-ready .profile-hero,
+  body.te-mobile-redesign-ready .anime-hero,
+  body.te-mobile-redesign-ready .player-card,
+  body.te-mobile-redesign-ready .login-page .login-container,
+  body.te-mobile-redesign-ready .auth-story,
+  body.te-mobile-redesign-ready .library-page,
+  body.te-mobile-redesign-ready .detail-features,
+  body.te-mobile-redesign-ready .episodes-section,
+  body.te-mobile-redesign-ready .profile-wallpaper-card,
+  body.te-mobile-redesign-ready .anime-watching-card,
+  body.te-mobile-redesign-ready .card,
+  body.te-mobile-redesign-ready .filters,
+  body.te-mobile-redesign-ready .gallery-header,
+  body.te-mobile-redesign-ready .wallpaper-card,
+  body.te-mobile-redesign-ready .film-card,
+  body.te-mobile-redesign-ready .section-card,
+  body.te-mobile-redesign-ready .content-card {
+    background: linear-gradient(180deg, rgba(11, 17, 30, .94), rgba(9, 14, 24, .88)) !important;
+    border: 1px solid rgba(116, 153, 255, .14) !important;
+    box-shadow: var(--te-m-shadow) !important;
+    border-radius: var(--te-m-radius) !important;
+  }
+
+  /* Home page refresh */
+  body.te-mobile-redesign-ready .background,
+  body.te-mobile-redesign-ready .moving-light,
+  body.te-mobile-redesign-ready .aurora,
+  body.te-mobile-redesign-ready .mystical-grid,
+  body.te-mobile-redesign-ready .portal-glow { opacity: .55 !important; }
+
+  body.te-mobile-redesign-ready .hero {
+    width: calc(100% - 24px) !important;
+    margin: 18px auto 18px !important;
+    padding: 28px 20px 22px !important;
+    overflow: hidden;
+    position: relative;
+  }
+  body.te-mobile-redesign-ready .hero::before {
+    content: "";
+    position: absolute;
+    inset: auto -20px -40px auto;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, rgba(79, 142, 255, .28), transparent 68%);
+    filter: blur(12px);
+  }
+  body.te-mobile-redesign-ready .hero h1,
+  body.te-mobile-redesign-ready .hero-title,
+  body.te-mobile-redesign-ready .story-copy h2 {
+    font-size: clamp(30px, 9.4vw, 42px) !important;
+    line-height: 1.02 !important;
+    letter-spacing: -.04em !important;
+    margin-bottom: 14px !important;
+  }
+  body.te-mobile-redesign-ready .hero p,
+  body.te-mobile-redesign-ready .story-copy p,
+  body.te-mobile-redesign-ready .hero-description {
+    color: var(--te-m-muted) !important;
+    font-size: 14px !important;
+    line-height: 1.7 !important;
+  }
+
+  body.te-mobile-redesign-ready .cards-section,
+  body.te-mobile-redesign-ready .anime-section,
+  body.te-mobile-redesign-ready .gallery-wrapper,
+  body.te-mobile-redesign-ready .films-browser,
+  body.te-mobile-redesign-ready .page,
+  body.te-mobile-redesign-ready .watch-page {
+    margin-top: 18px !important;
+  }
+
+  body.te-mobile-redesign-ready .cards-section > *,
+  body.te-mobile-redesign-ready .anime-section > *,
+  body.te-mobile-redesign-ready .gallery-wrapper > *,
+  body.te-mobile-redesign-ready .films-browser > *,
+  body.te-mobile-redesign-ready .page > * {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  body.te-mobile-redesign-ready .section-title,
+  body.te-mobile-redesign-ready .section-heading,
+  body.te-mobile-redesign-ready .gallery-heading {
+    width: 100% !important;
+    margin: 0 0 14px !important;
+    padding: 0 2px !important;
+  }
+  body.te-mobile-redesign-ready .section-title p,
+  body.te-mobile-redesign-ready .section-heading p,
+  body.te-mobile-redesign-ready .gallery-heading p,
+  body.te-mobile-redesign-ready .eyebrow {
+    color: #83f5e5 !important;
+    font-size: 11px !important;
+    letter-spacing: .24em !important;
+    text-transform: uppercase !important;
+    font-weight: 800 !important;
+  }
+  body.te-mobile-redesign-ready .section-title h2,
+  body.te-mobile-redesign-ready .section-heading h2,
+  body.te-mobile-redesign-ready .gallery-heading h2,
+  body.te-mobile-redesign-ready .collection-title,
+  body.te-mobile-redesign-ready h1 {
+    font-size: clamp(26px, 8.2vw, 36px) !important;
+    line-height: 1.08 !important;
+    letter-spacing: -.04em !important;
+  }
+
+  /* Anime page hero + shelves */
+  body.te-mobile-redesign-ready.te-page-anime .anime-background,
+  body.te-mobile-redesign-ready.te-page-anime .manga-collage-overlay {
+    opacity: .92 !important;
+  }
+  body.te-mobile-redesign-ready.te-page-anime .navbar {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    width: calc(100% - 24px) !important;
+  }
+  body.te-mobile-redesign-ready.te-page-anime .te-anime-mobile-hero {
+    margin: 14px 12px 0 !important;
+    width: calc(100% - 24px) !important;
+    min-height: 540px !important;
+    height: auto !important;
+    border-radius: 32px !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(255,255,255,.1);
+    box-shadow: var(--te-m-shadow);
+  }
+  body.te-mobile-redesign-ready.te-page-anime .te-anime-hero-shade {
+    background:
+      linear-gradient(180deg, rgba(3, 5, 10, .18) 0%, rgba(4, 7, 15, .55) 42%, rgba(4, 7, 14, .92) 100%),
+      linear-gradient(90deg, rgba(6, 8, 18, .34) 0%, transparent 65%) !important;
+  }
+  body.te-mobile-redesign-ready.te-page-anime .te-hero-search {
+    top: 18px !important;
+    right: 18px !important;
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 50% !important;
+    background: rgba(4, 8, 18, .56) !important;
+    border: 1px solid rgba(255,255,255,.18) !important;
+  }
+  body.te-mobile-redesign-ready.te-page-anime .te-anime-hero-content {
+    left: 18px !important; right: 18px !important; bottom: 22px !important;
+  }
+  body.te-mobile-redesign-ready.te-page-anime .te-hero-title {
+    font-size: clamp(28px, 9vw, 42px) !important;
+    margin-bottom: 10px !important;
+  }
+  body.te-mobile-redesign-ready.te-page-anime .te-hero-genres {
+    color: #dce6f1 !important;
+    font-size: 13px !important;
+  }
+  body.te-mobile-redesign-ready.te-page-anime .te-hero-actions a {
+    min-width: 128px !important;
+    min-height: 44px !important;
+    border-radius: 999px !important;
+  }
+  body.te-mobile-redesign-ready.te-page-anime .anime-search {
+    width: calc(100% - 24px) !important;
+    margin: 16px auto 16px !important;
+    border-radius: 18px !important;
+    background: rgba(12, 18, 29, .92) !important;
+    border: 1px solid rgba(118, 156, 255, .18) !important;
+    box-shadow: 0 10px 24px rgba(0,0,0,.25);
+  }
+  body.te-mobile-redesign-ready.te-page-anime .genres-toggle {
+    bottom: calc(96px + env(safe-area-inset-bottom,0px)) !important;
+    left: 14px !important;
+    background: linear-gradient(180deg, rgba(15, 20, 32, .95), rgba(10, 14, 24, .96)) !important;
+    border: 1px solid rgba(101, 224, 210, .24) !important;
+  }
+  body.te-mobile-redesign-ready.te-page-anime .anime-section {
+    padding: 0 !important;
+  }
+  body.te-mobile-redesign-ready.te-page-anime .te-latest-wrap {
+    margin: 8px 0 18px !important;
+  }
+  body.te-mobile-redesign-ready.te-page-anime .te-latest-section {
+    margin: 0 0 18px !important;
+    padding: 18px !important;
+    border: 1px solid rgba(121, 157, 255, .16) !important;
+    border-radius: 28px !important;
+    background: linear-gradient(180deg, rgba(11, 17, 30, .92), rgba(8, 13, 24, .86)) !important;
+    box-shadow: var(--te-m-shadow) !important;
+  }
+  body.te-mobile-redesign-ready.te-page-anime .te-latest-heading {
+    padding: 0 !important;
+    margin-bottom: 14px !important;
+  }
+  body.te-mobile-redesign-ready.te-page-anime .te-latest-heading h2 {
+    font-size: clamp(24px, 8vw, 34px) !important;
+  }
+  body.te-mobile-redesign-ready.te-page-anime .te-latest-heading a {
+    font-size: 12px !important;
+    color: #80f1e0 !important;
+  }
+  body.te-mobile-redesign-ready.te-page-anime .te-latest-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    overflow: visible !important;
+    padding: 0 !important;
+  }
+  body.te-mobile-redesign-ready.te-page-anime .te-latest-card {
+    display: grid !important;
+    grid-template-columns: 96px minmax(0, 1fr) !important;
+    align-items: stretch !important;
+    min-height: 136px !important;
+    border-radius: 20px !important;
+    background: rgba(7, 15, 27, .94) !important;
+    border: 1px solid rgba(102, 221, 211, .15) !important;
+  }
+  body.te-mobile-redesign-ready.te-page-anime .te-latest-poster {
+    aspect-ratio: auto !important;
+    height: 100% !important;
+    min-height: 136px !important;
+    border-radius: 20px 0 0 20px !important;
+    overflow: hidden !important;
+  }
+  body.te-mobile-redesign-ready.te-page-anime .te-latest-section--episode .te-latest-poster { min-height: 136px !important; }
+  body.te-mobile-redesign-ready.te-page-anime .te-latest-info {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    padding: 14px 14px 14px 12px !important;
+  }
+  body.te-mobile-redesign-ready.te-page-anime .te-latest-info strong {
+    min-height: 0 !important;
+    font-size: 18px !important;
+    line-height: 1.25 !important;
+  }
+  body.te-mobile-redesign-ready.te-page-anime .te-latest-info small {
+    margin-top: 0 !important;
+    font-size: 12px !important;
+    color: #a7b6c8 !important;
+  }
+  body.te-mobile-redesign-ready.te-page-anime .te-latest-chip {
+    top: 8px !important; right: 8px !important;
+    border-radius: 999px !important;
+    padding: 5px 8px !important;
+  }
+  body.te-mobile-redesign-ready.te-page-anime .anime-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 14px !important;
+  }
+  body.te-mobile-redesign-ready.te-page-anime .anime-card-link { min-width: 0 !important; }
+  body.te-mobile-redesign-ready.te-page-anime .anime-card {
+    border-radius: 20px !important;
+    overflow: hidden !important;
+    background: rgba(10, 17, 27, .92) !important;
+    border: 1px solid rgba(120, 153, 255, .16) !important;
+    box-shadow: 0 12px 26px rgba(0,0,0,.24);
+  }
+  body.te-mobile-redesign-ready.te-page-anime .anime-card .poster { aspect-ratio: 0.74 !important; }
+  body.te-mobile-redesign-ready.te-page-anime .anime-card h3 {
+    font-size: 14px !important;
+    line-height: 1.35 !important;
+  }
+  body.te-mobile-redesign-ready.te-page-anime .anime-card p {
+    font-size: 11px !important;
+    color: #98a9be !important;
+  }
+
+  /* Anime details & watch */
+  body.te-mobile-redesign-ready.te-page-animedetails .page,
+  body.te-mobile-redesign-ready.te-page-watch .watch-page,
+  body.te-mobile-redesign-ready .page#animePage {
+    gap: 16px !important;
+  }
+  body.te-mobile-redesign-ready .episodes-section,
+  body.te-mobile-redesign-ready .detail-features,
+  body.te-mobile-redesign-ready .player-card {
+    padding: 18px !important;
+    margin-bottom: 14px !important;
+  }
+  body.te-mobile-redesign-ready .episodes-grid,
+  body.te-mobile-redesign-ready .character-grid {
+    gap: 12px !important;
+  }
+
+  /* Wallpaper / films / profile lists */
+  body.te-mobile-redesign-ready .gallery-wrapper,
+  body.te-mobile-redesign-ready .films-content,
+  body.te-mobile-redesign-ready .profile-main,
+  body.te-mobile-redesign-ready .profile-grid {
+    width: calc(100% - 24px) !important;
+  }
+  body.te-mobile-redesign-ready .gallery-wrapper > section,
+  body.te-mobile-redesign-ready .films-content > *,
+  body.te-mobile-redesign-ready .profile-main > * {
+    border-radius: var(--te-m-radius) !important;
+  }
+  body.te-mobile-redesign-ready .wallpaper-card,
+  body.te-mobile-redesign-ready .preview-card,
+  body.te-mobile-redesign-ready .film-card,
+  body.te-mobile-redesign-ready .profile-main .card {
+    overflow: hidden !important;
+  }
+
+  /* Login */
+  body.te-mobile-redesign-ready.login-page .auth-layout {
+    gap: 16px !important;
+    padding: 0 12px !important;
+    margin: 12px auto 24px !important;
+  }
+  body.te-mobile-redesign-ready.login-page .auth-story {
+    padding: 18px !important;
+  }
+  body.te-mobile-redesign-ready.login-page .login-container {
+    padding: 22px !important;
+  }
+
+  /* Footer */
+  body.te-mobile-redesign-ready .te-site-footer {
+    width: calc(100% - 24px) !important;
+    margin: 26px auto calc(14px + env(safe-area-inset-bottom, 0px)) !important;
+    border-radius: 28px !important;
+    background: linear-gradient(180deg, rgba(12, 17, 29, .92), rgba(8, 13, 24, .88)) !important;
+    border: 1px solid rgba(120, 153, 255, .12) !important;
+  }
+  body.te-mobile-redesign-ready .te-footer-main {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  body.te-mobile-redesign-ready .te-footer-social-wrap { align-items: flex-start !important; }
+
+  /* Bottom navigation */
+  body.te-mobile-redesign-ready .te-mobile-nav {
+    left: 10px !important;
+    right: 10px !important;
+    bottom: calc(10px + env(safe-area-inset-bottom,0px)) !important;
+    padding: 8px !important;
+    border-radius: 24px !important;
+    border: 1px solid rgba(120, 153, 255, .18) !important;
+    background: linear-gradient(180deg, rgba(11, 17, 30, .95), rgba(8, 13, 24, .98)) !important;
+    box-shadow: 0 14px 40px rgba(0,0,0,.38) !important;
+  }
+  body.te-mobile-redesign-ready .te-mobile-nav a {
+    gap: 4px !important;
+    min-height: 54px !important;
+    border-radius: 18px !important;
+    color: #95a6bb !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+  }
+  body.te-mobile-redesign-ready .te-mobile-nav a[aria-current="page"] {
+    color: #fff !important;
+    background: linear-gradient(135deg, rgba(102, 229, 208, .18), rgba(64, 111, 255, .22), rgba(255, 47, 111, .16)) !important;
+    box-shadow: inset 0 0 0 1px rgba(138, 239, 227, .14);
+  }
+
+  /* Install banner */
+  body.te-mobile-redesign-ready .te-install-banner {
+    left: 10px !important;
+    right: 10px !important;
+    bottom: calc(88px + env(safe-area-inset-bottom,0px)) !important;
+    padding: 14px !important;
+    border-radius: 20px !important;
+    background: linear-gradient(180deg, rgba(13, 20, 33, .98), rgba(9, 14, 24, .98)) !important;
+    border: 1px solid rgba(101, 224, 210, .26) !important;
+  }
+
+  @media (max-width: 380px) {
+    body.te-mobile-redesign-ready.te-page-anime .anime-grid {
+      grid-template-columns: 1fr !important;
+    }
+    body.te-mobile-redesign-ready .te-logo-lockup .te-logo-title {
+      font-size: 12px;
+    }
+    body.te-mobile-redesign-ready .te-logo-lockup .te-logo-subtitle {
+      font-size: 9px;
+    }
+  }
+}

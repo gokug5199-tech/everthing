@@ -1,0 +1,12 @@
+/* v7 — Fix overgrown Wallpaper search caused by older mobile styles. */
+body.te-v5-wallpaper .top-bar{width:min(1200px,calc(100% - 36px));margin:12px auto 18px!important;padding:8px 0!important;display:flex!important;flex-direction:row!important;align-items:center!important;gap:12px!important;justify-content:space-between!important;min-height:48px!important;max-height:none!important}
+body.te-v5-wallpaper .top-bar .wallpaper-search-box{display:flex!important;flex:0 1 300px!important;width:min(300px,100%)!important;min-width:0!important;max-width:300px!important;height:43px!important;min-height:43px!important;max-height:43px!important;padding:0 12px!important;align-items:center!important;gap:10px!important;margin:0!important;border-radius:13px!important;box-sizing:border-box!important}
+body.te-v5-wallpaper .top-bar .wallpaper-search-box svg{width:18px!important;height:18px!important;flex:0 0 18px!important}
+body.te-v5-wallpaper .top-bar #wallpaperSearch{flex:1!important;width:100%!important;min-width:0!important;height:100%!important;min-height:0!important;max-height:100%!important;padding:0!important;margin:0!important;line-height:normal!important;background:transparent!important;box-shadow:none!important;border:0!important;font-size:13px!important}
+body.te-v5-wallpaper .top-bar .v6-wallpaper-library{flex:0 0 auto!important;min-height:38px!important}
+@media(max-width:767px){
+ body.te-v5-wallpaper .top-bar{width:calc(100% - 28px)!important;margin:12px auto!important;padding:0!important;display:grid!important;grid-template-columns:auto 1fr!important;grid-template-areas:'back library' 'search search'!important;gap:10px!important;align-items:center!important}
+ body.te-v5-wallpaper .top-bar .back-button{grid-area:back!important;justify-self:start!important;margin:0!important;min-height:38px!important}
+ body.te-v5-wallpaper .top-bar .v6-wallpaper-library{grid-area:library!important;justify-self:end!important;margin:0!important}
+ body.te-v5-wallpaper .top-bar .wallpaper-search-box{grid-area:search!important;justify-self:stretch!important;flex:none!important;width:100%!important;max-width:none!important;height:44px!important;min-height:44px!important;max-height:44px!important;margin:0!important}
+}

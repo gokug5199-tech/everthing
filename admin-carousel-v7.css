@@ -1,0 +1,5 @@
+#heroManager{margin-top:24px;padding:20px 18px;background:#121c28;border:1px solid #355162;border-radius:14px}
+#heroManager h3{margin:0 0 5px}#heroManager .hero-count{display:inline-block;margin-left:7px;padding:4px 8px;border-radius:999px;background:#263950;color:#bdeee2;font-size:12px}#heroManager .help{line-height:1.6;color:#9eb3c0}
+#heroManager .hero-choose-v7{display:flex;align-items:end;gap:12px;flex-wrap:wrap;margin:15px 0}#heroManager .hero-choose-v7 label{flex:1 1 280px;min-width:0}#heroManager .hero-choose-v7 select{width:100%}#heroManager .hero-choose-v7>button{flex:0 0 auto}
+#heroManager .featured-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:10px;border:1px solid #355162;border-radius:10px;margin:8px 0;background:#111a23}
+#heroManager .featured-row span{flex:1 1 190px;overflow-wrap:anywhere}#heroStatus{color:#8ff3d1;font-size:13px;min-height:1.3em}

@@ -7,6 +7,12 @@
     const genreMenu = document.getElementById("genreMenu");
     const genreList = document.getElementById("genreList");
     const genresBackdrop = document.getElementById("genresBackdrop");
+    const quickGenres = document.getElementById("teQuickGenres");
+    const sortInput = document.getElementById("teAnimeSort");
+    const resultsText = document.getElementById("teAnimeResults");
+    const searchClear = document.getElementById("teSearchClear");
+    const allGenresButton = document.getElementById("teMoreGenres");
+    const resetButton = document.getElementById("teClearFilters");
 
     if (!grid) return;
 
@@ -115,9 +121,8 @@
     function getGenreLabels() {
         const labels = new Map();
 
-        genreCatalog.forEach(function (label) {
-            labels.set(normalizeGenre(label), label);
-        });
+        // Show only genres actually represented in the user's anime catalog.
+        // A long empty list made discovery unnecessarily difficult.
 
         data.forEach(function (anime) {
             if (anime.category && normalizeGenre(anime.category) !== "all") {
@@ -168,6 +173,7 @@
         genresToggle.setAttribute("aria-expanded", String(menuOpen));
         genresToggle.setAttribute("aria-label", menuOpen ? "Close anime genres" : "Open anime genres");
         document.body.classList.toggle("genre-drawer-open", menuOpen);
+        if (allGenresButton) allGenresButton.setAttribute("aria-expanded", String(menuOpen));
 
         if (genresBackdrop) {
             genresBackdrop.classList.toggle("is-open", menuOpen);
@@ -176,7 +182,13 @@
     }
 
     function renderCards() {
-        grid.innerHTML = data.map(function (anime) {
+        const sorted = data.slice();
+        const direction = sortInput ? sortInput.value : 'newest';
+        if (direction === 'az') sorted.sort((a,b) => String(a.title||'').localeCompare(String(b.title||'')));
+        else if (direction === 'za') sorted.sort((a,b) => String(b.title||'').localeCompare(String(a.title||'')));
+        else if (direction === 'rating') sorted.sort((a,b) => Number(b.rating||b.score||0)-Number(a.rating||a.score||0));
+        else sorted.sort((a,b) => String(b.created_at||'').localeCompare(String(a.created_at||'')));
+        grid.innerHTML = sorted.map(function (anime) {
             const genresArray = Array.isArray(anime.genres) ? anime.genres : [];
             const genres = genresArray.join(" • ");
             const normalizedGenres = genresArray.map(normalizeGenre).filter(Boolean);
@@ -257,6 +269,8 @@
             if (show) visibleCount += 1;
         });
 
+        if (resultsText) resultsText.textContent = visibleCount + (visibleCount === 1 ? ' anime found' : ' anime found');
+        if (searchClear) searchClear.hidden = !Boolean(searchInput && searchInput.value);
         if (visibleCount === 0) {
             const message = query
                 ? "No anime matched your search."
@@ -279,11 +293,54 @@
         button.classList.add("active");
         button.setAttribute("aria-pressed", "true");
         selectedCategory = String(button.dataset.category || "all");
+        syncQuickGenres();
         applyFilters();
         setGenreMenu(false);
     }
 
     buildGenreMenu();
+
+    function syncQuickGenres() {
+        if (!quickGenres) return;
+        quickGenres.querySelectorAll('[data-quick-genre]').forEach(btn => {
+            const isActive = btn.dataset.quickGenre === selectedCategory;
+            btn.classList.toggle('active', isActive);
+            btn.setAttribute('aria-pressed', String(isActive));
+        });
+    }
+
+    function buildQuickGenres() {
+        if (!quickGenres) return;
+        const activeGenres = new Map();
+        data.forEach(anime => {
+            (Array.isArray(anime.genres) ? anime.genres : []).forEach(genre => {
+                const key = normalizeGenre(genre);
+                if (!key) return;
+                const found = activeGenres.get(key) || { label: String(genre), count: 0 };
+                found.count++;
+                activeGenres.set(key, found);
+            });
+        });
+        const preferred = ['action','romance','fantasy','adventure','comedy','drama','isekai','school','sci-fi'];
+        const featured = [...activeGenres.entries()].sort((a,b) => {
+            const ia = preferred.indexOf(a[0]), ib = preferred.indexOf(b[0]);
+            return (ia < 0 ? 50 : ia) - (ib < 0 ? 50 : ib) || b[1].count-a[1].count;
+        }).slice(0,8);
+        const buttons = [{key:'all',label:'All anime'}].concat(featured.map(([key,value])=>({key,label:value.label})));
+        quickGenres.replaceChildren(...buttons.map(item => {
+            const btn = document.createElement('button');
+            btn.type='button'; btn.dataset.quickGenre=item.key;
+            btn.textContent=item.label; return btn;
+        }));
+        syncQuickGenres();
+        quickGenres.addEventListener('click', event => {
+            const btn=event.target.closest('[data-quick-genre]'); if(!btn) return;
+            const item = genreList && Array.from(genreList.querySelectorAll('[data-category]')).find(el => el.dataset.category === btn.dataset.quickGenre);
+            if(item) selectGenre(item);
+            document.getElementById('animeGrid')?.scrollIntoView({behavior:'smooth',block:'start'});
+        });
+    }
+    buildQuickGenres();
 
     if (genreList) {
         genreList.addEventListener("click", function (event) {
@@ -292,6 +349,22 @@
             selectGenre(button);
         });
     }
+
+    if (allGenresButton && genresToggle) {
+        allGenresButton.addEventListener('click', () => setGenreMenu(!menuOpen));
+    }
+    if (resetButton) resetButton.addEventListener('click', () => {
+        if(searchInput) searchInput.value='';
+        if(sortInput) sortInput.value='newest';
+        const all=genreList && genreList.querySelector('[data-category="all"]');
+        if(all) selectGenre(all);
+        else {selectedCategory='all';syncQuickGenres();}
+        renderCards();
+    });
+    if (searchClear) searchClear.addEventListener('click', () => {
+        searchInput.value=''; applyFilters(); searchInput.focus();
+    });
+    if (sortInput) sortInput.addEventListener('change', renderCards);
 
     if (genresToggle && genreMenu) {
         genresToggle.addEventListener("click", function (event) {
@@ -312,7 +385,7 @@
         document.addEventListener("keydown", function (event) {
             if (event.key === "Escape" && menuOpen) {
                 setGenreMenu(false);
-                genresToggle.focus();
+                (allGenresButton || genresToggle).focus();
             }
         });
     }

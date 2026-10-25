@@ -1,0 +1,31 @@
+FILES SAFE TO REMOVE FROM THE OLD LIVE FOLDER (AFTER BACKUP)
+================================================================
+احذف هذه المسارات فقط إذا ستستخدم CODE ZIP فوق مجلدك القديم:
+
+المجلدات الكاملة:
+- deatals/   (نسخة طبق الأصل من docs/previous-setup/)
+- BACKUP-V5/ (احفظ النسخة الخارجية TheEverything-Legacy-Backup-v8.zip)
+
+ملفات قديمة وغير مرتبطة بالنسخة الجديدة:
+- anime-v6.css
+- anime-v7-fixes.css
+- anime-v6.js
+- anime-carousel-v7.js
+- films.css
+- films.js
+- home-layout.css
+
+ملفات شرح تاريخية قديمة:
+- START-HERE.txt
+- READ-ME-AR.txt
+- README-INSTALL-AR.txt
+- README-INSTALL-EN.txt
+- README-NEW-FEATURES-AR.txt
+- README-V7-AR.txt
+
+لا تحذف:
+- anime.css (تم تجديده ويُستخدم الآن)
+- anime-page.js (جديد)
+- wallpaper-v7-fixes.css (تم تفعيله الآن)
+- te-v5.css/js, shared-header-v6.css/js, admin-carousel-v7.* وغيرها (نشطة ومطلوبة)
+- image/ أو icons/ أو docs/، ولا تحذف ملفات SQL/بيانات Supabase.

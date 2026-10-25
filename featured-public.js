@@ -39,6 +39,8 @@
     const parts = Array.isArray(anime.genres) ? anime.genres.slice(0, 3) : [];
     genres.textContent = parts.length ? parts.join('  ·  ') : 'Discover this anime';
     link.href = 'anime-details.html?id=' + encodeURIComponent(anime.id);
+    const featureCard = document.getElementById('v6FeaturedCard');
+    if (featureCard) featureCard.href = link.href;
   }
 
   async function fallbackHero() {
@@ -124,7 +126,6 @@
     } catch (error) { console.warn('Anime details unavailable:', error); return; }
     const animeById = new Map(anime.map(x => [x.id, x]));
     const firstFeaturedAnime = featured.filter(x => x.kind === 'anime').map(x => animeById.get(x.anime_id)).find(Boolean);
-    if (firstFeaturedAnime) updateHero(firstFeaturedAnime);
 
     const selectedEpisodes = featured.filter(x => x.kind === 'episode');
     let episodes = [];
@@ -163,12 +164,11 @@
       }
     }
     if (!wrap.children.length) return;
-    const destination = document.querySelector('.anime-section');
-    if (destination) destination.prepend(wrap);
+    const destination = document.getElementById('v6LatestMount') || document.querySelector('.anime-section');
+    if (destination) destination.append(wrap);
   }
 
   function init() {
-    fallbackHero();
     loadFeatured();
     const focus = document.getElementById('teHeroSearch');
     if (focus) focus.addEventListener('click', () => {

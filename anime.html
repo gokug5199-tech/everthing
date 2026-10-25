@@ -1,419 +1,133 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-
-    <!-- Prevent old cached version -->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Anime | The Everything</title>
-
-    <!-- ?v=2 helps prevent old CSS cache -->
-    <link rel="stylesheet" href="anime.css?v=6">
-
-
-    <!-- Page-specific visual upgrades: search, background, side characters -->
-    <style>
-        /* Keep decorative layers behind the page content. */
-        body {
-            isolation: isolate;
-        }
-
-        /* Updated anime-page background palette. */
-        .anime-background {
-            z-index: -3 !important;
-            background:
-                radial-gradient(circle at 86% 45%, rgba(255, 48, 112, 0.22) 0%, rgba(255, 48, 112, 0.08) 24%, transparent 47%),
-                radial-gradient(circle at 15% 18%, rgba(111, 72, 255, 0.25) 0%, rgba(111, 72, 255, 0.08) 24%, transparent 46%),
-                radial-gradient(circle at 70% 4%, rgba(34, 122, 255, 0.18) 0%, transparent 38%),
-                linear-gradient(135deg, #0b1028 0%, #171430 38%, #0f1d3b 70%, #17122f 100%) !important;
-        }
-
-        .glow-1 {
-            background: rgba(107, 71, 255, 0.55) !important;
-        }
-
-        .glow-2 {
-            background: rgba(255, 47, 111, 0.50) !important;
-        }
-
-        .glow-3 {
-            background: rgba(30, 132, 255, 0.42) !important;
-        }
-
-        /* Decorative transparent anime characters on both sides. */
-        .side-character {
-            position: fixed;
-            bottom: -4vh;
-            width: clamp(420px, 34vw, 650px);
-            height: min(94vh, 1050px);
-            object-fit: contain;
-            object-position: bottom center;
-            opacity: 0.17;
-            pointer-events: none;
-            user-select: none;
-            z-index: -2;
-            filter: saturate(0.82) contrast(1.05);
-        }
-
-        /* Ayanokoji - left side: enlarged to fill the marked side area. */
-        .side-character-left {
-            width: clamp(390px, 30vw, 560px);
-            left: clamp(-125px, -6vw, -55px);
-            opacity: 0.16;
-        }
-
-        /* Goku - right side: enlarged to fill the marked side area. */
-        .side-character-right {
-            width: clamp(430px, 33vw, 610px);
-            right: clamp(-145px, -7vw, -65px);
-            opacity: 0.15;
-        }
-
-        /* Search stays outside the normal layout, so it cannot push Trending Anime down. */
-        .anime-search {
-            position: fixed;
-            top: 82px;
-            right: clamp(28px, 6vw, 110px);
-            width: min(310px, calc(100vw - 56px));
-            height: 48px;
-            box-sizing: border-box;
-            display: flex;
-            align-items: center;
-            gap: 11px;
-            padding: 0 16px;
-            background: rgba(255, 255, 255, 0.045);
-            border: 1px solid rgba(255, 255, 255, 0.17);
-            border-radius: 15px;
-            -webkit-backdrop-filter: blur(14px);
-            backdrop-filter: blur(14px);
-            box-shadow: 0 10px 34px rgba(0, 0, 0, 0.14);
-            transition: background 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
-            z-index: 10000;
-        }
-
-        .anime-search:hover {
-            background: rgba(255, 255, 255, 0.12);
-            border-color: rgba(255, 255, 255, 0.42);
-            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18), 0 0 24px rgba(255, 255, 255, 0.055);
-        }
-
-        .anime-search:focus-within {
-            background: rgba(255, 255, 255, 0.16);
-            border-color: rgba(255, 255, 255, 0.68);
-            box-shadow: 0 12px 38px rgba(0, 0, 0, 0.20), 0 0 0 3px rgba(255, 255, 255, 0.04);
-        }
-
-        /* CSS-only magnifying glass avoids any global SVG styles changing its size. */
-        .anime-search-icon {
-            position: relative;
-            width: 18px;
-            height: 18px;
-            flex: 0 0 18px;
-            opacity: 0.62;
-            transition: opacity 180ms ease;
-        }
-
-        .anime-search-icon::before {
-            content: "";
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            left: 1px;
-            top: 1px;
-            border: 2px solid #fff;
-            border-radius: 50%;
-            box-sizing: border-box;
-        }
-
-        .anime-search-icon::after {
-            content: "";
-            position: absolute;
-            width: 7px;
-            height: 2px;
-            left: 10px;
-            top: 12px;
-            border-radius: 2px;
-            background: #fff;
-            transform: rotate(45deg);
-            transform-origin: left center;
-        }
-
-        .anime-search:hover .anime-search-icon,
-        .anime-search:focus-within .anime-search-icon {
-            opacity: 0.95;
-        }
-
-        .anime-search input {
-            width: 100%;
-            min-width: 0;
-            border: 0;
-            outline: 0;
-            background: transparent;
-            color: #fff;
-            font: inherit;
-            font-size: 14px;
-        }
-
-        .anime-search input::placeholder {
-            color: rgba(255, 255, 255, 0.43);
-            transition: color 180ms ease;
-        }
-
-        .anime-search:hover input::placeholder,
-        .anime-search:focus-within input::placeholder {
-            color: rgba(255, 255, 255, 0.76);
-        }
-
-        .anime-card.search-hidden,
-        .anime-card-link.search-hidden {
-            display: none !important;
-        }
-
-        @media (max-width: 1050px) {
-            .side-character {
-                width: 360px;
-                height: 88vh;
-                opacity: 0.11;
-            }
-
-            .side-character-left {
-                left: -95px;
-            }
-
-            .side-character-right {
-                right: -115px;
-            }
-
-            .anime-search {
-                top: 74px;
-                right: 28px;
-                width: 260px;
-            }
-        }
-
-        @media (max-width: 760px) {
-            .side-character {
-                display: none;
-            }
-
-            .anime-search {
-                position: relative;
-                top: auto;
-                right: auto;
-                width: calc(100% - 36px);
-                margin: 18px auto 8px;
-            }
-        }
-    </style>
-
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <link rel="stylesheet" href="site-branding.css">
-    <script src="back-navigation.js"></script>
-<link rel="stylesheet" href="catalog-links.css?v=20261023-clean"><link rel="stylesheet" href="mobile-pwa.css?v=20261024-v3"></head>
-
-<body>
-
-    <!-- Moving manga-style collage background -->
-    <div class="anime-background" aria-hidden="true">
-        <div class="manga-collage-track">
-            <div class="manga-collage-set">
-                    <figure class="manga-panel panel-01"><img src="image/anime-background/bg-01.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-02"><img src="image/anime-background/bg-02.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-03"><img src="image/anime-background/bg-03.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-04"><img src="image/anime-background/bg-04.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-05"><img src="image/anime-background/bg-05.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-06"><img src="image/anime-background/bg-06.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-07"><img src="image/anime-background/bg-07.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-08"><img src="image/anime-background/bg-08.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-09"><img src="image/anime-background/bg-09.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-10"><img src="image/anime-background/bg-10.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-11"><img src="image/anime-background/bg-11.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-12"><img src="image/anime-background/bg-12.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-13"><img src="image/anime-background/bg-13.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-14"><img src="image/anime-background/bg-14.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-15"><img src="image/anime-background/bg-15.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-16"><img src="image/anime-background/bg-16.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-17"><img src="image/anime-background/bg-17.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-18"><img src="image/anime-background/bg-18.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-19"><img src="image/anime-background/bg-19.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-20"><img src="image/anime-background/bg-20.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-21"><img src="image/anime-background/bg-21.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-22"><img src="image/anime-background/bg-22.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-23"><img src="image/anime-background/bg-23.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-24"><img src="image/anime-background/bg-24.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-25"><img src="image/anime-background/bg-25.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-26"><img src="image/anime-background/bg-26.webp" alt="" decoding="async" fetchpriority="low"></figure>
-            </div>
-            <div class="manga-collage-set" aria-hidden="true">
-                    <figure class="manga-panel panel-01"><img src="image/anime-background/bg-01.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-02"><img src="image/anime-background/bg-02.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-03"><img src="image/anime-background/bg-03.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-04"><img src="image/anime-background/bg-04.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-05"><img src="image/anime-background/bg-05.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-06"><img src="image/anime-background/bg-06.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-07"><img src="image/anime-background/bg-07.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-08"><img src="image/anime-background/bg-08.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-09"><img src="image/anime-background/bg-09.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-10"><img src="image/anime-background/bg-10.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-11"><img src="image/anime-background/bg-11.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-12"><img src="image/anime-background/bg-12.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-13"><img src="image/anime-background/bg-13.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-14"><img src="image/anime-background/bg-14.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-15"><img src="image/anime-background/bg-15.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-16"><img src="image/anime-background/bg-16.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-17"><img src="image/anime-background/bg-17.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-18"><img src="image/anime-background/bg-18.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-19"><img src="image/anime-background/bg-19.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-20"><img src="image/anime-background/bg-20.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-21"><img src="image/anime-background/bg-21.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-22"><img src="image/anime-background/bg-22.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-23"><img src="image/anime-background/bg-23.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-24"><img src="image/anime-background/bg-24.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-25"><img src="image/anime-background/bg-25.webp" alt="" decoding="async" fetchpriority="low"></figure>
-                    <figure class="manga-panel panel-26"><img src="image/anime-background/bg-26.webp" alt="" decoding="async" fetchpriority="low"></figure>
-            </div>
-        </div>
-        <div class="manga-collage-overlay"></div>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070916">
+<meta name="description" content="Discover amazing anime, new releases and your next favorite story at The Everything.">
+<title>Anime — The Everything</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/webp" href="image/home/te-icon.webp">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link rel="stylesheet" href="site-branding.css">
+<link rel="stylesheet" href="home-2026.css?v=20261025-v4">
+<link rel="stylesheet" href="mobile-pwa.css?v=20261024-v3">
+<link rel="stylesheet" href="shared-header-v6.css?v=20261025-6">
+<link rel="stylesheet" href="anime.css?v=clean-v8">
+<script src="back-navigation.js" defer></script>
+</head>
+<body class="te-v6-anime">
+  <a class="v6-skip" href="#v6-main">Skip to anime content</a>
+  <div class="v6-world-atmosphere" aria-hidden="true">
+    <span class="v6-atmos-glow v6-glow-purple"></span>
+    <span class="v6-atmos-glow v6-glow-blue"></span>
+    <span class="v6-atmos-glow v6-glow-red"></span>
+    <span class="v6-atmos-grid"></span>
+  </div>
+  <!-- Exactly the same navigation design as the home page -->
+  <div class="hm-header-wrap v6-global-header">
+    <div class="hm-header" role="banner">
+      <a class="hm-brand" href="index.html" aria-label="The Everything home">
+        <img src="image/home/te-icon.webp" width="50" height="50" alt="The Everything logo">
+        <span class="hm-brand-label"><b>THE EVERYTHING</b><small>ONE PLACE. ENDLESS WORLDS.</small></span>
+      </a>
+      <nav class="hm-nav" aria-label="Primary navigation">
+        <a href="index.html">Home</a>
+        <a href="anime.html" class="is-active" aria-current="page">Anime</a>
+        <a href="wallpaper.html">Wallpapers</a>
+        <span class="hm-nav-disabled" aria-label="Films coming soon">Films <small>SOON</small></span>
+      </nav>
+      <div class="hm-account-wrap" id="v6AccountMount"></div>
     </div>
-
-
-    <!-- NAVBAR -->
-    <nav class="navbar">
-
-        <div class="site-identity">
-            <a href="index.html" class="logo">THE EVERYTHING</a>
-            <span class="site-tagline">Enter the Anime World</span>
+  </div>
+  <main id="v6-main" class="v6-main">
+    <div class="v6-upper-caption"><span class="v6-planet-symbol">✦</span> THE EVERYTHING <span class="v6-slash">/</span> ANIME</div>
+    <section id="teAnimeMobileHero" class="te-anime-mobile-hero v6-hero" aria-label="Featured anime">
+      <div class="v6-hero-copy">
+        <div class="v6-kicker"><span class="v6-live-dot"></span> CURATED STORIES · BOUNDLESS WORLDS</div>
+        <h1 class="v6-headline">Every story<br>starts <em>somewhere.</em></h1>
+        <p class="v6-headline-summary">From unforgettable adventures to worlds you never want to leave. Your next favorite is one click away.</p>
+        <div class="v6-intro-actions">
+          <a class="v6-button v6-primary" href="#discover">Explore the library <span aria-hidden="true">↗</span></a>
+          <a class="v6-button v6-secondary" href="my-anime.html">My Anime Library <span aria-hidden="true">♡</span></a>
         </div>
-
-        <a href="anime.html" class="yokso-wordmark" aria-label="The Everything Anime">
-            <span>ANIME</span>
+        <div class="v6-hero-note"><span>01</span><span class="v6-note-line"></span><span>FIND YOUR NEXT FAVORITE</span></div>
+      </div>
+      <div class="v6-hero-stage">
+        <div class="v6-stage-orbit v6-orbit-one" aria-hidden="true"></div>
+        <div class="v6-stage-orbit v6-orbit-two" aria-hidden="true"></div>
+        <div class="v6-stage-light" aria-hidden="true"></div>
+        <a class="v6-featured-card" href="#animeGrid" id="v6FeaturedCard" aria-label="View selected anime">
+          <img class="te-hero-art" src="image/home/hero-anime.webp" alt="Anime feature artwork" fetchpriority="high">
+          <span class="v6-featured-shade"></span>
+          <span class="v6-featured-label"><i class="fa-solid fa-star" aria-hidden="true"></i> EDITOR'S PICK</span>
+          <span class="v6-featured-info">
+            <span class="te-hero-eyebrow">FEATURED WORLD</span>
+            <strong class="te-hero-title">Step inside a new world</strong>
+            <small class="te-hero-genres">Discover stories worth staying for</small>
+            <span class="v6-featured-cta">Explore story <span aria-hidden="true">↗</span></span>
+          </span>
         </a>
-
-        <div class="nav-links">
-
-            <a href="index.html">
-                Home
-            </a>
-
-            <a href="anime.html" class="active">
-                Anime
-            </a>
-
-            <a href="films.html">
-                Films
-            </a>
-
-            <a href="wallpaper.html">
-                Wallpapers
-            </a>
-
-        <a class="personal-library-link" href="my-anime.html">My Anime Library</a></div>
-
-    </nav>
-
-
-    <!-- Mobile-only cinematic banner; image and title are updated from featured anime. -->
-    <section id="teAnimeMobileHero" class="te-anime-mobile-hero" aria-label="Featured anime">
-      <img class="te-hero-art" src="image/anime/attack-on-titan.jpg" alt="">
-      <div class="te-anime-hero-shade"></div>
-      <button id="teHeroSearch" class="te-hero-search" type="button" aria-label="Search anime" title="Search anime">
-        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
-      </button>
-      <div class="te-anime-hero-content">
-        <span class="te-hero-eyebrow">THE EVERYTHING ORIGINAL SELECTION</span>
-        <h1 class="te-hero-title">Explore Anime</h1>
-        <p class="te-hero-genres">Discover your next favorite world</p>
-        <div class="te-hero-actions">
-          <a class="te-hero-view" href="#animeGrid">▶ View Anime</a>
-          <a class="te-hero-list" href="my-anime.html">＋ My List</a>
+        <div class="v7-hero-carousel-controls" id="v7HeroControls" hidden aria-label="Featured anime carousel">
+          <button type="button" id="v7HeroPrev" aria-label="Previous featured anime">&#8592;</button>
+          <div id="v7HeroDots" class="v7-hero-dots" role="group" aria-label="Select a featured anime"></div>
+          <button type="button" id="v7HeroNext" aria-label="Next featured anime">&#8594;</button>
         </div>
+        <a class="te-hero-view v6-visually-hidden" href="#animeGrid">View featured anime</a>
       </div>
     </section>
 
-    <!-- BACK BUTTON -->
-    <a data-back href="index.html" class="back-button">← Back</a>
+    <div class="v6-ticker" aria-hidden="true"><span>ANIME STORIES</span><b>✦</b><span>YOUR NEXT OBSESSION</span><b>✦</b><span>DISCOVER MORE</span><b>✦</b><span>CURATED FOR YOU</span><b>✦</b><span>ANIME STORIES</span></div>
 
+    <section class="v6-new-arrivals" id="latest" aria-label="Latest anime and episodes">
+      <div class="v6-section-title-row">
+        <div><span class="v6-section-eyebrow">FRESH FROM THE LIBRARY</span><h2>What's <em>new.</em></h2></div>
+        <p>Picked by the team, updated when new stories and episodes arrive.</p>
+      </div>
+      <div id="v6LatestMount" class="v6-latest-mount"></div>
+    </section>
 
-<!-- Anime Search -->
-<div class="anime-search" role="search">
-    <span class="anime-search-icon" aria-hidden="true"></span>
-    <input
-        type="search"
-        id="animeSearch"
-        placeholder="Search anime..."
-        autocomplete="off"
-        aria-label="Search anime"
-    >
-</div>
+    <section class="te-discovery v6-discovery" id="discover" aria-label="Discover and filter anime">
+      <div class="te-discovery-intro">
+        <div><span class="v6-section-eyebrow">THE ANIME LIBRARY</span><h2>Find something<br><em>worth watching.</em></h2><p>Search your entire collection, dive into genres or explore the best-rated picks.</p></div>
+        <a class="te-quick-library" href="my-anime.html"><span aria-hidden="true">♡</span> My Anime Library <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="te-discovery-controls">
+        <label class="anime-search" for="animeSearch">
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="10.7" cy="10.7" r="6.3"/><path d="m16 16 5 5"/></svg>
+          <input type="search" id="animeSearch" placeholder="Search anime titles, stories, genres..." autocomplete="off" aria-label="Search anime" aria-controls="animeGrid">
+          <button type="button" class="te-search-clear" id="teSearchClear" aria-label="Clear search" hidden>×</button>
+        </label>
+        <button class="te-more-genres" id="teMoreGenres" type="button" aria-controls="genreMenu" aria-expanded="false">All genres <span aria-hidden="true">⌄</span></button>
+        <label class="te-sort-control" for="teAnimeSort"><span>Sort</span><select id="teAnimeSort"><option value="newest">Recently added</option><option value="az">Title A–Z</option><option value="za">Title Z–A</option><option value="rating">Highest rated</option></select></label>
+      </div>
+      <div class="te-quick-row"><div id="teQuickGenres" class="te-quick-genres" role="group" aria-label="Popular genres"></div></div>
+      <div class="te-results-meta"><span id="teAnimeResults" role="status" aria-live="polite">Loading your collection…</span><button type="button" id="teClearFilters">Reset filters ↺</button></div>
+    </section>
 
-
-    <!-- Icon-only genres menu, styled like a slide-out library panel -->
-    <button
-        class="genres-toggle"
-        id="genresToggle"
-        type="button"
-        aria-expanded="false"
-        aria-controls="genreMenu"
-        aria-label="Open anime genres"
-    >
-        <span class="genres-toggle-lines" aria-hidden="true">
-            <span></span>
-            <span></span>
-            <span></span>
-        </span>
-    </button>
-
+    <button class="genres-toggle v6-visually-hidden" id="genresToggle" type="button" aria-expanded="false" aria-controls="genreMenu" aria-label="Open anime genres">Show genres</button>
     <div class="genres-backdrop" id="genresBackdrop" aria-hidden="true"></div>
+    <aside class="genre-drawer" id="genreMenu" aria-hidden="true" aria-label="Anime genres"><div class="v6-genre-drawer-head"><div class="v6-genre-drawer-title"><strong>Browse genres</strong><span>Choose a world to explore</span></div><button class="v6-close-genres" id="v6CloseGenres" type="button" aria-label="Close genre filters">×</button></div><nav class="genre-drawer-list" id="genreList" aria-label="Filter anime by genre"></nav></aside>
 
-    <aside class="genre-drawer" id="genreMenu" aria-hidden="true" aria-label="Anime genres">
-        <nav class="genre-drawer-list" id="genreList" aria-label="Filter anime by genre"></nav>
-    </aside>
+    <section class="anime-section v6-library" aria-labelledby="v6CollectionTitle">
+      <div class="section-title v6-section-title-row"><div><span class="v6-section-eyebrow">EVERYTHING IN ONE PLACE</span><h2 id="v6CollectionTitle">The <em>collection.</em></h2></div><p>Every title, ready when you are.</p></div>
+      <div class="anime-grid" id="animeGrid"></div>
+    </section>
 
-
-    <!-- ANIME SECTION -->
-    <main class="anime-section">
-
-        <div class="section-title">
-
-            <div>
-                <p>EXPLORE</p>
-                <h2>Trending Anime</h2>
-            </div>
-
-
-        </div>
-
-        <!-- ANIME GRID: cards are generated from anime-data.js -->
-        <div class="anime-grid" id="animeGrid"></div>
-
-    </main>
-
-
-    <!-- Anime category filtering -->
-<script src="anime-data.js?v=admin1"></script>
-<script src="anime.js?v=20261023-clean"></script>
-
-<!-- Shared account menu -->
-<script src="account-menu.js?v=20261023-clean"></script>
-
-<!-- Reload page if browser restores an old cached copy -->
-<script>
-    window.addEventListener("pageshow", function (event) {
-        if (event.persisted) {
-            window.location.reload();
-        }
-    });
-</script>
-
-
-    <script src="featured-public.js?v=20261024-v3"></script><script src="mobile-pwa.js?v=20261024-v3"></script><script src="site-shell.js"></script>
+  </main>
+  <script src="anime-data.js?v=admin1"></script>
+  <script src="anime.js?v=20261025-v6"></script>
+  <script src="account-menu.js?v=20261023-clean"></script>
+  <script src="featured-public.js?v=20261025-v6"></script>
+  <script src="mobile-pwa.js?v=20261024-v3"></script>
+  <script src="site-shell.js"></script>
+  <script src="shared-header-v6.js?v=20261025-v6"></script>
+  <script src="anime-page.js?v=clean-v8"></script>
+  <script>
+  window.addEventListener('pageshow',e=>{if(e.persisted)location.reload()});
+  </script>
 </body>
-
 </html>

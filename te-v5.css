@@ -1,0 +1,443 @@
+/* THE EVERYTHING / V5 STUDIO SYSTEM
+   Shared component system + catalog redesign. Background image and moving
+   manga collage on anime.html are deliberately NOT styled or changed here. */
+:root{
+  --tv5-base:#070911;--tv5-panel:#0d1421;--tv5-panel2:#121c2b;
+  --tv5-line:rgba(164,177,234,.18);--tv5-text:#f6f8ff;
+  --tv5-muted:#a8b3c9;--tv5-aqua:#76e7dd;
+  --tv5-purple:#8748ef;--tv5-blue:#236cf7;--tv5-pink:#ef346f;
+  --tv5-shine:linear-gradient(105deg,#9c71ff 0%,#67c4ff 43%,#f67692 100%);
+  --tv5-shadow:0 22px 68px rgba(0,0,0,.32);
+}
+.te-v5{font-family:Inter,"Segoe UI",Arial,sans-serif;color:var(--tv5-text);}
+.te-v5 :is(a,button,input,select,textarea):focus-visible{outline:2px solid #85e5ef!important;outline-offset:3px;}
+.te-v5 a,.te-v5 button{ -webkit-tap-highlight-color:transparent; }
+.te-v5 a{text-underline-offset:4px}
+.te-v5 button{cursor:pointer}
+.te-v5 input,.te-v5 select,.te-v5 textarea{font:inherit}
+.te-v5 img{max-width:100%}
+.te-eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;font-weight:800;color:#97e3e0}
+
+/* Shared header spacing and unified controls on non-home, non-anime pages */
+@media(min-width:768px){
+.te-v5:not(.te-v5-index):not(.te-v5-anime):not(.te-v5-films) :is(.top-header,.auth-header,.library-header){
+  border-bottom:1px solid rgba(141,162,208,.13);background:rgba(6,9,17,.85);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+}
+.te-v5:not(.te-v5-index):not(.te-v5-anime):not(.te-v5-films) :is(.page,.gallery-wrapper,.watch-page,.library-page){max-width:1220px}
+}
+
+/* =============================================================
+  ANIME / EDITORIAL HERO, REAL CATEGORY FILTERING, RELEASE SHELVES
+============================================================= */
+.te-v5-anime .navbar{z-index:120!important;}
+.te-v5-anime .te-anime-mobile-hero{
+  display:block!important;position:relative!important;
+  width:min(1240px,calc(100% - 64px))!important;
+  height:460px!important;min-height:0!important;
+  border:1px solid rgba(162,175,236,.21)!important;border-radius:30px!important;
+  overflow:hidden!important;isolation:isolate;
+  margin:24px auto 26px!important;
+  background:linear-gradient(125deg,#101526,#131327)!important;
+  box-shadow:0 26px 95px rgba(0,0,0,.42)!important;
+}
+.te-v5-anime .te-anime-mobile-hero .te-hero-art{
+  position:absolute;inset:0 0 0 auto;width:74%;height:100%;object-fit:cover;object-position:center 29%;z-index:-2;
+  display:block;opacity:.94;filter:saturate(1.12) contrast(1.04);
+}
+.te-v5-anime .te-anime-hero-shade{
+  position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(90deg,#07101e 0%,rgba(8,13,28,.96) 24%,rgba(8,13,25,.68) 50%,transparent 100%),linear-gradient(0deg,rgba(4,8,15,.65),transparent 65%);
+}
+.te-v5-anime .te-anime-hero-content{
+  position:absolute;bottom:48px;left:52px;right:auto;width:min(590px,63%);
+  text-shadow:0 2px 18px rgba(0,0,0,.3);
+}
+.te-v5-anime .te-hero-eyebrow{font-size:11px;color:#90e8e8;font-weight:800;letter-spacing:.19em}
+.te-v5-anime .te-hero-title{font-size:clamp(42px,4.6vw,70px);margin:13px 0 14px;line-height:1.06;letter-spacing:-.043em;font-weight:900;text-wrap:balance}
+.te-v5-anime .te-hero-genres{font-size:15px;line-height:1.65;color:#d6dde9;margin:0 0 22px;max-width:520px}
+.te-v5-anime .te-hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+.te-v5-anime .te-hero-actions a{
+ display:inline-flex;align-items:center;justify-content:center;text-decoration:none;
+ min-height:47px;padding:12px 19px;border-radius:13px;font-weight:800;font-size:13px;
+ transition:transform .2s,filter .2s;
+}
+.te-v5-anime .te-hero-view{background:linear-gradient(110deg,#8443eb,#3469f5)!important;border:1px solid rgba(158,167,255,.4)!important;color:#fff!important}
+.te-v5-anime .te-hero-list{border:1px solid rgba(212,221,244,.35)!important;background:rgba(10,16,26,.57)!important;color:white!important}
+.te-v5-anime .te-hero-actions a:hover{filter:brightness(1.15);transform:translateY(-2px)}
+.te-v5-anime .te-hero-search{display:none!important}
+.te-v5-anime .back-button{display:none!important}
+
+.te-v5-anime .anime-section,
+.te-v5-anime .te-discovery{width:min(1240px,calc(100% - 64px))!important;max-width:1240px!important;margin-left:auto!important;margin-right:auto!important}
+.te-v5-anime .te-discovery{
+ position:relative;z-index:35;padding:25px 27px 17px;margin-top:0;margin-bottom:18px;
+ background:linear-gradient(140deg,rgba(12,23,37,.98),rgba(11,16,31,.96));
+ border:1px solid rgba(149,173,219,.21);border-radius:24px;box-shadow:var(--tv5-shadow);
+}
+.te-v5-anime .te-discovery-intro{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:19px}
+.te-v5-anime .te-discovery-intro h2{font-size:clamp(25px,2.6vw,34px);line-height:1.05;margin:9px 0 7px;font-weight:900;letter-spacing:-.035em;color:#f4f8ff}
+.te-v5-anime .te-discovery-intro p{font-size:13px;margin:0;color:#acb8d0}
+.te-v5-anime .te-quick-library{display:inline-flex;align-items:center;gap:12px;padding:12px 15px;border:1px solid rgba(124,228,223,.25);border-radius:12px;color:#d7fff7;text-decoration:none;white-space:nowrap;background:rgba(18,58,65,.18);font-size:13px;font-weight:700}
+.te-v5-anime .te-discovery-controls{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:stretch;gap:10px}
+.te-v5-anime .te-discovery .anime-search{
+  position:relative!important;inset:auto!important;top:auto!important;right:auto!important;left:auto!important;
+  margin:0!important;width:100%!important;min-height:53px!important;height:auto!important;
+  z-index:1!important;display:flex!important;align-items:center!important;gap:12px!important;
+  padding:0 16px!important;background:#070e1a!important;
+  border:1px solid rgba(149,173,220,.28)!important;border-radius:13px!important;
+  box-shadow:none!important;transform:none!important;
+}
+.te-v5-anime .anime-search input{width:100%!important;min-width:0!important;outline:none;background:transparent!important;color:#fff!important;font-size:14px!important;padding:14px 0!important}
+.te-v5-anime .anime-search input::placeholder{color:#8e9bb0!important}
+.te-v5-anime .anime-search-icon{flex:0 0 17px;opacity:.7}
+.te-v5-anime .te-search-clear{border:0;color:#dce3f1;background:transparent;font-size:23px;padding:3px 6px}
+.te-v5-anime .te-search-clear[hidden]{display:none!important}
+.te-v5-anime .te-more-genres,.te-v5-anime .te-sort-control{
+ display:inline-flex;gap:10px;align-items:center;justify-content:center;
+ border:1px solid rgba(149,173,220,.27);background:#111c2b;color:#e7eefb;border-radius:12px;padding:0 18px;font-size:13px;font-weight:750;
+}
+.te-v5-anime .te-more-genres[aria-expanded=true]{border-color:#81d5ee;background:#182e40}
+.te-v5-anime .te-sort-control{padding:0 8px 0 12px}
+.te-v5-anime .te-sort-control span{color:#899fb5;font-size:11px}
+.te-v5-anime .te-sort-control select{border:0!important;background:transparent!important;color:#fff!important;outline:0!important;font-weight:700;font-size:12px;max-width:166px;padding:12px 6px}
+.te-v5-anime .te-sort-control select option{background:#132235;color:#fff}
+.te-v5-anime .te-quick-row{min-width:0;display:block;margin-top:15px;overflow:hidden}
+.te-v5-anime .te-quick-genres{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.te-v5-anime .te-quick-genres button{border:1px solid rgba(151,169,208,.2);border-radius:999px;background:rgba(255,255,255,.04);color:#c4d2e5;padding:9px 13px;font-size:12px;line-height:1.2;font-weight:750;transition:all .15s}
+.te-v5-anime .te-quick-genres button:is(.active,:hover){background:linear-gradient(110deg,#6244d9,#2564ba);border-color:#849de9;color:white}
+.te-v5-anime .te-results-meta{margin-top:16px;border-top:1px solid rgba(149,173,220,.13);padding-top:12px;display:flex;justify-content:space-between;align-items:center;gap:12px;color:#a6b7c9;font-size:12px}
+.te-v5-anime .te-results-meta button{border:0;background:transparent;color:#89e6e4;font-weight:700;font-size:12px}
+.te-v5-anime .genres-toggle{display:none!important}
+.te-v5-anime .genre-drawer{
+ top:110px!important;left:50%!important;bottom:auto!important;width:min(820px,calc(100vw - 40px))!important;min-width:0!important;
+ height:min(62vh,560px)!important;max-height:560px!important;
+ transform:translate(-50%,-15px) scale(.98)!important;
+ border:1px solid rgba(148,171,222,.3)!important;border-radius:22px!important;
+ background:rgba(9,15,27,.98)!important;box-shadow:0 24px 96px rgba(0,0,0,.7)!important;
+ visibility:hidden!important;opacity:0!important;pointer-events:none!important;z-index:10016!important;
+ transition:opacity .18s,transform .18s;
+}
+.te-v5-anime .genre-drawer.is-open{visibility:visible!important;opacity:1!important;pointer-events:auto!important;transform:translate(-50%,0) scale(1)!important}
+.te-v5-anime .genre-drawer::after{display:none!important}
+.te-v5-anime .genre-drawer::before{height:25px!important;background:transparent!important}
+.te-v5-anime .genre-drawer-list{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:18px!important;margin:0!important}
+.te-v5-anime .genre-drawer .category{min-height:44px!important;display:flex;padding:10px 14px!important;border:1px solid rgba(148,171,222,.14)!important;border-radius:10px!important;background:rgba(255,255,255,.035);font-size:13px!important;white-space:normal}
+.te-v5-anime .genre-drawer .category.active{background:rgba(108,95,246,.22);border-color:rgba(154,143,255,.6)!important;color:#fff}
+.te-v5-anime .genre-drawer .category.active::after,.te-v5-anime .genre-item-icon{display:none!important}
+.te-v5-anime .genres-backdrop{inset:0!important;z-index:10014!important;background:rgba(1,4,9,.68)!important}
+.te-v5-anime .anime-section{padding:0!important;margin-top:0!important;position:relative!important}
+.te-v5-anime .te-latest-wrap{width:100%!important;margin:0 0 34px!important;display:grid;gap:20px}
+.te-v5-anime .te-latest-section{
+ margin:0!important;padding:24px 25px!important;border:1px solid rgba(143,170,217,.21)!important;
+ border-radius:24px!important;background:rgba(9,17,31,.91)!important;
+ box-shadow:0 19px 50px rgba(0,0,0,.26)!important;backdrop-filter:blur(14px);
+}
+.te-v5-anime .te-latest-heading{margin:0 0 17px!important;display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.te-v5-anime .te-latest-heading h2{font-size:clamp(23px,2.3vw,30px)!important;letter-spacing:-.028em}
+.te-v5-anime .te-latest-heading a{color:#8beaf0!important;font-size:12px}
+.te-v5-anime .te-latest-grid{
+ display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:14px!important;
+ width:100%;overflow-x:auto!important;scrollbar-width:thin;scrollbar-color:#344459 transparent;padding:2px 2px 8px!important;
+}
+.te-v5-anime .te-latest-card{width:100%!important;max-width:100%!important;min-width:0!important;border-radius:15px!important;overflow:hidden!important;background:#101b2a!important;border:1px solid rgba(154,183,222,.17)!important;box-shadow:none!important;transform:none!important}
+.te-v5-anime .te-latest-poster{aspect-ratio:3/4!important;height:auto!important;width:100%!important;overflow:hidden!important;border-radius:0!important}
+.te-v5-anime .te-latest-section--episode .te-latest-poster{aspect-ratio:16/10!important;min-height:0!important}
+.te-v5-anime .te-latest-poster img{object-fit:cover;width:100%;height:100%;transition:transform .25s ease}
+.te-v5-anime .te-latest-card:hover .te-latest-poster img{transform:scale(1.055)}
+.te-v5-anime .te-latest-info{padding:11px 11px 12px!important;display:block!important}
+.te-v5-anime .te-latest-info strong{font-size:12.5px!important;line-height:1.4!important;min-height:2.8em!important;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.te-v5-anime .te-latest-info small{font-size:10px!important;color:#a3b7c9!important;margin-top:5px!important;line-height:1.35}
+.te-v5-anime .te-latest-chip{background:rgba(11,16,28,.91)!important;border:1px solid rgba(255,255,255,.18)!important;color:#d6eaff!important;border-radius:7px}
+.te-v5-anime .anime-section>.section-title{display:flex!important;justify-content:space-between;align-items:end;gap:15px;margin:18px 0 20px!important;padding:0 5px}
+.te-v5-anime .anime-section>.section-title p{font-size:11px;letter-spacing:.2em;color:#8be6ed;font-weight:800}
+.te-v5-anime .anime-section>.section-title h2{margin-top:7px;font-weight:900;font-size:clamp(25px,2.8vw,35px);letter-spacing:-.03em}
+.te-v5-anime .anime-grid{width:100%!important;max-width:none!important;display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;gap:22px 14px!important;margin:0!important;padding-bottom:80px!important}
+.te-v5-anime .anime-card-link{width:100%;min-width:0;margin:0!important;max-width:100%!important}
+.te-v5-anime .anime-card{border-radius:15px!important;overflow:hidden!important;background:rgba(9,16,27,.92)!important;border:1px solid rgba(157,181,228,.13)!important;box-shadow:none!important;min-width:0}
+.te-v5-anime .anime-info{padding:10px 11px!important}
+.te-v5-anime .anime-info h3{font-size:12.5px!important;line-height:1.35!important;min-height:2.5em;color:#f5f7fc}
+.te-v5-anime .anime-info p{font-size:10px!important;line-height:1.4!important;color:#a3b3c8!important}
+.te-v5-anime .anime-empty-state{margin-bottom:35px}
+
+/* =============================================================
+   WALLPAPERS / ART-GALLERY EDITION
+============================================================= */
+.te-v5-wallpaper .top-header{backdrop-filter:blur(18px)}
+.te-v5-wallpaper .hero{width:min(1200px,calc(100% - 48px));margin:30px auto 26px!important;min-height:0!important;border:1px solid rgba(139,178,225,.19);border-radius:28px;padding:35px 36px!important;background:linear-gradient(120deg,rgba(21,23,43,.88),rgba(4,25,30,.72))!important;box-shadow:var(--tv5-shadow)}
+.te-v5-wallpaper .hero h1,.te-v5-wallpaper .hero h2{font-size:clamp(34px,4vw,56px)!important;letter-spacing:-.045em!important;max-width:740px;line-height:1.02!important}
+.te-v5-wallpaper .hero-description{font-size:15px!important;line-height:1.75!important;max-width:680px;color:#b0c1cc!important}
+.te-v5-wallpaper .category-button{border:1px solid rgba(162,186,211,.2)!important;border-radius:999px!important;background:rgba(14,27,38,.86)!important;color:#c0d8dd!important;padding:11px 18px!important}
+.te-v5-wallpaper .category-button.active{background:linear-gradient(110deg,#864bee,#2578b9)!important;color:#fff!important;box-shadow:0 8px 22px rgba(68,88,197,.18)!important}
+.te-v5-wallpaper .gallery-wrapper{max-width:1220px!important;padding:0 20px 80px!important}
+.te-v5-wallpaper .wallpaper-grid{gap:18px!important;grid-template-columns:repeat(3,minmax(0,1fr))!important}
+.te-v5-wallpaper .wallpaper-card{border-radius:20px!important;overflow:hidden!important;border:1px solid rgba(131,173,215,.18)!important;box-shadow:0 15px 42px #0005!important;transition:transform .2s}
+.te-v5-wallpaper .wallpaper-card:hover{transform:translateY(-4px)}
+
+/* =============================================================
+   FILMS / NO BROKEN FAKE POSTERS
+============================================================= */
+.te-v5-films{background:radial-gradient(circle at 85% 5%,rgba(52,71,161,.18),transparent 39%),radial-gradient(circle at 5% 38%,rgba(157,48,116,.15),transparent 39%),#060810;min-height:100vh;color:#f7f8ff}
+.te-v5-films .te-film-nav{display:flex;align-items:center;justify-content:space-between;gap:24px;max-width:1400px;margin:0 auto;padding:20px 34px;border-bottom:1px solid rgba(159,177,219,.12)}
+.te-v5-films .te-film-logo{display:inline-flex;align-items:center;gap:11px;font-size:15px;text-decoration:none;color:#fff;letter-spacing:.04em}
+.te-v5-films .te-film-logo img{width:39px;height:39px;object-fit:cover;border-radius:11px}
+.te-v5-films .te-film-nav nav{display:flex;gap:28px;align-items:center}.te-v5-films .te-film-nav nav a{font-size:13px;text-decoration:none;color:#aab4c8}
+.te-v5-films .te-film-nav nav a.active{color:white}.te-v5-films .te-film-profile{border:1px solid var(--tv5-line);border-radius:10px;padding:10px 15px;color:#f3f8ff;text-decoration:none;font-size:12px}
+.te-v5-films .te-film-main{width:min(1300px,calc(100% - 48px));margin:auto;padding:34px 0 90px}
+.te-v5-films .te-film-hero{min-height:570px;position:relative;display:grid;grid-template-columns:1fr .8fr;gap:25px;align-items:center;padding:clamp(32px,5vw,75px);border:1px solid rgba(171,182,224,.16);border-radius:32px;background:linear-gradient(130deg,#14162b,#0d1628 58%,#100f20);overflow:hidden;isolation:isolate;box-shadow:var(--tv5-shadow)}
+.te-v5-films .te-film-glow{position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at 73% 48%,rgba(225,51,96,.21),transparent 30%),radial-gradient(circle at 82% 16%,rgba(89,91,251,.26),transparent 34%)}
+.te-v5-films .te-film-copy{position:relative;z-index:4}
+.te-v5-films .te-film-status{display:inline-block;margin:24px 0 6px;color:#b5b9fd;padding:7px 12px;border-radius:999px;border:1px solid rgba(162,166,249,.24);background:rgba(109,101,242,.11);font-size:12px}
+.te-v5-films .te-film-copy h1{font-size:clamp(47px,5vw,75px);line-height:1.03;letter-spacing:-.065em;margin:18px 0 21px;font-weight:900;max-width:780px}
+.te-v5-films .te-film-copy h1 em{font-style:normal;color:#ff8b9a}
+.te-v5-films .te-film-copy>p:last-of-type{font-size:16px;line-height:1.8;color:#aebacf;max-width:480px}
+.te-v5-films .te-film-actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:25px}
+.te-v5-films .te-film-actions a{display:inline-flex;align-items:center;gap:14px;border-radius:12px;padding:13px 19px;font-size:13px;text-decoration:none;font-weight:800}
+.te-v5-films .te-film-primary{background:linear-gradient(105deg,#8f48ef,#3868f4);color:#fff}
+.te-v5-films .te-film-secondary{color:#fff;border:1px solid rgba(169,185,228,.3)}
+.te-v5-films .te-film-poster-wall{height:390px;position:relative;perspective:850px}
+.te-v5-films .te-film-art{position:absolute;width:48%;height:275px;border:1px solid #ffffff28;border-radius:18px;padding:17px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 20px 55px #0009;overflow:hidden;background:radial-gradient(circle at 60% 25%,#3b55ac,#171d3c 50%,#130e21)}
+.te-v5-films .te-film-art:after{content:'';position:absolute;width:115%;height:42px;transform:rotate(-32deg);background:#ffffff13;left:-10%;top:35%}
+.te-v5-films .te-film-art span{opacity:.7;font-size:11px;letter-spacing:.2em}.te-v5-films .te-film-art strong{font-size:clamp(20px,2vw,30px);line-height:1.05;letter-spacing:-.04em;max-width:190px}
+.te-v5-films .te-film-art-a{transform:rotate(-15deg);top:34px;left:2%;background:radial-gradient(circle at 55% 29%,#7550cf,#18152c 69%)}
+.te-v5-films .te-film-art-b{transform:rotate(13deg);top:2px;left:48%;background:radial-gradient(circle at 50% 30%,#bc436c,#23152c 66%)}
+.te-v5-films .te-film-art-c{transform:rotate(-2deg);top:106px;left:28%;background:radial-gradient(circle at 50% 28%,#365daa,#111928 67%)}
+.te-v5-films .te-film-story{display:grid;grid-template-columns:.8fr 1.2fr;gap:30px;margin-top:30px;padding:35px;border:1px solid var(--tv5-line);border-radius:28px;background:#0c1421}
+.te-v5-films .te-film-story h2{font-size:clamp(29px,3vw,39px);letter-spacing:-.04em;margin:8px 0 11px}
+.te-v5-films .te-film-story p:not(.te-eyebrow){font-size:14px;line-height:1.7;color:#a8b7c9}
+.te-v5-films .te-film-discover{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.te-v5-films .te-film-discover a{position:relative;display:flex;flex-direction:column;padding:22px;gap:8px;border:1px solid var(--tv5-line);border-radius:18px;background:#111f2c;color:#fff;text-decoration:none}
+.te-v5-films .te-film-discover-icon{font-size:27px;color:#8be4e9}.te-v5-films .te-film-discover strong{font-size:18px}
+.te-v5-films .te-film-discover small{color:#9cacbf}.te-v5-films .te-film-discover b{position:absolute;right:22px;top:22px;font-size:20px;color:#a4dce6}
+
+/* =============================================================
+   ANIME DETAIL, WATCH, PROFILES, LIBRARIES, SETTINGS, ACCOUNTS
+============================================================= */
+.te-v5-animedetails .page{max-width:1230px!important;padding-top:25px!important}
+.te-v5-animedetails .anime-hero,.te-v5-animedetails .episodes-section,.te-v5-animedetails .detail-features{
+  border-radius:24px!important;border:1px solid rgba(153,170,221,.19)!important;
+  background:linear-gradient(145deg,rgba(19,25,44,.88),rgba(9,15,27,.91))!important;
+  box-shadow:0 18px 50px rgba(0,0,0,.22)!important;
+}
+.te-v5-animedetails .anime-hero{padding:30px!important;gap:35px!important}
+.te-v5-animedetails .anime-poster{border-radius:18px!important;box-shadow:0 22px 50px rgba(0,0,0,.35)!important}
+.te-v5-animedetails .small-title{color:#8de0ec!important}
+.te-v5-animedetails :is(.episode-button,.episode-card,.episode-item){border-radius:13px!important}
+.te-v5-animedetails .character-section .character-card{border-radius:14px!important}
+.te-v5-watch{background:radial-gradient(circle at 24% 0%,rgba(86,78,184,.16),transparent 36%),#070910}
+.te-v5-watch .watch-page{max-width:1190px!important;padding-top:27px!important}
+.te-v5-watch .player-card{border:1px solid rgba(156,177,222,.19)!important;border-radius:25px!important;background:#0d1423!important;box-shadow:var(--tv5-shadow)!important;padding:clamp(16px,3.4vw,36px)!important}
+.te-v5-watch :is(.server-button,.episode-navigation-link,.catalog-button){border-radius:11px!important}
+.te-v5-watch video{border-radius:14px!important;background:#000}
+.te-v5-profile,.te-v5-settings,.te-v5-myanime,.te-v5-mywallpapers,.te-v5-userwallpapers,.te-v5-login{background:radial-gradient(circle at 18% 5%,rgba(86,48,142,.18),transparent 36%),radial-gradient(circle at 85% 15%,rgba(24,105,155,.13),transparent 38%),#070a13!important}
+.te-v5-profile :is(.profile-hero,.profile-wallpaper-card,.anime-watching-card),
+.te-v5-settings :is(.card,.panel,.settings-card),
+.te-v5-myanime .library-page,
+.te-v5-login .login-container{
+ border:1px solid rgba(151,168,214,.2)!important;
+ background:linear-gradient(150deg,rgba(19,25,43,.95),rgba(9,15,27,.95))!important;
+ border-radius:24px!important;box-shadow:0 20px 54px rgba(0,0,0,.24)!important;
+}
+.te-v5-profile .profile-hero{overflow:hidden}
+.te-v5-profile .profile-stats{gap:12px}
+.te-v5-profile .profile-stat{border:1px solid rgba(150,170,205,.14);border-radius:14px;background:rgba(7,14,24,.45)}
+.te-v5-profile .hero-action,.te-v5-profile .header-button{border-radius:11px!important}
+.te-v5-settings :is(input,select,textarea),.te-v5-login :is(input,select){border-radius:12px!important;background:rgba(7,13,23,.74)!important;border:1px solid rgba(157,176,212,.24)!important;color:#fff!important}
+.te-v5-login .auth-tabs{border-radius:15px!important;background:#080f1c!important}
+.te-v5-login .login-container{box-shadow:var(--tv5-shadow)!important}
+.te-v5-myanime .library-page{max-width:1050px!important;padding:32px!important;margin-top:32px!important}
+.te-v5-myanime .library-page h1{font-size:clamp(35px,5vw,58px)!important;line-height:1.05!important;letter-spacing:-.045em}
+.te-v5-mywallpapers .wallpaper-card,.te-v5-userwallpapers .wallpaper-card{border-radius:19px!important;overflow:hidden}
+.te-v5-admin{background:radial-gradient(circle at 5% 0%,rgba(115,65,170,.22),transparent 40%),#070b14!important}
+.te-v5-admin :is(.panel,.card,.admin-panel){border-radius:16px!important;border-color:rgba(151,178,219,.24)!important}
+
+/* generic content pages */
+.te-v5:is(.te-v5-about,.te-v5-contact,.te-v5-terms,.te-v5-privacy,.te-v5-dmca,.te-v5-support,.te-v5-resetpassword){background:#080b14;color:#f4f8ff}
+
+/* =============================================================
+   RESPONSIVE / TABLET
+============================================================= */
+@media(max-width:1100px) and (min-width:768px){
+ .te-v5-anime .te-latest-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+ .te-v5-anime .anime-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+ .te-v5-anime .te-anime-mobile-hero{height:405px!important}
+ .te-v5-anime .te-hero-title{font-size:clamp(36px,5vw,55px)}
+ .te-v5-wallpaper .wallpaper-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .te-v5-films .te-film-hero{grid-template-columns:1fr .6fr;padding:45px}
+ .te-v5-films .te-film-art{width:62%}
+}
+@media(max-width:767px){
+ .te-v5:not(.te-v5-anime):not(.te-v5-index):not(.te-v5-films) .top-header{background:rgba(9,14,25,.96)!important}
+ .te-v5-anime .navbar{position:relative!important;inset:auto!important;top:auto!important;width:calc(100% - 24px)!important;margin:10px auto!important;border-radius:20px!important;background:rgba(9,14,25,.92)!important;border:1px solid rgba(156,179,221,.15)!important;box-shadow:0 8px 28px rgba(0,0,0,.35)!important}
+ .te-v5-anime .te-anime-mobile-hero{height:min(63svh,540px)!important;min-height:400px!important;width:calc(100% - 24px)!important;margin:12px auto 16px!important;border-radius:22px!important}
+ .te-v5-anime .te-anime-mobile-hero .te-hero-art{width:100%!important;object-position:65% 25%!important}
+ .te-v5-anime .te-anime-hero-shade{background:linear-gradient(180deg,rgba(3,5,14,.07),rgba(4,8,17,.32) 44%,rgba(4,8,17,.95) 100%)!important}
+ .te-v5-anime .te-anime-hero-content{bottom:25px!important;left:19px!important;right:19px!important;width:auto!important;max-width:none!important}
+ .te-v5-anime .te-hero-title{font-size:clamp(29px,8.3vw,42px)!important;letter-spacing:-.025em!important}
+ .te-v5-anime .te-hero-genres{font-size:12px!important;line-height:1.5!important}
+ .te-v5-anime .te-hero-search{display:grid!important;right:15px!important;top:14px!important;width:43px!important;height:43px!important;border-radius:50%!important;background:#07102099!important;color:#fff;border:1px solid #ffffff50!important}
+ .te-v5-anime .te-hero-actions a{min-height:42px;font-size:12px!important}
+ .te-v5-anime .te-discovery,.te-v5-anime .anime-section{width:calc(100% - 24px)!important;max-width:none!important;padding:0!important;margin:0 auto!important}
+ .te-v5-anime .te-discovery{padding:20px 15px 14px!important;border-radius:21px!important;margin-bottom:18px!important}
+ .te-v5-anime .te-discovery-intro{display:block!important;margin-bottom:15px!important}
+ .te-v5-anime .te-discovery-intro h2{font-size:26px!important}
+ .te-v5-anime .te-discovery-intro p{font-size:12px}
+ .te-v5-anime .te-quick-library{display:none}
+ .te-v5-anime .te-discovery-controls{grid-template-columns:1fr 1fr!important;gap:8px!important}
+ .te-v5-anime .te-discovery .anime-search{grid-column:1/-1!important;width:100%!important;height:52px!important;min-height:52px!important;margin:0!important}
+ .te-v5-anime .te-more-genres,.te-v5-anime .te-sort-control{min-height:45px!important;padding:6px 12px!important;justify-content:center!important;font-size:12px}
+ .te-v5-anime .te-sort-control select{font-size:11px!important;max-width:136px!important}
+ .te-v5-anime .te-sort-control span{display:none!important}
+ .te-v5-anime .te-quick-row{overflow-x:auto!important;margin-top:13px!important;scrollbar-width:none}
+ .te-v5-anime .te-quick-row::-webkit-scrollbar{display:none}
+ .te-v5-anime .te-quick-genres{flex-wrap:nowrap!important;width:max-content!important;gap:7px!important}
+ .te-v5-anime .te-quick-genres button{white-space:nowrap!important;min-height:38px!important;padding:9px 14px!important}
+ .te-v5-anime .te-results-meta{margin-top:13px!important}
+ .te-v5-anime .genre-drawer{top:calc(70px + env(safe-area-inset-top,0px))!important;height:min(68svh,580px)!important;width:calc(100vw - 22px)!important}
+ .te-v5-anime .genre-drawer-list{grid-template-columns:repeat(2,minmax(0,1fr))!important;padding:12px!important}
+ .te-v5-anime .genre-drawer .category{font-size:12px!important;min-height:45px!important;padding:10px!important}
+ .te-v5-anime .te-latest-wrap{margin-bottom:20px!important;gap:12px!important}
+ .te-v5-anime .te-latest-section{border-radius:20px!important;margin:0!important;padding:16px!important;background:rgba(9,17,29,.94)!important}
+ .te-v5-anime .te-latest-heading h2{font-size:23px!important}
+ .te-v5-anime .te-latest-heading{margin-bottom:14px!important}
+ .te-v5-anime .te-latest-grid{grid-template-columns:none!important;grid-auto-flow:column!important;grid-auto-columns:145px!important;gap:11px!important;overflow-x:auto!important;scroll-snap-type:x proximity;padding:2px 0 9px!important;scrollbar-width:none!important}
+ .te-v5-anime .te-latest-grid::-webkit-scrollbar{display:none!important}
+ .te-v5-anime .te-latest-card{display:block!important;width:100%!important;min-height:0!important;scroll-snap-align:start;border-radius:13px!important}
+ .te-v5-anime .te-latest-poster{height:auto!important;min-height:0!important;aspect-ratio:3/4!important;width:100%!important;border-radius:0!important}
+ .te-v5-anime .te-latest-section--episode .te-latest-grid{grid-auto-columns:198px!important}
+ .te-v5-anime .te-latest-section--episode .te-latest-poster{aspect-ratio:16/10!important;height:auto!important;min-height:0!important}
+ .te-v5-anime .te-latest-info{display:block!important;padding:10px 9px!important}
+ .te-v5-anime .te-latest-info strong{font-size:12px!important;min-height:2.8em!important}
+ .te-v5-anime .te-latest-info small{font-size:10px!important}
+ .te-v5-anime .anime-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:15px 12px!important;padding:0 0 105px!important;width:100%!important}
+ .te-v5-anime .anime-section>.section-title{margin:16px 0!important}
+ .te-v5-anime .anime-section>.section-title h2{font-size:25px!important}
+ .te-v5-anime .anime-info{padding:9px!important}
+ .te-v5-anime .anime-info h3{font-size:12px!important}
+ .te-v5-anime .anime-info p{font-size:10px!important}
+ .te-v5-anime .genres-toggle{display:none!important}
+
+ .te-v5-wallpaper .hero{width:calc(100% - 24px)!important;margin:16px auto!important;padding:24px 18px!important;border-radius:21px!important}
+ .te-v5-wallpaper .hero h1,.te-v5-wallpaper .hero h2{font-size:31px!important;line-height:1.13!important}
+ .te-v5-wallpaper .hero-description{font-size:13px!important;line-height:1.6!important}
+ .te-v5-wallpaper .gallery-wrapper{width:calc(100% - 24px)!important;padding:0 0 98px!important}
+ .te-v5-wallpaper .wallpaper-grid{grid-template-columns:1fr!important;gap:16px!important;width:100%!important}
+ .te-v5-wallpaper .wallpaper-card{border-radius:18px!important}
+ .te-v5-films .te-film-nav{width:calc(100% - 24px);margin:12px auto;padding:14px 16px;border:1px solid var(--tv5-line);border-radius:20px;background:#111724}
+ .te-v5-films .te-film-nav nav{display:none}.te-v5-films .te-film-logo{font-size:13px}.te-v5-films .te-film-logo img{width:32px;height:32px}.te-v5-films .te-film-profile{font-size:11px;padding:9px 11px}
+ .te-v5-films .te-film-main{width:calc(100% - 24px);padding:12px 0 110px}
+ .te-v5-films .te-film-hero{grid-template-columns:1fr;padding:26px 20px 20px;min-height:0;border-radius:24px}
+ .te-v5-films .te-film-copy h1{font-size:clamp(37px,10.5vw,57px)}
+ .te-v5-films .te-film-copy>p:last-of-type{font-size:13px}
+ .te-v5-films .te-film-poster-wall{height:230px;max-width:380px;width:100%;margin:10px auto}
+ .te-v5-films .te-film-art{height:185px;width:47%;padding:12px;border-radius:13px}
+ .te-v5-films .te-film-art strong{font-size:17px}.te-v5-films .te-film-art-a{top:24px}.te-v5-films .te-film-art-b{top:12px}.te-v5-films .te-film-art-c{top:42px}
+ .te-v5-films .te-film-story{grid-template-columns:1fr;padding:22px 16px;border-radius:22px;margin-top:15px;gap:19px}
+ .te-v5-films .te-film-story h2{font-size:29px}
+ .te-v5-films .te-film-discover{grid-template-columns:1fr;gap:11px}
+ .te-v5-films .te-film-discover a{padding:17px;gap:5px}
+ .te-v5-animedetails .page{width:calc(100% - 24px)!important;max-width:none!important;padding-top:15px!important}
+ .te-v5-animedetails .anime-hero{padding:18px!important;gap:14px!important;border-radius:20px!important}
+ .te-v5-animedetails .anime-poster{max-width:150px!important}
+ .te-v5-animedetails :is(.episodes-section,.detail-features){padding:17px!important;border-radius:19px!important}
+ .te-v5-watch .watch-page{width:calc(100% - 24px)!important;max-width:none!important;padding:15px 0 115px!important}
+ .te-v5-watch .player-card{padding:14px!important;border-radius:19px!important}
+ .te-v5-profile .profile-hero,.te-v5-profile .profile-wallpaper-card,.te-v5-profile .anime-watching-card{border-radius:20px!important}
+ .te-v5-login .auth-layout{max-width:none!important;width:calc(100% - 24px)!important;padding:0!important}
+ .te-v5-myanime .library-page{width:calc(100% - 24px)!important;margin:15px auto!important;padding:20px!important;border-radius:21px!important}
+ .te-v5-myanime .library-page h1{font-size:34px!important}
+}
+@media(max-width:370px){
+ .te-v5-anime .te-discovery-controls{grid-template-columns:1fr!important}
+ .te-v5-anime .te-discovery .anime-search{grid-column:auto!important}
+ .te-v5-anime .te-latest-grid{grid-auto-columns:128px!important}
+ .te-v5-anime .te-latest-section--episode .te-latest-grid{grid-auto-columns:175px!important}
+ .te-v5-anime .te-latest-section{padding:12px!important}
+}
+@media(prefers-reduced-motion:reduce){.te-v5 *{scroll-behavior:auto!important;transition:none!important}}
+/* Quiet return-to-top utility on long browsing pages. */
+.te-v5 .te-v5-backtop{
+ position:fixed;right:24px;bottom:24px;z-index:8500;width:48px;height:48px;
+ display:grid;place-items:center;opacity:0;visibility:hidden;pointer-events:none;
+ background:linear-gradient(135deg,#8552e8,#326aea);color:#fff;border:1px solid #ffffff48;
+ border-radius:15px;font-size:25px;box-shadow:0 12px 35px #0008;transition:opacity .2s,transform .2s;
+ transform:translateY(10px);
+}
+.te-v5 .te-v5-backtop.is-visible{visibility:visible;opacity:1;pointer-events:auto;transform:translateY(0)}
+@media(max-width:767px){
+ .te-v5 .te-v5-backtop{bottom:calc(100px + env(safe-area-inset-bottom,0px));right:15px;width:43px;height:43px;border-radius:13px;}
+ .te-v5.te-v5-anime .te-v5-backtop{right:13px;}
+}
+/* Curated releases look like shelves, not two mostly empty dashboard panels. */
+@media(min-width:768px){
+ .te-v5-anime .te-latest-wrap{gap:20px!important;margin-bottom:35px!important}
+ .te-v5-anime .te-latest-section{padding:12px 2px 0!important;background:transparent!important;border:0!important;box-shadow:none!important;backdrop-filter:none!important}
+ .te-v5-anime .te-latest-heading{padding:0 0 13px;border-bottom:1px solid rgba(164,177,226,.19);margin-bottom:15px!important}
+ .te-v5-anime .te-latest-grid{display:flex!important;gap:15px!important;overflow-x:auto!important}
+ .te-v5-anime .te-latest-card{flex:0 0 163px!important;width:163px!important}
+ .te-v5-anime .te-latest-section--episode .te-latest-card{flex-basis:216px!important;width:216px!important}
+}
+/* V5 mobile shelves override the older v1 horizontal thumbnail-card rules. */
+@media(max-width:767px){
+ .te-v5.te-v5-anime.te-mobile-redesign-ready .te-latest-grid{
+   display:grid!important;grid-template-columns:none!important;grid-auto-flow:column!important;
+   grid-auto-columns:148px!important;gap:11px!important;overflow-x:auto!important;
+   padding:2px 1px 9px!important;scroll-snap-type:x proximity!important;
+ }
+ .te-v5.te-v5-anime.te-mobile-redesign-ready .te-latest-section--episode .te-latest-grid{
+   grid-auto-columns:192px!important;
+ }
+ .te-v5.te-v5-anime.te-mobile-redesign-ready .te-latest-card{
+   display:flex!important;flex-direction:column!important;grid-template-columns:none!important;
+   min-height:0!important;height:auto!important;width:100%!important;
+   overflow:hidden!important;border-radius:14px!important;scroll-snap-align:start;
+ }
+ .te-v5.te-v5-anime.te-mobile-redesign-ready .te-latest-poster,
+ .te-v5.te-v5-anime.te-mobile-redesign-ready .te-latest-section--episode .te-latest-poster{
+   aspect-ratio:3/4!important;width:100%!important;height:auto!important;
+   min-height:0!important;max-height:none!important;border-radius:0!important;
+   flex:0 0 auto!important;
+ }
+ .te-v5.te-v5-anime.te-mobile-redesign-ready .te-latest-section--episode .te-latest-poster{aspect-ratio:16/10!important}
+ .te-v5.te-v5-anime.te-mobile-redesign-ready .te-latest-info{
+   display:block!important;flex:0 0 auto!important;padding:11px 10px!important;
+ }
+ .te-v5.te-v5-anime.te-mobile-redesign-ready .te-latest-info strong{
+   display:-webkit-box!important;font-size:12px!important;line-height:1.4!important;
+   min-height:2.8em!important;max-height:2.8em!important;overflow:hidden!important;
+ }
+}
+/* Wallpapers: an image-led masthead using the site's own artwork. */
+.te-v5-wallpaper .hero{display:grid!important;grid-template-columns:minmax(0,1.15fr) minmax(220px,.7fr);gap:30px;align-items:center;text-align:left!important}
+.te-v5-wallpaper .hero-content{text-align:left!important;max-width:none!important}
+.te-v5-wallpaper .hero-content .hero-small-title{color:#8cedeb!important;letter-spacing:.24em!important;text-transform:uppercase;font-size:12px!important}
+.te-v5-wallpaper .hero h1{max-width:640px;text-align:left!important}
+.te-v5-wallpaper .te-wallpaper-highlight{background:var(--tv5-shine);background-clip:text;-webkit-background-clip:text;color:transparent}
+.te-v5-wallpaper .hero-description{text-align:left!important}
+.te-v5-wallpaper .categories{justify-content:flex-start!important;gap:9px!important}
+.te-v5-wallpaper .te-wallpaper-art{min-width:0;height:325px;position:relative;border-radius:23px;overflow:hidden;box-shadow:0 19px 47px #0008;border:1px solid #ffffff26}
+.te-v5-wallpaper .te-wallpaper-art img{display:block;width:100%;height:100%;object-fit:cover;filter:saturate(1.08)}
+.te-v5-wallpaper .te-wallpaper-art:after{content:'';position:absolute;inset:30% 0 0;background:linear-gradient(0deg,#030711bb,transparent);pointer-events:none}
+.te-v5-wallpaper .te-wallpaper-art-caption{position:absolute;left:19px;bottom:18px;z-index:1;color:#fff;font-size:10px;font-weight:800;letter-spacing:.17em}
+.te-v5-wallpaper .gallery-info{max-width:1200px;margin:30px auto 15px!important;padding:0 15px!important;font-size:12px!important;letter-spacing:.1em}
+@media(max-width:767px){
+ .te-v5-wallpaper .hero{display:flex!important;flex-direction:column!important;gap:22px!important;padding:24px 18px 18px!important;text-align:left!important}
+ .te-v5-wallpaper .hero-content{width:100%!important}
+ .te-v5-wallpaper .te-wallpaper-art{width:100%;height:220px;border-radius:17px}
+ .te-v5-wallpaper .categories{display:flex!important;flex-wrap:wrap!important;gap:8px!important}
+ .te-v5-wallpaper .gallery-info{margin:16px 12px!important}
+}
+/* Retire the oversized vertical lettering from the old wallpaper layout. */
+.te-v5-wallpaper .side-word{display:none!important}
+
+/* Profile layout correction (v8.1):
+   Shared v5 stylesheet limited profile content to 1220px without centering it.
+   Keep desktop grid centered and align the background edit button to its content.
+   This changes no profile data, grid structure or mobile navigation. */
+@media (min-width: 951px) {
+  body.te-v5-profile main.page,
+  body.te-v5-profile .page-background-toolbar {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
