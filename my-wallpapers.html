@@ -1210,6 +1210,10 @@
     <script src="back-navigation.js"></script>
 <link rel="stylesheet" href="mobile-pwa.css?v=20261024-v3">    <link rel="stylesheet" href="redesign-mobile.css?v=20261025-mobile1">
 <link rel="stylesheet" href="te-v5.css?v=20261025-v5">
+    <link rel="stylesheet" href="mobile-stability-v10.css?v=20261026-v10">
+
+    <link rel="stylesheet" href="te-unified-theme-v12.css?v=20261026-v12">
+    <link rel="stylesheet" href="my-wallpapers-redesign-v12.css?v=20261026-v12">
 </head>
 
 
@@ -1240,22 +1244,20 @@
          HERO
     ================================== -->
 
-    <section class="hero">
-
-        <p class="small-title">
-            Your Collection
-        </p>
-
-
-        <h1>
-            My Wallpapers
-        </h1>
-
-
-        <p class="hero-description">
-            View and manage all wallpapers you have uploaded to The Everything.
-        </p>
-
+    <section class="hero mw-v12-hero" aria-labelledby="mwV12Title">
+      <div class="mw-v12-copy">
+        <p class="small-title"><span aria-hidden="true">✦</span> YOUR COLLECTION / YOUR CREATIONS</p>
+        <h1 id="mwV12Title">Your art.<br><span>All in one place.</span></h1>
+        <p class="hero-description">View and manage every wallpaper you've uploaded to The Everything. Your collection, your rules.</p>
+        <div class="mw-v12-hero-actions">
+          <a href="wallpaper.html" class="mw-v12-primary">+ Add wallpaper <span aria-hidden="true">↗</span></a>
+          <a href="profile.html" class="mw-v12-secondary">View profile <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <div class="mw-v12-art" aria-hidden="true">
+        <img src="image/home/world-wallpaper.webp" width="850" height="960" alt="" loading="lazy">
+        <div class="mw-v12-art-note"><span>THE EVERYTHING</span><strong>Curate your world.</strong></div>
+      </div>
     </section>
 
 
@@ -1289,6 +1291,8 @@
     </div>
 
 
+
+    <div class="mw-v12-gallery-heading"><div><span>YOUR UPLOADS</span><h2>Wallpaper library<span aria-hidden="true">.</span></h2><p>Browse your collection and preview or manage each wallpaper.</p></div></div>
 
     <!-- =================================
          STATUS
@@ -2444,7 +2448,7 @@
 
 
 
-    <script src="featured-public.js?v=20261024"></script><script src="mobile-pwa.js?v=20261024-v3"></script><script src="site-shell.js"></script>
+    <script src="featured-public.js?v=20261024"></script><script src="mobile-pwa.js?v=20261026-v10"></script><script src="site-shell.js"></script>
 <script src="redesign-mobile.js?v=20261025-mobile1"></script>
 <script src="te-v5.js?v=20261025-v5"></script>
 </body>

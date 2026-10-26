@@ -146,8 +146,7 @@
   body.te-mobile-redesign-ready .catalog-button,
   body.te-mobile-redesign-ready .personal-library-link,
   body.te-mobile-redesign-ready .my-wallpapers-link,
-  body.te-mobile-redesign-ready .account-menu-button,
-  body.te-mobile-redesign-ready .account-avatar-button {
+  body.te-mobile-redesign-ready .account-menu-button {
     flex: 0 0 auto;
     min-height: 40px !important;
     padding: 0 14px !important;
@@ -157,6 +156,48 @@
     color: #dffff8 !important;
     box-shadow: none !important;
     font-size: 12px !important;
+  }
+
+  /* v13: circular avatar — never inherit the padding of navigation pills.
+     Do not set display: auth scripts control login/avatar visibility. */
+  body.te-mobile-redesign-ready .account-avatar-button {
+    box-sizing: border-box !important;
+    flex: 0 0 44px !important;
+    inline-size: 44px !important;
+    block-size: 44px !important;
+    min-inline-size: 44px !important;
+    min-block-size: 44px !important;
+    max-inline-size: 44px !important;
+    max-block-size: 44px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: 2px solid rgba(148, 117, 255, .72) !important;
+    background: #13162a !important;
+    box-shadow: 0 0 0 2px rgba(131, 110, 255, .08) !important;
+    aspect-ratio: 1 / 1 !important;
+  }
+  body.te-mobile-redesign-ready .account-avatar-button img,
+  body.te-mobile-redesign-ready .account-avatar-button #headerAvatarImage {
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    border-radius: 50% !important;
+    flex: 0 0 100% !important;
+  }
+  body.te-mobile-redesign-ready .account-avatar-button .account-avatar-placeholder {
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 
   body.te-mobile-redesign-ready .account-area,

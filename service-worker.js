@@ -1,17 +1,12 @@
-/* Static application shell only — user sessions, Supabase and video streams are never cached. */
-const CACHE = 'te-shell-20261025-clean-v8';
-const ASSETS = [
-  './index.html', './anime.html',
-  './site-branding.css', './mobile-pwa.css', './mobile-pwa.js',
-  './home-2026.css', './home-2026.js', './home-auth.js',
-  './te-v5.css', './te-v5.js', './anime.css', './anime.js', './featured-public.js',
-  './anime-page.js', './wallpaper-v7-fixes.css', './shared-header-v6.css', './shared-header-v6.js',
-  './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png',
-  './image/home/te-icon.webp'
-];
+/* v10 — lightweight offline fallback. Supabase/auth/media are never cached. */
+const CACHE = 'te-shell-20261026-design-v14';
+const DOCUMENTS = ['./index.html', './anime.html', './wallpaper.html'];
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting())
+    caches.open(CACHE).then(async cache => {
+      // Don't block new worker activation if ONE optional asset is missing.
+      await Promise.allSettled(DOCUMENTS.map(file => cache.add(file)));
+    }).then(() => self.skipWaiting())
   );
 });
 self.addEventListener('activate', event => {
@@ -23,20 +18,15 @@ self.addEventListener('activate', event => {
 });
 self.addEventListener('fetch', event => {
   const req = event.request;
+  if (req.method !== 'GET' || req.mode !== 'navigate') return;
   const url = new URL(req.url);
-  if (req.method !== 'GET' || url.origin !== self.location.origin ||
-      url.pathname.includes('/rest/') || url.pathname.includes('/auth/') ||
-      url.pathname.includes('/storage/') || /\.(mp4|m3u8|ts|mkv)$/i.test(url.pathname)) return;
-  if (req.mode === 'navigate') {
-    event.respondWith(fetch(req).catch(() => caches.match(req)));
-    return;
-  }
-  if (!ASSETS.some(path => new URL(path, self.registration.scope).href === url.href)) return;
-  event.respondWith(fetch(req).then(response => {
-    if (response.ok) {
-      const clone = response.clone();
-      caches.open(CACHE).then(cache => cache.put(req, clone));
-    }
-    return response;
-  }).catch(() => caches.match(req)));
+  if (url.origin !== self.location.origin) return;
+  // Always prefer fresh online content and never cache user sessions/pages.
+  event.respondWith(fetch(req).catch(async () => {
+    const cache = await caches.open(CACHE);
+    const safePath = url.pathname.split('/').pop().toLowerCase();
+    if (!['index.html', 'anime.html', 'wallpaper.html', 'anime', 'wallpaper', ''].includes(safePath)) return Response.error();
+    const fallback = safePath === 'anime' ? './anime.html' : safePath === 'wallpaper' ? './wallpaper.html' : safePath === '' ? './index.html' : './' + safePath;
+    return (await cache.match(fallback)) || Response.error();
+  }));
 });

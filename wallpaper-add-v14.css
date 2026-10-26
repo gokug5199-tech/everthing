@@ -1,0 +1,28 @@
+/* The Everything — Wallpaper mobile upload button. Existing click handler and modal are untouched. */
+body.te-v5-wallpaper #addWallpaperButton.add-wallpaper-button{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:9px!important;
+  right:clamp(16px,3vw,36px)!important;bottom:24px!important;
+  width:auto!important;min-width:59px!important;height:59px!important;min-height:59px!important;
+  border-radius:999px!important;padding:0 20px!important;
+  background:linear-gradient(110deg,#7546ff,#426df5 54%,#e14b97)!important;
+  color:white!important;border:1px solid #d3c0ff55!important;
+  box-shadow:0 13px 36px #4821d17a,0 4px 14px #0007!important;
+  font:bold 14px/1.1 system-ui,-apple-system,sans-serif!important;z-index:8500!important;
+}
+body.te-v5-wallpaper #addWallpaperButton .te-wallpaper-add-icon{display:inline-flex;align-items:center;justify-content:center;font-size:27px;line-height:1;font-weight:450}
+body.te-v5-wallpaper #addWallpaperButton .te-wallpaper-add-text{font-size:13px;letter-spacing:.015em;white-space:nowrap}
+body.te-v5-wallpaper #addWallpaperButton:focus-visible{outline:3px solid white!important;outline-offset:3px!important}
+body.te-v5-wallpaper #addWallpaperButton:disabled{opacity:.58!important}
+@media(max-width:767px){
+  body.te-v5-wallpaper #addWallpaperButton.add-wallpaper-button{
+    position:fixed!important;left:auto!important;right:14px!important;
+    bottom:calc(98px + env(safe-area-inset-bottom,0px))!important;
+    width:auto!important;min-width:160px!important;height:50px!important;min-height:50px!important;
+    padding:0 17px!important;border-radius:18px!important;box-sizing:border-box!important;
+    z-index:8998!important; font-size:13px!important;
+  }
+  body.te-v5-wallpaper #addWallpaperButton .te-wallpaper-add-icon{font-size:25px}
+  body.te-v5-wallpaper #addWallpaperButton .te-wallpaper-add-text{font-size:12px}
+  body.te-v5-wallpaper .upload-wallpaper-modal.show{z-index:10020!important}
+  body.te-v5-wallpaper .preview-modal.show{z-index:10020!important}
+}

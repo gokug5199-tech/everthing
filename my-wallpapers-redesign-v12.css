@@ -1,0 +1,70 @@
+/* THE EVERYTHING / MY WALLPAPERS — collection management redesigned, existing JS/IDs preserved. */
+body.te-v5-mywallpapers{--mw-purple:#8c58f8;--mw-blue:#447ffb;--mw-pink:#ff4e94;background:radial-gradient(ellipse at 7% 15%,rgba(103,55,198,.2),transparent 36%),radial-gradient(ellipse at 91% 4%,rgba(53,85,192,.15),transparent 31%),#070910!important;font-family:'DM Sans',Arial,sans-serif!important;color:#f5f5ff!important;}
+.te-v5-mywallpapers .mw-v12-hero{
+ width:min(1320px,calc(100% - 52px))!important;max-width:1320px!important;min-height:356px!important;
+ margin:34px auto 33px!important;padding:25px 25px 25px 58px!important;
+ display:grid!important;grid-template-columns:minmax(0,1.25fr) minmax(265px,.65fr)!important;
+ gap:38px!important;align-items:center;text-align:left!important;
+ border-radius:30px!important;border:1px solid rgba(165,143,245,.3)!important;
+ background:radial-gradient(ellipse at 70% 30%,#664acf38,transparent 55%),linear-gradient(120deg,#17132b,#0d1326 65%,#0c0e1d)!important;
+ box-shadow:0 25px 74px rgba(0,0,0,.24)!important;overflow:hidden;
+}
+.te-v5-mywallpapers .mw-v12-copy{position:relative;z-index:2;min-width:0}
+.te-v5-mywallpapers .mw-v12-hero .small-title{font-size:10px!important;letter-spacing:.22em!important;color:#baa2fc!important;margin:0 0 18px!important}
+.te-v5-mywallpapers .mw-v12-hero h1{font-size:clamp(42px,5.1vw,73px)!important;line-height:1.035!important;letter-spacing:-.065em!important;margin:0 0 19px!important;font-weight:900!important;color:#fff!important;}
+.te-v5-mywallpapers .mw-v12-hero h1 span{background:linear-gradient(94deg,#b572ff,#6596ff 59%,#f76ba5);color:transparent!important;background-clip:text;-webkit-background-clip:text;}
+.te-v5-mywallpapers .mw-v12-hero .hero-description{color:#b2b2ce!important;font-size:14px!important;line-height:1.8!important;max-width:480px!important;margin:0 0 26px!important;text-align:left!important}
+.te-v5-mywallpapers .mw-v12-hero-actions{display:flex;flex-wrap:wrap;gap:10px}
+.te-v5-mywallpapers .mw-v12-hero-actions a{display:inline-flex;gap:12px;justify-content:center;align-items:center;min-height:45px;padding:12px 19px;text-decoration:none;color:#fff;font-weight:850;font-size:12px;border-radius:13px;}
+.te-v5-mywallpapers .mw-v12-primary{background:linear-gradient(110deg,#7f48ea,#3679f5 60%,#d84c9c);box-shadow:0 10px 23px #352cac60}
+.te-v5-mywallpapers .mw-v12-secondary{border:1px solid #9f8bdd55;background:#14182c!important}
+.te-v5-mywallpapers .mw-v12-art{position:relative;isolation:isolate;height:306px;border-radius:23px;overflow:hidden;border:1px solid #a87dff44;background:#13142d;box-shadow:0 17px 36px #0607155c}
+.te-v5-mywallpapers .mw-v12-art img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 52%;}
+.te-v5-mywallpapers .mw-v12-art::after{content:"";position:absolute;inset:25% 0 0;background:linear-gradient(transparent,#060618b3);pointer-events:none}
+.te-v5-mywallpapers .mw-v12-art-note{position:absolute;z-index:2;left:22px;bottom:19px;display:flex;flex-direction:column;gap:7px;text-shadow:0 2px 16px #03030ee3}
+.te-v5-mywallpapers .mw-v12-art-note span{font-size:9px;letter-spacing:.2em;font-weight:900;color:#e9d4ff}
+.te-v5-mywallpapers .mw-v12-art-note strong{font-size:22px;color:#fff}
+.te-v5-mywallpapers .info-bar{width:min(1320px,calc(100% - 52px))!important;max-width:1320px!important;min-height:79px;display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 auto 15px!important;padding:16px 22px!important;background:linear-gradient(110deg,#151528,#0c1427)!important;border:1px solid #a192d037!important;border-radius:18px}
+.te-v5-mywallpapers .count-text{color:#ada9c4!important;letter-spacing:.12em!important;font-size:12px!important;font-weight:700}
+.te-v5-mywallpapers .count-text strong{display:inline-flex;align-items:center;justify-content:center;min-width:32px;min-height:29px;padding:0 8px;margin:0 5px;border-radius:8px;background:#6951d83d;color:#d8bcff!important;font-size:15px}
+.te-v5-mywallpapers .info-bar .add-button{background:linear-gradient(112deg,#7445dc,#3977e9)!important;color:#fff!important;border-radius:11px!important;min-height:43px!important;box-shadow:0 8px 24px #3131a44d!important}
+.te-v5-mywallpapers .mw-v12-gallery-heading{width:min(1320px,calc(100% - 52px));margin:37px auto 19px!important;}
+.te-v5-mywallpapers .mw-v12-gallery-heading span{display:inline-block;color:#bc9ffd;font-size:10px;font-weight:900;letter-spacing:.22em}
+.te-v5-mywallpapers .mw-v12-gallery-heading h2{font-size:clamp(26px,3vw,40px);letter-spacing:-.04em;line-height:1.12;margin:11px 0 10px}
+.te-v5-mywallpapers .mw-v12-gallery-heading h2 span{font-size:inherit;color:#ff559c;letter-spacing:0}
+.te-v5-mywallpapers .mw-v12-gallery-heading p{color:#a5a9c1;font-size:13px;margin:0}
+.te-v5-mywallpapers .status-message,.te-v5-mywallpapers .wallpaper-grid{width:min(1320px,calc(100% - 52px))!important;max-width:1320px!important;}
+.te-v5-mywallpapers .wallpaper-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:18px!important;margin-bottom:100px!important;}
+.te-v5-mywallpapers .wallpaper-card{height:clamp(230px,22vw,315px)!important;border-radius:19px!important;border:1px solid #b9a0fe26!important;background:#12172a!important;box-shadow:0 15px 40px #02020e44!important}
+.te-v5-mywallpapers .wallpaper-card:hover{border-color:#a978fa9a!important;transform:translateY(-3px)!important}
+.te-v5-mywallpapers .wallpaper-card::after{background:linear-gradient(0deg,#050615ed,transparent 75%)!important}
+.te-v5-mywallpapers .wallpaper-category{color:#eadcff!important;background:#160d2edb!important;border:1px solid #aa8ffe69!important}
+.te-v5-mywallpapers .wallpaper-title{font-size:21px!important;letter-spacing:-.025em}
+.te-v5-mywallpapers .wallpaper-date{color:#bdc0d5!important}
+.te-v5-mywallpapers .wallpaper-actions button,.te-v5-mywallpapers .wallpaper-actions a{border-radius:9px!important}
+.te-v5-mywallpapers .wallpaper-actions .preview-button{background:#d6ceff24!important;color:#fff!important}
+.te-v5-mywallpapers .wallpaper-actions .delete-button{background:#902b5c46!important;color:#ffb1d0!important;border-color:#e3779b66!important}
+.te-v5-mywallpapers .delete-box,.te-v5-mywallpapers .preview{background-color:#080a18!important}
+.te-v5-mywallpapers .top-header{background:rgba(8,9,19,.94)!important;border-color:#8a78b239!important}
+.te-v5-mywallpapers .back-button{color:#d9ceff!important;border-color:#9980dc50!important;background:#5d4d991e!important}
+.te-v5-mywallpapers a:focus-visible,.te-v5-mywallpapers button:focus-visible{outline:2px solid #b58cff;outline-offset:3px}
+@media(max-width:950px){.te-v5-mywallpapers .mw-v12-hero{grid-template-columns:1.25fr .7fr!important;gap:20px!important;padding:25px 25px 25px 35px!important}.te-v5-mywallpapers .mw-v12-art{height:290px}.te-v5-mywallpapers .wallpaper-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:760px){
+ body.te-v5-mywallpapers .mw-v12-hero{width:calc(100% - 24px)!important;max-width:none!important;display:grid!important;grid-template-columns:1fr!important;margin:17px auto 20px!important;padding:25px 20px 20px!important;border-radius:24px!important;gap:22px!important;min-height:0!important}
+ .te-v5-mywallpapers .mw-v12-hero h1{font-size:clamp(36px,9vw,48px)!important;letter-spacing:-.045em!important}
+ .te-v5-mywallpapers .mw-v12-hero .hero-description{font-size:13px!important;margin-bottom:17px!important}
+ .te-v5-mywallpapers .mw-v12-hero-actions{gap:8px!important}
+ .te-v5-mywallpapers .mw-v12-hero-actions a{flex:1;font-size:11px;padding:12px 10px}
+ .te-v5-mywallpapers .mw-v12-art{height:194px!important;min-height:0;border-radius:17px!important}
+ .te-v5-mywallpapers .mw-v12-art img{object-position:center 51%}
+ .te-v5-mywallpapers .mw-v12-art-note strong{font-size:17px!important}
+ .te-v5-mywallpapers .info-bar{width:calc(100% - 24px)!important;min-height:65px!important;padding:12px 13px!important;margin:0 auto 22px!important;gap:8px!important;border-radius:15px!important}
+ .te-v5-mywallpapers .count-text{font-size:10px!important;letter-spacing:.02em!important}
+ .te-v5-mywallpapers .count-text strong{min-width:28px;font-size:13px!important}
+ .te-v5-mywallpapers .info-bar .add-button{padding:10px 12px!important;font-size:11px!important;white-space:nowrap}
+ .te-v5-mywallpapers .mw-v12-gallery-heading{width:calc(100% - 24px)!important;margin:18px auto 15px!important}
+ .te-v5-mywallpapers .wallpaper-grid,.te-v5-mywallpapers .status-message{width:calc(100% - 24px)!important;max-width:100%!important;}
+ .te-v5-mywallpapers .wallpaper-grid{grid-template-columns:1fr!important;gap:14px!important;margin-bottom:120px!important}
+ .te-v5-mywallpapers .wallpaper-card{height:280px!important;max-width:none!important}
+}
+@media(min-width:560px) and (max-width:760px){.te-v5-mywallpapers .wallpaper-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.te-v5-mywallpapers .wallpaper-card{height:240px!important}}

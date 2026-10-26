@@ -1,0 +1,51 @@
+/* The Everything v12 — shared colour system, modeled on the Home screen.
+   Scoped components retain their own layout/functionality. */
+:root{
+  --te12-night:#07080f;
+  --te12-deep:#101224;
+  --te12-purple:#8855f6;
+  --te12-blue:#3c78f4;
+  --te12-pink:#f55194;
+  --te12-text:#f6f3ff;
+  --te12-muted:#a7abc5;
+  --te12-line:rgba(168,152,230,.23);
+  --te12-grad:linear-gradient(110deg,#8247eb 0%,#426ef0 60%,#ed4d9a 100%);
+}
+body:not(.hm-home){color:var(--te12-text);}
+body:is(.te-v5-wallpaper,.te-v5-profile,.te-v5-login,.te-v5-animedetails,.te-v5-watch,.te-v5-films,.te-v5-admin,.te-v5-settings,.te-v5-mywallpapers,.te-v5-myanime,.te-v5-userwallpapers,.login-page){
+  background:radial-gradient(ellipse at 8% 12%,rgba(92,50,185,.20),transparent 37%),radial-gradient(ellipse at 92% 25%,rgba(51,90,202,.14),transparent 32%),#07080f!important;
+}
+/* The Anime page already owns an illustrated cinematic background; keep the artwork. */
+body.te-v6-anime{--tv5-teal:#b39aff;--tv5-accent:#8a5bff;--tv5-blue:#5485f8;--tv5-pink:#ef5aa6;}
+body:is(.te-v5-wallpaper,.te-v5-profile,.te-v5-films,.te-v5-login,.te-v5-watch,.te-v5-animedetails) :is(.hero,.profile-hero,.intro-panel,.page-hero,.content-card,.panel,.login-container,.profile-wallpaper-card){border-color:var(--te12-line)!important;}
+body.te-v5-wallpaper .hero{background:radial-gradient(ellipse at 82% 25%,#6356bd3b,transparent 55%),linear-gradient(122deg,#18142d,#0c1325)!important;border-color:var(--te12-line)!important;}
+body.te-v5-wallpaper .hero h1,body.te-v5-wallpaper .hero h2{color:var(--te12-text)!important}
+body.te-v5-wallpaper :is(.category-button.active,.filter-btn.active,.filter-button.active){background:var(--te12-grad)!important;color:#fff!important;border-color:transparent!important}
+body.te-v5-wallpaper :is(.category-button,.filter-btn,.filter-button){border-color:var(--te12-line)!important}
+body.te-v5-profile :is(.profile-card,.profile-panel,.profile-main>.card,.profile-wallpaper-card,.anime-library-card,.profile-hero){border-color:var(--te12-line)!important;background-color:var(--te12-deep)!important}
+body.te-v5-profile :is(.stat-number,.eyebrow,.profile-section-kicker){color:#bd9dff!important}
+body.te-v5-profile :is(.primary-button,.profile-action-primary){background:var(--te12-grad)!important;color:#fff!important}
+body.te-v5-films :is(.film-card,.genre-button,.genre-filter){border-color:var(--te12-line)!important}
+body.te-v5-films :is(.genre-button.active,.genre-filter.active){background:var(--te12-grad)!important;color:#fff!important}
+body.te-v5-login :is(.login-container,.auth-story){border-color:var(--te12-line)!important}
+body.te-v5-login :is(.submit-button,.login-button,.auth-submit){background:var(--te12-grad)!important;color:#fff!important}
+body.te-v5-admin :is(.admin-button.active,.tab-button.active){background:var(--te12-grad)!important;color:#fff!important}
+body.te-v5-admin :is(.admin-card,.admin-panel,.content-box){border-color:var(--te12-line)!important}
+/* A cohesive accent for link focus and installed mobile navigation. */
+body:not(.hm-home) :is(a,button,input,select,textarea):focus-visible{outline:2px solid #ae8afc!important;outline-offset:3px}
+body .te-mobile-nav a[aria-current="page"]{
+  color:#fff!important;
+  background:linear-gradient(115deg,rgba(131,72,233,.35),rgba(52,101,230,.25),rgba(241,63,145,.18))!important;
+  box-shadow:inset 0 0 0 1px rgba(196,145,255,.32)!important;
+}
+body .te-mobile-nav{border-color:rgba(150,130,235,.24)!important;background:linear-gradient(180deg,rgba(15,15,30,.97),rgba(8,10,23,.99))!important}
+body .te-install-banner{border-color:#9986d74a!important;background:#101629fa!important}
+body .te-install-banner button:not([aria-label]){background:var(--te12-grad)!important;color:#fff!important}
+/* Make site footer and shared navigation match Home's dark midnight palette. */
+body .te-site-footer{background:linear-gradient(105deg,rgba(15,12,30,.96),rgba(7,12,27,.98))!important;border-top-color:rgba(166,142,224,.22)!important}
+body .te-site-footer a:hover{color:#c29eff!important}
+@media(max-width:767px){
+ body:not(.hm-home):not(.te-v6-anime){overflow-x:clip}
+ body .te-mobile-nav{border-radius:23px!important}
+}
+@media(prefers-reduced-motion:reduce){body .te-mobile-nav *{transition:none!important}}

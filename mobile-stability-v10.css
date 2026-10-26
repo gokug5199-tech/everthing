@@ -1,0 +1,104 @@
+/* v10: mobile imagery / Safari rendering performance / PWA nav stability.
+   Scoped to mobile and iOS Safari. Existing desktop layouts unchanged. */
+@media (max-width: 767px) {
+  /* Make the homepage artwork a balanced composition, not three overlapping crops. */
+  body.hm-home .hm-hero-art {
+    width: min(100%, 480px) !important;
+    height: clamp(290px, 87vw, 390px) !important;
+    margin: 18px auto 0 !important;
+    isolation: isolate;
+  }
+  body.hm-home .hm-art-main {
+    width: 58% !important;
+    height: 82% !important;
+    left: 21% !important;
+    top: 7% !important;
+    transform: rotate(2deg) !important;
+    z-index: 3 !important;
+  }
+  body.hm-home .hm-art-main img { object-position: center 26%; }
+  body.hm-home .hm-art-left {
+    width: 34% !important;
+    height: 53% !important;
+    left: 2% !important;
+    top: 25% !important;
+    transform: rotate(-7deg) !important;
+    z-index: 2 !important;
+  }
+  body.hm-home .hm-art-right {
+    width: 30% !important;
+    height: 48% !important;
+    left: auto !important;
+    right: 0 !important;
+    top: 35% !important;
+    transform: rotate(7deg) !important;
+    z-index: 4 !important;
+  }
+  body.hm-home .hm-chip-one { top: 3% !important; right: 0 !important; z-index: 5 !important; }
+  body.hm-home .hm-chip-two { bottom: 0 !important; left: 0 !important; z-index: 5 !important; }
+  body.hm-home .hm-world-anime,
+  body.hm-home .hm-world-wallpapers {
+    min-height: 0 !important;
+    height: clamp(320px, 100vw, 430px) !important;
+  }
+  body.hm-home .hm-world-photo {
+    object-fit: cover !important;
+    object-position: center 35% !important;
+  }
+  body.hm-home .hm-world-anime .hm-world-photo { object-position: center 22% !important; }
+  body.hm-home .hm-world-tint {
+    background: linear-gradient(180deg, rgba(4,6,16,.05), rgba(5,8,18,.16) 35%, rgba(3,6,15,.94) 100%) !important;
+  }
+  body.hm-home .hm-world-bottom { max-width: calc(100% - 44px) !important; }
+  body.hm-home .hm-world-bottom strong { font-size: clamp(34px, 11vw, 46px) !important; }
+  body.hm-home .hm-world-description { max-width: 225px !important; }
+  /* Animations and hover transforms aren't useful on a touch screen. */
+  body.hm-home .hm-art-card { will-change: auto !important; }
+  body.hm-home .hm-world-photo,
+  body.hm-home .hm-art-card { transition: none !important; }
+  body.hm-home .hm-world:hover .hm-world-photo { transform: none !important; }
+  /* Provide unambiguous nav appearance. aria-current is always owned by JS. */
+  .te-mobile-nav a:not([aria-current="page"]) {
+    background: transparent !important;
+    box-shadow: none !important;
+    border-color: transparent !important;
+    color: #95a6bb !important;
+  }
+}
+
+/* iPhone/iPad Safari: avoid repeatedly compositing giant blurred surfaces
+   behind fixed/sticky overlays. Preserve branded gradients & layout. */
+@media (max-width: 1024px) {
+  body.te-ios-safari .hm-atmosphere > span,
+  body.te-ios-safari .hm-hero-glow,
+  body.te-ios-safari.te-mobile-redesign-ready::before,
+  body.te-ios-safari.te-mobile-redesign-ready::after {
+    filter: none !important;
+  }
+  body.te-ios-safari .hm-atmosphere > span { opacity: .14 !important; }
+  body.te-ios-safari .hm-header,
+  body.te-ios-safari .te-mobile-nav,
+  body.te-ios-safari .te-install-banner,
+  body.te-ios-safari .v6-global-header .hm-header,
+  body.te-ios-safari .v6-featured-label,
+  body.te-ios-safari .v7-hero-carousel-controls,
+  body.te-ios-safari .top-header {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+  body.te-ios-safari .hm-header,
+  body.te-ios-safari .te-mobile-nav,
+  body.te-ios-safari .v6-global-header .hm-header {
+    background: rgba(11, 15, 28, .97) !important;
+  }
+  body.te-ios-safari .hm-art-card,
+  body.te-ios-safari .v6-stage-light,
+  body.te-ios-safari .v6-featured-card {
+    will-change: auto !important;
+    animation: none !important;
+  }
+  body.te-ios-safari .hm-final-visual img { -webkit-mask-image: none !important; mask-image: none !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hm-home .hm-art-card, .hm-home .hm-world-photo { transition: none !important; }
+}

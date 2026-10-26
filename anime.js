@@ -211,7 +211,7 @@
                 >
                     <article class="anime-card">
                         <div class="poster">
-                            <img src="${image}" alt="${title}" onerror="this.style.opacity='0.15'">
+                            <img src="${image}" alt="${title}" loading="lazy" decoding="async" onerror="this.style.opacity='0.15'">
                             <div class="rating age-classification" aria-label="Age rating: ${ageRating}">${ageRating}</div>
                             <div class="card-overlay"><span class="view-details">View Episodes</span></div>
                         </div>

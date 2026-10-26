@@ -450,16 +450,29 @@ body.login-page,body.login-page.te-auth-with-footer{display:block!important;padd
 </style>
 <link rel="stylesheet" href="mobile-pwa.css?v=20261024-v3">    <link rel="stylesheet" href="redesign-mobile.css?v=20261025-mobile1">
 <link rel="stylesheet" href="te-v5.css?v=20261025-v5">
+    <link rel="stylesheet" href="mobile-stability-v10.css?v=20261026-v10">
+
+    <link rel="stylesheet" href="te-unified-theme-v12.css?v=20261026-v12">
+    <link rel="stylesheet" href="login-welcome-v14.css?v=14.1">
 </head>
 
 
 <body class="login-page te-v5 te-v5-login">
 <header class="auth-header"><a href="index.html" class="logo">THE EVERYTHING</a><a href="index.html" data-back class="return-link">← Back to exploring</a></header>
 <main class="auth-layout">
-<section class="auth-story" aria-label="Discover The Everything">
-<div class="story-copy"><span class="eyebrow">YOUR NEXT WORLD STARTS HERE</span><h2>One account.<br>Endless <em>worlds.</em></h2><p>From your next anime obsession to a wallpaper that feels like you. Make this corner of the universe your own.</p></div>
-<div class="planet-art"><span class="art-caption">A LITTLE ESCAPE FROM THE ORDINARY</span></div>
-<div class="feature-list"><div><b>01</b><span><strong>Find your next story</strong><small>Explore the anime collection.</small></span></div><div><b>02</b><span><strong>Make it yours</strong><small>Share wallpapers. Personalize your profile.</small></span></div></div>
+<section class="auth-story" aria-label="Welcome to The Everything">
+  <div class="te-auth-welcome-kicker"><span class="te-auth-kicker-dot"></span> A LITTLE MAGIC AWAITS</div>
+  <div class="story-copy">
+    <h2>Welcome to<br><em>The Everything.</em></h2>
+    <p>Hey there! Lara is here to welcome you. Sign in and continue exploring the anime and wallpapers you love.</p>
+  </div>
+  <div class="te-lara-art" aria-label="Lara Greyrat smiles and welcomes you">
+    <div class="te-lara-halo"></div>
+    <img src="image/login/lara-welcome.webp" alt="Lara Greyrat smiling and making a friendly peace sign" width="736" height="980" fetchpriority="high">
+    <div class="te-lara-greeting"><span class="te-greeting-star">✦</span><span><strong>Welcome!</strong><small>Ready for another adventure?</small></span></div>
+    <div class="te-lara-caption">✦ THE EVERYTHING / YOUR NEXT WORLD</div>
+  </div>
+  <div class="te-auth-story-perks"><span>✧ Explore anime</span><span>✧ Save favorites</span><span>✧ Find wallpapers</span></div>
 </section>
 
     <div class="login-container">
@@ -468,6 +481,7 @@ body.login-page,body.login-page.te-auth-with-footer{display:block!important;padd
 <div class="auth-tabs" aria-label="Account action"><button id="loginTab" type="button" aria-pressed="true">Log in</button><button id="signupTab" type="button" aria-pressed="false">Create account</button></div>
 
 
+        <div class="te-auth-form-kicker">THE EVERYTHING ACCOUNT</div>
         <h1 id="authTitle">Welcome back.</h1>
 
 
@@ -1958,7 +1972,7 @@ body.login-page,body.login-page.te-auth-with-footer{display:block!important;padd
  emailInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();(document.body.classList.contains('signup-mode')?signupButton:loginButton).click();}});
 })();
 </script>
-<script src="featured-public.js?v=20261024"></script><script src="mobile-pwa.js?v=20261024-v3"></script><script src="site-shell.js"></script>
+<script src="featured-public.js?v=20261024"></script><script src="mobile-pwa.js?v=20261026-v10"></script><script src="site-shell.js"></script>
 <script src="redesign-mobile.js?v=20261025-mobile1"></script>
 <script src="te-v5.js?v=20261025-v5"></script>
 </body>

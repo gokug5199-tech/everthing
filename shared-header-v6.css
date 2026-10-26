@@ -42,3 +42,43 @@ body.te-v5-wallpaper .v6-global-header .hm-brand{color:#fff!important}
 body.te-v5-wallpaper .v6-wallpaper-library{margin-left:auto;margin-right:14px;white-space:nowrap;display:inline-flex;justify-content:center;align-items:center;min-height:40px;padding:9px 15px;border:1px solid rgba(164,151,255,.24);border-radius:11px;background:rgba(33,32,57,.84);color:#f5efff;font:800 12px 'DM Sans',Arial,sans-serif;text-decoration:none}
 body.te-v5-wallpaper .v6-wallpaper-library:hover{background:rgba(83,59,156,.46)}
 @media(max-width:767px){body.te-v5-wallpaper .v6-wallpaper-library{margin:0;padding:8px 10px;font-size:11px}body.te-v5-wallpaper .top-bar{gap:8px!important;flex-wrap:wrap!important}body.te-v5-wallpaper .top-bar .wallpaper-search-box{flex:1 1 180px;min-width:0;width:auto!important}}
+
+/* v13: force a real circle for the account avatar on Anime and Wallpapers.
+   Leave display alone: account-menu.js determines logged-in/logged-out state. */
+@media (max-width: 767px) {
+  .v6-global-header .shared-avatar-button {
+    box-sizing: border-box !important;
+    flex: 0 0 44px !important;
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+    max-width: 44px !important;
+    max-height: 44px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    aspect-ratio: 1 / 1 !important;
+    border: 2px solid rgba(148, 117, 255, .72) !important;
+    background: #13162a !important;
+  }
+  .v6-global-header .shared-avatar-button .shared-avatar-image {
+    width: 100% !important;
+    height: 100% !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    border-radius: 50% !important;
+    flex: 0 0 100% !important;
+  }
+  .v6-global-header .shared-avatar-button .shared-avatar-placeholder {
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}

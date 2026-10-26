@@ -1,0 +1,76 @@
+/* The Everything v12 — mobile collage re-composed into a real, non-overlapping gallery. */
+@media(max-width:767px){
+  body.hm-home .hm-hero-art {
+    width: min(100%, 490px)!important;
+    max-width: 100%!important;
+    display: grid!important;
+    grid-template-columns: repeat(2,minmax(0,1fr))!important;
+    grid-template-rows: 276px 112px!important;
+    gap: 10px!important;
+    height: auto!important;
+    min-height: 0!important;
+    overflow: visible!important;
+    margin: 26px auto 16px!important;
+    padding: 0 2px!important;
+    isolation: isolate;
+  }
+  body.hm-home .hm-hero-art .hm-art-card {
+    display:block!important;
+    position: relative!important;
+    top:auto!important;right:auto!important;bottom:auto!important;left:auto!important;
+    width:100%!important;
+    max-width:100%!important;
+    height:100%!important;
+    border-radius:20px!important;
+    transform:none!important;
+    rotate:0deg!important;
+    overflow:hidden!important;
+    box-shadow:0 18px 46px rgba(2,2,12,.44)!important;
+    border:1px solid rgba(155,145,255,.32)!important;
+    z-index:2!important;
+  }
+  body.hm-home .hm-hero-art .hm-art-main {
+    grid-column:1 / -1!important;
+    grid-row:1!important;
+  }
+  body.hm-home .hm-hero-art .hm-art-left {
+    grid-column:1!important;
+    grid-row:2!important;
+  }
+  body.hm-home .hm-hero-art .hm-art-right {
+    grid-column:2!important;
+    grid-row:2!important;
+  }
+  body.hm-home .hm-hero-art .hm-art-card img {
+    display:block!important;
+    width:100%!important;
+    height:100%!important;
+    object-fit:cover!important;
+    object-position:50% 28%!important;
+    transform:none!important;
+    max-width:none!important;
+  }
+  body.hm-home .hm-hero-art .hm-art-main img{object-position:50% 30%!important}
+  body.hm-home .hm-hero-art .hm-art-left img{object-position:center 37%!important}
+  body.hm-home .hm-hero-art .hm-art-right img{object-position:center 32%!important}
+  body.hm-home .hm-hero-art .hm-art-main::after {
+    content:"";position:absolute;inset:35% 0 0;
+    background:linear-gradient(180deg,transparent,rgba(2,4,13,.82));pointer-events:none;
+  }
+  body.hm-home .hm-hero-art .hm-art-label {
+    z-index:3!important;
+    left:18px!important;
+    bottom:16px!important;
+    font-size:12px!important;
+  }
+  body.hm-home .hm-hero-art .hm-art-label b{font-size:25px!important}
+  body.hm-home .hm-hero-art :is(.hm-hero-ring,.hm-hero-glow,.hm-orbit-chip){display:none!important}
+  body.hm-home .hm-hero-edge{display:none!important}
+  body.hm-home .hm-hero{padding-bottom:0!important}
+}
+@media(max-width:360px){
+  body.hm-home .hm-hero-art{grid-template-rows:235px 94px!important;gap:9px!important}
+}
+@media(min-width:768px){
+  /* Keep the desktop hero exactly as designed in previous versions. */
+}

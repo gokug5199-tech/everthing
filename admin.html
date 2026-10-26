@@ -1,43 +1,46 @@
-<!doctype html><html lang="en" dir="ltr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin Dashboard | The Everything</title><link rel="stylesheet" href="admin.css"><script src="back-navigation.js"></script><link rel="stylesheet" href="anime-features.css?v=20261023-clean"><link rel="stylesheet" href="mobile-pwa.css?v=20261024-v3"><link rel="stylesheet" href="te-v5.css?v=20261025-v5">
-<link rel="stylesheet" href="admin-carousel-v7.css?v=20261025-v7"></head><body class="te-v5 te-v5-admin">
-<header><a href="index.html">The Everything</a><a data-back href="index.html">Back</a></header>
-<main><p class="eyebrow">ADMIN DASHBOARD</p><h1>Manage your content in one place</h1><p id="status" role="status" aria-live="polite">Checking administrator permissions…</p>
-<div id="panel" hidden><nav><button id="animeTab">Anime</button><button id="episodeTab">Episodes</button><button id="wallTab">User Wallpapers</button><button id="featuredTab">Latest sections</button></nav>
-<section id="animeSection"><h2>Add or edit anime</h2><form id="animeForm"><div class="fields">
-<label>Anime ID (created automatically from the title)<input id="animeId" maxlength="80" dir="ltr" placeholder="mushoku-tensei" aria-describedby="animeIdHelp"><small id="animeIdHelp">English letters, numbers and hyphens. Spaces and symbols are converted automatically. You can choose your own ID.</small></label>
-<label>Anime title<input id="title" required maxlength="200"></label>
-<label>Poster URL or image path<input id="poster" dir="ltr" placeholder="https://… or image/anime/…"></label>
-<label>Or upload a poster (max 5 MB)<input id="posterFile" type="file" accept="image/jpeg,image/png,image/webp"></label>
-<label>Main category<input id="category" value="action" required></label>
-<label>Genres (comma-separated)<input id="genres" placeholder="Action, Drama"></label>
-<label>Rating (out of 10)<input id="rating" type="number" min="0" max="10" step="0.1" value="0" required></label>
-<label>Episode count<input id="episodes" type="number" min="0" max="2000" value="0" required></label></div>
+<!DOCTYPE html>
+<html dir="ltr" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Admin Dashboard | The Everything</title><link href="admin.css" rel="stylesheet"/><script src="back-navigation.js"></script><link href="anime-features.css?v=20261023-clean" rel="stylesheet"/><link href="mobile-pwa.css?v=20261024-v3" rel="stylesheet"/><link href="te-v5.css?v=20261025-v5" rel="stylesheet"/>
+<link href="admin-carousel-v7.css?v=20261025-v7" rel="stylesheet"/>
+<link href="te-unified-theme-v12.css?v=20261026-v12" rel="stylesheet"/>
+<link href="admin-redesign-v14.css?v=14.1" rel="stylesheet"/><script defer="" src="admin-redesign-v14.js?v=14.1"></script></head><body class="te-v5 te-v5-admin">
+<header><a class="te-admin-brand" href="index.html"><img alt="" onerror="this.style.display='none'" src="image/branding/admin-logo-v14.webp"/><span>THE EVERYTHING</span></a><a class="te-admin-back" data-back="" href="index.html">← Back to website</a></header>
+<main class="te-admin-layout"><div class="te-admin-intro"><div class="te-admin-eyebrow"><span class="te-admin-spark">✦</span> CREATOR CONTROL CENTER</div><div class="te-admin-heading"><div><h1>Your studio.<br/><em>Your universe.</em></h1><p>Manage anime, episodes, community wallpapers and featured releases from one place.</p></div><span aria-hidden="true" class="te-admin-heading-deco">THE<br/>EVERYTHING</span></div></div><p aria-live="polite" id="status" role="status">Checking administrator permissions…</p>
+<div hidden="" id="panel"><nav aria-label="Admin sections"><div class="te-admin-sidebar-label">MANAGEMENT</div><button id="animeTab">Anime</button><button id="episodeTab">Episodes</button><button id="wallTab">User Wallpapers</button><button id="featuredTab">Latest sections</button></nav>
+<section id="animeSection"><h2>Anime Studio</h2><div class="te-anime-command" id="teAnimeCommand"><div><span class="te-admin-section-kicker">01 / MANAGE YOUR CATALOG</span><p>Import an anime, review its information, then publish changes.</p></div><div class="te-anime-command-actions"><button class="te-admin-ghost" id="adminQuickNew" type="button">+ New anime</button><button class="te-admin-primary" id="adminQuickSave" type="button">Save Anime <span aria-hidden="true">↗</span></button></div></div><form id="animeForm"><div class="te-form-section-heading"><span>01</span><div><strong>Anime details</strong><small>Title, poster, genres and basic information</small></div></div><div class="fields">
+<label>Anime ID (created automatically from the title)<input aria-describedby="animeIdHelp" dir="ltr" id="animeId" maxlength="80" placeholder="mushoku-tensei"/><small id="animeIdHelp">English letters, numbers and hyphens. Spaces and symbols are converted automatically. You can choose your own ID.</small></label>
+<label>Anime title<input id="title" maxlength="200" required=""/></label>
+<label>Poster URL or image path<input dir="ltr" id="poster" placeholder="https://… or image/anime/…"/></label>
+<label>Or upload a poster (max 5 MB)<input accept="image/jpeg,image/png,image/webp" id="posterFile" type="file"/></label>
+<label>Main category<input id="category" required="" value="action"/></label>
+<label>Genres (comma-separated)<input id="genres" placeholder="Action, Drama"/></label>
+<label>Rating (out of 10)<input id="rating" max="10" min="0" required="" step="0.1" type="number" value="0"/></label>
+<label>Episode count<input id="episodes" max="2000" min="0" required="" type="number" value="0"/></label></div><div class="te-admin-poster-hint"><span aria-hidden="true" class="te-admin-mini-icon">✦</span><div><strong>Cover artwork</strong><small>Choose a clear, vertical poster. You can upload a new file or use an existing image URL.</small></div></div>
 <label>Description<textarea id="description" rows="3"></textarea></label>
-<div id="animeMetadata"></div><details class="legacy"><summary>Legacy episode links (optional)</summary><label>One episode per line: number | URL<textarea id="links" rows="5" dir="ltr" placeholder="1 | https://example.com/episode-1.mp4"></textarea></label><p>Use the Episodes tab for seasons, servers, and quality options. Existing legacy links will continue to work.</p></details>
-<button type="submit" id="save">Save anime</button><button type="button" id="reset">New anime / Cancel editing</button></form>
-<h2>Published anime</h2><input id="animeSearch" placeholder="Search anime by title"><div id="animeList" class="list"></div></section>
-<section id="episodeSection" hidden>
-<h2>Manage anime episodes</h2><p class="help">Choose an anime, season, and episode. Add multiple servers or video qualities. Paste the HGCloud embed URL or the complete iframe code. No video files are uploaded here.</p>
-<label>Anime<select id="episodeAnime" required></select></label>
+<div class="te-form-section-heading"><span>02</span><div><strong>Extended information</strong><small>Studio, schedule, seasons, characters and other metadata</small></div></div><div id="animeMetadata"></div><details class="legacy"><summary>Legacy episode links (optional)</summary><label>One episode per line: number | URL<textarea dir="ltr" id="links" placeholder="1 | https://example.com/episode-1.mp4" rows="5"></textarea></label><p>Use the Episodes tab for seasons, servers, and quality options. Existing legacy links will continue to work.</p></details><div class="te-admin-save-hint" role="note"><span aria-hidden="true">✦</span> Your changes are saved only after you press <strong>Save Anime</strong>.</div>
+<div class="te-admin-form-actions"><button id="save" type="submit">Save anime</button><button id="reset" type="button">New anime / Cancel editing</button></div></form>
+<h2>Published anime</h2><input id="animeSearch" placeholder="Search anime by title"/><div class="list" id="animeList"></div></section>
+<section hidden="" id="episodeSection">
+<div class="te-admin-section-kicker">02 / EPISODE CONTROL</div><h2>Manage anime episodes</h2><p class="help">Choose an anime, season, and episode. Add multiple servers or video qualities. Paste the HGCloud embed URL or the complete iframe code. No video files are uploaded here.</p>
+<label>Anime<select id="episodeAnime" required=""></select></label>
 <form id="episodeForm"><div class="fields">
-<label>Season<input id="seasonNumber" type="number" min="1" max="100" value="1" required></label>
-<label>Episode number<input id="episodeNumber" type="number" min="1" max="2000" value="1" required></label>
-</div><label>Episode title (optional)<input id="episodeTitleInput" maxlength="200" placeholder="Episode title"></label>
+<label>Season<input id="seasonNumber" max="100" min="1" required="" type="number" value="1"/></label>
+<label>Episode number<input id="episodeNumber" max="2000" min="1" required="" type="number" value="1"/></label>
+</div><label>Episode title (optional)<input id="episodeTitleInput" maxlength="200" placeholder="Episode title"/></label>
 <h3>Video sources</h3><p class="help">You can add separate 480p and 720p video URLs. HGCloud may not offer quality selection inside its own player.</p>
-<div id="episodeSources"></div><button type="button" id="addEpisodeSource">+ Add server or quality</button>
-<p id="episodeStatus" class="help" aria-live="polite"></p>
-<button type="submit" id="episodeSave">Save episode</button><button type="button" id="episodeReset">New episode / Cancel editing</button>
-</form><h2>Saved episodes</h2><p id="episodeTotal" class="help"></p><div id="episodeList" class="list"></div>
+<div id="episodeSources"></div><button id="addEpisodeSource" type="button">+ Add server or quality</button>
+<p aria-live="polite" class="help" id="episodeStatus"></p>
+<button id="episodeSave" type="submit">Save episode</button><button id="episodeReset" type="button">New episode / Cancel editing</button>
+</form><h2>Saved episodes</h2><p class="help" id="episodeTotal"></p><div class="list" id="episodeList"></div>
 </section>
-<section id="featuredSection" hidden><h2>Latest Anime &amp; Latest Episodes</h2><p class="help">Choose exactly what visitors see on mobile and desktop. Items do not appear here until you feature them. Use the arrow buttons to change display order.</p><div class="featured-two"><div><h3>Latest Anime</h3><label>Select an existing anime<select id="featuredAnimeSelect"></select></label><button type="button" id="featureAnimeAdd">+ Feature anime</button><div id="featuredAnimeList" class="list"></div></div><div><h3>Latest Episodes</h3><label>Anime<select id="featuredEpisodeAnime"></select></label><label>Saved episode<select id="featuredEpisodeSelect"></select></label><button type="button" id="featureEpisodeAdd">+ Feature episode</button><div id="featuredEpisodeList" class="list"></div></div></div>
+<section hidden="" id="featuredSection"><div class="te-admin-section-kicker">03 / CURATED RELEASES</div><h2>Latest Anime &amp; Latest Episodes</h2><p class="help">Choose exactly what visitors see on mobile and desktop. Items do not appear here until you feature them. Use the arrow buttons to change display order.</p><div class="featured-two"><div><h3>Latest Anime</h3><label>Select an existing anime<select id="featuredAnimeSelect"></select></label><button id="featureAnimeAdd" type="button">+ Feature anime</button><div class="list" id="featuredAnimeList"></div></div><div><h3>Latest Episodes</h3><label>Anime<select id="featuredEpisodeAnime"></select></label><label>Saved episode<select id="featuredEpisodeSelect"></select></label><button id="featureEpisodeAdd" type="button">+ Feature episode</button><div class="list" id="featuredEpisodeList"></div></div></div>
 <div class="hero-admin-v7" id="heroManager">
-  <div><h3>Rotating Anime Banner <span class="hero-count" id="heroCount">0 / 5</span></h3>
-  <p class="help">Choose up to five anime for the top banner on the Anime page. The selected titles rotate automatically every 6 seconds, independently of Latest Anime.</p></div>
-  <div class="hero-choose-v7"><label>Choose published anime<select id="heroAnimeSelect"><option value="">Loading anime…</option></select></label><button type="button" id="heroAnimeAdd">+ Add to banner</button></div>
-  <div id="heroAnimeList" class="list" aria-label="Selected rotating banner anime"></div>
-  <p id="heroStatus" role="status" aria-live="polite"></p>
+<div><h3>Rotating Anime Banner <span class="hero-count" id="heroCount">0 / 5</span></h3>
+<p class="help">Choose up to five anime for the top banner on the Anime page. The selected titles rotate automatically every 6 seconds, independently of Latest Anime.</p></div>
+<div class="hero-choose-v7"><label>Choose published anime<select id="heroAnimeSelect"><option value="">Loading anime…</option></select></label><button id="heroAnimeAdd" type="button">+ Add to banner</button></div>
+<div aria-label="Selected rotating banner anime" class="list" id="heroAnimeList"></div>
+<p aria-live="polite" id="heroStatus" role="status"></p>
 </div>
-<p id="featuredStatus" role="status" aria-live="polite"></p></section>
-<section id="wallSection" hidden><h2>User wallpapers</h2><form id="wallSearchForm"><input id="wallSearch" placeholder="Search wallpaper title"><button>Search</button></form><div id="wallList" class="list"></div><button id="prev">Previous</button><span id="pageNumber"></span><button id="next">Next</button><div id="cleanup" role="status"></div></section>
+<p aria-live="polite" id="featuredStatus" role="status"></p></section>
+<section hidden="" id="wallSection"><div class="te-admin-section-kicker">04 / COMMUNITY</div><h2>User wallpapers</h2><form id="wallSearchForm"><input id="wallSearch" placeholder="Search wallpaper title"/><button>Search</button></form><div class="list" id="wallList"></div><button id="prev">Previous</button><span id="pageNumber"></span><button id="next">Next</button><div id="cleanup" role="status"></div></section>
 </div></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="episode-data.js?v=episodes1"></script><script src="episode-admin.js?v=20261023-clean"></script><script src="admin-anime-meta.js?v=20261023-clean"></script><script src="admin.js?v=20261023-clean"></script><script src="featured-admin.js?v=20261024"></script><script src="admin-carousel-v7.js?v=20261025-v7"></script><script src="admin-jikan-import.js?v=20261023-import1"></script><script src="te-v5.js?v=20261025-v5"></script>
 </body></html>

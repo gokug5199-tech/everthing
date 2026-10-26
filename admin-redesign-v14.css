@@ -1,0 +1,70 @@
+/* THE EVERYTHING — ADMIN STUDIO v14. All existing form controls and IDs are retained. */
+:root{--a14-bg:#060712;--a14-card:#10162a;--a14-ink:#f7f7ff;--a14-muted:#a0aaca;--a14-line:rgba(153,164,246,.18);--a14-purple:#8550ff;--a14-pink:#f04eaa;--a14-blue:#4674ff;--a14-grad:linear-gradient(105deg,#7540f6 0%,#4b72ff 48%,#e24999 100%)}
+html{scroll-behavior:smooth}
+body.te-v5-admin{margin:0!important;color:var(--a14-ink)!important;font:15px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif!important;background:radial-gradient(ellipse at 14% 0%,#48218b3d,transparent 46%),radial-gradient(ellipse at 80% 16%,#124f9c29,transparent 34%),#060712!important;}
+body.te-v5-admin *{box-sizing:border-box}
+body.te-v5-admin header{max-width:1440px;min-height:68px;margin:16px auto 0!important;padding:0 20px!important;width:calc(100% - 40px);display:flex;align-items:center;justify-content:space-between;gap:18px;border:1px solid var(--a14-line)!important;background:rgba(15,20,38,.92)!important;border-radius:22px!important;box-shadow:0 18px 60px #0005}
+.te-admin-brand{display:inline-flex;align-items:center;gap:11px;color:#fff!important;text-decoration:none!important;font-size:13px;font-weight:850;letter-spacing:.1em}
+.te-admin-brand img{width:37px;height:37px;object-fit:contain;border-radius:12px;box-shadow:0 0 24px #8855f533}
+.te-admin-back{color:#ccd5f4!important;font-size:12px;font-weight:700;text-decoration:none!important;white-space:nowrap;border:1px solid #ffffff1f;border-radius:999px;padding:9px 16px}
+body.te-v5-admin main.te-admin-layout{max-width:1360px!important;width:calc(100% - 48px)!important;margin:38px auto 90px!important;padding:0!important}
+.te-admin-intro{margin:0 0 28px;padding:14px 4px 4px}
+.te-admin-eyebrow,.te-admin-section-kicker,.te-admin-sidebar-label,.te-auth-form-kicker{color:#ad91ff!important;font-size:10px!important;font-weight:850!important;letter-spacing:.22em;text-transform:uppercase}
+.te-admin-spark{color:#d267fb;font-size:16px}
+.te-admin-heading{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-top:12px}
+body.te-v5-admin .te-admin-heading h1{margin:0!important;font-size:clamp(34px,5vw,62px)!important;line-height:1.05!important;letter-spacing:-.058em!important;font-weight:900!important}
+.te-admin-heading h1 em{font-style:normal;background:var(--a14-grad);background-clip:text;-webkit-background-clip:text;color:transparent}
+.te-admin-heading p{margin:16px 0 0;color:var(--a14-muted);font-size:14px;max-width:560px}
+.te-admin-heading-deco{font-size:clamp(24px,4vw,54px);font-weight:900;letter-spacing:-.07em;text-align:right;line-height:.82;color:#50417343;user-select:none}
+body.te-v5-admin #status{display:block;max-width:100%;white-space:pre-wrap;color:#ced4f5!important;font-size:13px;background:#11172d;border:1px solid var(--a14-line);border-radius:14px;padding:13px 18px;margin:20px 0}
+body.te-v5-admin #panel{display:grid;grid-template-columns:214px minmax(0,1fr);gap:24px;align-items:start;max-width:100%}
+body.te-v5-admin #panel>nav{position:sticky;top:18px;display:flex!important;flex-direction:column!important;gap:6px!important;padding:18px!important;border:1px solid var(--a14-line);border-radius:22px;background:linear-gradient(145deg,#151a33e6,#0d1224f2);box-shadow:0 18px 50px #0003}
+.te-admin-sidebar-label{margin:0 0 12px;padding:0 10px}
+body.te-v5-admin #panel>nav button{width:100%;margin:0!important;min-height:47px;text-align:left;border:1px solid transparent!important;background:transparent!important;color:#a9b1cf!important;border-radius:13px!important;padding:11px 14px!important;white-space:normal;font-size:13px!important;font-weight:750!important}
+body.te-v5-admin #panel>nav button:hover{background:#6d62c222!important;color:#fff!important}
+body.te-v5-admin #panel>nav button.is-active{background:linear-gradient(110deg,#6956d342,#a1369440)!important;color:#fff!important;border:1px solid #aa88ff5a!important;box-shadow:inset 3px 0 #a279ff}
+body.te-v5-admin #panel>section{grid-column:2;min-width:0;margin:0 0 22px!important;padding:24px!important;background:linear-gradient(145deg,#10182bf5,#090e1bf5)!important;border:1px solid var(--a14-line)!important;border-radius:25px!important;box-shadow:0 20px 52px #0003}
+body.te-v5-admin #panel>section>h2{margin:0 0 16px;font-size:clamp(24px,2.8vw,34px)!important;letter-spacing:-.04em!important;line-height:1.1!important}
+body.te-v5-admin #panel>section>.te-admin-section-kicker{margin-bottom:12px}
+body.te-v5-admin #animeForm,body.te-v5-admin #episodeForm{margin:16px 0 25px!important;padding:26px!important;background:#0b1121!important;border:1px solid #7486dc34!important;border-radius:23px!important}
+body.te-v5-admin #animeSection>.te-anime-command{position:sticky;top:10px;z-index:11;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 18px;border:1px solid #a080ff48;border-radius:17px;background:linear-gradient(120deg,#1d2144f5,#131a31f7);box-shadow:0 12px 34px #0007;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.te-anime-command p{margin:3px 0 0;color:#a5b3d2;font-size:12px}
+.te-anime-command-actions{display:flex;flex-wrap:wrap;gap:7px}
+body.te-v5-admin .te-anime-command-actions button{margin:0!important;white-space:nowrap;padding:11px 15px!important}
+body.te-v5-admin .te-admin-primary,body.te-v5-admin #save,body.te-v5-admin #episodeSave,body.te-v5-admin #heroAnimeAdd,body.te-v5-admin #featureAnimeAdd,body.te-v5-admin #featureEpisodeAdd{background:var(--a14-grad)!important;border:1px solid #aa81ff!important;color:#fff!important;font-weight:800!important;box-shadow:0 8px 24px #6847f52b}
+body.te-v5-admin .te-admin-ghost{background:#1a1c38!important;border:1px solid #a2aaf83b!important;color:#e0e4ff!important}
+.te-form-section-heading{display:flex;align-items:center;gap:13px;margin:12px 0 17px;padding:0 0 13px;border-bottom:1px solid var(--a14-line)}
+.te-form-section-heading>span{width:38px;height:38px;display:grid;place-items:center;background:#754dff25;color:#c5acff;border:1px solid #865ff95a;border-radius:12px;font-weight:900;font-size:12px}
+.te-form-section-heading strong{display:block;color:white;font-size:18px;line-height:1.3}.te-form-section-heading small{color:#96a4c5;font-size:12px}
+body.te-v5-admin .fields{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px 18px!important}
+body.te-v5-admin label{color:#cfd6ee!important;font-size:12px!important;font-weight:720!important;margin:0 0 12px!important;min-width:0}
+body.te-v5-admin label small,body.te-v5-admin label p{font-weight:400;color:#9aabc5;font-size:11px;line-height:1.65}
+body.te-v5-admin input,body.te-v5-admin textarea,body.te-v5-admin select{width:100%;max-width:100%;min-width:0;box-sizing:border-box;margin-top:7px;background:#060c19!important;color:#edf1ff!important;border:1px solid #4a577a!important;box-shadow:none!important;border-radius:12px!important;padding:12px 13px!important;font:inherit!important;font-size:13px!important;min-height:45px}
+body.te-v5-admin input[type=file]{padding:10px!important;color:#b7c3de!important}
+body.te-v5-admin :is(input,textarea,select):focus{outline:2px solid #8e6eff99!important;outline-offset:1px!important;border-color:#9a79fd!important}
+body.te-v5-admin #description{min-height:118px;resize:vertical}
+.te-admin-poster-hint{display:flex;align-items:center;gap:13px;margin:8px 0 22px;padding:14px 16px;border:1px solid #8271e128;border-radius:14px;background:#6a45db0a}
+.te-admin-mini-icon{font-size:20px;color:#9f79ff}.te-admin-poster-hint strong{display:block;font-size:13px}.te-admin-poster-hint small{display:block;color:#9cabc6;font-size:12px;line-height:1.6}
+body.te-v5-admin #animeMetadata{min-width:0;max-width:100%}
+body.te-v5-admin #animeForm :is(.legacy,details){border:1px solid var(--a14-line)!important;background:#0d1528!important;border-radius:14px!important}
+.te-admin-save-hint{color:#9faed1;font-size:12px;display:flex;align-items:center;gap:6px;margin:18px 0 10px}.te-admin-save-hint span{color:#a684fb}
+body.te-v5-admin .te-admin-form-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px;padding-top:18px;margin-top:8px;border-top:1px solid var(--a14-line)}
+body.te-v5-admin .te-admin-form-actions button{margin:0!important;min-height:47px!important;padding:12px 20px!important}
+body.te-v5-admin #save{min-width:195px;font-size:15px!important}
+body.te-v5-admin #reset,body.te-v5-admin #episodeReset{background:#1b2034!important;border:1px solid #6c78983b!important;color:#c7d0ea!important}
+body.te-v5-admin .jikan-import{background:#111c30!important;border:1px solid #655fa74e!important;border-radius:19px!important;padding:19px!important}
+body.te-v5-admin .jikan-result{background:#0b1222!important;border-color:#5a638a!important;border-radius:13px!important}
+body.te-v5-admin :is(button,.jikan-result button){font-size:13px!important;border-radius:11px;transition:background-color .2s ease,transform .2s ease}
+body.te-v5-admin button:not(:disabled):hover{filter:brightness(1.1);transform:translateY(-1px)}
+body.te-v5-admin button:disabled{cursor:wait!important;opacity:.65}
+body.te-v5-admin :is(.featured-two>div,.hero-admin-v7){padding:17px;border:1px solid var(--a14-line)!important;border-radius:17px!important;background:#090f20!important}
+body.te-v5-admin .help,body.te-v5-admin .row small{color:#a6b2cd!important}
+body.te-v5-admin .row{border-bottom:1px solid var(--a14-line)!important;padding:14px 0!important}
+body.te-v5-admin .row img{border-radius:12px!important}
+body.te-v5-admin #animeList .row button{margin:4px!important}
+body.te-v5-admin .danger{color:#ffb4c5!important;background:#541e363e!important;border-color:#b0487c6e!important}
+body.te-v5-admin #animeSearch{margin:0 0 16px!important}
+body.te-v5-admin h2{color:#fff!important}
+@media(max-width:900px){body.te-v5-admin main.te-admin-layout{width:calc(100% - 28px)!important;margin-top:22px!important}body.te-v5-admin #panel{grid-template-columns:1fr;gap:12px}body.te-v5-admin #panel>nav{position:sticky;top:0;z-index:20;display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;gap:8px!important;overflow-x:auto;scrollbar-width:none;padding:10px!important;border-radius:15px}body.te-v5-admin #panel>nav::-webkit-scrollbar{display:none}body.te-v5-admin #panel>nav button{min-width:max-content!important;width:auto!important;font-size:12px!important;padding:9px 13px!important}body.te-v5-admin #panel>nav .te-admin-sidebar-label{display:none}body.te-v5-admin #panel>section{grid-column:1;padding:18px!important}}
+@media(max-width:600px){body.te-v5-admin header{width:calc(100% - 20px)!important;margin-top:8px!important;min-height:58px!important;padding:0 12px!important;border-radius:16px!important}body.te-v5-admin main.te-admin-layout{width:calc(100% - 20px)!important;margin:22px auto 96px!important}.te-admin-brand{font-size:11px!important;letter-spacing:.05em!important}.te-admin-brand img{width:34px;height:34px}.te-admin-back{font-size:10px;padding:8px!important}.te-admin-heading-deco{display:none}.te-admin-intro{margin-bottom:18px}body.te-v5-admin .te-admin-heading h1{font-size:38px!important}body.te-v5-admin #panel>section{padding:14px!important;border-radius:18px!important}body.te-v5-admin #animeForm,body.te-v5-admin #episodeForm{padding:14px!important;border-radius:18px!important}body.te-v5-admin .fields{grid-template-columns:1fr!important;gap:4px!important}body.te-v5-admin #animeSection>.te-anime-command{top:2px;display:block;padding:13px;border-radius:14px}.te-anime-command p{font-size:11px}.te-anime-command-actions{margin-top:10px}.te-anime-command-actions button{flex:1}body.te-v5-admin .te-admin-form-actions{flex-direction:column;align-items:stretch}body.te-v5-admin .te-admin-form-actions button{width:100%}body.te-v5-admin :is(.featured-two,.jikan-results){grid-template-columns:1fr!important}body.te-v5-admin .jikan-import{padding:14px!important}body.te-v5-admin .jikan-search>div{display:flex;flex-direction:column;align-items:stretch!important}body.te-v5-admin .te-form-section-heading strong{font-size:15px}body.te-v5-admin #status{font-size:11px;padding:12px}}
+@media(prefers-reduced-motion:reduce){body.te-v5-admin *{transition:none!important;scroll-behavior:auto!important}}
