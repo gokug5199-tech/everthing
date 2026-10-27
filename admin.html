@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en"><head>
-  <script src="safari-perf-v15.js?v=15.0"></script><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Admin Dashboard | The Everything</title><link href="admin.css" rel="stylesheet"/><script src="back-navigation.js"></script><link href="anime-features.css?v=20261023-clean" rel="stylesheet"/><link href="mobile-pwa.css?v=20261024-v3" rel="stylesheet"/><link href="te-v5.css?v=20261025-v5" rel="stylesheet"/>
+  <script src="safari-perf-v15.js?v=15.0"></script><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Admin Dashboard | The Everything</title><link href="admin.css?v=20261028-v19-characters" rel="stylesheet"/><script src="back-navigation.js"></script><link href="anime-features.css?v=20261023-clean" rel="stylesheet"/><link href="mobile-pwa.css?v=20261024-v3" rel="stylesheet"/><link href="te-v5.css?v=20261025-v5" rel="stylesheet"/>
 <link href="admin-carousel-v7.css?v=20261025-v7" rel="stylesheet"/>
 <link href="te-unified-theme-v12.css?v=20261026-v12" rel="stylesheet"/>
 <link href="admin-redesign-v14.css?v=14.1" rel="stylesheet"/><link href="bulk-anime-v16.css?v=16.0" rel="stylesheet"/><script defer="" src="admin-redesign-v14.js?v=14.1"></script>  <link rel="stylesheet" href="safari-perf-v15.css?v=15.0">
@@ -22,17 +22,42 @@
 <div class="te-admin-form-actions"><button id="save" type="submit">Save anime</button><button id="reset" type="button">New anime / Cancel editing</button></div></form>
 <h2>Published anime</h2><input id="animeSearch" placeholder="Search anime by title"/><div class="list" id="animeList"></div></section>
 <section hidden="" id="episodeSection">
-<div class="te-admin-section-kicker">02 / EPISODE CONTROL</div><h2>Manage anime episodes</h2><p class="help">Choose an anime, season, and episode. Add multiple servers or video qualities. Paste the HGCloud embed URL or the complete iframe code. No video files are uploaded here.</p>
+<div class="te-admin-section-kicker">02 / EPISODE CONTROL</div><h2>Manage anime episodes</h2><p class="help">Choose an anime, season, and episode. Add multiple servers or video qualities. Paste Videa, VOE, or HGCloud links, or iframe embed codes. Supported watch links are converted into player links automatically. No video files are uploaded here.</p>
+<div class="episode-anime-picker" id="episodeAnimePicker">
+  <label for="episodeAnimeSearch">Search anime</label>
+  <div class="episode-anime-search-controls">
+    <input id="episodeAnimeSearch" type="search" placeholder="Search by anime title or ID…" autocomplete="off" aria-controls="episodeAnimeSearchResults" />
+    <button id="episodeAnimeSearchButton" type="button">Search</button>
+    <button id="episodeAnimeSearchClear" type="button" hidden>Clear</button>
+  </div>
+  <div class="episode-anime-search-results" id="episodeAnimeSearchResults" aria-label="Anime search results" hidden></div>
+  <p class="episode-anime-search-count" id="episodeAnimeSearchCount" role="status" aria-live="polite" hidden></p>
+</div>
 <label>Anime<select id="episodeAnime" required=""></select></label>
 <form id="episodeForm"><div class="fields">
 <label>Season<input id="seasonNumber" max="100" min="1" required="" type="number" value="1"/></label>
 <label>Episode number<input id="episodeNumber" max="2000" min="1" required="" type="number" value="1"/></label>
 </div><label>Episode title (optional)<input id="episodeTitleInput" maxlength="200" placeholder="Episode title"/></label>
-<h3>Video sources</h3><p class="help">You can add separate 480p and 720p video URLs. HGCloud may not offer quality selection inside its own player.</p>
-<div id="episodeSources"></div><button id="addEpisodeSource" type="button">+ Add server or quality</button>
+<h3>Video sources</h3><p class="help">Paste the video link from Videa, VOE, or HGCloud. Server names are detected automatically. The provider may control available resolutions.</p>
+<div id="episodeSources"></div><datalist id="episodeServerNames"><option value="Videa"></option><option value="VOE"></option><option value="HGCloud"></option></datalist><button id="addEpisodeSource" type="button">+ Add server or quality</button><p class="help">Use an embeddable video that you have permission to display. Some providers may block external playback.</p>
 <p aria-live="polite" class="help" id="episodeStatus"></p>
 <button id="episodeSave" type="submit">Save episode</button><button id="episodeReset" type="button">New episode / Cancel editing</button>
-</form><h2>Saved episodes</h2><p class="help" id="episodeTotal"></p><div class="list" id="episodeList"></div>
+</form>
+    <details class="episode-bulk-panel" id="bulkEpisodePanel">
+      <summary>Bulk Episode Links — import many episodes</summary>
+      <p class="help">Paste many video links for the selected anime. Preview first, then save. Existing sources are preserved; matching links are skipped. Only video links are imported, never video files.</p>
+      <label>Default season<input id="bulkEpisodeSeason" type="number" min="1" max="100" value="1" /></label>
+      <label>Video links (one per line)
+        <textarea id="bulkEpisodeText" dir="ltr" spellcheck="false" rows="8" placeholder="1 | Videa | https://videa.hu/player?v=VIDEO_ID
+1 | VOE | https://voe.sx/e/VIDEO_ID
+2 | HGCloud | https://hgcloud.to/e/VIDEO_ID"></textarea>
+      </label>
+      <p class="help">Format: <code>Episode | Server | URL</code>. Optional: <code>Episode | Server | URL | Quality</code>, or <code>Season | Episode | Server | URL</code>. You can also paste <code>Episode | URL</code> for automatic server detection.</p>
+      <div class="episode-bulk-actions"><button id="bulkEpisodePreview" type="button">Preview links</button><button id="bulkEpisodeImport" type="button" disabled>Save new links</button><button id="bulkEpisodeClear" type="button">Clear</button></div>
+      <p id="bulkEpisodeStatus" role="status" aria-live="polite" class="help">No changes have been made.</p>
+      <progress id="bulkEpisodeProgress" value="0" max="1" hidden></progress>
+      <div id="bulkEpisodeResults" class="episode-bulk-results" aria-live="polite"></div>
+    </details><h2>Saved episodes</h2><p class="help" id="episodeTotal"></p><div class="list" id="episodeList"></div>
 </section>
 <section hidden="" id="featuredSection"><div class="te-admin-section-kicker">03 / CURATED RELEASES</div><h2>Latest Anime &amp; Latest Episodes</h2><p class="help">Choose exactly what visitors see on mobile and desktop. Items do not appear here until you feature them. Use the arrow buttons to change display order.</p><div class="featured-two"><div><h3>Latest Anime</h3><label>Select an existing anime<select id="featuredAnimeSelect"></select></label><button id="featureAnimeAdd" type="button">+ Feature anime</button><div class="list" id="featuredAnimeList"></div></div><div><h3>Latest Episodes</h3><label>Anime<select id="featuredEpisodeAnime"></select></label><label>Saved episode<select id="featuredEpisodeSelect"></select></label><button id="featureEpisodeAdd" type="button">+ Feature episode</button><div class="list" id="featuredEpisodeList"></div></div></div>
 <div class="hero-admin-v7" id="heroManager">
@@ -44,5 +69,5 @@
 </div>
 <p aria-live="polite" id="featuredStatus" role="status"></p></section>
 <section hidden="" id="wallSection"><div class="te-admin-section-kicker">04 / COMMUNITY</div><h2>User wallpapers</h2><form id="wallSearchForm"><input id="wallSearch" placeholder="Search wallpaper title"/><button>Search</button></form><div class="list" id="wallList"></div><button id="prev">Previous</button><span id="pageNumber"></span><button id="next">Next</button><div id="cleanup" role="status"></div></section>
-</div></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="episode-data.js?v=episodes1"></script><script src="episode-admin.js?v=20261027-v16"></script><script src="admin-anime-meta.js?v=20261027-v16"></script><script src="admin.js?v=20261027-v16"></script><script src="featured-admin.js?v=20261024"></script><script src="admin-carousel-v7.js?v=20261025-v7"></script><script src="admin-jikan-import.js?v=20261027-v16"></script><script src="te-v5.js?v=20261025-v5"></script><script src="bulk-anime-v16.js?v=16.0"></script>
+</div></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="episode-data.js?v=links-v17"></script><script src="episode-admin.js?v=episode-search-v18"></script><script src="admin-anime-meta.js?v=20261027-v16"></script><script src="admin.js?v=20261027-v16"></script><script src="featured-admin.js?v=20261024"></script><script src="admin-carousel-v7.js?v=20261025-v7"></script><script src="admin-jikan-import.js?v=20261027-v16"></script><script src="te-v5.js?v=20261025-v5"></script><script src="anime-characters-api-v23.js?v=23.0"></script><script src="bulk-anime-v16.js?v=23.0"></script><script src="anime-characters-backfill-v23.js?v=23.0"></script>
 </body></html>

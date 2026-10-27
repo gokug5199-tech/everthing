@@ -8,14 +8,85 @@
     const season = Number(params.get('season') || 1);
     const episode = Number(params.get('episode') || 1);
 
+    // v16 fullscreen fix: control the player shell ourselves. Embedded providers
+    // may fail to expand from their own iframe controls, even with allowFullscreen.
+    let activeShell = null;
+    let activeFullscreenButton = null;
+    const expandIcon = '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m13-5h3a2 2 0 0 1 2 2v3M3 16v3a2 2 0 0 0 2 2h3m13-5v3a2 2 0 0 1-2 2h-3"/></svg>';
+    const collapseIcon = '<svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3v3a2 2 0 0 1-2 2H3m13-5v3a2 2 0 0 0 2 2h3M3 16h3a2 2 0 0 1 2 2v3m13-5h-3a2 2 0 0 0-2 2v3"/></svg>';
+    const nativeFullscreenElement = () => document.fullscreenElement || document.webkitFullscreenElement;
+    function isExpanded(shell) {
+        const full = nativeFullscreenElement();
+        return shell.classList.contains('watch-fallback-fullscreen') || !!(full && (full === shell || shell.contains(full)));
+    }
+    function updateFullscreenControl() {
+        if (!activeShell || !activeFullscreenButton) return;
+        const expanded = isExpanded(activeShell);
+        activeFullscreenButton.innerHTML = expanded ? collapseIcon : expandIcon;
+        activeFullscreenButton.setAttribute('aria-label', expanded ? 'Exit fullscreen' : 'Enter fullscreen');
+        activeFullscreenButton.title = expanded ? 'Exit fullscreen' : 'Enter fullscreen';
+        activeFullscreenButton.setAttribute('aria-pressed', String(expanded));
+    }
+    function leaveFallbackFullscreen() {
+        if (activeShell) activeShell.classList.remove('watch-fallback-fullscreen');
+        document.documentElement.classList.remove('watch-fullscreen-scroll-lock');
+        updateFullscreenControl();
+    }
+    async function toggleShellFullscreen(shell, nativeVideo) {
+        if (shell.classList.contains('watch-fallback-fullscreen')) {
+            leaveFallbackFullscreen();
+            return;
+        }
+        if (isExpanded(shell)) {
+            try {
+                if (document.exitFullscreen) await document.exitFullscreen();
+                else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+            } catch (error) { console.warn('Could not exit fullscreen:', error); }
+            updateFullscreenControl();
+            return;
+        }
+        // iPhone Safari has a dedicated native fullscreen API for <video>.
+        if (nativeVideo && typeof nativeVideo.webkitEnterFullscreen === 'function' &&
+            /iPad|iPhone|iPod/.test(navigator.userAgent)) {
+            try { nativeVideo.webkitEnterFullscreen(); return; } catch (error) { /* try shell instead */ }
+        }
+        try {
+            if (typeof shell.requestFullscreen === 'function') {
+                await shell.requestFullscreen();
+                updateFullscreenControl();
+                return;
+            }
+            if (typeof shell.webkitRequestFullscreen === 'function') {
+                shell.webkitRequestFullscreen();
+                updateFullscreenControl();
+                return;
+            }
+        } catch (error) { /* Browsers may deny fullscreen for embedded players. */ }
+        // Visual viewport fallback for browsers that don't support element fullscreen.
+        shell.classList.add('watch-fallback-fullscreen');
+        document.documentElement.classList.add('watch-fullscreen-scroll-lock');
+        updateFullscreenControl();
+    }
+    document.addEventListener('fullscreenchange', updateFullscreenControl);
+    document.addEventListener('webkitfullscreenchange', updateFullscreenControl);
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && activeShell && activeShell.classList.contains('watch-fallback-fullscreen')) {
+            leaveFallbackFullscreen();
+        }
+    });
+
     function explain(text) { const el = document.createElement('div'); el.className = 'missing'; el.textContent = text; area.replaceChildren(el); }
     function viewLink(item) { return `watch.html?anime=${encodeURIComponent(animeId)}&season=${item.season_number}&episode=${item.episode_number}`; }
     function player(source) {
         const href = api.safeLink(source.url), kind = api.sourceKind(source.url);
+        leaveFallbackFullscreen();
+        activeShell = null;
+        activeFullscreenButton = null;
         area.replaceChildren();
         if (!href || kind === 'invalid') { explain('This source is invalid. Please select another server.'); return; }
         if (kind === 'embed' || kind === 'video') {
             const wrap = document.createElement('div'); wrap.className = 'video-shell';
+            let nativeVideo = null;
             if (kind === 'embed') {
                 const iframe = document.createElement('iframe');
                 iframe.src = href;
@@ -27,8 +98,17 @@
             } else {
                 const video = document.createElement('video');
                 video.src = href; video.controls = true; video.playsInline = true; video.preload = 'metadata';
+                nativeVideo = video;
                 wrap.append(video);
             }
+            const fullscreenButton = document.createElement('button');
+            fullscreenButton.type = 'button';
+            fullscreenButton.className = 'watch-fullscreen-button';
+            fullscreenButton.addEventListener('click', () => toggleShellFullscreen(wrap, nativeVideo));
+            wrap.append(fullscreenButton);
+            activeShell = wrap;
+            activeFullscreenButton = fullscreenButton;
+            updateFullscreenControl();
             area.append(wrap);
         } else {
             const message = document.createElement('div'); message.className = 'missing';

@@ -8,3 +8,39 @@ nav{display:flex;gap:8px;flex-wrap:wrap}nav button{margin:0}.help{color:#9fb3bc;
 
 /* Curated latest */
 .featured-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.featured-two>div{min-width:0}.featured-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-bottom:1px solid #30414e;padding:10px 0}.featured-row span{flex:1;min-width:140px}.featured-row button{margin:0;padding:6px 10px}#featuredStatus{color:#92ead0}@media(max-width:760px){.featured-two{grid-template-columns:1fr}}
+
+/* v17 Episode links: light-weight, responsive bulk import UI. */
+.episode-bulk-panel{margin:26px 0;padding:18px;border:1px solid #615b9670;border-radius:17px;background:#11172b}
+.episode-bulk-panel summary{color:#e6d5ff;font-weight:800;cursor:pointer;font-size:17px;list-style-position:inside}
+.episode-bulk-panel[open] summary{margin-bottom:16px}
+.episode-bulk-panel label{max-width:100%}
+.episode-bulk-panel #bulkEpisodeSeason{max-width:150px}
+.episode-bulk-panel textarea{min-height:190px;resize:vertical;font-family:ui-monospace,SFMono-Regular,Consolas,monospace!important;font-size:12px!important;white-space:pre}
+.episode-bulk-actions{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.episode-bulk-actions button{margin:3px}
+#bulkEpisodeImport{background:linear-gradient(100deg,#5143af,#913989);color:#fff;border:1px solid #9e7afb}
+#bulkEpisodeStatus{white-space:pre-wrap;overflow-wrap:anywhere}
+#bulkEpisodeProgress{display:block;width:100%;height:12px;accent-color:#996fff}
+#bulkEpisodeProgress[hidden]{display:none}
+.episode-bulk-results{display:grid;gap:7px;max-height:300px;overflow:auto}
+.episode-bulk-results div{border:1px solid #59618055;background:#0b1224;border-radius:9px;padding:9px 12px;font-size:12px;color:#bfcdec;overflow-wrap:anywhere}
+.source-hint{grid-column:1/-1;color:#abb3dc;font-size:11px;line-height:1.5;overflow-wrap:anywhere}
+@media(max-width:600px){.episode-bulk-panel{padding:12px}.episode-bulk-actions button{flex:1}.episode-bulk-panel textarea{font-size:11px!important}}
+
+
+/* v18: Fast anime search in the episode editor; no heavy effects for Safari. */
+.episode-anime-picker{margin:12px 0 16px;max-width:100%}
+.episode-anime-picker>label{display:block;margin:0 0 5px}
+.episode-anime-search-controls{display:flex;align-items:stretch;flex-wrap:wrap;gap:8px}
+body.te-v5-admin .episode-anime-search-controls input{flex:1 1 210px;width:auto;min-width:0;margin:0!important}
+body.te-v5-admin .episode-anime-search-controls button{min-height:44px;margin:0!important;padding:8px 15px!important;border:1px solid #846ad4!important;background:#251b45!important;color:#ede4ff!important;border-radius:11px!important;font-size:13px!important;font-weight:700}
+body.te-v5-admin #episodeAnimeSearchButton{background:#6648c1!important;border-color:#906ef0!important;color:#fff!important}
+.episode-anime-search-results{display:grid;gap:4px;max-height:285px;overflow-y:auto;overscroll-behavior:contain;margin-top:8px;padding:6px;border:1px solid #615285;border-radius:12px;background:#0a1020}
+.episode-anime-search-results[hidden],.episode-anime-search-count[hidden]{display:none!important}
+body.te-v5-admin .episode-anime-search-results button{display:block;width:100%;margin:0!important;padding:10px 12px!important;border:1px solid transparent!important;border-radius:8px!important;background:transparent!important;color:#e1e8ff!important;font-size:13px!important;line-height:1.5!important;text-align:left!important;overflow-wrap:anywhere}
+body.te-v5-admin .episode-anime-search-results button:hover,body.te-v5-admin .episode-anime-search-results button:focus-visible{background:#30234e!important;border-color:#7e66c3!important}
+.episode-anime-search-count{font-size:12px;color:#aab6d5;margin:6px 0 8px}
+@media(max-width:500px){body.te-v5-admin .episode-anime-search-controls input{flex-basis:100%}.episode-anime-search-controls button{flex:1}}
+
+/* v19 character backfill; styled to match the existing bulk-import panel. */
+.te-v5-admin .te-backfill-v19{margin-top:18px;background:radial-gradient(circle at 90% 0%,rgba(97,80,195,.13),transparent 55%),linear-gradient(145deg,#111628,#0c101d)}

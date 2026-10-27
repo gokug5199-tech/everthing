@@ -45,7 +45,7 @@ function normalizeRelations(groups){
     .slice(0,60).map(x=>({mal_id:number(x.mal_id),type:'anime',name:String(x.name||'Anime').slice(0,210)}))
  })).filter(x=>x.entries.length);
 }
-function payloadFor(a,relations){
+function payloadFor(a,relations,characters=[]){
  const malId=number(a.mal_id);
  const title=displayName(a).slice(0,200);
  const genres=[...(a.genres||[]),...(a.explicit_genres||[]),...(a.themes||[]),...(a.demographics||[])].map(g=>g?.name).filter(Boolean);
@@ -62,7 +62,7 @@ function payloadFor(a,relations){
   release_season:season(a.season),release_year:year(a.year)||year(String(a.aired?.from||'').slice(0,4)),
   start_date:date(a.aired?.from),end_date:date(a.aired?.to),broadcast_day:day(a.broadcast?.day),
   age_rating:age(a.rating),airing_status:status(a.status),source_type:source(a.source),
-  series_key:'',season_order:1,season_label:String(a.title||title).slice(0,100),characters:[]
+  series_key:'',season_order:1,season_label:String(a.title||title).slice(0,100),characters:Array.isArray(characters)?characters.slice(0,30):[]
  };
 }
 function graphInfo(payload){
@@ -122,13 +122,14 @@ if(!section||!command)return;
 const root=document.createElement('section');root.className='te-bulk-v16';root.id='teBulkImport';
 root.innerHTML=`
   <div class="te-bulk-top"><div><span class="te-bulk-kicker">BULK CATALOG IMPORT / TENRAI</span>
-    <h2>Add 500 anime in one click.</h2><p>Import 500 <strong>new</strong> anime, skip duplicates, and connect sequels, specials, remakes and alternate versions. Existing records are never overwritten.</p></div>
+    <h2>Add 500 anime in one click.</h2><p>Import 500 <strong>new</strong> anime, skip duplicates, and connect sequels, specials, remakes and alternate versions. Existing records are never overwritten. Characters are fetched for new titles automatically.</p></div>
     <span class="te-bulk-number">500<span> NEW ANIME</span></span></div>
   <div class="te-bulk-stats"><div><small>Current catalog</small><strong id="teBulkExisting">—</strong></div><div><small>Successfully added</small><strong id="teBulkAdded">0</strong></div><div><small>Skipped duplicates</small><strong id="teBulkSkipped">0</strong></div><div><small>API / data errors</small><strong id="teBulkErrors">0</strong></div></div>
   <div class="te-bulk-progress"><div class="te-bulk-progress-title"><span id="teBulkState">Ready for a new import</span><span id="teBulkPercent">0%</span></div>
     <progress id="teBulkBar" max="500" value="0">0 / 500</progress><p class="te-bulk-status" id="teBulkMessage" role="status" aria-live="polite">The existing anime catalog is checked before importing. This may take several minutes. Keep this tab open.</p></div>
   <div class="te-bulk-controls"><button type="button" id="teBulkStart" class="te-bulk-primary">Import 500 New Anime</button><button type="button" id="teBulkCheck">Check Connection &amp; Database</button><button type="button" id="teBulkPause" hidden>Pause safely</button><button type="button" id="teBulkDiscard" hidden>Discard saved progress</button></div>
-  <details class="te-bulk-details"><summary>What will be imported?</summary><p>Titles, posters, synopsis, genres, studio, ratings, release dates, seasons and anime type. The importer also prioritizes a few directly related sequels, specials, remakes and alternate versions within the 500-title limit. Relationships are read from Tenrai and linked to other records in your library. The importer does not upload episodes, videos or characters. Missing or conflicting metadata is left unlinked rather than inventing a watch order.</p><p>Progress is saved in this browser. If the page is closed, return to Admin and press Resume. Never run the importer in two tabs at the same time.</p></details>
+  <details class="te-bulk-details"><summary>What will be imported?</summary><p>Titles, posters, synopsis, genres, studio, ratings, release dates, seasons and anime type. The importer also prioritizes a few directly related sequels, specials, remakes and alternate versions within the 500-title limit. Relationships are read from Tenrai and linked to other records in your library. The importer does not upload episodes or videos. Up to 30 characters are fetched during import where Tenrai provides them. Use Fill All Missing Characters for older or temporarily unavailable titles. Missing or conflicting metadata is left unlinked rather than inventing a watch order.</p><p>Progress is saved in this browser. If the page is closed, return to Admin and press Resume. Never run the importer in two tabs at the same time.</p></details>
+  <p class="te-bulk-status" id="teBulkCharacters">Character import: ready.</p>
   <ol id="teBulkLog" class="te-bulk-log" aria-label="Recent import activity"></ol>`;
 command.insertAdjacentElement('afterend',root);
 
@@ -141,7 +142,7 @@ function save(){if(!task)return;try{localStorage.setItem(storageKey(),JSON.strin
 function loadSaved(){try{const saved=JSON.parse(localStorage.getItem(storageKey())||'null');return saved?.version===16&&saved?.owner===userId&&saved?.goal===TARGET?saved:null;}catch{return null;}}
 function discardSaved(){try{localStorage.removeItem(storageKey());}catch{}}
 function shuffled(values){const copy=[...values];for(let i=copy.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[copy[i],copy[j]]=[copy[j],copy[i]];}return copy;}
-function newTask(){return {version:16,owner:userId,goal:TARGET,addedIds:[],skipped:0,errors:0,seen:[],pages:shuffled(Array.from({length:200},(_,i)=>i+1)),pageIndex:0,queue:[],pending:[],graph:{},finished:false,lastError:'',started:new Date().toISOString()};}
+function newTask(){return {version:16,owner:userId,goal:TARGET,addedIds:[],skipped:0,errors:0,seen:[],pages:shuffled(Array.from({length:200},(_,i)=>i+1)),pageIndex:0,queue:[],pending:[],graph:{},finished:false,characterPopulated:0,characterUnavailable:0,lastError:'',started:new Date().toISOString()};}
 function snapshotCatalog(){catalog=admin.getCatalog();existingNames=new Set();existingIds=new Set();existingMalIds=new Set();for(const a of catalog){existingIds.add(String(a.id));if(number(a.mal_id))existingMalIds.add(number(a.mal_id));const key=titleKey(a.title);if(key)existingNames.add(key);}text('teBulkExisting',catalog.length);}
 function exists(a){if(existingMalIds.has(number(a?.mal_id)))return true;return aliases(a).some(alias=>existingNames.has(alias));}
 function updateState(message){const n=task?.addedIds.length||0;const total=TARGET;
@@ -149,6 +150,7 @@ function updateState(message){const n=task?.addedIds.length||0;const total=TARGE
  el('teBulkBar').value=n;
  text('teBulkState',task?.finished?'Import complete':running?(pauseRequested?'Pausing after current batch…':'Importing anime…'):task?'Import paused — ready to resume':'Ready for a new import');
  if(message)text('teBulkMessage',message);
+ text('teBulkCharacters',`Characters: ${task?.characterPopulated||0} new anime with cast · ${task?.characterUnavailable||0} unavailable / retry later`);
  const start=el('teBulkStart');start.disabled=running||!admin;start.textContent=task?(task.finished?'Import Another 500 Anime':'Resume Import'):'Import 500 New Anime';
  el('teBulkPause').hidden=!running;el('teBulkPause').disabled=pauseRequested;el('teBulkCheck').disabled=running||!admin;
  el('teBulkDiscard').hidden=!task||task.finished||running;
@@ -253,7 +255,11 @@ async function flush(){
  for(const item of rows){
   existingMalIds.add(item.mal_id);existingIds.add(item.id);existingNames.add(titleKey(item.title));
   if(saved.has(item.mal_id)){
-   if(!task.addedIds.includes(item.mal_id))task.addedIds.push(item.mal_id);
+   if(!task.addedIds.includes(item.mal_id)){
+    task.addedIds.push(item.mal_id);
+    if(item.characters?.length)task.characterPopulated=(task.characterPopulated||0)+1;
+    else task.characterUnavailable=(task.characterUnavailable||0)+1;
+   }
    // Admin catalog is refreshed at the end to avoid expensive rerenders after each batch.
    catalog.push(item);
   }else{task.skipped++;}
@@ -289,6 +295,7 @@ async function organize(){
 }
 async function run(){
  if(!admin||running)return;
+ if(!window.TEAdminJobV23?.acquire('bulk')){text('teBulkMessage','Another character job is running in this tab. Pause or finish it first.');return;}
  running=true;pauseRequested=false;
  let allGood=false;
  try{
@@ -315,6 +322,13 @@ async function run(){
    const item=payloadFor(a,result.relations);
    if(!item.image||!item.title||!item.mal_id){task.errors++;save();continue;}
    if(existingIds.has(item.id)){task.skipped++;save();continue;}
+   // Fetch a real cast for each NEW record before its insert. Never modify older records.
+   try{
+    item.characters=await window.TECharacterAPIv23.fetchCharacters(id);
+   }catch(error){
+    // A temporary character endpoint failure should not lose the anime import.
+    log(`Characters unavailable for MAL #${id}; the backfill tool can retry later.`);
+   }
    task.graph[id]=graphInfo(item);
    task.pending.push(item);prioritizeRelations(item,candidate,seen);save();
    updateState(`Preparing ${displayName(a)} • ${task.addedIds.length} saved, ${task.pending.length} in the next batch.`);
@@ -331,7 +345,7 @@ async function run(){
   log('Import paused: '+msg);
   text('teBulkMessage','Paused: '+msg+' Your completed batches are saved. Press Resume Import when the issue is resolved.');
  }finally{
-  running=false;pauseRequested=false;
+  running=false;pauseRequested=false;window.TEAdminJobV23?.release('bulk');
   updateState(task?.finished?`Done! ${task.addedIds.length} new anime imported. Existing entries were not overwritten.`:task?.lastError?'Paused: '+task.lastError:'Progress saved. You can resume at any time.');
  }
 }

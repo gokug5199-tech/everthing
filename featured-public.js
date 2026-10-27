@@ -131,8 +131,21 @@
     let episodes = [];
     if (selectedEpisodes.length) {
       try {
-        episodes = await fetchRows('site_episodes',
-          'select=anime_id,season_number,episode_number,title&limit=5000');
+        // Fetch ONLY admin-featured episodes, not thousands of unrelated episodes.
+        const filters = selectedEpisodes.slice(0, 100).map(item => {
+          const id = String(item.anime_id || '');
+          const season = Number(item.season_number), episode = Number(item.episode_number);
+          if (!/^[a-z0-9][a-z0-9-]{0,79}$/.test(id) || !Number.isSafeInteger(season) ||
+              !Number.isSafeInteger(episode) || season < 1 || episode < 1) return null;
+          return `and(anime_id.eq.${id},season_number.eq.${season},episode_number.eq.${episode})`;
+        }).filter(Boolean);
+        if (filters.length) {
+          episodes = await fetchRows('site_episodes', new URLSearchParams({
+            select: 'anime_id,season_number,episode_number,title',
+            or: '(' + filters.join(',') + ')',
+            limit: '100'
+          }).toString());
+        }
       } catch (error) { console.warn('Episode details unavailable:', error); }
     }
     const epByKey = new Map(episodes.map(ep =>
