@@ -1,0 +1,41 @@
+/* The Everything v16 / bulk catalog import — scoped to Admin only */
+.te-v5-admin .te-bulk-v16{max-width:100%;margin:24px 0 32px;padding:25px;border:1px solid rgba(150,130,255,.28);border-radius:22px;background:radial-gradient(circle at 95% 0%,rgba(116,81,245,.22),transparent 45%),linear-gradient(145deg,#151329,#0e1221);box-shadow:0 18px 55px #0002;color:#f5f4ff}
+.te-bulk-top{display:flex;justify-content:space-between;align-items:flex-start;gap:18px}
+.te-bulk-kicker{display:block;margin-bottom:10px;font-size:10px;font-weight:850;letter-spacing:.18em;color:#a78cff}
+.te-bulk-top h2{margin:0 0 9px!important;color:#faf8ff;font-size:clamp(21px,3vw,28px);letter-spacing:-.055em}
+.te-bulk-top p{font-size:13px;color:#afb1cb;line-height:1.7;max-width:620px;margin:0}
+.te-bulk-number{flex:0 0 auto;font-family:'Space Grotesk',Arial,sans-serif;font-size:38px;font-weight:800;line-height:1;color:#b89cff;white-space:nowrap}
+.te-bulk-number span{display:block;text-align:right;font:800 9px/1.8 Arial,sans-serif;letter-spacing:.12em;color:#9d9db9}
+.te-bulk-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:24px 0}
+.te-bulk-stats>div{background:rgba(8,10,25,.54);border:1px solid rgba(171,145,255,.12);border-radius:13px;padding:14px 13px;min-width:0}
+.te-bulk-stats small{display:block;font-size:11px;color:#9ea3c0;line-height:1.4}
+.te-bulk-stats strong{display:block;font-size:25px;color:#fff;margin-top:7px;font-variant-numeric:tabular-nums}
+.te-bulk-progress{padding:16px;border-radius:13px;border:1px solid rgba(156,140,239,.12);background:rgba(6,9,18,.42)}
+.te-bulk-progress-title{display:flex;justify-content:space-between;gap:12px;color:#e4dcff;font-size:12px;font-weight:800}
+.te-bulk-progress progress{display:block;height:12px;width:100%;margin:14px 0 11px;appearance:none;-webkit-appearance:none;border:0;border-radius:12px;overflow:hidden;background:#2b2945}
+.te-bulk-progress progress::-webkit-progress-bar{background:#2b2945;border-radius:12px}
+.te-bulk-progress progress::-webkit-progress-value{background:linear-gradient(90deg,#915bfa,#4b80fd,#f154a6);border-radius:12px}
+.te-bulk-progress progress::-moz-progress-bar{background:linear-gradient(90deg,#915bfa,#4b80fd,#f154a6)}
+.te-bulk-status{margin:0!important;color:#b2b7d0;font-size:12px;line-height:1.6;overflow-wrap:anywhere}
+.te-bulk-controls{display:flex;flex-wrap:wrap;gap:11px;margin:17px 0}
+.te-v5-admin .te-bulk-controls button{min-height:47px;padding:12px 17px;border-radius:12px;border:1px solid rgba(161,145,245,.29);background:rgba(101,81,149,.25);color:#ece8ff;cursor:pointer;font-weight:800;font-size:13px;box-shadow:none;max-width:100%}
+.te-v5-admin .te-bulk-controls button:hover:not(:disabled){background:#35305e;border-color:#a888ff}
+.te-v5-admin .te-bulk-controls button.te-bulk-primary{background:linear-gradient(110deg,#7542ed,#4c70ed 70%,#ba408e);color:white;border-color:rgba(197,174,255,.25);min-width:220px}
+.te-v5-admin .te-bulk-controls button:disabled{opacity:.5;cursor:not-allowed}
+.te-bulk-details{color:#acaac7;font-size:12px;line-height:1.7}
+.te-bulk-details summary{cursor:pointer;color:#cbbaff;font-weight:800;margin:8px 0}
+.te-bulk-details p{margin:9px 0}
+.te-bulk-log{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:7px;max-height:200px;overflow:auto}
+.te-bulk-log li{font-size:11px;color:#aab2cb;background:rgba(9,12,26,.7);padding:8px 12px;border-radius:8px;overflow-wrap:anywhere}
+.te-v5-admin .te-anime-show-more{width:100%;margin-top:15px;padding:14px 16px;background:#201a3b;border:1px solid #775dba;border-radius:12px;color:#d9cfff;font-weight:800;cursor:pointer}
+@media(max-width:767px){
+ .te-v5-admin .te-bulk-v16{padding:16px;margin:16px 0 24px;border-radius:17px}
+ .te-bulk-top{flex-direction:column;gap:12px}
+ .te-bulk-number{font-size:26px}.te-bulk-number span{display:inline;padding-left:8px}
+ .te-bulk-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:16px 0}
+ .te-bulk-stats>div{padding:11px}
+ .te-bulk-stats strong{font-size:23px}
+ .te-bulk-controls{flex-direction:column}
+ .te-v5-admin .te-bulk-controls button{width:100%}
+}
+@media(prefers-reduced-motion:reduce){.te-bulk-v16 *{transition:none!important}}
