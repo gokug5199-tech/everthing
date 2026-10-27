@@ -1,0 +1,90 @@
+/* The Everything — Safari performance v15.
+   iOS Safari only, enabled before first paint. Desktop and Chrome unchanged.
+   Replaces costly large blurred layers with equivalent radial gradients.
+*/
+@media (max-width: 1024px) {
+  html.te-safari-perf,
+  html.te-safari-perf body { scroll-behavior: auto !important; }
+
+  html.te-safari-perf body .hm-atmosphere > span,
+  html.te-safari-perf body .v6-atmos-glow,
+  html.te-safari-perf body .v6-stage-light,
+  html.te-safari-perf body .hm-hero-glow,
+  html.te-safari-perf body.te-mobile-redesign-ready::before,
+  html.te-safari-perf body.te-mobile-redesign-ready::after {
+    -webkit-filter: none !important;
+    filter: none !important;
+    will-change: auto !important;
+  }
+  html.te-safari-perf body .hm-atmosphere > span:nth-child(1) {
+    background: radial-gradient(circle, rgba(67,20,168,.78) 0%, rgba(67,20,168,.34) 34%, transparent 73%) !important;
+    opacity: .32 !important;
+  }
+  html.te-safari-perf body .hm-atmosphere > span:nth-child(2) {
+    background: radial-gradient(circle, rgba(6,57,184,.68) 0%, rgba(6,57,184,.24) 36%, transparent 73%) !important;
+    opacity: .31 !important;
+  }
+  html.te-safari-perf body .hm-atmosphere > span:nth-child(3) {
+    background: radial-gradient(circle, rgba(142,19,62,.7) 0%, rgba(142,19,62,.22) 38%, transparent 74%) !important;
+    opacity: .18 !important;
+  }
+  html.te-safari-perf body .v6-glow-purple {
+    background: radial-gradient(circle, rgba(105,45,206,.75), rgba(105,45,206,.24) 36%, transparent 72%) !important;
+  }
+  html.te-safari-perf body .v6-glow-blue {
+    background: radial-gradient(circle, rgba(28,85,199,.68), rgba(28,85,199,.2) 38%, transparent 73%) !important;
+  }
+  html.te-safari-perf body .v6-glow-red {
+    background: radial-gradient(circle, rgba(105,32,57,.7), rgba(105,32,57,.2) 36%, transparent 73%) !important;
+  }
+  html.te-safari-perf body .hm-hero-glow,
+  html.te-safari-perf body .v6-stage-light {
+    opacity: .38 !important;
+  }
+  /* Offscreen/blurred anime details backdrop can repaint constantly during scroll. */
+  html.te-safari-perf body .anime-backdrop img {
+    filter: none !important;
+    -webkit-filter: none !important;
+    opacity: .12 !important;
+  }
+
+  /* Eliminate transparent live backdrop sampling on sticky/fixed UI.
+     Covers brand/navigation/modal surfaces but keeps colors and borders. */
+  html.te-safari-perf body :is(
+    .hm-header, .top-header, .navbar, .te-mobile-nav,
+    .te-install-banner, .te-site-footer, .v6-featured-label,
+    .v7-hero-carousel-controls, .te-lara-greeting,
+    .te-anime-command, .hm-world-arrow, .password-modal,
+    .cover-dialog, .account-dropdown, .profile-top
+  ) {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+  html.te-safari-perf body :is(.hm-header, .top-header, .te-mobile-nav, .account-dropdown) {
+    background-color: rgba(10,13,26,.98) !important;
+  }
+  html.te-safari-perf body .te-install-banner {
+    background-color: #10192a !important;
+  }
+  html.te-safari-perf body .v6-featured-label,
+  html.te-safari-perf body .v7-hero-carousel-controls {
+    background-color: #12152a !important;
+  }
+
+  /* Disable *decorative* perpetual animations only. No carousel, controls,
+     dialogs, or functional JS animations are disabled. */
+  html.te-safari-perf body :is(
+    .v6-stage-light, .cinema-glow, .cinema-spotlight,
+    .film-strip, .moving-light, .aurora
+  ) {
+    animation: none !important;
+    will-change: auto !important;
+  }
+  html.te-safari-perf body :is(.hm-art-card,.v6-featured-card,.hm-world-photo) {
+    will-change: auto !important;
+  }
+  html.te-safari-perf body .hm-atmosphere,
+  html.te-safari-perf body .v6-world-atmosphere {
+    pointer-events: none !important;
+  }
+}
