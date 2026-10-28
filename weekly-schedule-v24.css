@@ -1,0 +1,45 @@
+/* The Everything v24 — weekly release board, light on Safari/iPhone. */
+.te-weekly{position:relative;margin:54px 0 70px;padding:30px 31px 25px;border:1px solid rgba(148,140,232,.28);border-radius:24px;background:linear-gradient(145deg,rgba(21,19,45,.93),rgba(11,22,43,.94));color:#f6f4ff;box-shadow:0 18px 55px rgba(0,0,0,.13)}
+.te-weekly-head{display:flex;justify-content:space-between;align-items:center;gap:22px;margin-bottom:25px}
+.te-weekly-head h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,3.3vw,41px);line-height:1.08;letter-spacing:-.055em;margin:10px 0 12px;color:#faf8ff}
+.te-weekly-head h2 em{font-style:normal;background:linear-gradient(110deg,#9d76ff,#638dff,#ea77c9);color:transparent;background-clip:text;-webkit-background-clip:text}
+.te-weekly-head p{color:#a9b1cb;font-size:12px;line-height:1.65;margin:0}
+.te-weekly-mark{display:grid;place-items:center;width:48px;height:48px;flex:0 0 48px;border-radius:15px;border:1px solid #a38dfc55;background:#272448;color:#c5aaff;font-size:25px}
+.te-weekly-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;padding:7px;border-radius:14px;background:#0b1228d1;border:1px solid #8293cf1c}
+.te-weekly-days button{min-width:0;min-height:41px;border:1px solid transparent;border-radius:10px;background:transparent;color:#a9b8d4;font-size:12px;font-weight:800;cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+.te-weekly-days button:hover{background:#262844;color:#fff}
+.te-weekly-days button.active,.te-weekly-days button[aria-pressed=true]{background:linear-gradient(115deg,#7543ed,#4068e6);color:#fff;border-color:#9fa0ff6b;box-shadow:0 5px 14px #321c7547}
+.te-weekly-count{color:#bbc4de;font-size:11px;letter-spacing:.03em;margin:18px 1px 16px;min-height:14px}
+.te-weekly-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;min-height:170px}
+.te-weekly-card{display:flex;align-items:center;gap:10px;min-width:0;min-height:104px;background:rgba(20,28,53,.84);border:1px solid #818ee23b;border-radius:13px;color:#fff;text-decoration:none!important;padding:10px;transition:border-color .18s,transform .18s,background .18s}
+.te-weekly-card:hover{background:#232343;border-color:#a28cff9c;transform:translateY(-2px)}
+.te-weekly-card:focus-visible,.te-weekly-days button:focus-visible,.te-weekly-actions button:focus-visible{outline:2px solid #b9a1ff;outline-offset:3px}
+.te-weekly-poster{display:block;width:55px;height:80px;flex:0 0 55px;background:linear-gradient(145deg,#463271,#182b59);border-radius:8px;overflow:hidden}
+.te-weekly-poster img{display:block;width:100%;height:100%;object-fit:cover}
+.te-weekly-poster-empty:after{content:'✦';display:grid;place-items:center;height:100%;color:#c3b5f2;font-size:24px}
+.te-weekly-copy{display:flex;flex-direction:column;justify-content:center;gap:6px;min-width:0;flex:1}
+.te-weekly-copy strong{font-size:12px;line-height:1.45;color:#fff;font-weight:800;overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3}
+.te-weekly-copy small{font-size:10px;color:#a5afcb}
+.te-weekly-airing{font-size:9px;color:#a7f1dc;border:1px solid #3d927e4b;border-radius:6px;background:#18393286;padding:5px 6px;white-space:nowrap;align-self:flex-start}
+.te-weekly-arrow{font-size:16px;color:#ad97ff;align-self:flex-end}
+.te-weekly-empty{grid-column:1/-1;align-self:center;text-align:center;color:#aab5cf;padding:30px 12px;border-radius:13px;border:1px dashed #737cb04f;font-size:13px}
+.te-weekly-actions{display:flex;justify-content:center;margin:18px auto 0}
+.te-weekly-actions button{border:1px solid #957be6a1;border-radius:11px;background:#2c2658;color:#f3ecff;padding:11px 23px;font-size:12px;font-weight:800;cursor:pointer}
+.te-weekly-actions button[hidden]{display:none!important}
+.te-weekly-note{font-size:10.5px;color:#8895b8;margin:17px 1px 0;line-height:1.6}
+@media(max-width:1100px){.te-weekly-list{grid-template-columns:repeat(3,minmax(0,1fr))}.te-weekly-airing{display:none}}
+@media(max-width:760px){.te-weekly{margin:36px 0 46px;padding:21px 16px;border-radius:18px}.te-weekly-days{display:flex;gap:5px;overflow-x:auto;scrollbar-width:thin;padding:6px}.te-weekly-days button{flex:0 0 auto;min-width:76px;padding:0 9px}.te-weekly-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.te-weekly-card{min-height:94px;padding:7px;gap:8px}.te-weekly-poster{width:48px;height:72px;flex-basis:48px}.te-weekly-copy strong{font-size:11px}.te-weekly-arrow{display:none}}
+@media(max-width:380px){.te-weekly-list{grid-template-columns:1fr}.te-weekly-card{min-height:90px}}
+@media(prefers-reduced-motion:reduce){.te-weekly *{transition:none!important}}
+
+/* v25 dedicated weekly calendar page. */
+.te-weekly-page .te-schedule-topline{display:flex;justify-content:space-between;align-items:center;gap:15px;margin:38px 0 24px;color:#8d94bf;font-size:10px;letter-spacing:.12em;font-weight:800}
+.te-weekly-page .te-schedule-back{border:1px solid #9082d75b;background:#141831;padding:11px 16px;border-radius:10px;color:#cbbcff!important;letter-spacing:0;font-size:12px}
+.te-weekly-page .te-schedule-back:hover{background:#252345}
+.te-weekly-page .te-weekly{margin:0 auto 80px;padding:34px;min-height:380px}
+.te-weekly-page .te-weekly-head h1{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:clamp(33px,4.6vw,56px);line-height:1.08;letter-spacing:-.05em;margin:10px 0 13px;color:#fff}
+.te-weekly-page .te-weekly-head h1 em{font-style:normal;background:linear-gradient(100deg,#c37cff,#6589ff,#ee74c8);background-clip:text;-webkit-background-clip:text;color:transparent}
+.te-weekly-page .te-weekly-list{grid-template-columns:repeat(4,minmax(0,1fr));min-height:130px}
+@media(max-width:1000px){.te-weekly-page .te-weekly-list{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:760px){.te-weekly-page .te-weekly{padding:20px 15px;margin-bottom:36px}.te-weekly-page .te-weekly-list{grid-template-columns:repeat(2,minmax(0,1fr))}.te-weekly-page .te-schedule-topline{margin:23px 0 16px}.te-weekly-page .te-schedule-topline>span{display:none}}
+@media(max-width:380px){.te-weekly-page .te-weekly-list{grid-template-columns:1fr}}

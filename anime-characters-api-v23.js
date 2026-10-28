@@ -59,7 +59,36 @@ function fetchCharacters(id){
  chain=result.catch(()=>{});
  return result;
 }
-window.TECharacterAPIv23={normalizeCharacters,fetchCharacters};
+// A new manual record may have no MAL ID. Only resolve a unique, exact title
+// match; never attach characters from a guessed anime/season.
+function titleKey(value){
+ return String(value||'').normalize('NFKC').toLocaleLowerCase().replace(/[^\p{L}\p{N}]/gu,'');
+}
+function animeTitles(a){
+ return [a?.title,a?.title_english,a?.title_japanese,...(a?.title_synonyms||[]),...(a?.titles||[]).map(x=>x?.title)]
+   .map(titleKey).filter(Boolean);
+}
+async function lookupExactAnime(title,releaseYear){
+ const key=titleKey(title);
+ if(!key)return null;
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),16000);
+ let data;
+ try{
+  const response=await fetch(API+'/anime?q='+encodeURIComponent(title)+'&limit=25',{headers:{Accept:'application/json'},signal:controller.signal});
+  if(!response.ok)throw Error('Tenrai search HTTP '+response.status);
+  data=(await response.json())?.data;
+ }finally{clearTimeout(timer);}
+ if(!Array.isArray(data))throw Error('Tenrai returned invalid search results.');
+ const exact=data.filter(a=>Number.isSafeInteger(Number(a?.mal_id))&&Number(a.mal_id)>0&&animeTitles(a).includes(key));
+ const year=Number(releaseYear)||0;
+ const matches=year?exact.filter(a=>{
+  const y=Number(a.year)||Number(String(a?.aired?.from||'').slice(0,4));
+  return y===year;
+ }):exact;
+ const unique=new Map(matches.map(a=>[Number(a.mal_id),a]));
+ return unique.size===1?[...unique.keys()][0]:null;
+}
+window.TECharacterAPIv23={normalizeCharacters,fetchCharacters,lookupExactAnime,titleKey,animeTitles};
 // Shared lock prevents simultaneous large Tenrai jobs in this admin tab.
 window.TEAdminJobV23={current:null,acquire(kind){if(this.current)return false;this.current=kind;return true;},release(kind){if(this.current===kind)this.current=null;}};
 })();

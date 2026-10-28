@@ -1,0 +1,18 @@
+The Everything v25 — Order, Compact Related Rail & Dedicated Weekly Schedule
+
+التركيب:
+1. فك ضغط PATCH v25.
+2. انسخ الملفات السبعة إلى المجلد الرئيسي لموقع The Everything، مع الاستبدال عند السؤال.
+3. ارفع ملفات الموقع إلى Netlify بنفس بنية المجلدات.
+4. حدث المتصفح Ctrl + F5، وافتح صفحة أنمي ثم Anime > Weekly Release Schedule.
+
+التغييرات:
+- anime-details.html: الحلقات أولا، بعدها الأجزاء والأعمال المرتبطة، ثم الشخصيات.
+- anime-relations-v16.js/css: شريط أفقي أصغر مع أزرار التنقل، وروابط داخلية.
+- anime.html/css: إزالة الجدول من الصفحة وإضافة زر فوق My Anime Library.
+- schedule.html: صفحة جديدة مستقلة لجدول الأيام.
+- weekly-schedule-v24.css: تنسيقات الصفحة المستقلة.
+
+ملاحظة: السكربت weekly-schedule-v24.js من v24 مستخدم كما هو؛ لا تحذفه.
+لا يلزم تشغيل SQL. جدول الأيام يعتمد على broadcast_day وairing_status المخزّنين.
+اختبار: تمت مراجعة HTML وجافاسكربت ومحاكاة شريط الأجزاء؛ لم ينجح تشغيل المتصفح الآلي بسبب قيود بيئة التشغيل، ولم يتم الاتصال بـSupabase الحقيقي.

@@ -128,7 +128,7 @@ root.innerHTML=`
   <div class="te-bulk-progress"><div class="te-bulk-progress-title"><span id="teBulkState">Ready for a new import</span><span id="teBulkPercent">0%</span></div>
     <progress id="teBulkBar" max="500" value="0">0 / 500</progress><p class="te-bulk-status" id="teBulkMessage" role="status" aria-live="polite">The existing anime catalog is checked before importing. This may take several minutes. Keep this tab open.</p></div>
   <div class="te-bulk-controls"><button type="button" id="teBulkStart" class="te-bulk-primary">Import 500 New Anime</button><button type="button" id="teBulkCheck">Check Connection &amp; Database</button><button type="button" id="teBulkPause" hidden>Pause safely</button><button type="button" id="teBulkDiscard" hidden>Discard saved progress</button></div>
-  <details class="te-bulk-details"><summary>What will be imported?</summary><p>Titles, posters, synopsis, genres, studio, ratings, release dates, seasons and anime type. The importer also prioritizes a few directly related sequels, specials, remakes and alternate versions within the 500-title limit. Relationships are read from Tenrai and linked to other records in your library. The importer does not upload episodes or videos. Up to 30 characters are fetched during import where Tenrai provides them. Use Fill All Missing Characters for older or temporarily unavailable titles. Missing or conflicting metadata is left unlinked rather than inventing a watch order.</p><p>Progress is saved in this browser. If the page is closed, return to Admin and press Resume. Never run the importer in two tabs at the same time.</p></details>
+  <details class="te-bulk-details"><summary>What will be imported?</summary><p>Titles, posters, synopsis, genres, studio, ratings, release dates, seasons and anime type. The importer also prioritizes a few directly related sequels, specials, remakes and alternate versions within the 500-title limit. Relationships are read from Tenrai and linked to other records in your library. The importer does not upload episodes or videos. Up to 30 characters are fetched during import where Tenrai provides them. Missing or conflicting metadata is left unlinked rather than inventing a watch order.</p><p>Progress is saved in this browser. If the page is closed, return to Admin and press Resume. Never run the importer in two tabs at the same time.</p></details>
   <p class="te-bulk-status" id="teBulkCharacters">Character import: ready.</p>
   <ol id="teBulkLog" class="te-bulk-log" aria-label="Recent import activity"></ol>`;
 command.insertAdjacentElement('afterend',root);
@@ -295,7 +295,7 @@ async function organize(){
 }
 async function run(){
  if(!admin||running)return;
- if(!window.TEAdminJobV23?.acquire('bulk')){text('teBulkMessage','Another character job is running in this tab. Pause or finish it first.');return;}
+ if(!window.TEAdminJobV23?.acquire('bulk')){text('teBulkMessage','Another import is running in this tab. Finish or pause it first.');return;}
  running=true;pauseRequested=false;
  let allGood=false;
  try{
@@ -326,8 +326,13 @@ async function run(){
    try{
     item.characters=await window.TECharacterAPIv23.fetchCharacters(id);
    }catch(error){
-    // A temporary character endpoint failure should not lose the anime import.
-    log(`Characters unavailable for MAL #${id}; the backfill tool can retry later.`);
+    // Do not save a NEW anime with missing cast because of a temporary API
+    // failure. Put the candidate back so Resume retries the same title.
+    task.queue.unshift(candidate);
+    task.seen=task.seen.filter(value=>Number(value)!==id);
+    seen.delete(id);
+    save();
+    throw Error(`Character fetch failed for MAL #${id}; no record was saved for it. Resume to retry. ${error?.message||''}`);
    }
    task.graph[id]=graphInfo(item);
    task.pending.push(item);prioritizeRelations(item,candidate,seen);save();

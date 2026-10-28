@@ -19,6 +19,9 @@ const resetButton = document.getElementById('teClearFilters');
 const API = 'https://tnavsfbolastevebukxl.supabase.co/rest/v1/site_anime';
 const KEY = 'sb_publishable_3FX_mPM-A6dIY-nQTtFZQg_5HPoWO9B';
 const PAGE_SIZE = 48;
+// v24: related titles not yet in the library open internal catalog search.
+const requestedSearch = new URLSearchParams(location.search).get('search');
+if (searchInput && requestedSearch && !searchInput.value) searchInput.value = requestedSearch.slice(0,90);
     const genreCatalog = [
         "Action",
         "Adventure",

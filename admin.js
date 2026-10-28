@@ -25,7 +25,30 @@ const links={};for(const line of $('links').value.split('\n').filter(l=>l.trim()
 let image=safeURL($('poster').value.trim()),uploadedPath=null,committed=false;
 try{const metadata=await window.AnimeMeta.read(client,id,safeURL);const file=$('posterFile').files[0];if(file){if(!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>5242880)throw Error('Choose a JPG, PNG, or WebP file smaller than 5 MB.');uploadedPath=id+'/'+crypto.randomUUID()+'.'+({ 'image/jpeg':'jpg','image/png':'png','image/webp':'webp'}[file.type]);const upload=await client.storage.from('anime-posters').upload(uploadedPath,file,{contentType:file.type});if(upload.error)throw upload.error;image=client.storage.from('anime-posters').getPublicUrl(uploadedPath).data.publicUrl;}
 const payload={id,title:$('title').value.trim(),image,category:$('category').value.trim(),genres:$('genres').value.split(/[,،]/).map(g=>g.trim()).filter(Boolean),rating:Number($('rating').value),episodes:count,description:$('description').value.trim(),episode_links:links,...metadata};
-const q=editing?client.from('site_anime').update(payload).eq('id',editing):client.from('site_anime').insert(payload);const result=await q.select('id').single();if(result.error){if(result.error.code==='23505')throw Error('This anime ID or MyAnimeList ID already exists. Edit the existing anime instead.');throw result.error;}committed=true;window.AnimeMeta.commit();reset();await allAnime();say('Anime saved. It will appear on the anime page after you open or refresh it.');
+// New entries get cast at save time, whether the form was filled manually or
+// by Tenrai. Never replace manual entries or characters on existing anime.
+let charactersNote='';
+if(!editing && (!Array.isArray(payload.characters) || payload.characters.length===0)){
+ const source=window.TECharacterAPIv23;
+ if(!source)throw Error('Character importer is unavailable. Reload Admin and retry; the anime has not been saved.');
+ say('Finding characters for this new anime on Tenrai…');
+ let malId=Number(payload.mal_id)||0;
+ if(!malId){
+  try{malId=await source.lookupExactAnime(payload.title,payload.release_year)||0;}
+  catch(err){throw Error('Tenrai search failed while finding characters. Nothing was saved. Please retry or add characters manually. '+(err?.message||''));}
+ }
+ if(malId){
+  try{
+   payload.characters=await source.fetchCharacters(malId);
+   charactersNote=payload.characters.length?` Imported ${payload.characters.length} characters from Tenrai.`:' Tenrai has no characters for this anime yet.';
+  }catch(err){
+   throw Error('Character lookup failed for MAL #'+malId+'. Nothing was saved. Try Save Anime again. '+(err?.message||''));
+  }
+ }else if(!charactersNote){
+  charactersNote=' Could not find a unique anime match. Add its MyAnimeList ID or use Import Anime from Tenrai for automatic characters.';
+ }
+}
+const q=editing?client.from('site_anime').update(payload).eq('id',editing):client.from('site_anime').insert(payload);const result=await q.select('id').single();if(result.error){if(result.error.code==='23505')throw Error('This anime ID or MyAnimeList ID already exists. Edit the existing anime instead.');throw result.error;}committed=true;window.AnimeMeta.commit();reset();await allAnime();say('Anime saved. It will appear on the anime page after you open or refresh it.'+charactersNote);
 }catch(e){if(!committed)await window.AnimeMeta.rollback(client);if(uploadedPath&&!committed)await client.storage.from('anime-posters').remove([uploadedPath]);throw e;}
 })};
 async function loadWalls(){let q=client.from('wallpapers').select('id,title,user_id,category,file_path,created_at',{count:'exact'}).order('created_at',{ascending:false}).order('id');if(search)q=q.ilike('title','%'+search.replace(/[%_]/g,'')+'%');const result=await q.range(page*24,page*24+23);if(result.error)throw result.error;$('wallList').replaceChildren();$('pageNumber').textContent=` Page ${page+1} · ${result.count} wallpapers `;

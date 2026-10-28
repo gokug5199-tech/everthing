@@ -20,3 +20,36 @@
  .te-rel-card{min-height:83px}
  .te-rel-card img,.te-rel-placeholder{height:67px;width:50px;flex-basis:50px}
 }
+/* v24: related links are all internal; compact series cards after characters. */
+.anime-detail-v2 .character-section{margin:32px 0 24px}
+.anime-detail-v2 #relatedSection{margin:22px 0 10px}
+.anime-detail-v2 .te-rel-v16{margin:16px 0 28px}
+.te-rel-search .te-rel-copy small{color:#b9a0ed}
+.te-rel-resolving{opacity:.7;pointer-events:none}
+.te-rel-card:focus-visible{outline:2px solid #b591ff;outline-offset:3px}
+@media(max-width:650px){.anime-detail-v2 .character-section{margin:22px 0}.anime-detail-v2 .te-rel-v16{margin:16px 0 24px}}
+
+/* v25 compact rails — no long vertical category blocks. */
+.anime-detail-v2 .episodes-section{margin:30px 0 22px}
+.anime-detail-v2 .te-series-v25,.anime-detail-v2 .te-rel-v16{margin:20px 0!important;padding:20px 21px!important;border-radius:17px}
+.anime-detail-v2 .character-section{margin:27px 0 36px}
+.te-series-heading,.te-rel-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:13px}
+.te-series-heading h2,.te-rel-heading h2{margin:0 0 5px;font-size:21px;letter-spacing:-.025em}
+.te-series-heading p,.te-rel-heading p{margin:0;color:#9facc9;font-size:11px;line-height:1.5}
+.te-rail-buttons{display:flex;gap:7px;flex:0 0 auto}
+.te-rail-buttons button{display:grid;place-items:center;border-radius:10px;border:1px solid rgba(150,137,240,.33);background:#252042;color:#f5edff;width:36px;height:36px;font-size:20px;cursor:pointer}
+.te-rail-buttons button:hover:not(:disabled){background:#4a367b;border-color:#bfa6ff}
+.te-rail-buttons button:disabled{opacity:.32;cursor:default}
+.te-rail-buttons button:focus-visible,.te-rel-list:focus-visible,.related-seasons:focus-visible{outline:2px solid #b59aff;outline-offset:2px}
+.te-rel-list{display:flex;gap:11px;overflow-x:auto;overflow-y:hidden;padding:3px 1px 11px;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:#594a85 transparent}
+.te-rel-card{flex:0 0 clamp(180px,26%,235px);width:clamp(180px,26%,235px);min-height:97px;padding:9px;gap:9px;border-radius:12px;scroll-snap-align:start;transform:none!important}
+.te-rel-card img,.te-rel-placeholder{width:47px;height:71px;flex:0 0 47px;border-radius:7px}
+.te-rel-copy{gap:3px}
+.te-rel-copy strong{font-size:11px;-webkit-line-clamp:2;line-height:1.4}
+.te-rel-copy small{font-size:9px}
+.te-rel-kind{font-size:9px;color:#d6b6ff;text-transform:uppercase;font-weight:850;letter-spacing:.055em}
+.te-series-v25 .related-seasons{scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:#594a85 transparent;padding:3px 1px 11px}
+.te-series-v25 .related-seasons a{flex:0 0 clamp(180px,26%,235px);min-width:0;min-height:84px;padding:8px;gap:9px;scroll-snap-align:start}
+.te-series-v25 .related-seasons img{width:47px;height:66px;flex:0 0 47px}
+@media(max-width:700px){.anime-detail-v2 .te-series-v25,.anime-detail-v2 .te-rel-v16{padding:15px!important}.te-rel-list{gap:9px}.te-rel-card,.te-series-v25 .related-seasons a{flex-basis:205px;width:205px}.te-rail-buttons button{width:34px;height:34px}.te-series-heading h2,.te-rel-heading h2{font-size:18px}}
+@media(prefers-reduced-motion:reduce){.te-rel-list,.related-seasons{scroll-behavior:auto}}

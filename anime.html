@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="home-2026.css?v=20261025-v4">
 <link rel="stylesheet" href="mobile-pwa.css?v=20261024-v3">
 <link rel="stylesheet" href="shared-header-v6.css?v=20261026-avatar-v13">
-<link rel="stylesheet" href="anime.css?v=20261028-v20-server-pages">
+<link rel="stylesheet" href="anime.css?v=20261028-v25-schedule-link">
 <script src="back-navigation.js" defer></script>
     <link rel="stylesheet" href="mobile-stability-v10.css?v=20261026-v10">
 
@@ -98,7 +98,9 @@
     <section class="te-discovery v6-discovery" id="discover" aria-label="Discover and filter anime">
       <div class="te-discovery-intro">
         <div><span class="v6-section-eyebrow">THE ANIME LIBRARY</span><h2>Find something<br><em>worth watching.</em></h2><p>Search your entire collection, dive into genres or explore the best-rated picks.</p></div>
-        <a class="te-quick-library" href="my-anime.html"><span aria-hidden="true">♡</span> My Anime Library <span aria-hidden="true">↗</span></a>
+        <div class="te-library-shortcuts">
+          <a class="te-weekly-shortcut" href="schedule.html"><span class="te-weekly-shortcut-icon" aria-hidden="true">▦</span><span>Weekly Release Schedule</span><span aria-hidden="true">↗</span></a>
+          <a class="te-quick-library" href="my-anime.html"><span aria-hidden="true">♡</span> My Anime Library <span aria-hidden="true">↗</span></a></div>
       </div>
       <div class="te-discovery-controls">
         <label class="anime-search" for="animeSearch">
@@ -124,7 +126,7 @@
 
   </main>
   <!-- v20: the collection fetches only the requested page directly from Supabase. -->
-  <script src="anime.js?v=20261028-v22-instant-details"></script>
+  <script src="anime.js?v=20261028-v24-internal-search"></script>
   <script src="account-menu.js?v=20261023-clean"></script>
   <script src="featured-public.js?v=20261028-v20-targeted-episodes"></script>
   <script src="mobile-pwa.js?v=20261026-v10"></script>

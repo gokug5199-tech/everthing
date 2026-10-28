@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070916">
+<meta name="description" content="Find this year’s currently airing anime by broadcast day on The Everything.">
+<title>Weekly Release Schedule — The Everything</title>
+<link rel="icon" type="image/webp" href="image/home/te-icon.webp">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site-branding.css">
+<link rel="stylesheet" href="home-2026.css?v=20261025-v4">
+<link rel="stylesheet" href="mobile-pwa.css?v=20261024-v3">
+<link rel="stylesheet" href="shared-header-v6.css?v=20261026-avatar-v13">
+<link rel="stylesheet" href="anime.css?v=20261028-v25-schedule-link">
+<link rel="stylesheet" href="weekly-schedule-v24.css?v=25.0">
+<link rel="stylesheet" href="mobile-stability-v10.css?v=20261026-v10">
+<link rel="stylesheet" href="te-unified-theme-v12.css?v=20261026-v12">
+<link rel="stylesheet" href="safari-perf-v15.css?v=15.0">
+<script src="safari-perf-v15.js?v=15.0"></script>
+<script src="back-navigation.js" defer></script>
+</head>
+<body class="te-v6-anime te-weekly-page">
+<a class="v6-skip" href="#v6-main">Skip to schedule</a>
+<div class="v6-world-atmosphere" aria-hidden="true"><span class="v6-atmos-glow v6-glow-purple"></span><span class="v6-atmos-glow v6-glow-blue"></span></div>
+  <div class="hm-header-wrap v6-global-header">
+    <div class="hm-header" role="banner">
+      <a class="hm-brand" href="index.html" aria-label="The Everything home">
+        <img src="image/home/te-icon.webp" width="50" height="50" alt="The Everything logo">
+        <span class="hm-brand-label"><b>THE EVERYTHING</b><small>ONE PLACE. ENDLESS WORLDS.</small></span>
+      </a>
+      <nav class="hm-nav" aria-label="Primary navigation">
+        <a href="index.html">Home</a>
+        <a href="anime.html" class="is-active" aria-current="page">Anime</a>
+        <a href="wallpaper.html">Wallpapers</a>
+        <span class="hm-nav-disabled" aria-label="Films coming soon">Films <small>SOON</small></span>
+      </nav>
+      <div class="hm-account-wrap" id="v6AccountMount"></div>
+    </div>
+  </div>
+
+<main id="v6-main" class="v6-main">
+  <div class="te-schedule-topline"><a href="anime.html" class="te-schedule-back">← Back to Anime</a><span>THE EVERYTHING / RELEASE CALENDAR</span></div>
+  <section class="te-weekly" id="weeklyReleases" aria-labelledby="teWeeklyTitle">
+    <div class="te-weekly-head"><div><span class="v6-section-eyebrow">ON THE AIR · THE EVERYTHING</span>
+      <h1 id="teWeeklyTitle">Weekly <em>release schedule.</em></h1>
+      <p>Browse this year’s ongoing anime by their listed broadcast day, from Sunday to Saturday. Older titles are excluded.</p></div>
+      <span class="te-weekly-mark" aria-hidden="true">▦</span>
+    </div>
+    <div class="te-weekly-days" id="teWeeklyDays" role="group" aria-label="Select broadcast day"></div>
+    <div class="te-weekly-count" id="teWeeklySummary" role="status" aria-live="polite">Loading scheduled anime…</div>
+    <div class="te-weekly-list" id="teWeeklyList" aria-busy="true"></div>
+    <div class="te-weekly-actions"><button type="button" id="teWeeklyMore" hidden>Show more anime <span aria-hidden="true">↓</span></button></div>
+    <p class="te-weekly-note">Only current-year anime marked Ongoing with a known broadcast day appear. Times and streaming availability are not verified live.</p>
+  </section>
+</main>
+<script src="weekly-schedule-v24.js?v=26.0" defer></script>
+<script src="account-menu.js?v=20261023-clean"></script>
+<script src="site-shell.js"></script>
+<script src="shared-header-v6.js?v=20261025-v6"></script>
+<script src="mobile-pwa.js?v=20261026-v10"></script>
+</body>
+</html>

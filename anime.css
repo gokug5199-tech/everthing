@@ -245,3 +245,11 @@ body.te-v6-anime .te-pagination-caption{font-size:12px;color:#aab1d5;flex-basis:
 /* v20: lightweight state for server-paginated catalog */
 #animeGrid.te-anime-loading { opacity: .6; min-height: 260px; transition: opacity .12s ease; }
 .te-anime-retry { display: inline-flex; margin: 12px 0 0 10px; border: 1px solid rgba(157,125,255,.45); border-radius: 10px; background: #251d43; color: #eee9ff; padding: 8px 14px; cursor: pointer; }
+
+/* v25: compact schedule link above My Anime Library in the filter panel. */
+.te-library-shortcuts{display:flex;flex-direction:column;align-items:flex-end;gap:10px;flex:0 0 auto}
+.te-weekly-shortcut{display:inline-flex;justify-content:space-between;align-items:center;gap:12px;min-height:43px;padding:10px 14px;border-radius:12px;color:#eee9ff!important;background:linear-gradient(110deg,#39255f,#243569);border:1px solid #a78cff86;font-size:12px;font-weight:850;white-space:nowrap;transition:background .18s,border-color .18s}
+.te-weekly-shortcut:hover{background:linear-gradient(110deg,#553083,#314b8c);border-color:#ceb3ff}
+.te-weekly-shortcut-icon{color:#d5afff;font-size:17px;line-height:1}
+@media(max-width:800px){.te-library-shortcuts{align-items:flex-start}}
+@media(max-width:430px){.te-weekly-shortcut{font-size:11px;padding:9px 11px;min-height:40px}}
