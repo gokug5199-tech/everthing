@@ -44,3 +44,8 @@ body.te-v5-admin .episode-anime-search-results button:hover,body.te-v5-admin .ep
 
 /* v19 character backfill; styled to match the existing bulk-import panel. */
 .te-v5-admin .te-backfill-v19{margin-top:18px;background:radial-gradient(circle at 90% 0%,rgba(97,80,195,.13),transparent 55%),linear-gradient(145deg,#111628,#0c101d)}
+
+/* v29: compact server-side paging in the Anime admin list. */
+.te-admin-page-controls{display:flex;gap:.7rem;justify-content:flex-end;flex-wrap:wrap;margin:1rem 0 1.5rem}
+.te-admin-page-controls button:disabled{opacity:.4;cursor:not-allowed}
+#animeListInfo{font-size:.81rem;opacity:.8;margin:.6rem 0}

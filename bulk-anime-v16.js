@@ -143,7 +143,7 @@ function loadSaved(){try{const saved=JSON.parse(localStorage.getItem(storageKey(
 function discardSaved(){try{localStorage.removeItem(storageKey());}catch{}}
 function shuffled(values){const copy=[...values];for(let i=copy.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[copy[i],copy[j]]=[copy[j],copy[i]];}return copy;}
 function newTask(){return {version:16,owner:userId,goal:TARGET,addedIds:[],skipped:0,errors:0,seen:[],pages:shuffled(Array.from({length:200},(_,i)=>i+1)),pageIndex:0,queue:[],pending:[],graph:{},finished:false,characterPopulated:0,characterUnavailable:0,lastError:'',started:new Date().toISOString()};}
-function snapshotCatalog(){catalog=admin.getCatalog();existingNames=new Set();existingIds=new Set();existingMalIds=new Set();for(const a of catalog){existingIds.add(String(a.id));if(number(a.mal_id))existingMalIds.add(number(a.mal_id));const key=titleKey(a.title);if(key)existingNames.add(key);}text('teBulkExisting',catalog.length);}
+async function snapshotCatalog(){catalog=await admin.getBulkCatalog();existingNames=new Set();existingIds=new Set();existingMalIds=new Set();for(const a of catalog){existingIds.add(String(a.id));if(number(a.mal_id))existingMalIds.add(number(a.mal_id));const key=titleKey(a.title);if(key)existingNames.add(key);}text('teBulkExisting',catalog.length);}
 function exists(a){if(existingMalIds.has(number(a?.mal_id)))return true;return aliases(a).some(alias=>existingNames.has(alias));}
 function updateState(message){const n=task?.addedIds.length||0;const total=TARGET;
  text('teBulkAdded',n);text('teBulkSkipped',task?.skipped||0);text('teBulkErrors',task?.errors||0);text('teBulkPercent',Math.round(n/total*100)+'%');
@@ -299,7 +299,7 @@ async function run(){
  running=true;pauseRequested=false;
  let allGood=false;
  try{
-  await ensureSchema();snapshotCatalog();
+  await ensureSchema();await snapshotCatalog();
   if(task){await reconcilePending();if(task.pending.length)await flush();}
   const seen=new Set(task.seen.map(Number));
   updateState('Checking existing anime and importing new titles from Tenrai…');
@@ -341,7 +341,7 @@ async function run(){
   if(task.pending.length)await flush();
   // Organize already-added entries even if the admin paused before reaching 500.
   await organize();
-  await admin.reload();snapshotCatalog();
+  await admin.reload();await snapshotCatalog();
   if(task.addedIds.length>=TARGET){task.finished=true;save();allGood=true;}
   if(allGood)log(`Import complete: ${task.addedIds.length} NEW anime were added. Your previous records were not changed.`);
  }catch(error){
@@ -358,7 +358,9 @@ async function initialize(){
  if(admin||!window.TE_ADMIN_API)return;
  admin=window.TE_ADMIN_API;
  try{const session=await admin.getSession();userId=session?.data?.session?.user?.id||'';if(!userId)return;}catch{return;}
- snapshotCatalog();task=loadSaved();
+ task=loadSaved();
+ // The large duplicate-check index is requested only when an import starts.
+ admin.client.from('site_anime').select('id',{count:'exact',head:true}).then(({count,error})=>{if(!error)text('teBulkExisting',count??'—');});
  if(task?.finished){log('Your last 500-anime import was completed. You may start another batch.');}
  else if(task){log(`Found saved progress: ${task.addedIds.length} new anime. Resume when ready.`);}
  updateState(task?.finished?'Previous import complete. Click Import Another 500 Anime to begin a new batch.':task?'Saved import found. Click Resume to continue from your last completed batch.':'Ready. A single click imports up to 500 new, nonduplicate anime.');
