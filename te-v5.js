@@ -2,7 +2,8 @@
    Supabase and wallpaper handlers remain untouched. */
 (function () {
   'use strict';
-  const page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+  const leaf = (location.pathname.replace(/\/+$/, '').split('/').pop() || 'index').toLowerCase();
+  const page = leaf.endsWith('.html') ? leaf : leaf + '.html'; // Accept Cloudflare Pages clean URLs.
   function start() {
     if (!document.body.classList.contains('te-v5')) return;
     if (page === 'anime.html') {

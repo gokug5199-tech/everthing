@@ -42,7 +42,7 @@
 
     function addFloatingBrandWhenMissing() {
         if (document.querySelector(".te-brand-host, [data-te-brand] .te-brandmark, .te-info-header .te-brandmark")) return;
-        if (location.pathname.toLowerCase().endsWith("attack-on-titan.html")) return;
+        if (/(?:^|\/)attack-on-titan(?:\.html)?\/?$/i.test(location.pathname)) return;
 
         const link = document.createElement("a");
         link.href = "index.html";
@@ -76,7 +76,7 @@
 
     function injectFooter() {
         if (document.querySelector(".te-site-footer")) return;
-        if (location.pathname.toLowerCase().endsWith("attack-on-titan.html")) return;
+        if (/(?:^|\/)attack-on-titan(?:\.html)?\/?$/i.test(location.pathname)) return;
 
         document.querySelectorAll("footer:not(.te-site-footer)").forEach(function (oldFooter) {
             oldFooter.remove();
@@ -91,7 +91,7 @@
                   '<a href="index.html" class="te-brand-host" aria-label="The Everything">' + brandMarkup() + '</a>',
                   '<p class="te-footer-copyline">Anime. Films. Wallpapers.<br>One place. Endless worlds.</p>',
                 '</div>',
-                '<nav class="te-footer-links" aria-label="روابط الموقع">',
+                '<nav class="te-footer-links" aria-label="Site links">',
                   '<a href="about.html">About Us</a>',
                   '<a href="support.html">Support</a>',
                   '<a href="privacy.html">Privacy policy</a>',

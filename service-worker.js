@@ -1,5 +1,5 @@
 /* v10 — lightweight offline fallback. Supabase/auth/media are never cached. */
-const CACHE = 'te-shell-20261027-bulk-v16';
+const CACHE = 'te-shell-20261029-cloudflare-v27';
 const DOCUMENTS = ['./index.html', './anime.html', './wallpaper.html'];
 self.addEventListener('install', event => {
   event.waitUntil(

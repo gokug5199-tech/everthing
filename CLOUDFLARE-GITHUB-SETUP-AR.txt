@@ -1,0 +1,37 @@
+The Everything — Cloudflare Pages + GitHub (v27)
+================================================
+
+هذه النسخة مبنية على ملفات new(1).zip المرفوعة منك، ولا تغيّر بيانات Supabase.
+
+1) ضع محتويات ZIP في جذر مستودع GitHub (المجلد الذي يحتوي على index.html).
+   لا ترفع ملف ZIP نفسه إلى المستودع، ولا تضع المحتويات داخل new/ إلا إذا ضبطت Build output directory = new.
+2) نفّذ Commit و Push على فرع الإنتاج الذي ربطته بـ Cloudflare Pages (عادة main).
+   سيبدأ Cloudflare Pages نشر إصدار جديد تلقائيًا من GitHub.
+3) إذا كنت تضبط مشروع Cloudflare Pages جديدًا:
+   - Framework preset: None
+   - Build command: (فارغ) أو exit 0
+   - Build output directory: .   (عندما يكون index.html في جذر المستودع)
+   - Production branch: main، أو الفرع المستخدم في مستودعك.
+4) افتح رابط الموقع الجديد وتأكد من:
+   - Anime: تحميل القائمة والأقسام المميزة
+   - Anime detail: الاسم والشخصيات والحلقات
+   - Watch: تشغيل الحلقة مع Videa / VOE / HGCloud عند وجود روابط صحيحة
+   - Settings: رابط إعادة تعيين كلمة المرور
+   - PWA: تحديث الصفحة بعد النشر (Ctrl + Shift + R).
+5) مهم في Supabase Dashboard > Authentication > URL Configuration:
+   - عدّل Site URL إلى الدومين الحالي الذي تستخدمه.
+   - أضف عنوان موقعك الجديد إلى Redirect URLs إذا لم يكن موجودًا.
+   - اسمح برابط إعادة التعيين الخاص بالدومين الجديد /reset-password
+     (أو /reset-password.html إذا كان إعداد الاستضافة يستخدمه).
+   - لا تضع Service Role Key أو أي مفتاح سري داخل ملفات GitHub العامة.
+6) هذا التحديث لا يحتاج SQL ولا يحذف الأنميات أو المستخدمين.
+
+ما تم إصلاحه:
+- صفحة /anime أو /anime.html: إصلاح شرط تشغيل أقسام Featured/Latest.
+- صفحة /watch أو /watch.html: تحميل الأنمي المطلوب فقط بدل كامل المكتبة.
+- دعم الروابط النظيفة في بعض أكواد التنقل وواجهة المستخدم.
+- رابط استعادة كلمة المرور من Settings يستعمل الدومين الحالي بدل Netlify السابق.
+- تجديد اسم كاش خدمة PWA وإضافة ملف _headers لـ Cloudflare Pages.
+
+تحققنا من صياغة ملفات JavaScript وروابط الملفات الداخلية ومنطق المسارات بمحاكاة.
+لم ننفذ طلبات كتابة على Supabase أو Tenrai، ولم نختبر اتصال موقعك الحقيقي بالمزودين.

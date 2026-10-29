@@ -5,8 +5,9 @@
 
   const API = 'https://tnavsfbolastevebukxl.supabase.co/rest/v1/';
   const KEY = 'sb_publishable_3FX_mPM-A6dIY-nQTtFZQg_5HPoWO9B';
-  const page = location.pathname.split('/').pop().toLowerCase();
-  if (page !== 'anime.html') return;
+  const page = (location.pathname.replace(/\/+$/, '').split('/').pop() || 'index').toLowerCase().replace(/\.html$/, '');
+  // Cloudflare Pages may redirect /anime.html to /anime.
+  if (page !== 'anime') return;
 
   const safeImage = (value) => {
     try {
