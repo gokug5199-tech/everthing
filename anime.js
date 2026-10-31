@@ -107,6 +107,7 @@ let activeController = null;
 let requestSerial = 0;
 let menuOpen = false;
 let searchTimer;
+let aliasColumnSupported=true;
 const cache = new Map(); // Only retain recently visited pages, not all anime.
 window.ANIME_DATA = []; // For existing hero fallbacks; only the first page is exposed.
 window.ANIME_LOAD_ERROR = false;
@@ -131,7 +132,8 @@ function genreExpression(label) {
 }
 function searchExpression(term) {
   const like = '*'+term.replace(/\s+/g,'*')+'*';
-  const terms = ['title.ilike.'+like, 'category.ilike.'+like];
+  const terms = ['title.ilike.'+like, 'season_label.ilike.'+like, 'category.ilike.'+like];
+  if(aliasColumnSupported)terms.push('search_titles.ilike.'+like);
   // Exact genre lookup is included so searches such as "Romance" match genre tags.
   const knownGenre = genreCatalog.find(label => norm(label)===norm(term));
   if (knownGenre) terms.push(genreExpression(knownGenre));
@@ -348,12 +350,43 @@ async function loadPage() {
           signal:activeController.signal
         });
       }finally{clearTimeout(timer);}
+      if(!response.ok && aliasColumnSupported && response.status===400){
+        const problem=await response.json().catch(()=>({}));
+        if(window.TETitleSearchV32?.missingColumn(problem)){
+          aliasColumnSupported=false;
+          const fallbackQuery=buildQuery();
+          response=await fetch(API+'?'+fallbackQuery,{headers:{apikey:KEY,'Prefer':'count=exact'},signal:activeController.signal});
+        }
+      }
       if(!response.ok)throw Error('HTTP '+response.status);
-      const rows=await response.json();
+      let rows=await response.json();
       const range=response.headers.get('content-range');
       const match=range&&range.match(/\/(\d+)$/);
       if(!match)throw Error('Supabase did not return an exact result count');
-      entry={rows,total:Number(match[1])};
+      let count=Number(match[1]);
+      // Legacy rows might only have English display titles. Resolve a Japanese
+      // or romaji title to MAL IDs via Tenrai only when the indexed query misses.
+      const term=safeTerm(searchInput?.value);
+      if(count===0 && currentPage===1 && term && window.TETitleSearchV32){
+        const malIds=await window.TETitleSearchV32.lookupMalIds(term);
+        if(serial!==requestSerial)return;
+        if(malIds.length){
+          const extra=new URLSearchParams(buildQuery());
+          extra.delete('and');
+          extra.set('mal_id','in.('+malIds.join(',')+')');
+          if(selectedCategory!=='all'){
+            const label=genreCatalog.find(x=>norm(x)===selectedCategory);
+            if(label)extra.set('and','('+genreFilterExpression(label)+')');
+          }
+          const lookup=await fetch(API+'?'+extra.toString(),{headers:{apikey:KEY,'Prefer':'count=exact'},signal:activeController.signal});
+          if(lookup.ok){
+            rows=await lookup.json();
+            const found=(lookup.headers.get('content-range')||'').match(/\/(\d+)$/);
+            count=found?Number(found[1]):rows.length;
+          }
+        }
+      }
+      entry={rows,total:count};
       cache.set(query,entry);
       if(cache.size>8)cache.delete(cache.keys().next().value);
     }

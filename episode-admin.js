@@ -4,35 +4,45 @@
     const $ = id => document.getElementById(id);
     const message = text => { $('episodeStatus').textContent = text; };
     const links = window.EpisodeAPI;
-    function create({client, action, say}) {
+    function create({client, action, say, searchAnime}) {
         let anime = [];
         let stored = [];
         let editing = false;
         let bulkPrepared = null;
+        let searchTimer = null, searchSerial = 0, lastQuery = '', lastMatches = [];
+        let loadSerial = 0;
         const form = $('episodeForm');
         const sourcesBox = $('episodeSources');
         const animeSearch = $('episodeAnimeSearch');
         const animeSearchResults = $('episodeAnimeSearchResults');
         const animeSearchCount = $('episodeAnimeSearchCount');
         const animeSearchClear = $('episodeAnimeSearchClear');
-        // Search is read-only until the admin explicitly chooses a result.
-        // This keeps the current anime and unsaved form data intact while typing.
-        const normalizeSearch = value => String(value || '').normalize('NFKD')
-            .replace(/[\u0300-\u036f]/g, '').replace(/[-_]+/g, ' ').toLowerCase();
+        // Search Supabase only after the admin types. Never transfer all anime
+        // records to the browser or create 5,000 <option> elements.
+        function rememberAnime(item) {
+            if (!item || !item.id) return;
+            const existing = anime.find(a => a.id === item.id);
+            if (existing) Object.assign(existing, item);
+            else anime.push(item);
+            const select = $('episodeAnime');
+            if (![...select.options].some(o => o.value === item.id)) {
+                const option = document.createElement('option');
+                option.value = item.id; option.textContent = item.title || item.id;
+                select.append(option);
+            }
+        }
         function renderAnimeSearch() {
-            const search = animeSearch.value.trim();
-            const terms = normalizeSearch(search).split(/\s+/).filter(Boolean);
+            const query = animeSearch.value.trim();
+            animeSearchClear.hidden = !query;
+            animeSearchCount.hidden = !query;
+            animeSearchResults.hidden = !query;
             animeSearchResults.replaceChildren();
-            animeSearchClear.hidden = !search;
-            animeSearchCount.hidden = !search;
-            animeSearchResults.hidden = !search;
-            if (!search) { animeSearchCount.textContent = ''; return; }
-            const matches = anime.filter(a => {
-                const haystack = normalizeSearch(`${a.title || ''} ${a.id || ''}`);
-                return terms.every(term => haystack.includes(term));
-            });
-            const maxVisible = 12;
-            for (const item of matches.slice(0, maxVisible)) {
+            if (!query) { animeSearchCount.textContent = ''; return; }
+            if (query !== lastQuery) {
+                animeSearchCount.textContent = 'Searching the anime library…';
+                return;
+            }
+            for (const item of lastMatches) {
                 const button = document.createElement('button');
                 button.type = 'button';
                 button.textContent = item.title || item.id;
@@ -40,33 +50,69 @@
                 button.onclick = () => {
                     const select = $('episodeAnime');
                     const changed = select.value !== item.id;
+                    rememberAnime(item);
                     select.value = item.id;
-                    animeSearch.value = '';
+                    clearTimeout(searchTimer);
+                    ++searchSerial; animeSearch.value = '';
+                    lastQuery = ''; lastMatches = [];
                     renderAnimeSearch();
-                    if (changed) select.dispatchEvent(new Event('change', {bubbles: true}));
+                    if (changed) select.dispatchEvent(new Event('change', {bubbles:true}));
                 };
                 animeSearchResults.append(button);
             }
-            animeSearchCount.textContent = matches.length
-                ? `${matches.length} matching anime${matches.length > maxVisible ? `; showing first ${maxVisible}. Type more to narrow results.` : '. Choose a title above.'}`
-                : 'No matching anime. Try another title.';
+            animeSearchCount.textContent = lastMatches.length
+                ? `${lastMatches.length} result(s) found. Select a title above.`
+                : 'No matching anime. Try part of the title or its ID.';
         }
-        animeSearch.addEventListener('input', renderAnimeSearch);
-        animeSearch.addEventListener('focus', renderAnimeSearch);
+        async function runSearch() {
+            clearTimeout(searchTimer);
+            const query = animeSearch.value.trim();
+            const serial = ++searchSerial;
+            if (!query) { lastQuery = ''; lastMatches = []; renderAnimeSearch(); return; }
+            lastQuery = ''; lastMatches = [];
+            renderAnimeSearch();
+            try {
+                const results = await searchAnime(query);
+                if (serial !== searchSerial || animeSearch.value.trim() !== query) return;
+                lastQuery = query; lastMatches = Array.isArray(results) ? results : [];
+                renderAnimeSearch();
+            } catch (err) {
+                if (serial !== searchSerial) return;
+                animeSearchResults.replaceChildren();
+                animeSearchCount.hidden = false;
+                animeSearchCount.textContent = 'Search failed: ' + (err.message || err);
+            }
+        }
+        animeSearch.addEventListener('input', () => {
+            clearTimeout(searchTimer);
+            ++searchSerial;
+            lastQuery = ''; lastMatches = [];
+            renderAnimeSearch();
+            if (animeSearch.value.trim()) searchTimer = setTimeout(runSearch, 280);
+        });
         animeSearch.addEventListener('keydown', event => {
-            if (event.key === 'Escape') { animeSearch.value = ''; renderAnimeSearch(); }
+            if (event.key === 'Escape') {
+                clearTimeout(searchTimer); ++searchSerial;
+                animeSearch.value = ''; lastQuery = ''; lastMatches = [];
+                renderAnimeSearch();
+            }
             if (event.key === 'Enter') {
                 event.preventDefault();
                 const first = animeSearchResults.querySelector('button');
                 if (first && !animeSearchResults.hidden) first.click();
+                else runSearch();
             }
             if (event.key === 'ArrowDown') {
                 const first = animeSearchResults.querySelector('button');
                 if (first && !animeSearchResults.hidden) { event.preventDefault(); first.focus(); }
             }
         });
-        $('episodeAnimeSearchButton').onclick = () => { renderAnimeSearch(); animeSearch.focus(); };
-        animeSearchClear.onclick = () => { animeSearch.value = ''; renderAnimeSearch(); animeSearch.focus(); };
+        $('episodeAnimeSearchButton').onclick = runSearch;
+        animeSearchClear.onclick = () => {
+            clearTimeout(searchTimer); ++searchSerial;
+            animeSearch.value = ''; lastQuery = ''; lastMatches = [];
+            renderAnimeSearch(); animeSearch.focus();
+        };
         document.addEventListener('pointerdown', event => {
             if (!$('episodeAnimePicker').contains(event.target)) animeSearchResults.hidden = true;
         });
@@ -160,19 +206,25 @@
             const record = anime.find(a => a.id === animeId); if (record) record.episode_links = next;
         }
         async function load() {
-            const id = $('episodeAnime').value; stored=[];
-            if (!id) { render(); return; }
-            const all=[];
+            const serial = ++loadSerial;
+            const id = $('episodeAnime').value;
+            stored = [];
+            if (!id) { render(); $('episodeTotal').textContent = 'Select an anime above to manage its episodes.'; return; }
+            $('episodeTotal').textContent = 'Loading saved episodes for the selected anime…';
+            $('episodeList').replaceChildren();
+            const all = [];
             for (let offset=0; offset<5000; offset+=500) {
-                const r=await client.from('site_episodes').select('anime_id,season_number,episode_number,title,sources')
+                const r = await client.from('site_episodes').select('anime_id,season_number,episode_number,title,sources')
                     .eq('anime_id',id).order('season_number').order('episode_number').range(offset,offset+499);
+                if (serial !== loadSerial || id !== $('episodeAnime').value) return;
                 if (r.error) {
                     if (r.error.code === '42P01' || r.error.code === 'PGRST205') throw Error('Run EPISODES-SETUP.sql in the Supabase SQL Editor first.');
                     throw r.error;
                 }
-                all.push(...r.data); if (r.data.length<500) break;
+                all.push(...(r.data||[])); if (!r.data || r.data.length<500) break;
             }
-            stored=all; render();
+            if (serial !== loadSerial || id !== $('episodeAnime').value) return;
+            stored = all; render();
         }
         function parseVideo(input) {
             const parsed = links.parseSource(input);
@@ -381,18 +433,38 @@
         reset();
         return {
             setAnime(items) {
-                anime=items;
-                invalidateBulk();
-                const select=$('episodeAnime'), old=select.value;
+                const select = $('episodeAnime'), old = select.value;
+                const previouslyChosen = anime.find(a => a.id === old);
+                // Replace just the tiny default index, keeping the currently
+                // selected anime even if it is not in the first 32 titles.
+                anime = (items || []).slice();
+                if (previouslyChosen && !anime.some(a => a.id === old)) anime.push(previouslyChosen);
                 select.replaceChildren();
-                for (const a of anime) { const opt=document.createElement('option'); opt.value=a.id; opt.textContent=a.title; select.append(opt); }
-                if (anime.some(a=>a.id===old)) select.value=old;
+                select.add(new Option('Select an anime or search above…', ''));
+                for (const a of anime) {
+                    const opt = document.createElement('option');
+                    opt.value = a.id; opt.textContent = a.title || a.id;
+                    select.append(opt);
+                }
+                select.value = anime.some(a => a.id === old) ? old : '';
                 renderAnimeSearch();
             },
+            show() {
+                $('animeSection').hidden = true;
+                $('wallSection').hidden = true;
+                $('featuredSection').hidden = true;
+                $('episodeSection').hidden = false;
+            },
             async open(id) {
-                $('animeSection').hidden=true; $('wallSection').hidden=true; $('episodeSection').hidden=false;
-                if (id && anime.some(a=>a.id===id)) $('episodeAnime').value=id;
-                animeSearch.value = '';
+                this.show();
+                if (id && !anime.some(a => a.id === id)) {
+                    const result = await client.from('site_anime').select('id,title,episodes').eq('id',id).maybeSingle();
+                    if (result.error) throw result.error;
+                    if (result.data) rememberAnime(result.data);
+                }
+                if (id && anime.some(a => a.id === id)) $('episodeAnime').value = id;
+                clearTimeout(searchTimer); ++searchSerial;
+                animeSearch.value = ''; lastQuery = ''; lastMatches = [];
                 renderAnimeSearch();
                 invalidateBulk(); reset(); await load();
             }

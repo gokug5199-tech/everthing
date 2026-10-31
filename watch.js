@@ -87,11 +87,16 @@
         if (kind === 'embed' || kind === 'video') {
             const wrap = document.createElement('div'); wrap.className = 'video-shell';
             let nativeVideo = null;
+            // VOE's own player has a fullscreen button. Let its iframe handle it
+            // instead of placing The Everything's overlay above the provider.
+            const isVoeEmbed = kind === 'embed' && /^(?:www\.)?voe\.sx$/i.test(new URL(href).hostname);
             if (kind === 'embed') {
                 const iframe = document.createElement('iframe');
                 iframe.src = href;
                 iframe.title = `${source.name} player`;
-                iframe.allow = 'fullscreen; picture-in-picture; autoplay; encrypted-media';
+                // Fullscreen delegation includes VOE's possible redirect/child origin.
+                // The provider's native fullscreen control still requires a user click.
+                iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen *';
                 iframe.allowFullscreen = true;
                 iframe.referrerPolicy = 'strict-origin-when-cross-origin';
                 iframe.loading = 'lazy'; wrap.append(iframe);
@@ -101,14 +106,18 @@
                 nativeVideo = video;
                 wrap.append(video);
             }
-            const fullscreenButton = document.createElement('button');
-            fullscreenButton.type = 'button';
-            fullscreenButton.className = 'watch-fullscreen-button';
-            fullscreenButton.addEventListener('click', () => toggleShellFullscreen(wrap, nativeVideo));
-            wrap.append(fullscreenButton);
             activeShell = wrap;
-            activeFullscreenButton = fullscreenButton;
-            updateFullscreenControl();
+            // Keep the existing shell fullscreen fallback for other providers
+            // and native videos; for VOE, only its built-in control is shown.
+            if (!isVoeEmbed) {
+                const fullscreenButton = document.createElement('button');
+                fullscreenButton.type = 'button';
+                fullscreenButton.className = 'watch-fullscreen-button';
+                fullscreenButton.addEventListener('click', () => toggleShellFullscreen(wrap, nativeVideo));
+                wrap.append(fullscreenButton);
+                activeFullscreenButton = fullscreenButton;
+                updateFullscreenControl();
+            }
             area.append(wrap);
         } else {
             const message = document.createElement('div'); message.className = 'missing';

@@ -4,7 +4,9 @@ const $=id=>document.getElementById(id);
 const client=supabase.createClient('https://tnavsfbolastevebukxl.supabase.co','sb_publishable_3FX_mPM-A6dIY-nQTtFZQg_5HPoWO9B');
 let catalog=[],editing=null,page=0,busy=false,search='',episodeManager=null;
 const ADMIN_PAGE_SIZE=48;
+const EPISODE_PICKER_SIZE=32;
 let animePage=0,animeTotal=0,animeRequestSerial=0,animeSearchTimer=null,episodeIndexPromise=null,bulkIndexPromise=null,seriesIndexPromise=null;
+let aliasColumnSupported=true;
 const say=t=>$('status').textContent=t;
 let automaticId='';
 function normalizeAnimeId(value){return String(value).normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,80).replace(/-+$/g,'');}
@@ -19,40 +21,75 @@ function row(title,subtitle,image){const r=document.createElement('article');r.c
 // NEVER load it with select('*') merely to open the Admin page.
 async function allAnime(){
  const requestId=++animeRequestSerial;
- const term=$('animeSearch').value.trim().replace(/[%_,]/g,'').slice(0,120);
+ const term=$('animeSearch').value.trim().replace(/[,()%_*\\]/g,' ').replace(/\s+/g,' ').slice(0,120).trim();
  const info=$('animeListInfo');
  info.textContent='Loading this page…';
  let query=client.from('site_anime')
    .select('id,title,image,episodes,mal_id,series_key',{count:'exact'})
    .order('created_at',{ascending:false}).order('id');
- if(term)query=query.ilike('title','%'+term+'%');
+ if(term)query=query.or(`title.ilike.%${term}%,season_label.ilike.%${term}%${aliasColumnSupported?',search_titles.ilike.%'+term+'%':''}`);
  const first=animePage*ADMIN_PAGE_SIZE;
- const result=await query.range(first,first+ADMIN_PAGE_SIZE-1);
+ let result=await query.range(first,first+ADMIN_PAGE_SIZE-1);
+ if(result.error && aliasColumnSupported && window.TETitleSearchV32?.missingColumn(result.error)){
+   aliasColumnSupported=false;
+   return allAnime();
+ }
  if(requestId!==animeRequestSerial)return;
  if(result.error)throw result.error;
+ // Source-name lookup also works for older anime without saved kanji/synonyms.
+ if(term && !result.data?.length && animePage===0 && window.TETitleSearchV32){
+   const ids=await window.TETitleSearchV32.lookupMalIds(term);
+   if(requestId!==animeRequestSerial)return;
+   if(ids.length){
+     const extra=await client.from('site_anime').select('id,title,image,episodes,mal_id,series_key',{count:'exact'})
+       .in('mal_id',ids).order('created_at',{ascending:false}).order('id').range(0,ADMIN_PAGE_SIZE-1);
+     if(!extra.error)result=extra;
+   }
+ }
  catalog=result.data||[];
  animeTotal=Number(result.count)||0;
  if(animePage>0 && animeTotal && first>=animeTotal){animePage=0;return allAnime();}
  renderAnime();
 }
-// This complete *lightweight* index is loaded only if the administrator opens
-// Episodes. It does not contain characters, descriptions, or relations.
+// Only load the first few anime for the Episodes dropdown. A full 5,000-title
+// index previously required 10+ sequential Supabase requests and thousands of
+// DOM <option> nodes every time the admin opened the Episodes tab.
 async function ensureEpisodeIndex(){
  if(!episodeManager)throw Error('Episode manager is not ready.');
  if(!episodeIndexPromise){
   episodeIndexPromise=(async()=>{
-   const items=[];
-   for(let offset=0;;offset+=500){
-    const res=await client.from('site_anime').select('id,title').order('title').order('id').range(offset,offset+499);
-    if(res.error)throw res.error;
-    items.push(...(res.data||[]));
-    if(!res.data||res.data.length<500)break;
-   }
+   const res=await client.from('site_anime')
+     .select('id,title,episodes').order('title').order('id').limit(EPISODE_PICKER_SIZE);
+   if(res.error)throw res.error;
+   const items=res.data||[];
    episodeManager.setAnime(items);
    return items;
   })().catch(e=>{episodeIndexPromise=null;throw e;});
  }
  return episodeIndexPromise;
+}
+// Title/ID lookup searches the database instead of downloading all 5,000 rows.
+// Remove PostgREST OR expression delimiters and SQL wildcard characters from
+// untrusted input (the search is a literal substring search, not a filter API).
+async function searchEpisodeAnime(input){
+ const term=String(input||'').trim().slice(0,100).replace(/[,()%_*\\]/g,' ').replace(/\s+/g,' ').trim();
+ if(!term)return [];
+ let res=await client.from('site_anime').select('id,title,episodes')
+   .or(`title.ilike.%${term}%,id.ilike.%${term}%,season_label.ilike.%${term}%${aliasColumnSupported?',search_titles.ilike.%'+term+'%':''}`)
+   .order('title').order('id').limit(16);
+ if(res.error && aliasColumnSupported && window.TETitleSearchV32?.missingColumn(res.error)){
+  aliasColumnSupported=false;
+  return searchEpisodeAnime(input);
+ }
+ if(res.error)throw res.error;
+ if(!res.data?.length && window.TETitleSearchV32){
+   const ids=await window.TETitleSearchV32.lookupMalIds(term);
+   if(ids.length){
+     const extra=await client.from('site_anime').select('id,title,episodes').in('mal_id',ids).order('title').limit(16);
+     if(!extra.error)res=extra;
+   }
+ }
+ return res.data||[];
 }
 // Bulk import needs all existing MAL IDs, titles and relations to keep its
 // duplicate protection and season order. Fetch this index ON DEMAND only.
@@ -61,8 +98,8 @@ async function getBulkCatalog(){
   bulkIndexPromise=(async()=>{
    const items=[];
    for(let offset=0;;offset+=500){
-    const res=await client.from('site_anime')
-     .select('id,title,mal_id,mal_relations,start_date,series_key')
+    let res=await client.from('site_anime')
+     .select('id,title,mal_id,mal_relations,start_date,series_key,season_label'+((await window.TETitleSearchV32?.supportsAliases(client))?',title_aliases':''))
      .order('id').range(offset,offset+499);
     if(res.error)throw res.error;
     items.push(...(res.data||[]));
@@ -91,7 +128,7 @@ function renderAnime(){
    $('posterFile').value='';$('animeId').readOnly=true;
    $('save').textContent='Save changes';$('animeForm').scrollIntoView({behavior:'smooth'});
   }));
-  r.append(button('Episodes',async()=>{await ensureEpisodeIndex();await episodeManager.open(a.id);}));
+  r.append(button('Episodes',async()=>{episodeManager.show();await ensureEpisodeIndex();await episodeManager.open(a.id);}));
   r.append(button('Delete',async()=>{
    if(!confirm(`Delete anime "${a.title}" and its episode links from the website?`))return;
    const result=await client.from('site_anime').delete().eq('id',a.id).select('id');
@@ -137,6 +174,7 @@ const links={};for(const line of $('links').value.split('\n').filter(l=>l.trim()
 let image=safeURL($('poster').value.trim()),uploadedPath=null,committed=false;
 try{const metadata=await window.AnimeMeta.read(client,id,safeURL);const file=$('posterFile').files[0];if(file){if(!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>5242880)throw Error('Choose a JPG, PNG, or WebP file smaller than 5 MB.');uploadedPath=id+'/'+crypto.randomUUID()+'.'+({ 'image/jpeg':'jpg','image/png':'png','image/webp':'webp'}[file.type]);const upload=await client.storage.from('anime-posters').upload(uploadedPath,file,{contentType:file.type});if(upload.error)throw upload.error;image=client.storage.from('anime-posters').getPublicUrl(uploadedPath).data.publicUrl;}
 const payload={id,title:$('title').value.trim(),image,category:$('category').value.trim(),genres:$('genres').value.split(/[,،]/).map(g=>g.trim()).filter(Boolean),rating:Number($('rating').value),episodes:count,description:$('description').value.trim(),episode_links:links,...metadata};
+if(!(await window.TETitleSearchV32?.supportsAliases(client)))delete payload.title_aliases;
 // New entries get cast at save time, whether the form was filled manually or
 // by Tenrai. Never replace manual entries or characters on existing anime.
 let charactersNote='';
@@ -172,10 +210,16 @@ $('animeSearch').oninput=()=>{
  clearTimeout(animeSearchTimer);animePage=0;
  animeSearchTimer=setTimeout(()=>{allAnime().catch(e=>say('Anime search failed: '+(e.message||e)));},300);
 };
-$('animeTab').onclick=()=>{$('animeSection').hidden=false;$('wallSection').hidden=true;$('episodeSection').hidden=true};$('episodeTab').onclick=()=>action(async()=>{if(!episodeManager)throw Error('Episode editor did not load. Reload Admin.');await ensureEpisodeIndex();await episodeManager.open()});$('wallTab').onclick=()=>action(async()=>{$('animeSection').hidden=true;$('episodeSection').hidden=true;$('wallSection').hidden=false;await loadWalls()});
+$('animeTab').onclick=()=>{$('animeSection').hidden=false;$('wallSection').hidden=true;$('episodeSection').hidden=true};$('episodeTab').onclick=()=>{
+ if(!episodeManager){say('Episode editor did not load. Reload Admin.');return;}
+ // Show the Episodes panel immediately rather than blocking the entire UI on a
+ // remote request. The first picker query is only 32 records; no bulk scan.
+ episodeManager.show();
+ ensureEpisodeIndex().then(()=>episodeManager.open()).catch(e=>say('Episode list unavailable: '+(e.message||e)));
+};$('wallTab').onclick=()=>action(async()=>{$('animeSection').hidden=true;$('episodeSection').hidden=true;$('wallSection').hidden=false;await loadWalls()});
 $('wallSearchForm').onsubmit=e=>{e.preventDefault();action(async()=>{page=0;search=$('wallSearch').value.trim();await loadWalls()})};$('prev').onclick=()=>action(async()=>{page=Math.max(0,page-1);await loadWalls()});$('next').onclick=()=>action(async()=>{if($('wallList').children.length<24)return;page++;await loadWalls()});
 client.auth.onAuthStateChange((event)=>{if(event==='SIGNED_OUT'){$('panel').hidden=true;say('You have been signed out.');}});
-try{const session=await client.auth.getSession();if(!session.data.session){say('Sign in with your admin account at login.html, then return to this page.');return;}await allowed();$('panel').hidden=false;let episodeError='';try{if(!window.EpisodeAdmin)throw Error('Episode editor did not load. Upload episode-admin-recovery-v3.js and reload.');episodeManager=window.EpisodeAdmin.create({client,action,say});}catch(e){episodeError=e.message;}window.TE_ADMIN_API={client,allowed,reload:async()=>{bulkIndexPromise=null;episodeIndexPromise=null;await allAnime();},getCatalog:()=>catalog.slice(),getBulkCatalog,getSession:()=>client.auth.getSession()};
+try{const session=await client.auth.getSession();if(!session.data.session){say('Sign in with your admin account at login.html, then return to this page.');return;}await allowed();$('panel').hidden=false;let episodeError='';try{if(!window.EpisodeAdmin)throw Error('Episode editor did not load. Upload episode-admin-recovery-v3.js and reload.');episodeManager=window.EpisodeAdmin.create({client,action,say,searchAnime:searchEpisodeAnime});}catch(e){episodeError=e.message;}window.TE_ADMIN_API={client,allowed,reload:async()=>{bulkIndexPromise=null;episodeIndexPromise=null;await allAnime();},getCatalog:()=>catalog.slice(),getBulkCatalog,getSession:()=>client.auth.getSession()};
  say(episodeError||'Welcome! Your account has administrator access.');
  // Let the admin UI become usable before loading its first (small) page.
  window.dispatchEvent(new CustomEvent('te-admin-ready'));

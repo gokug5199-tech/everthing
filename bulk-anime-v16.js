@@ -54,6 +54,7 @@ function payloadFor(a,relations,characters=[]){
  return {
   id:`${slug(title).slice(0,Math.max(1,75-String(malId).length))}-mal-${malId}`.slice(0,80),
   mal_id:malId,mal_relations:normalizeRelations(relations),anime_type:animeType,
+  title_aliases:window.TETitleSearchV32?.fromTenrai(a)||[],
   title,image:poster(a),category:slug(a.genres?.[0]?.name||'anime'),genres:distinctGenres,
   rating:Math.max(0,Math.min(10,Number(a.score)||0)),
   episodes:Number.isInteger(a.episodes)&&a.episodes>=0&&a.episodes<=2000?a.episodes:0,
@@ -143,7 +144,7 @@ function loadSaved(){try{const saved=JSON.parse(localStorage.getItem(storageKey(
 function discardSaved(){try{localStorage.removeItem(storageKey());}catch{}}
 function shuffled(values){const copy=[...values];for(let i=copy.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[copy[i],copy[j]]=[copy[j],copy[i]];}return copy;}
 function newTask(){return {version:16,owner:userId,goal:TARGET,addedIds:[],skipped:0,errors:0,seen:[],pages:shuffled(Array.from({length:200},(_,i)=>i+1)),pageIndex:0,queue:[],pending:[],graph:{},finished:false,characterPopulated:0,characterUnavailable:0,lastError:'',started:new Date().toISOString()};}
-async function snapshotCatalog(){catalog=await admin.getBulkCatalog();existingNames=new Set();existingIds=new Set();existingMalIds=new Set();for(const a of catalog){existingIds.add(String(a.id));if(number(a.mal_id))existingMalIds.add(number(a.mal_id));const key=titleKey(a.title);if(key)existingNames.add(key);}text('teBulkExisting',catalog.length);}
+async function snapshotCatalog(){catalog=await admin.getBulkCatalog();existingNames=new Set();existingIds=new Set();existingMalIds=new Set();for(const a of catalog){existingIds.add(String(a.id));if(number(a.mal_id))existingMalIds.add(number(a.mal_id));for(const name of [a.title,a.season_label,...(a.title_aliases||[])]){const key=titleKey(name);if(key)existingNames.add(key);}}text('teBulkExisting',catalog.length);}
 function exists(a){if(existingMalIds.has(number(a?.mal_id)))return true;return aliases(a).some(alias=>existingNames.has(alias));}
 function updateState(message){const n=task?.addedIds.length||0;const total=TARGET;
  text('teBulkAdded',n);text('teBulkSkipped',task?.skipped||0);text('teBulkErrors',task?.errors||0);text('teBulkPercent',Math.round(n/total*100)+'%');
@@ -238,6 +239,8 @@ async function flush(){
  if(!task.pending.length)return;
  const rows=task.pending.slice();
  await admin.allowed();
+ // Older deployments without the v32 migration continue importing safely.
+ if(!(await window.TETitleSearchV32?.supportsAliases(admin.client))){for(const row of rows)delete row.title_aliases;}
  let result=await admin.client.from('site_anime').upsert(rows,{onConflict:'mal_id',ignoreDuplicates:true}).select('id,mal_id,title');
  if(result.error){
   // A legacy slug collision in a large batch should not block other new anime.
@@ -253,7 +256,7 @@ async function flush(){
  }
  const saved=new Set((result.data||[]).map(row=>Number(row.mal_id)));
  for(const item of rows){
-  existingMalIds.add(item.mal_id);existingIds.add(item.id);existingNames.add(titleKey(item.title));
+  existingMalIds.add(item.mal_id);existingIds.add(item.id);for(const name of [item.title,...(item.title_aliases||[])])existingNames.add(titleKey(name));
   if(saved.has(item.mal_id)){
    if(!task.addedIds.includes(item.mal_id)){
     task.addedIds.push(item.mal_id);

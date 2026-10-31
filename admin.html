@@ -23,20 +23,20 @@
 <label>Description<textarea id="description" rows="3"></textarea></label>
 <div class="te-form-section-heading"><span>02</span><div><strong>Extended information</strong><small>Studio, schedule, seasons, characters and other metadata</small></div></div><div id="animeMetadata"></div><p class="help" id="teAutoCharactersInfo">For new anime, character data is fetched automatically when you save. Set a MyAnimeList ID for accurate matching; existing character lists are preserved.</p><details class="legacy"><summary>Legacy episode links (optional)</summary><label>One episode per line: number | URL<textarea dir="ltr" id="links" placeholder="1 | https://example.com/episode-1.mp4" rows="5"></textarea></label><p>Use the Episodes tab for seasons, servers, and quality options. Existing legacy links will continue to work.</p></details><div class="te-admin-save-hint" role="note"><span aria-hidden="true">✦</span> Your changes are saved only after you press <strong>Save Anime</strong>.</div>
 <div class="te-admin-form-actions"><button id="save" type="submit">Save anime</button><button id="reset" type="button">New anime / Cancel editing</button></div></form>
-<h2>Published anime</h2><input id="animeSearch" placeholder="Search anime by title"/><p class="help" id="animeListInfo" aria-live="polite">Loading anime…</p><div class="list" id="animeList"></div><div class="te-admin-page-controls"><button type="button" id="animePrev" disabled>← Previous</button><button type="button" id="animeNext" disabled>Next →</button></div></section>
+<h2>Published anime</h2><input id="animeSearch" placeholder="Search English, Japanese or alternative title"/><p class="help" id="animeListInfo" aria-live="polite">Loading anime…</p><div class="list" id="animeList"></div><div class="te-admin-page-controls"><button type="button" id="animePrev" disabled>← Previous</button><button type="button" id="animeNext" disabled>Next →</button></div></section>
 <section hidden="" id="episodeSection">
 <div class="te-admin-section-kicker">02 / EPISODE CONTROL</div><h2>Manage anime episodes</h2><p class="help">Choose an anime, season, and episode. Add multiple servers or video qualities. Paste Videa, VOE, or HGCloud links, or iframe embed codes. Supported watch links are converted into player links automatically. No video files are uploaded here.</p>
 <div class="episode-anime-picker" id="episodeAnimePicker">
   <label for="episodeAnimeSearch">Search anime</label>
   <div class="episode-anime-search-controls">
-    <input id="episodeAnimeSearch" type="search" placeholder="Search by anime title or ID…" autocomplete="off" aria-controls="episodeAnimeSearchResults" />
+    <input id="episodeAnimeSearch" type="search" placeholder="Search English, Japanese, Romaji or ID…" autocomplete="off" aria-controls="episodeAnimeSearchResults" />
     <button id="episodeAnimeSearchButton" type="button">Search</button>
     <button id="episodeAnimeSearchClear" type="button" hidden>Clear</button>
   </div>
   <div class="episode-anime-search-results" id="episodeAnimeSearchResults" aria-label="Anime search results" hidden></div>
   <p class="episode-anime-search-count" id="episodeAnimeSearchCount" role="status" aria-live="polite" hidden></p>
 </div>
-<label>Anime<select id="episodeAnime" required=""></select></label>
+<label>Anime<select id="episodeAnime" required=""></select></label><p class="help episode-picker-hint">The dropdown shows a small selection for speed. Search above to find any anime in your library.</p>
 <form id="episodeForm"><div class="fields">
 <label>Season<input id="seasonNumber" max="100" min="1" required="" type="number" value="1"/></label>
 <label>Episode number<input id="episodeNumber" max="2000" min="1" required="" type="number" value="1"/></label>
@@ -72,5 +72,5 @@
 </div>
 <p aria-live="polite" id="featuredStatus" role="status"></p></section>
 <section hidden="" id="wallSection"><div class="te-admin-section-kicker">04 / COMMUNITY</div><h2>User wallpapers</h2><form id="wallSearchForm"><input id="wallSearch" placeholder="Search wallpaper title"/><button>Search</button></form><div class="list" id="wallList"></div><button id="prev">Previous</button><span id="pageNumber"></span><button id="next">Next</button><div id="cleanup" role="status"></div></section>
-</div></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="episode-data.js?v=links-v17"></script><script src="episode-admin.js?v=episode-search-v18"></script><script src="admin-anime-meta.js?v=20261027-v16"></script><script src="admin.js?v=20261029-v29-fast-admin"></script><script src="featured-admin.js?v=20261024"></script><script src="admin-carousel-v7.js?v=20261025-v7"></script><script src="admin-jikan-import.js?v=20261027-v16"></script><script src="te-v5.js?v=20261025-v5"></script><script src="anime-characters-api-v23.js?v=26.0"></script><script src="bulk-anime-v16.js?v=20261029-v29-fast-admin"></script>
+</div></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="episode-data.js?v=links-v17"></script><script src="episode-admin.js?v=32.0"></script><script src="anime-title-search-v32.js?v=32.0"></script><script src="admin-anime-meta.js?v=32.0"></script><script src="admin.js?v=32.0"></script><script src="featured-admin.js?v=20261024"></script><script src="admin-carousel-v7.js?v=20261025-v7"></script><script src="admin-jikan-import.js?v=32.0"></script><script src="te-v5.js?v=20261025-v5"></script><script src="anime-characters-api-v23.js?v=26.0"></script><script src="bulk-anime-v16.js?v=32.0"></script>
 </body></html>
