@@ -112,7 +112,7 @@
           <button type="button" class="te-search-clear" id="teSearchClear" aria-label="Clear search" hidden>×</button>
         </label>
         <button class="te-more-genres" id="teMoreGenres" type="button" aria-controls="genreMenu" aria-expanded="false">All genres <span aria-hidden="true">⌄</span></button>
-        <label class="te-sort-control" for="teAnimeSort"><span>Sort</span><select id="teAnimeSort"><option value="newest">Recently added</option><option value="az">Title A–Z</option><option value="za">Title Z–A</option><option value="rating">Highest rated</option></select></label>
+        <label class="te-sort-control" for="teAnimeSort"><span>Sort</span><select id="teAnimeSort"><option value="popular" selected>Most popular</option><option value="newest">Recently added</option><option value="az">Title A–Z</option><option value="za">Title Z–A</option><option value="rating">Highest rated</option></select></label>
       </div>
       <div class="te-quick-row"><div id="teQuickGenres" class="te-quick-genres" role="group" aria-label="Popular genres"></div></div>
       <div class="te-results-meta"><span id="teAnimeResults" role="status" aria-live="polite">Loading your collection…</span><button type="button" id="teClearFilters">Reset filters ↺</button></div>
@@ -130,7 +130,7 @@
   </main>
   <!-- v20: the collection fetches only the requested page directly from Supabase. -->
   <script src="anime-title-search-v32.js?v=32.0"></script>
-  <script src="anime.js?v=32.0"></script>
+  <script src="anime.js?v=33.0"></script>
   <script src="account-menu.js?v=20261023-clean"></script>
   <script src="featured-public.js?v=27.0"></script>
   <script src="mobile-pwa.js?v=20261026-v10"></script>

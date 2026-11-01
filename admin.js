@@ -175,6 +175,7 @@ let image=safeURL($('poster').value.trim()),uploadedPath=null,committed=false;
 try{const metadata=await window.AnimeMeta.read(client,id,safeURL);const file=$('posterFile').files[0];if(file){if(!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>5242880)throw Error('Choose a JPG, PNG, or WebP file smaller than 5 MB.');uploadedPath=id+'/'+crypto.randomUUID()+'.'+({ 'image/jpeg':'jpg','image/png':'png','image/webp':'webp'}[file.type]);const upload=await client.storage.from('anime-posters').upload(uploadedPath,file,{contentType:file.type});if(upload.error)throw upload.error;image=client.storage.from('anime-posters').getPublicUrl(uploadedPath).data.publicUrl;}
 const payload={id,title:$('title').value.trim(),image,category:$('category').value.trim(),genres:$('genres').value.split(/[,،]/).map(g=>g.trim()).filter(Boolean),rating:Number($('rating').value),episodes:count,description:$('description').value.trim(),episode_links:links,...metadata};
 if(!(await window.TETitleSearchV32?.supportsAliases(client)))delete payload.title_aliases;
+if(!(await window.TEPopularityV33?.schemaAvailable(client))){delete payload.popularity_rank;delete payload.mal_members;}
 // New entries get cast at save time, whether the form was filled manually or
 // by Tenrai. Never replace manual entries or characters on existing anime.
 let charactersNote='';

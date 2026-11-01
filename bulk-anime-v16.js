@@ -57,6 +57,8 @@ function payloadFor(a,relations,characters=[]){
   title_aliases:window.TETitleSearchV32?.fromTenrai(a)||[],
   title,image:poster(a),category:slug(a.genres?.[0]?.name||'anime'),genres:distinctGenres,
   rating:Math.max(0,Math.min(10,Number(a.score)||0)),
+  popularity_rank:window.TEPopularityV33?.metadata(a)?.popularity_rank??null,
+  mal_members:window.TEPopularityV33?.metadata(a)?.mal_members??null,
   episodes:Number.isInteger(a.episodes)&&a.episodes>=0&&a.episodes<=2000?a.episodes:0,
   description:String(a.synopsis||'').trim(),episode_links:{},
   studio:(a.studios||[]).map(x=>x?.name).filter(Boolean).join(', ').slice(0,200),
@@ -241,6 +243,7 @@ async function flush(){
  await admin.allowed();
  // Older deployments without the v32 migration continue importing safely.
  if(!(await window.TETitleSearchV32?.supportsAliases(admin.client))){for(const row of rows)delete row.title_aliases;}
+ if(!(await window.TEPopularityV33?.schemaAvailable(admin.client))){for(const row of rows){delete row.popularity_rank;delete row.mal_members;}}
  let result=await admin.client.from('site_anime').upsert(rows,{onConflict:'mal_id',ignoreDuplicates:true}).select('id,mal_id,title');
  if(result.error){
   // A legacy slug collision in a large batch should not block other new anime.

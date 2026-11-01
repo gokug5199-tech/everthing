@@ -108,6 +108,7 @@ let requestSerial = 0;
 let menuOpen = false;
 let searchTimer;
 let aliasColumnSupported=true;
+let popularityColumnSupported=true;
 const cache = new Map(); // Only retain recently visited pages, not all anime.
 window.ANIME_DATA = []; // For existing hero fallbacks; only the first page is exposed.
 window.ANIME_LOAD_ERROR = false;
@@ -145,9 +146,9 @@ function genreFilterExpression(label) {
 function buildQuery() {
   const p = new URLSearchParams();
   p.set('select','id,title,image,genres,age_rating,rating,created_at');
-  const sorting = sortInput?.value || 'newest';
-  const order = {newest:'created_at.desc,id.asc',az:'title.asc,id.asc',za:'title.desc,id.asc',rating:'rating.desc,id.asc'};
-  p.set('order',order[sorting]||order.newest);
+  const sorting = sortInput?.value || 'popular';
+  const order = {popular:popularityColumnSupported?'popularity_rank.asc.nullslast,mal_members.desc.nullslast,rating.desc.nullslast,id.asc':'rating.desc.nullslast,id.asc',newest:'created_at.desc,id.asc',az:'title.asc,id.asc',za:'title.desc,id.asc',rating:'rating.desc.nullslast,id.asc'};
+  p.set('order',order[sorting]||order.popular);
   p.set('limit',String(PAGE_SIZE));
   p.set('offset',String((currentPage-1)*PAGE_SIZE));
   const filters = [];
@@ -325,9 +326,9 @@ function applyResult(rows,count) {
   grid.innerHTML=rows.map(cardHtml).join('');
   message.hidden=rows.length>0;
   if(!rows.length){message.textContent='No anime matched your search.';}
-  if(resultsText)resultsText.textContent=total
+  if(resultsText)resultsText.textContent=(total
     ? `${total} anime found · Showing ${(currentPage-1)*PAGE_SIZE+1}–${(currentPage-1)*PAGE_SIZE+rows.length}`
-    : '0 anime found';
+    : '0 anime found') + ((sortInput?.value==='popular'&&!popularityColumnSupported)?' · Popularity setup required (v33)':'');
   drawPagination();
 }
 async function loadPage() {
@@ -342,21 +343,25 @@ async function loadPage() {
   try {
     let entry=cache.get(query);
     if(!entry) {
-      const timer=setTimeout(()=>activeController?.abort(),15000);
       let response;
-      try{
-        response=await fetch(API+'?'+query,{
-          headers:{apikey:KEY,'Prefer':'count=exact'},
-          signal:activeController.signal
-        });
-      }finally{clearTimeout(timer);}
-      if(!response.ok && aliasColumnSupported && response.status===400){
+      // v33 popularity and v32 alias migrations are optional at deploy time.
+      for(let tries=0;tries<3;tries++){
+        const timer=setTimeout(()=>activeController?.abort(),15000);
+        try{
+          response=await fetch(API+'?'+buildQuery(),{
+            headers:{apikey:KEY,'Prefer':'count=exact'},signal:activeController.signal
+          });
+        }finally{clearTimeout(timer);}
+        if(response.ok||response.status!==400)break;
         const problem=await response.json().catch(()=>({}));
-        if(window.TETitleSearchV32?.missingColumn(problem)){
-          aliasColumnSupported=false;
-          const fallbackQuery=buildQuery();
-          response=await fetch(API+'?'+fallbackQuery,{headers:{apikey:KEY,'Prefer':'count=exact'},signal:activeController.signal});
+        const detail=JSON.stringify(problem);
+        if(aliasColumnSupported&&window.TETitleSearchV32?.missingColumn(problem)){
+          aliasColumnSupported=false;continue;
         }
+        if(popularityColumnSupported&&/popularity_rank|mal_members/i.test(detail)){
+          popularityColumnSupported=false;continue;
+        }
+        break;
       }
       if(!response.ok)throw Error('HTTP '+response.status);
       let rows=await response.json();
@@ -425,7 +430,7 @@ document.addEventListener('keydown',event=>{
 });
 resetButton?.addEventListener('click',()=>{
   if(searchInput)searchInput.value='';
-  if(sortInput)sortInput.value='newest';
+  if(sortInput)sortInput.value='popular';
   selectGenre('all');
 });
 searchClear?.addEventListener('click',()=>{
