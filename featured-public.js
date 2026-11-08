@@ -69,6 +69,13 @@
     img.alt = '';
     img.loading = index < 3 ? 'eager' : 'lazy';
     picture.append(img);
+    if (!isEpisode) {
+      const format = String(anime.anime_type || 'Unknown').trim();
+      const chip = document.createElement('span');
+      chip.className = 'te-format-tag';
+      chip.textContent = /^(TV|Movie|OVA|ONA|Special|TV Special)$/i.test(format) ? format : 'Unknown';
+      picture.append(chip);
+    }
     if (isEpisode) {
       const chip = document.createElement('span');
       chip.className = 'te-latest-chip';
@@ -123,7 +130,7 @@
       // IDs are escaped and URLSearchParams encodes them; don't insert raw data in selectors or HTML.
       const filter = 'id=in.(' + ids.map(id => '"' + String(id).replace(/["\\]/g, '') + '"').join(',') + ')';
       anime = await fetchRows('site_anime',
-        new URLSearchParams({ select: 'id,title,image,genres', id: 'in.(' + ids.map(id => '"' + String(id).replace(/["\\]/g, '') + '"').join(',') + ')' }).toString());
+        new URLSearchParams({ select: 'id,title,image,genres,anime_type', id: 'in.(' + ids.map(id => '"' + String(id).replace(/["\\]/g, '') + '"').join(',') + ')' }).toString());
     } catch (error) { console.warn('Anime details unavailable:', error); return; }
     const animeById = new Map(anime.map(x => [x.id, x]));
     const firstFeaturedAnime = featured.filter(x => x.kind === 'anime').map(x => animeById.get(x.anime_id)).find(Boolean);

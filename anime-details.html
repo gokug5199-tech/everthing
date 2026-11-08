@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8741552134205191"
-          crossorigin="anonymous"></script>
 
   <script src="safari-perf-v15.js?v=15.0"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anime Episodes | The Everything</title>
+    <title>Anime Details & Episodes | The Everything</title>
+    <meta name="description" content="Explore anime information, related titles, characters and available episodes in The Everything catalog.">
     <style>
 
         * {
@@ -472,6 +471,44 @@
         .season-tab[aria-pressed="true"]{background:rgba(255,114,71,.16);color:white;border-color:#ff784d}
         .episode.unavailable{opacity:.55}.episode.unavailable .play{color:#88929f}
         .episode:focus-visible,.season-tab:focus-visible{outline:2px solid #ffb080;outline-offset:3px}
+
+/* v36 — cinematic episode directory, fast DOM rendering and mobile search. */
+body.anime-detail-v2{background:radial-gradient(circle at 5% 5%,rgba(86,43,151,.2),transparent 38%),radial-gradient(circle at 95% 38%,rgba(27,69,156,.15),transparent 37%),#080914;color:#f5f2ff;font-family:'DM Sans',Arial,sans-serif}
+body.anime-detail-v2 .page{max-width:1180px}
+body.anime-detail-v2 .anime-hero{border:1px solid rgba(166,145,245,.19);background:linear-gradient(125deg,rgba(22,19,48,.96),rgba(10,18,37,.98));box-shadow:0 24px 70px rgba(2,3,14,.3)}
+body.anime-detail-v2 .back-button{border-color:rgba(173,150,246,.26);background:rgba(24,20,46,.75);color:#ddd4f9}
+body.anime-detail-v2 .small-title,body.anime-detail-v2 .episodes-heading p{color:#b798ff;letter-spacing:.18em}
+body.anime-detail-v2 .anime-details h1{font-family:'Space Grotesk','DM Sans',sans-serif;letter-spacing:-.045em}
+body.anime-detail-v2 .episodes-section{margin-top:35px;padding:clamp(16px,3vw,29px);border:1px solid rgba(155,138,225,.22);background:linear-gradient(150deg,rgba(16,18,39,.97),rgba(10,17,34,.94));border-radius:22px}
+body.anime-detail-v2 .episodes-heading h2{margin:5px 0 10px;font:800 clamp(26px,3vw,35px)/1.2 'Space Grotesk','DM Sans',sans-serif}
+body.anime-detail-v2 .episodes-meta{color:#adb3d0}
+body.anime-detail-v2 .season-tabs{margin:17px 0 14px}
+body.anime-detail-v2 .season-tab{background:#191b35;border-color:#46436f;color:#d9d4ff}
+body.anime-detail-v2 .season-tab[aria-pressed="true"]{background:linear-gradient(110deg,#6e50e8,#a64bb8);border-color:#ab92ff}
+body.anime-detail-v2 .te-episode-toolbar{display:flex;align-items:center;gap:12px;justify-content:space-between;flex-wrap:wrap;margin:20px 0 19px}
+body.anime-detail-v2 .te-episode-search-label{display:flex;align-items:center;gap:12px;min-width:260px;max-width:540px;flex:1;background:#0b1126;border:1px solid #454268;border-radius:12px;padding:0 15px;min-height:46px;color:#af9bea}
+body.anime-detail-v2 .te-episode-search-label span{font-size:23px}
+body.anime-detail-v2 #teEpisodeSearch{width:100%;background:none;color:#fff;font:500 14px 'DM Sans',sans-serif;border:none;outline:none;min-height:44px}
+body.anime-detail-v2 #teEpisodeSearch::placeholder{color:#8895b3}
+body.anime-detail-v2 .te-episode-search-label:focus-within{border-color:#a794ff;box-shadow:0 0 0 3px rgba(157,115,250,.16)}
+body.anime-detail-v2 .te-episode-counter{font-size:12px;color:#aaa9c7}
+body.anime-detail-v2 .episodes-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+body.anime-detail-v2 .episode{position:relative;min-height:83px;min-width:0;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px;border-radius:12px;text-decoration:none;color:#f4f0ff;background:linear-gradient(140deg,#141a32,#10192c);border:1px solid rgba(137,142,211,.19);transition:transform .18s,border-color .18s,box-shadow .18s;overflow:hidden}
+body.anime-detail-v2 a.episode:hover{transform:translateY(-2px);border-color:#ac87ff;box-shadow:0 12px 23px rgba(30,12,72,.3);background:linear-gradient(120deg,#222045,#181d3a)}
+body.anime-detail-v2 .episode .episode-text{min-width:0;display:flex;flex-direction:column;gap:7px}
+body.anime-detail-v2 .episode .episode-eyebrow{font-size:9px;letter-spacing:.15em;color:#958dc3;font-weight:800}
+body.anime-detail-v2 .episode .episode-number{font-size:13px;font-weight:850;line-height:1.3;color:#f2edff;overflow-wrap:anywhere}
+body.anime-detail-v2 .episode .play{display:flex;align-items:center;gap:5px;color:#c8aeff;letter-spacing:.07em;font-size:10px;font-weight:850;white-space:nowrap}
+body.anime-detail-v2 .episode .play svg{width:18px;height:18px;flex:none}
+body.anime-detail-v2 .episode.unavailable{opacity:.5;cursor:not-allowed}
+body.anime-detail-v2 .episode.unavailable .play{color:#a0a3b7}
+body.anime-detail-v2 .te-episode-more{display:block;min-height:46px;margin:22px auto 0;padding:11px 25px;border:1px solid #8067d9;border-radius:12px;background:linear-gradient(120deg,#463296,#6e45b1);color:#fff;font-weight:800;font-size:13px;cursor:pointer}
+body.anime-detail-v2 .te-episode-more:hover{filter:brightness(1.15)}
+body.anime-detail-v2 .te-episode-more[hidden]{display:none}
+body.anime-detail-v2 .episode:focus-visible,body.anime-detail-v2 .te-episode-more:focus-visible{outline:2px solid #d8b7ff;outline-offset:3px}
+@media(max-width:980px){body.anime-detail-v2 .episodes-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:670px){body.anime-detail-v2 .episodes-grid{grid-template-columns:repeat(2,minmax(0,1fr))}body.anime-detail-v2 .episode{min-height:80px;padding:11px}body.anime-detail-v2 .te-episode-search-label{min-width:100%}body.anime-detail-v2 .te-episode-toolbar{align-items:flex-start}}
+@media(max-width:380px){body.anime-detail-v2 .episodes-grid{grid-template-columns:1fr}}
 </style>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
@@ -493,7 +530,7 @@
             <img id="animePoster" src="" alt="Anime poster" class="anime-poster">
 
             <div class="anime-details">
-                <p class="small-title">ANIME SERIES</p>
+                <p class="small-title">THE EVERYTHING <span id="animeTypeLabel">· ANIME</span></p>
                 <h1 id="animeTitle">Loading anime…</h1>
                 <p id="animeLoadStatus" class="episodes-meta" role="status">Loading anime details…</p>
                 <p class="genres" id="animeGenres"></p>
@@ -510,8 +547,13 @@
             </div>
 
             <div id="seasonTabs" class="season-tabs" role="group" aria-label="Choose season" hidden></div>
+            <div class="te-episode-toolbar">
+                <label class="te-episode-search-label" for="teEpisodeSearch"><span aria-hidden="true">⌕</span><input id="teEpisodeSearch" type="search" placeholder="Find an episode number or title…" autocomplete="off" aria-label="Find an episode number or title"></label>
+                <span class="te-episode-counter" id="teEpisodeShowing" aria-live="polite"></span>
+            </div>
             <p id="episodeLoadMessage" class="episodes-meta" role="status" hidden></p>
             <div class="episodes-grid" id="episodesGrid"></div>
+            <button id="teEpisodeMore" class="te-episode-more" type="button" hidden>Show more episodes ↓</button>
         </section>
 
         <section class="detail-features te-series-v25" id="relatedSection" hidden>
@@ -538,7 +580,7 @@
     <script src="anime-detail-quickstart-v22.js?v=22.0"></script>
     <script src="anime-detail-loader-v22.js?v=27.0"></script>
     <script src="episode-data.js?v=links-v17"></script>
-    <script src="anime-details.js?v=22.0"></script>
+    <script src="anime-details.js?v=36.0"></script>
     <script src="anime-detail-features-v22.js?v=22.0"></script>
     <script src="anime-detail-auth-v22.js?v=22.0"></script>
 

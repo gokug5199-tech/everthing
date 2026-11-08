@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en"><head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8741552134205191"
-          crossorigin="anonymous"></script>
 
-  <script src="safari-perf-v15.js?v=15.0"></script><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Admin Dashboard | The Everything</title><link href="admin.css?v=33-popularity" rel="stylesheet"/><script src="back-navigation.js"></script><link href="anime-features.css?v=20261023-clean" rel="stylesheet"/><link href="mobile-pwa.css?v=20261024-v3" rel="stylesheet"/><link href="te-v5.css?v=20261025-v5" rel="stylesheet"/>
+  <script src="safari-perf-v15.js?v=15.0"></script><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Admin Dashboard | The Everything</title><link href="admin.css?v=35-featured-search" rel="stylesheet"/><script src="back-navigation.js"></script><link href="anime-features.css?v=20261023-clean" rel="stylesheet"/><link href="mobile-pwa.css?v=20261024-v3" rel="stylesheet"/><link href="te-v5.css?v=20261025-v5" rel="stylesheet"/>
 <link href="admin-carousel-v7.css?v=20261025-v7" rel="stylesheet"/>
 <link href="te-unified-theme-v12.css?v=20261026-v12" rel="stylesheet"/>
 <link href="admin-redesign-v14.css?v=14.1" rel="stylesheet"/><link href="bulk-anime-v16.css?v=16.0" rel="stylesheet"/><script defer="" src="admin-redesign-v14.js?v=14.1"></script>  <link rel="stylesheet" href="safari-perf-v15.css?v=15.0">
@@ -62,15 +60,31 @@
       <div id="bulkEpisodeResults" class="episode-bulk-results" aria-live="polite"></div>
     </details><h2>Saved episodes</h2><p class="help" id="episodeTotal"></p><div class="list" id="episodeList"></div>
 </section>
-<section hidden="" id="featuredSection"><div class="te-admin-section-kicker">03 / CURATED RELEASES</div><h2>Latest Anime &amp; Latest Episodes</h2><p class="help">Choose exactly what visitors see on mobile and desktop. Items do not appear here until you feature them. Use the arrow buttons to change display order.</p><div class="featured-two"><div><h3>Latest Anime</h3><label>Select an existing anime<select id="featuredAnimeSelect"></select></label><button id="featureAnimeAdd" type="button">+ Feature anime</button><div class="list" id="featuredAnimeList"></div></div><div><h3>Latest Episodes</h3><label>Anime<select id="featuredEpisodeAnime"></select></label><label>Saved episode<select id="featuredEpisodeSelect"></select></label><button id="featureEpisodeAdd" type="button">+ Feature episode</button><div class="list" id="featuredEpisodeList"></div></div></div>
+<section hidden="" id="featuredSection"><div class="te-admin-section-kicker">03 / CURATED RELEASES</div><h2>Latest Anime &amp; Latest Episodes</h2><p class="help">Choose exactly what visitors see on mobile and desktop. Items do not appear here until you feature them. Use the arrow buttons to change display order.</p><div class="featured-two">
+<div><h3>Latest Anime</h3>
+<label for="featuredAnimeSearch">Search anime</label><div class="te-featured-search"><input id="featuredAnimeSearch" type="search" autocomplete="off" placeholder="English, Japanese or Romaji title…"/><button id="featuredAnimeSearchButton" type="button">Search</button></div>
+<p class="te-featured-search-status" id="featuredAnimeSearchStatus" role="status" aria-live="polite"></p>
+<label>Select an existing anime<select id="featuredAnimeSelect"><option value="">Search above…</option></select></label>
+<button id="featureAnimeAdd" type="button">+ Feature anime</button><div class="list" id="featuredAnimeList"></div></div>
+<div><h3>Latest Episodes</h3>
+<label for="featuredEpisodeAnimeSearch">Search anime</label><div class="te-featured-search"><input id="featuredEpisodeAnimeSearch" type="search" autocomplete="off" placeholder="Find an anime for its episodes…"/><button id="featuredEpisodeAnimeSearchButton" type="button">Search</button></div>
+<p class="te-featured-search-status" id="featuredEpisodeAnimeStatus" role="status" aria-live="polite"></p>
+<label>Anime<select id="featuredEpisodeAnime"><option value="">Search above…</option></select></label>
+<div class="te-featured-search te-featured-episode-search"><input id="featuredEpisodeNumberSearch" aria-label="Episode number" type="number" min="1" max="2000" placeholder="Episode number (optional)"/><button id="featuredEpisodeSearchButton" type="button">Find episode</button></div>
+<label>Saved episode<select id="featuredEpisodeSelect"><option value="">Choose an anime first…</option></select></label>
+<p class="te-featured-search-status" id="featuredEpisodeHint" role="status" aria-live="polite"></p><button id="featuredEpisodeMore" type="button" hidden>Load more episodes</button>
+<button id="featureEpisodeAdd" type="button">+ Feature episode</button><div class="list" id="featuredEpisodeList"></div></div>
+</div>
 <div class="hero-admin-v7" id="heroManager">
 <div><h3>Rotating Anime Banner <span class="hero-count" id="heroCount">0 / 5</span></h3>
 <p class="help">Choose up to five anime for the top banner on the Anime page. The selected titles rotate automatically every 6 seconds, independently of Latest Anime.</p></div>
-<div class="hero-choose-v7"><label>Choose published anime<select id="heroAnimeSelect"><option value="">Loading anime…</option></select></label><button id="heroAnimeAdd" type="button">+ Add to banner</button></div>
+<div class="te-featured-search"><input id="heroAnimeSearch" type="search" autocomplete="off" placeholder="Search published anime…" aria-label="Search anime for banner"/><button id="heroAnimeSearchButton" type="button">Search</button></div>
+<p class="te-featured-search-status" id="heroAnimeSearchStatus" role="status" aria-live="polite"></p>
+<div class="hero-choose-v7"><label>Choose published anime<select id="heroAnimeSelect"><option value="">Search above…</option></select></label><button id="heroAnimeAdd" type="button">+ Add to banner</button></div>
 <div aria-label="Selected rotating banner anime" class="list" id="heroAnimeList"></div>
 <p aria-live="polite" id="heroStatus" role="status"></p>
 </div>
 <p aria-live="polite" id="featuredStatus" role="status"></p></section>
 <section hidden="" id="wallSection"><div class="te-admin-section-kicker">04 / COMMUNITY</div><h2>User wallpapers</h2><form id="wallSearchForm"><input id="wallSearch" placeholder="Search wallpaper title"/><button>Search</button></form><div class="list" id="wallList"></div><button id="prev">Previous</button><span id="pageNumber"></span><button id="next">Next</button><div id="cleanup" role="status"></div></section>
-</div></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="episode-data.js?v=links-v17"></script><script src="episode-admin.js?v=33.0"></script><script src="anime-title-search-v32.js?v=32.0"></script><script src="admin-anime-meta.js?v=33.0"></script><script src="admin.js?v=33.0"></script><script src="featured-admin.js?v=20261024"></script><script src="admin-carousel-v7.js?v=20261025-v7"></script><script src="admin-jikan-import.js?v=33.0"></script><script src="te-v5.js?v=20261025-v5"></script><script src="anime-characters-api-v23.js?v=26.0"></script><script src="bulk-anime-v16.js?v=33.0"></script><script src="anime-popularity-v33.js?v=33.0"></script>
+</div></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="episode-data.js?v=links-v17"></script><script src="episode-admin.js?v=33.0"></script><script src="anime-title-search-v32.js?v=32.0"></script><script src="admin-anime-meta.js?v=33.0"></script><script src="admin.js?v=33.0"></script><script src="admin-featured-search-v35.js?v=35.0"></script><script src="featured-admin.js?v=35.0"></script><script src="admin-carousel-v7.js?v=35.0"></script><script src="admin-jikan-import.js?v=33.0"></script><script src="te-v5.js?v=20261025-v5"></script><script src="anime-characters-api-v23.js?v=26.0"></script><script src="bulk-anime-v16.js?v=34.0"></script><script src="anime-popularity-v33.js?v=33.0"></script>
 </body></html>

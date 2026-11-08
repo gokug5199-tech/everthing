@@ -140,6 +140,17 @@
         document.title = `${anime.title} · Season ${season} Episode ${episode} | The Everything`;
         $('animeTitle').textContent = anime.title;
         $('episodeTitle').textContent = `Season ${season} · Episode ${episode}`;
+        const poster = $('watchPoster');
+        if (poster) {
+            const img = String(anime.image || '');
+            try { const url = new URL(img, location.href); if(['https:', 'http:'].includes(url.protocol)) poster.src = url.href; } catch (_) {}
+            poster.alt = anime.title ? `${anime.title} poster` : 'Anime poster';
+        }
+        const format = String(anime.anime_type || 'Unknown');
+        if ($('watchFormat')) $('watchFormat').textContent = /^(TV|Movie|OVA|ONA|Special|TV Special)$/i.test(format) ? format : 'Anime';
+        if ($('watchSeason')) $('watchSeason').textContent = `Season ${season}`;
+        if ($('watchDescription')) $('watchDescription').textContent = String(anime.description || '').slice(0, 440);
+
         const results = await api.list(anime);
         if (results.error) { $('playerNotice').hidden = false; $('playerNotice').textContent = results.error; }
         const current = results.episodes.find(e => e.season_number === season && e.episode_number === episode);
@@ -147,6 +158,7 @@
         if (current.title) $('episodeTitle').textContent += ` · ${current.title}`;
         const available = current.sources.filter(s => api.safeLink(s.url));
         if (!available.length) { explain('No valid watch servers are available.'); return; }
+        if ($('watchServerCount')) $('watchServerCount').textContent = `${available.length} watch source${available.length === 1 ? '' : 's'}`;
         const container = $('serverList');
         const controls = [];
         for (let index = 0; index < available.length; index++) {

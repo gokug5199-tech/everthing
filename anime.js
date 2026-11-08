@@ -109,6 +109,7 @@ let menuOpen = false;
 let searchTimer;
 let aliasColumnSupported=true;
 let popularityColumnSupported=true;
+let animeTypeColumnSupported=true;
 const cache = new Map(); // Only retain recently visited pages, not all anime.
 window.ANIME_DATA = []; // For existing hero fallbacks; only the first page is exposed.
 window.ANIME_LOAD_ERROR = false;
@@ -145,7 +146,7 @@ function genreFilterExpression(label) {
 }
 function buildQuery() {
   const p = new URLSearchParams();
-  p.set('select','id,title,image,genres,age_rating,rating,created_at');
+  p.set('select','id,title,image,genres,age_rating,rating,created_at'+(animeTypeColumnSupported?',anime_type':''));
   const sorting = sortInput?.value || 'popular';
   const order = {popular:popularityColumnSupported?'popularity_rank.asc.nullslast,mal_members.desc.nullslast,rating.desc.nullslast,id.asc':'rating.desc.nullslast,id.asc',newest:'created_at.desc,id.asc',az:'title.asc,id.asc',za:'title.desc,id.asc',rating:'rating.desc.nullslast,id.asc'};
   p.set('order',order[sorting]||order.popular);
@@ -215,8 +216,10 @@ function cardHtml(anime,index) {
   const image=escapeHtml(anime.image||'');
   const rating=escapeHtml(anime.age_rating||'Not rated');
   const id=encodeURIComponent(anime.id||'');
+  const format=String(anime.anime_type||'').trim();
+  const safeFormat=/^(TV|Movie|OVA|ONA|Special|TV Special)$/i.test(format)?format:'Unknown';
   const load=index<6?'eager':'lazy';
-  return `<a href="anime-details.html?id=${id}" class="anime-card-link"><article class="anime-card"><div class="poster"><img src="${image}" alt="${title}" loading="${load}" decoding="async" onerror="this.style.opacity='0.15'"><div class="rating age-classification" aria-label="Age rating: ${rating}">${rating}</div><div class="card-overlay"><span class="view-details">View Episodes</span></div></div><div class="anime-info"><h3>${title}</h3><p>${escapeHtml(genres.join(' • '))}</p></div></article></a>`;
+  return `<a href="anime-details.html?id=${id}" class="anime-card-link"><article class="anime-card"><div class="poster"><img src="${image}" alt="${title}" loading="${load}" decoding="async" onerror="this.style.opacity='0.15'"><div class="rating age-classification" aria-label="Age rating: ${rating}">${rating}</div><span class="te-format-tag" aria-label="Anime format: ${escapeHtml(safeFormat)}">${escapeHtml(safeFormat)}</span><div class="card-overlay"><span class="view-details">View Episodes</span></div></div><div class="anime-info"><h3>${title}</h3><p>${escapeHtml(genres.join(' • '))}</p></div></article></a>`;
 }
 // On navigation, save only the public card summary (not accounts or private data).
 // The detail page paints this instantly while waiting for the full authoritative row.
@@ -360,6 +363,9 @@ async function loadPage() {
         }
         if(popularityColumnSupported&&/popularity_rank|mal_members/i.test(detail)){
           popularityColumnSupported=false;continue;
+        }
+        if(animeTypeColumnSupported && /anime_type/i.test(detail)){
+          animeTypeColumnSupported=false;continue;
         }
         break;
       }

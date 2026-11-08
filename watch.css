@@ -8,3 +8,45 @@
 .watch-fallback-fullscreen{position:fixed!important;inset:0!important;z-index:2147483647!important;width:100vw!important;height:100vh!important;height:100dvh!important;aspect-ratio:auto!important;border-radius:0!important;background:#000!important}
 html.watch-fullscreen-scroll-lock,html.watch-fullscreen-scroll-lock body{overflow:hidden!important;overscroll-behavior:none}
 @media(max-width:600px){.watch-fullscreen-button{top:8px;right:8px;width:36px;height:36px}}
+
+/* v36: The Everything cinema redesign. Preserves VOE's native fullscreen. */
+.te-v5-watch{background:radial-gradient(circle at 8% 5%,rgba(89,43,154,.22),transparent 32%),radial-gradient(circle at 90% 65%,rgba(24,80,165,.17),transparent 37%),#090b18!important;color:#f3f2ff!important;font-family:'DM Sans',Arial,sans-serif!important}
+.te-v5-watch .watch-page{max-width:1180px;width:min(1180px,94%);padding:34px 0 80px}
+.te-v5-watch .watch-top{margin-bottom:28px;gap:12px}
+.te-v5-watch .back-button,.te-v5-watch .catalog-button{border:1px solid rgba(150,133,222,.24);background:#17172e;color:#ded6ff;font-weight:750;font-size:13px}
+.te-v5-watch .back-button:hover,.te-v5-watch .catalog-button:hover{border-color:#a782ff;background:#221b40}
+.te-v5-watch .watch-masthead{display:flex;gap:24px;align-items:center;margin:0 0 24px;padding:22px;border-radius:22px;border:1px solid rgba(150,134,222,.23);background:linear-gradient(120deg,rgba(22,19,49,.98),rgba(13,21,44,.97));box-shadow:0 22px 56px rgba(0,0,0,.25)}
+.te-v5-watch .watch-poster-frame{flex:0 0 117px;height:167px;border:1px solid #6f589a;border-radius:13px;overflow:hidden;background:linear-gradient(140deg,#231e4a,#141e37)}
+.te-v5-watch #watchPoster{width:100%;height:100%;object-fit:cover}
+.te-v5-watch .watch-introduction{flex:1;min-width:0}
+.te-v5-watch .label{color:#be9cff;font-size:10px;letter-spacing:.21em}
+.te-v5-watch .watch-masthead-dot{color:#e261bc;margin:0 7px}
+.te-v5-watch .watch-introduction h1{margin:10px 0 6px;font-family:'Space Grotesk','DM Sans',sans-serif;font-weight:800;font-size:clamp(25px,3.5vw,44px);line-height:1.1;letter-spacing:-.035em}
+.te-v5-watch .episode-title{color:#e0d7ff;font-size:15px;font-weight:750;margin:0 0 12px}
+.te-v5-watch .watch-meta{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 11px}
+.te-v5-watch .watch-meta span{border:1px solid #7e71b64f;border-radius:7px;padding:5px 9px;background:#272347;color:#c7c4e4;font-size:11px;font-weight:800}
+.te-v5-watch .watch-description{max-width:76ch;margin:0;color:#aab3cd;font-size:12px;line-height:1.7;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
+.te-v5-watch .watch-description:empty{display:none}
+.te-v5-watch .player-card{margin-top:0;padding:clamp(15px,3vw,30px);border:1px solid rgba(158,145,220,.25);border-radius:22px;background:linear-gradient(145deg,rgba(17,21,43,.96),rgba(11,15,35,.97))}
+.te-v5-watch .watch-player-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
+.te-v5-watch .watch-player-heading h2{margin:5px 0 0;font:800 23px/1.2 'Space Grotesk','DM Sans',sans-serif}
+.te-v5-watch .watch-eyebrow{color:#b595ff;font-size:10px;letter-spacing:.16em;font-weight:850}
+.te-v5-watch .watch-live-pill{display:inline-flex;gap:7px;align-items:center;border:1px solid #744da2;background:#282047;color:#e8d5ff;border-radius:20px;padding:8px 11px;font-size:10px;font-weight:850;white-space:nowrap}
+.te-v5-watch .watch-live-pill span{color:#d86bc2}
+.te-v5-watch .video-shell{border-radius:15px;box-shadow:0 15px 35px rgba(0,0,0,.26);outline:1px solid #ffffff1e}
+.te-v5-watch .watch-server-advice{color:#828fac;margin:13px 0 0;font-size:11px;line-height:1.6}
+.te-v5-watch .sources{margin-top:24px;border-top:1px solid #ffffff12;padding-top:22px}
+.te-v5-watch .sources-heading h2{color:#f4eeff;font:800 17px 'Space Grotesk','DM Sans',sans-serif}
+.te-v5-watch .server-list{display:flex;gap:10px}
+.te-v5-watch .server-button{background:#131b34;border:1px solid #42426c;border-radius:11px;min-width:132px;padding:12px 18px;color:#d5d8ef;font-weight:800}
+.te-v5-watch .server-button:hover{border-color:#9f7af0}
+.te-v5-watch .server-button.is-active{border-color:#a783ff;background:linear-gradient(110deg,#46348a,#6a3d91);box-shadow:0 4px 17px rgba(102,63,177,.22)}
+.te-v5-watch .episode-navigation{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:26px;border-top:1px solid #ffffff12;padding-top:22px}
+.te-v5-watch .episode-navigation-link{text-align:center;display:flex;align-items:center;justify-content:center;min-height:45px;padding:10px;border:1px solid #565277;border-radius:11px;background:#1a2040;color:#e6dfff;font-size:12px;font-weight:800}
+.te-v5-watch .episode-navigation-link:hover{border-color:#b49bff;background:#29234d}
+.te-v5-watch .episode-navigation-link[hidden]{display:none}
+.te-v5-watch .watch-footer{margin-top:32px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;color:#707e9d;font-size:11px;font-weight:750;border-top:1px solid #ffffff16;padding-top:21px}
+.te-v5-watch .watch-footer nav{display:flex;gap:15px;flex-wrap:wrap}
+.te-v5-watch .watch-footer a{color:#b5afd8;text-decoration:none}
+.te-v5-watch .watch-footer a:hover{color:#fff}
+@media(max-width:650px){.te-v5-watch .watch-page{padding-top:18px}.te-v5-watch .watch-masthead{gap:14px;padding:14px;border-radius:16px}.te-v5-watch .watch-poster-frame{flex-basis:79px;height:119px}.te-v5-watch .watch-introduction h1{font-size:23px}.te-v5-watch .watch-description{display:none}.te-v5-watch .watch-player-heading h2{font-size:20px}.te-v5-watch .watch-live-pill{font-size:8px;padding:7px}.te-v5-watch .episode-navigation{gap:7px}.te-v5-watch .episode-navigation-link{font-size:10px;padding:8px 4px}.te-v5-watch .server-button{flex:1;min-width:calc(50% - 5px)}}

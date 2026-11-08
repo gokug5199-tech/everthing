@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8741552134205191"
-          crossorigin="anonymous"></script>
 
   <script src="safari-perf-v15.js?v=15.0"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Watch Episode | The Everything</title>
+    <title>Watch Anime Episode | The Everything</title>
+    <meta name="description" content="Explore anime episode information, available playback sources and episode navigation on The Everything.">
     <link rel="stylesheet" href="site-branding.css">
-    <link rel="stylesheet" href="watch.css?v=fullscreen-v16-fix1">
+    <link rel="stylesheet" href="watch.css?v=cinema-v36">
     <script src="back-navigation.js"></script>
 <link rel="stylesheet" href="mobile-pwa.css?v=20261024-v3">    <link rel="stylesheet" href="redesign-mobile.css?v=20261025-mobile1">
 <link rel="stylesheet" href="te-v5.css?v=20261025-v5">
@@ -21,19 +20,29 @@
 <body class="te-v5 te-v5-watch">
     <main class="watch-page">
         <nav class="watch-top"><a data-back id="backButton" href="anime.html" class="back-button">← Back to anime</a><a href="anime.html" class="catalog-button">All anime</a></nav>
+        <section class="watch-masthead" aria-labelledby="animeTitle">
+            <div class="watch-poster-frame"><img id="watchPoster" alt="" loading="eager" decoding="async"></div>
+            <div class="watch-introduction">
+                <p class="label">THE EVERYTHING <span class="watch-masthead-dot">●</span> ANIME CINEMA</p>
+                <h1 id="animeTitle">Anime</h1>
+                <p class="episode-title" id="episodeTitle">Episode</p>
+                <div class="watch-meta"><span id="watchFormat">Anime</span><span id="watchSeason">Season 1</span><span id="watchServerCount">Loading servers…</span></div>
+                <p class="watch-description" id="watchDescription"></p>
+            </div>
+        </section>
         <section class="player-card">
-            <p class="label">NOW WATCHING</p>
-            <h1 id="animeTitle">Anime</h1>
-            <p class="episode-title" id="episodeTitle">Episode</p>
+            <div class="watch-player-heading"><div><span class="watch-eyebrow">YOUR NEXT EPISODE</span><h2>Now showing</h2></div><span class="watch-live-pill"><span aria-hidden="true">●</span> WATCH ONLINE</span></div>
             <div id="playerArea" aria-live="polite"><p class="missing">Loading player…</p></div>
+            <p class="watch-server-advice">Playback is provided by third-party hosts. Choose a different source if a player is unavailable.</p>
             <div id="sourceSection" class="sources" hidden><div class="sources-heading"><h2>Watch servers &amp; quality</h2><small>Choose another source if playback fails.</small></div><div id="serverList" class="server-list" role="group" aria-label="Watch server"></div></div>
             <p id="playerNotice" class="player-note" role="status" hidden></p>
             <nav id="episodeNav" class="episode-navigation" aria-label="Episodes" hidden><a id="prevEpisode" href="#" class="episode-navigation-link">← Previous episode</a><a id="episodesBack" href="#" class="episode-navigation-link">Episode list</a><a id="nextEpisode" href="#" class="episode-navigation-link">Next episode →</a></nav>
         </section>
+        <footer class="watch-footer"><span>THE EVERYTHING · Anime &amp; more</span><nav aria-label="Information"><a href="about.html">About</a><a href="privacy.html">Privacy</a><a href="dmca.html">DMCA</a><a href="contact.html">Contact</a></nav></footer>
     </main>
     <script src="anime-detail-loader-v22.js?v=27.0"></script>
     <script src="episode-data.js?v=links-v17"></script>
-    <script src="watch.js?v=voe-native-fullscreen-v30"></script>
+    <script src="watch.js?v=cinema-v36"></script>
     <script src="featured-public.js?v=20261024"></script><script src="mobile-pwa.js?v=20261026-v10"></script><script src="site-shell.js"></script>
 <script src="redesign-mobile.js?v=20261025-mobile1"></script>
 <script src="te-v5.js?v=27.0"></script>

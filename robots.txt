@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /login.html
+Disallow: /reset-password.html
+Disallow: /settings.html
+Disallow: /profile.html
+Disallow: /my-anime.html
+Disallow: /my-wallpapers.html

@@ -1,0 +1,33 @@
+THE EVERYTHING v36 — CINEMA + FORMAT BADGES + ADSENSE TECHNICAL AUDIT
+
+BUILD BASE: v35 FULL (provided earlier in this conversation)
+
+INSTALL
+1) Back up your current GitHub repository and Supabase data.
+2) Upload the PATCH files in the ZIP to the SAME relative paths in the site root.
+3) Commit changes; allow Cloudflare Pages to deploy.
+4) Hard-refresh (Ctrl+Shift+R), test anime catalog, episode search, next page, fullscreen on desktop and iPhone.
+5) Verify your-domain/ads.txt loads as plain text and matches the publisher ID shown in your own AdSense account.
+6) Search an anime with different anime formats; 'Unknown' indicates data to correct in Admin > Anime format.
+
+CHANGED
+- Anime collection: bottom-left anime format labels based on saved anime_type (TV, Movie, OVA, ONA, Special, TV Special). No inaccurate TV fallback.
+- Latest Anime: same badge.
+- Anime details: cinematic episode cards, WATCH instead of PLAY, search by episode number/title, 36 cards initially and Show more; existing relation and character sections preserved.
+- Watch page: cinema styling, title/episode/format/poster metadata, server switcher and previous/next links retained; VOE native fullscreen behavior unchanged.
+- ads.txt and robots.txt at site root; transparent privacy disclosure.
+- Removed Google AdSense JS tag from watch, anime-details, personal/login/admin/legal/placeholder pages; kept AdSense connection tag on index.html and anime.html.
+
+ADSENSE NOTE — NO ACCEPTANCE GUARANTEE
+Google requires substantive ORIGINAL content, working public navigation, legitimate rights to any copyrighted media. If third-party hosted anime episodes are not licensed to you, removing ad tags from the watch pages and changing cosmetics does NOT make the streaming site compliant. Do not monetize unauthorized content. You may need to remove unlicensed streams and offer original reviews/guides or links to licensed services instead.
+Check the exact 'Needs attention' message in AdSense > Sites / Policy Center. Also verify privacy messaging/CMP for EEA/UK/Switzerland, HTTPS, ownership and your real domain URL.
+
+NEEDS YOUR VERIFICATION
+- Is anime_type filled on imported records? Update Admin if Unknown.
+- Live site's current ZIP may differ from v35. Test on a staging branch before replacing files.
+- No production domain was supplied, so no real canonical URLs or sitemap were fabricated.
+- We cannot check Google rejection reason or licensing without you sharing it.
+
+ACCOUNT ELIGIBILITY: AdSense publishers must be 18+. If the operator is under 18, a parent or legal guardian must apply through their own Google Account. Using an adult account does not waive media licensing requirements.
+
+ORIGINAL CONTENT: The 6,000 catalog records are mostly externally sourced anime metadata. Add substantial, authentic, hand-written editorial reviews, recommendations, comparisons, or guides written by the site owner. Automatically rewriting descriptions is not a substitute.

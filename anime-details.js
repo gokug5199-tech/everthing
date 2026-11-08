@@ -18,6 +18,9 @@
     if (loadingStatus) loadingStatus.textContent = 'Loading episodes…';
     const poster = document.getElementById('animePoster'); poster.src = anime.image || ''; poster.alt = anime.title || 'Anime poster';
     document.getElementById('animeTitle').textContent = anime.title || 'Anime';
+    const format = String(anime.anime_type || 'Unknown');
+    const typeLabel = document.getElementById('animeTypeLabel');
+    if(typeLabel) typeLabel.textContent = ' · ' + (/^(TV|Movie|OVA|ONA|Special|TV Special)$/i.test(format) ? format : 'Anime');
     document.getElementById('animeGenres').textContent = Array.isArray(anime.genres) ? anime.genres.join(' • ') : '';
     document.getElementById('animeDescription').textContent = anime.description || '';
     document.getElementById('animeRating').textContent = `★ ${anime.rating || '-'}`;
@@ -35,25 +38,64 @@
     count.textContent = `${episodes.length} episode${episodes.length === 1 ? '' : 's'}`;
     const seasons = Array.from(new Set(episodes.map(e => e.season_number))).sort((a,b) => a-b);
     let selected = seasons[0] || 1;
-    function draw() {
+    const search = document.getElementById('teEpisodeSearch');
+    const showing = document.getElementById('teEpisodeShowing');
+    const more = document.getElementById('teEpisodeMore');
+    const BATCH = 36;
+    let visibleLimit = BATCH;
+    function episodeLabel(e) { return `Episode ${e.episode_number}${e.title ? ' · ' + e.title : ''}`; }
+    function filteredEpisodes() {
+        const term = (search?.value || '').trim().toLocaleLowerCase();
+        return episodes.filter(e => e.season_number === selected &&
+            (!term || String(e.episode_number) === term || episodeLabel(e).toLocaleLowerCase().includes(term)));
+    }
+    function draw(reset = false) {
+        if (reset) visibleLimit = BATCH;
         tabs.replaceChildren(); grid.replaceChildren();
         tabs.hidden = seasons.length <= 1;
         for (const season of seasons) {
-            const button = document.createElement('button'); button.type = 'button'; button.className = 'season-tab';
-            button.textContent = `Season ${season}`; button.setAttribute('aria-pressed', String(selected === season));
-            button.onclick = () => { selected=season; draw(); };
+            const button = document.createElement('button');
+            button.type = 'button'; button.className = 'season-tab';
+            button.textContent = `Season ${season}`;
+            button.setAttribute('aria-pressed', String(selected === season));
+            button.onclick = () => { selected = season; if(search) search.value = ''; draw(true); };
             tabs.append(button);
         }
-        for (const ep of episodes.filter(e => e.season_number === selected)) {
-            const available = ep.sources && ep.sources.length > 0;
-            const a = document.createElement('a'); a.className = 'episode'+(available?'':' unavailable');
-            a.href = `watch.html?anime=${encodeURIComponent(anime.id)}&season=${ep.season_number}&episode=${ep.episode_number}`;
+        const matches = filteredEpisodes();
+        const fragment = document.createDocumentFragment();
+        for (const ep of matches.slice(0, visibleLimit)) {
+            const available = Array.isArray(ep.sources) && ep.sources.length > 0;
+            const card = document.createElement(available ? 'a' : 'div');
+            card.className = 'episode' + (available ? '' : ' unavailable');
+            if (available) card.href = `watch.html?anime=${encodeURIComponent(anime.id)}&season=${ep.season_number}&episode=${ep.episode_number}`;
+            else card.setAttribute('aria-disabled','true');
+            const content = document.createElement('span'); content.className = 'episode-text';
+            const eyebrow = document.createElement('span'); eyebrow.className = 'episode-eyebrow';
+            eyebrow.textContent = 'SEASON ' + ep.season_number;
             const label = document.createElement('span'); label.className = 'episode-number';
-            label.textContent = `Episode ${ep.episode_number}${ep.title ? ' · '+ep.title : ''}`;
-            const play = document.createElement('span'); play.className = 'play'; play.textContent = available ? 'PLAY ▶' : 'SOON';
-            a.append(label,play); grid.append(a);
+            label.textContent = episodeLabel(ep);
+            content.append(eyebrow, label);
+            const action = document.createElement('span'); action.className = 'play';
+            if (available) {
+                action.textContent = 'WATCH';
+                const arrow = document.createElementNS('http://www.w3.org/2000/svg','svg');
+                arrow.setAttribute('viewBox','0 0 24 24'); arrow.setAttribute('fill','none');
+                arrow.setAttribute('stroke','currentColor'); arrow.setAttribute('stroke-width','2');
+                const path = document.createElementNS('http://www.w3.org/2000/svg','path');
+                path.setAttribute('d','m9 6 6 6-6 6'); arrow.append(path); action.append(arrow);
+            } else { action.textContent = 'SOON'; }
+            card.append(content, action); fragment.append(card);
         }
-        if (!grid.childElementCount) { const blank = document.createElement('div'); blank.className='page-message'; blank.textContent='No episodes have been added yet.'; grid.append(blank); }
+        grid.append(fragment);
+        if (!matches.length) {
+            const blank = document.createElement('div'); blank.className = 'page-message';
+            blank.textContent = search?.value ? 'No matching episodes. Try another number or title.' : 'No episodes have been added yet.';
+            grid.append(blank);
+        }
+        if (showing) showing.textContent = `Showing ${Math.min(visibleLimit, matches.length)} of ${matches.length} episodes`;
+        if (more) more.hidden = matches.length <= visibleLimit;
     }
+    if (search) search.addEventListener('input', () => draw(true));
+    if (more) more.addEventListener('click', () => { visibleLimit += BATCH; draw(); });
     draw();
 })();
