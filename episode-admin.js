@@ -137,6 +137,9 @@
             quality.value = source.quality || 'auto';
             const url = field('text', 'Videa, VOE, HGCloud URL or iframe code', source.url || '');
             url.className = 'source-url'; url.setAttribute('aria-label', 'Video URL or iframe'); url.required = true;
+            const directDownload = field('url', 'Optional: authorized direct .mp4 / .webm download link (not an embed)', source.download_url || '');
+            directDownload.className = 'source-download';
+            directDownload.setAttribute('aria-label', 'Optional direct video file for download');
             const hint = document.createElement('small'); hint.className = 'source-hint';
             const verify = () => {
                 if (!url.value.trim()) { hint.textContent = 'Paste a URL to detect the video provider.'; return; }
@@ -157,7 +160,7 @@
             });
             const remove = document.createElement('button'); remove.type = 'button'; remove.className = 'danger';
             remove.textContent = 'Remove'; remove.setAttribute('aria-label', 'Remove source'); remove.onclick = () => row.remove();
-            row.append(name, quality, url, remove, hint); sourcesBox.append(row);
+            row.append(name, quality, url, remove, directDownload, hint); sourcesBox.append(row);
             verify();
         }
         function reset() {
@@ -244,7 +247,10 @@
                     const name=row.querySelector('.source-name').value.trim() || parsed.name;
                     const quality=row.querySelector('.source-quality').value;
                     const url=parsed.url;
-                    if (!sources.some(s=>s.url===url && s.quality===quality)) sources.push({name,quality,url});
+                    const rawDownload=row.querySelector('.source-download')?.value.trim() || '';
+                    const download_url=rawDownload ? links.safeDownloadLink(rawDownload) : '';
+                    if (rawDownload && !download_url) throw Error('Download links must point to a direct HTTPS .mp4, .webm, .m4v, or .mov file, not VOE watch/iframe pages.');
+                    if (!sources.some(s=>s.url===url && s.quality===quality)) sources.push({name,quality,url,download_url});
                 }
                 if (!sources.length) throw Error('Add at least one video source.');
                 const payload={anime_id:animeId,season_number:seasonNumber,episode_number:episodeNumber,

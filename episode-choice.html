@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, follow">
+  <title>Choose How to Watch | The Everything</title>
+  <meta name="description" content="Choose to stream an available episode or download an authorized video file.">
+  <link rel="stylesheet" href="site-branding.css">
+  <link rel="stylesheet" href="episode-choice-v37.css?v=37.0">
+  <script src="back-navigation.js" defer></script>
+</head>
+<body class="te-episode-choice">
+ <div class="choice-ambient" aria-hidden="true"></div>
+ <main class="choice-layout">
+  <header class="choice-topbar">
+    <a class="choice-brand" href="index.html"><span class="choice-logo">T</span><span><strong>THE EVERYTHING</strong><small>ONE PLACE. ENDLESS WORLDS.</small></span></a>
+    <a id="choiceBack" href="anime.html" class="choice-return">← Back to episodes</a>
+  </header>
+  <div class="choice-breadcrumb" id="choiceBreadcrumb">ANIME / EPISODE</div>
+  <section class="choice-hero" aria-labelledby="choiceTitle">
+   <div class="choice-visual"><img id="choicePoster" alt="Anime artwork" decoding="async"><span class="choice-visual-shine" aria-hidden="true"></span></div>
+   <div class="choice-main">
+     <span class="choice-eyebrow"><span class="choice-dot">●</span> YOUR NEXT EPISODE</span>
+     <h1 id="choiceTitle">Choose your experience<span class="choice-period">.</span></h1>
+     <p class="choice-title" id="choiceAnime">Loading anime…</p>
+     <div class="choice-chips"><span id="choiceEpisode">Episode</span><span id="choiceFormat">Anime</span><span id="choiceServerCount">Checking sources…</span></div>
+     <p class="choice-desc">Ready for the next chapter? Pick how you want to enjoy this episode.</p>
+     <div class="choice-actions" id="choiceActions" aria-busy="true">
+       <button id="choiceWatch" class="choice-option choice-watch" type="button" disabled>
+         <span class="choice-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 9 6-9 6z" fill="currentColor"/></svg></span>
+         <span class="choice-option-info"><strong>Watch episode</strong><small>Stream in our anime player</small></span>
+         <span class="choice-chevron">↗</span>
+       </button>
+       <button id="choiceDownload" class="choice-option choice-download" type="button" disabled>
+         <span class="choice-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 17v4h16v-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+         <span class="choice-option-info"><strong>Download episode</strong><small id="choiceDownloadHint">Checking for a direct file…</small></span>
+         <span class="choice-chevron">↗</span>
+       </button>
+     </div>
+     <p id="choiceStatus" class="choice-status" role="status" aria-live="polite">Loading episode information…</p>
+     <div class="choice-security-note"><span aria-hidden="true">◈</span><span>Episode activity is saved only when you're signed in. A download requires an authorized direct video file; embedded servers may not allow it.</span></div>
+   </div>
+  </section>
+  <footer class="choice-footer"><span>THE EVERYTHING © 2026</span><nav aria-label="Site information"><a href="about.html">About</a><a href="privacy.html">Privacy</a><a href="contact.html">Contact</a></nav></footer>
+ </main>
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+ <script src="anime-detail-loader-v22.js?v=37.0" defer></script>
+ <script src="episode-data.js?v=37.0" defer></script>
+ <script src="episode-activity-v37.js?v=37.0" defer></script>
+ <script src="episode-choice-v37.js?v=37.0" defer></script>
+</body>
+</html>

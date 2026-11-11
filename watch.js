@@ -76,7 +76,7 @@
     });
 
     function explain(text) { const el = document.createElement('div'); el.className = 'missing'; el.textContent = text; area.replaceChildren(el); }
-    function viewLink(item) { return `watch.html?anime=${encodeURIComponent(animeId)}&season=${item.season_number}&episode=${item.episode_number}`; }
+    function viewLink(item) { return `episode-choice.html?anime=${encodeURIComponent(animeId)}&season=${item.season_number}&episode=${item.episode_number}`; }
     function player(source) {
         const href = api.safeLink(source.url), kind = api.sourceKind(source.url);
         leaveFallbackFullscreen();
@@ -151,9 +151,9 @@
         if ($('watchSeason')) $('watchSeason').textContent = `Season ${season}`;
         if ($('watchDescription')) $('watchDescription').textContent = String(anime.description || '').slice(0, 440);
 
-        const results = await api.list(anime);
-        if (results.error) { $('playerNotice').hidden = false; $('playerNotice').textContent = results.error; }
-        const current = results.episodes.find(e => e.season_number === season && e.episode_number === episode);
+        const single = await api.get(anime, season, episode);
+        if (single.error) { $('playerNotice').hidden = false; $('playerNotice').textContent = single.error; }
+        const current = single.episode;
         if (!current || !current.sources.length) { explain('This episode is not available yet.'); return; }
         if (current.title) $('episodeTitle').textContent += ` · ${current.title}`;
         const available = current.sources.filter(s => api.safeLink(s.url));
@@ -171,14 +171,26 @@
             btn.setAttribute('aria-pressed','false'); controls.push(btn); container.append(btn);
         }
         $('sourceSection').hidden = false; controls[0].click();
-        const viewable = results.episodes.filter(e => e.sources.length > 0);
-        const here = viewable.findIndex(e => e.season_number === season && e.episode_number === episode);
-        if (here >= 0) {
-            const prev = $('prevEpisode'), next = $('nextEpisode');
-            if (here > 0) prev.href = viewLink(viewable[here-1]); else prev.hidden = true;
-            if (here < viewable.length-1) next.href = viewLink(viewable[here+1]); else next.hidden = true;
-            $('episodeNav').hidden = false;
+        // One unique per-user episode record: opening the player does NOT mean finishing the episode.
+        if (window.TEEpisodeActivity) {
+            window.TEEpisodeActivity.record(animeId, season, episode, 'watch').then(state => {
+                const status = $('watchActivityStatus');
+                if (status) status.textContent = state.saved ? 'Episode opened · Saved to your account' :
+                    state.signedIn ? (state.error || 'Episode progress could not be saved.') :
+                    'Log in to keep your episode activity on your profile.';
+            });
         }
+        // Navigation is secondary: do not wait for thousands of episodes before starting video.
+        $('episodeNav').hidden = false;
+        $('prevEpisode').hidden = $('nextEpisode').hidden = true;
+        api.list(anime).then(results => {
+            const viewable = results.episodes.filter(e => e.sources.length > 0);
+            const here = viewable.findIndex(e => e.season_number === season && e.episode_number === episode);
+            if (here < 0) return;
+            const prev = $('prevEpisode'), next = $('nextEpisode');
+            if (here > 0) {prev.href = viewLink(viewable[here-1]);prev.hidden=false;}
+            if (here < viewable.length-1) {next.href = viewLink(viewable[here+1]);next.hidden=false;}
+        }).catch(err=>console.warn('Episode navigation unavailable:',err));
     } catch (error) {
         console.error(error); explain('Could not load the player. Please refresh the page.');
     }

@@ -59,3 +59,17 @@ body.te-v5-admin .episode-anime-search-results button:hover,body.te-v5-admin .ep
 .te-popularity-actions button:disabled{opacity:.55;cursor:wait}
 .te-popularity-actions #tePopPause{background:#30284e}
 .te-popularity-panel .te-popularity-status{font-size:.8rem;color:#d1cee2;margin:10px 0 0;overflow-wrap:anywhere}
+
+/* v35 — fast, separate search in Latest Anime, Latest Episodes, and rotating banner. */
+body.te-v5-admin .te-featured-search{display:flex;gap:8px;align-items:stretch;flex-wrap:wrap;margin:8px 0 5px}
+body.te-v5-admin .te-featured-search input{flex:1 1 190px;width:auto;min-width:0;margin:0!important;font-size:14px!important}
+body.te-v5-admin .te-featured-search button{flex:0 0 auto;margin:0!important;min-height:43px;padding:9px 16px!important;border-radius:10px!important;color:#fff!important;border:1px solid #9e7afb!important;background:linear-gradient(110deg,#7146e9,#bf48ad)!important;font-size:13px!important;font-weight:700!important}
+body.te-v5-admin .te-featured-search button:disabled{opacity:.5}
+body.te-v5-admin .te-featured-search-status{font-size:12px;min-height:18px;color:#aaaed2;margin:4px 0 10px;overflow-wrap:anywhere}
+body.te-v5-admin .te-featured-episode-search{margin-top:10px}
+body.te-v5-admin .te-featured-episode-search input{flex-basis:140px}
+body.te-v5-admin #featuredEpisodeMore{font-size:12px;margin:0 0 10px;padding:7px 12px}
+@media(max-width:520px){body.te-v5-admin .te-featured-search input{flex-basis:100%}body.te-v5-admin .te-featured-search button{flex:1}}
+
+/* v37 direct licensed download URL in per-server editor */
+.source-row .source-download{grid-column:1/-1;width:100%;border:1px solid #6b619c6b;background:#121630;padding:11px;border-radius:9px;color:#fff;min-height:42px}.source-row .source-download::placeholder{color:#abb0c6}.source-row .source-hint{grid-column:1/-1}.source-row .source-download:focus{outline:2px solid #a887ff;outline-offset:2px}

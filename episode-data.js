@@ -70,13 +70,24 @@
         return {url: url.href, name, kind, warning};
     }
 
+    function safeDownloadLink(input) {
+        const href = safeLink(input);
+        if (!href) return '';
+        try {
+            const url = new URL(href);
+            // A stream iframe or an ordinary watch page is not a downloadable media file.
+            if (url.protocol !== 'https:' && !(location.protocol === 'file:' && url.protocol === 'file:')) return '';
+            return /\.(?:mp4|webm|m4v|mov)$/i.test(url.pathname) ? href : '';
+        } catch (_) { return ''; }
+    }
     function sourceList(value) {
-        if (typeof value === 'string') return [{name: 'Server 1', quality: 'auto', url: value}];
+        if (typeof value === 'string') return [{name: 'Server 1', quality: 'auto', url: value, download_url: ''}];
         if (!Array.isArray(value)) return [];
         return value.filter(s => s && typeof s.url === 'string' && safeLink(s.url)).map(s => ({
             name: String(s.name || 'Server').slice(0, 50),
             quality: ['auto', '480p', '720p', '1080p'].includes(s.quality) ? s.quality : 'auto',
-            url: s.url
+            url: s.url,
+            download_url: safeDownloadLink(s.download_url || '')
         }));
     }
     function legacy(anime) {
@@ -93,6 +104,26 @@
             }
         }
         return entries;
+    }
+    // Lightweight single-episode lookup for large shows (avoids fetching every episode).
+    async function get(anime, season, number) {
+        const legacyLinks = anime.episodeLinks || anime.episode_links || {};
+        const legacySource = season === 1 ? (legacyLinks[number] || legacyLinks[String(number)]) : null;
+        let episode = legacySource ? {anime_id:anime.id, season_number:season,
+            episode_number:number, title:'', sources:sourceList(legacySource), legacy:true} : null;
+        let error = '';
+        try {
+            const url = `${api}?select=anime_id,season_number,episode_number,title,sources&anime_id=eq.${encodeURIComponent(anime.id)}` +
+                `&season_number=eq.${season}&episode_number=eq.${number}&limit=1`;
+            const response = await fetch(url,{headers:{apikey:publicKey},signal:AbortSignal.timeout(15000)});
+            if (!response.ok) throw Error(`HTTP ${response.status}`);
+            const rows = await response.json();
+            if (rows[0]) episode = {...rows[0], sources:sourceList(rows[0].sources)};
+        } catch (cause) {
+            console.warn('Single episode lookup unavailable:',cause);
+            error='Could not load the saved episode. Check your connection.';
+        }
+        return {episode,error};
     }
     async function list(anime) {
         const all = new Map(legacy(anime).map(e => [`${e.season_number}:${e.episode_number}`, e]));
@@ -116,5 +147,5 @@
         const episodes = Array.from(all.values()).sort((a, b) => a.season_number - b.season_number || a.episode_number - b.episode_number);
         return {episodes, error};
     }
-    window.EpisodeAPI = {list, safeLink, sourceKind, sourceList, parseSource};
+    window.EpisodeAPI = {list, get, safeLink, safeDownloadLink, sourceKind, sourceList, parseSource};
 })();

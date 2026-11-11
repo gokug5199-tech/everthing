@@ -67,7 +67,7 @@
             const available = Array.isArray(ep.sources) && ep.sources.length > 0;
             const card = document.createElement(available ? 'a' : 'div');
             card.className = 'episode' + (available ? '' : ' unavailable');
-            if (available) card.href = `watch.html?anime=${encodeURIComponent(anime.id)}&season=${ep.season_number}&episode=${ep.episode_number}`;
+            if (available) card.href = `episode-choice.html?anime=${encodeURIComponent(anime.id)}&season=${ep.season_number}&episode=${ep.episode_number}`;
             else card.setAttribute('aria-disabled','true');
             const content = document.createElement('span'); content.className = 'episode-text';
             const eyebrow = document.createElement('span'); eyebrow.className = 'episode-eyebrow';
@@ -77,7 +77,7 @@
             content.append(eyebrow, label);
             const action = document.createElement('span'); action.className = 'play';
             if (available) {
-                action.textContent = 'WATCH';
+                action.textContent = 'OPTIONS';
                 const arrow = document.createElementNS('http://www.w3.org/2000/svg','svg');
                 arrow.setAttribute('viewBox','0 0 24 24'); arrow.setAttribute('fill','none');
                 arrow.setAttribute('stroke','currentColor'); arrow.setAttribute('stroke-width','2');

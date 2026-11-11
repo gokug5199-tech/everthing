@@ -16,6 +16,7 @@
 
     <link rel="stylesheet" href="te-unified-theme-v12.css?v=20261026-v12">
   <link rel="stylesheet" href="safari-perf-v15.css?v=15.0">
+    <link rel="stylesheet" href="watch-v37.css?v=37.0">
 </head>
 <body class="te-v5 te-v5-watch">
     <main class="watch-page">
@@ -31,18 +32,21 @@
             </div>
         </section>
         <section class="player-card">
-            <div class="watch-player-heading"><div><span class="watch-eyebrow">YOUR NEXT EPISODE</span><h2>Now showing</h2></div><span class="watch-live-pill"><span aria-hidden="true">●</span> WATCH ONLINE</span></div>
+            <div class="watch-player-heading"><div><span class="watch-eyebrow">YOUR NEXT EPISODE</span><h2>Now showing</h2></div><span class="watch-live-pill"><span aria-hidden="true">●</span> STREAMING</span></div>
             <div id="playerArea" aria-live="polite"><p class="missing">Loading player…</p></div>
-            <p class="watch-server-advice">Playback is provided by third-party hosts. Choose a different source if a player is unavailable.</p>
+            <p class="watch-server-advice">Embedded players are managed by external providers; their verification screens and advertisements cannot be controlled by The Everything.</p>
+            <p id="watchActivityStatus" class="watch-activity-status" role="status" aria-live="polite"></p>
             <div id="sourceSection" class="sources" hidden><div class="sources-heading"><h2>Watch servers &amp; quality</h2><small>Choose another source if playback fails.</small></div><div id="serverList" class="server-list" role="group" aria-label="Watch server"></div></div>
             <p id="playerNotice" class="player-note" role="status" hidden></p>
             <nav id="episodeNav" class="episode-navigation" aria-label="Episodes" hidden><a id="prevEpisode" href="#" class="episode-navigation-link">← Previous episode</a><a id="episodesBack" href="#" class="episode-navigation-link">Episode list</a><a id="nextEpisode" href="#" class="episode-navigation-link">Next episode →</a></nav>
         </section>
         <footer class="watch-footer"><span>THE EVERYTHING · Anime &amp; more</span><nav aria-label="Information"><a href="about.html">About</a><a href="privacy.html">Privacy</a><a href="dmca.html">DMCA</a><a href="contact.html">Contact</a></nav></footer>
     </main>
-    <script src="anime-detail-loader-v22.js?v=27.0"></script>
-    <script src="episode-data.js?v=links-v17"></script>
-    <script src="watch.js?v=cinema-v36"></script>
+    <script src="anime-detail-loader-v22.js?v=37.0"></script>
+    <script src="episode-data.js?v=37.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="episode-activity-v37.js?v=37.0"></script>
+    <script src="watch.js?v=37.0"></script>
     <script src="featured-public.js?v=20261024"></script><script src="mobile-pwa.js?v=20261026-v10"></script><script src="site-shell.js"></script>
 <script src="redesign-mobile.js?v=20261025-mobile1"></script>
 <script src="te-v5.js?v=27.0"></script>

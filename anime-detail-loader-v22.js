@@ -5,7 +5,7 @@
   const API = 'https://tnavsfbolastevebukxl.supabase.co/rest/v1/site_anime';
   const KEY = 'sb_publishable_3FX_mPM-A6dIY-nQTtFZQg_5HPoWO9B';
   const params = new URLSearchParams(location.search);
-  const isWatch = /(?:^|\/)watch(?:\.html)?\/?$/i.test(location.pathname); // Cloudflare Pages serves /watch as well as /watch.html
+  const isWatch = /(?:^|\/)(?:watch|episode-choice)(?:\.html)?\/?$/i.test(location.pathname); // Episode choice and watch use the anime query parameter.
   const animeId = params.get(isWatch ? 'anime' : 'id') || (isWatch ? '' : 'attack-on-titan');
   const isDetail = !isWatch;
   window.ANIME_DATA = [];

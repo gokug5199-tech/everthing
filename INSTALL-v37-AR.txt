@@ -1,0 +1,38 @@
+The Everything v37 — Episode Chooser / Cinema / Private Account Activity
+============================================================
+
+IMPORTANT: v37 is based on the previous v36 FULL source. Back up your repo before applying.
+
+1. Run EPISODE-ACTIVITY-SETUP-v37.sql once in Supabase > SQL Editor.
+   This creates a private per-user episode action table and an authenticated RPC.
+   Without SQL, users can still watch, but activity counts will not save.
+
+2. Upload all files from the PATCH ZIP into your GitHub site root, replacing matching files.
+   New files include episode-choice.html, episode-choice-v37.css/.js,
+   episode-activity-v37.js, watch-v37.css, profile-episodes-v37.css and the SQL instructions.
+
+3. Deploy Cloudflare Pages, hard-refresh (Ctrl+Shift+R).
+
+4. Test logged out: click an episode > Watch > opens player; NO account activity saved.
+   Test logged in: click an episode > Watch > open profile.html and check Episodes opened.
+   Repeat the episode and confirm the unique-episode count does not double.
+
+5. Optional download for a *licensed* episode:
+   Admin > Episodes > select anime/episode > Edit > add the direct HTTPS .mp4 or .webm
+   URL in the optional Download field under a server > Save changes.
+   A normal VOE watch or iframe link is NOT a downloadable file; download stays unavailable.
+   On some cross-origin hosts, browsers may open a direct file instead of saving it.
+   The host must permit downloads; CORS and Content-Disposition rules cannot be bypassed.
+
+6. Check profile.html: Episodes opened and Download requests are PER-ACCOUNT counts.
+   These are action counts, not proof of full playback or completed transfers.
+   Repeated actions on the same episode retain one entry, timestamps refresh.
+
+7. Existing links, Videa/VOE/HGCloud servers, Anime list, search, bulk import,
+   fullscreen fallbacks and the other v36 features remain in place.
+
+Third-party CAPTCHA/verification/popups inside a VOE iframe are controlled by VOE,
+not by the site. Embedding cannot remove or bypass them; use an authorized video host
+with a clean player if you need that experience.
+
+No live Supabase/Cloudflare environment was changed by this ZIP.
