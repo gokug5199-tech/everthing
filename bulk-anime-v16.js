@@ -1,4 +1,4 @@
-/* The Everything v16 — admin-only, resumable bulk anime importer.
+/* The Everything v34 — ranked-first, resumable bulk anime importer.
  * Uses the current project's Tenrai API, existing Supabase auth and RLS.
  * Does not import videos, overwrite existing anime, or add featured items.
  */
@@ -6,7 +6,8 @@
 'use strict';
 const API='https://api.tenrai.org/v1';
 const TARGET=500, BATCH_SIZE=12, REQUEST_INTERVAL=1100;
-const STORAGE_PREFIX='te-v16-anime-bulk-';
+const STORAGE_PREFIX='te-v16-anime-bulk-'; // Intentionally unchanged: preserve old progress.
+const POPULAR_MODE='popular-v34';
 const $=id=>document.getElementById(id);
 const ANIME_TYPES=new Set(['TV','Movie','OVA','ONA','Special','TV Special']);
 const displayName=a=>a?.title_english||a?.title||a?.title_japanese||'Untitled';
@@ -125,13 +126,14 @@ if(!section||!command)return;
 const root=document.createElement('section');root.className='te-bulk-v16';root.id='teBulkImport';
 root.innerHTML=`
   <div class="te-bulk-top"><div><span class="te-bulk-kicker">BULK CATALOG IMPORT / TENRAI</span>
-    <h2>Add 500 anime in one click.</h2><p>Import 500 <strong>new</strong> anime, skip duplicates, and connect sequels, specials, remakes and alternate versions. Existing records are never overwritten. Characters are fetched for new titles automatically.</p></div>
+    <h2>Add 500 anime in one click.</h2><p>Import 500 <strong>new</strong> anime, starting with the most popular according to MyAnimeList. Existing titles are skipped. Related anime links, characters and metadata are imported where available; existing records are never overwritten.</p></div>
     <span class="te-bulk-number">500<span> NEW ANIME</span></span></div>
   <div class="te-bulk-stats"><div><small>Current catalog</small><strong id="teBulkExisting">—</strong></div><div><small>Successfully added</small><strong id="teBulkAdded">0</strong></div><div><small>Skipped duplicates</small><strong id="teBulkSkipped">0</strong></div><div><small>API / data errors</small><strong id="teBulkErrors">0</strong></div></div>
   <div class="te-bulk-progress"><div class="te-bulk-progress-title"><span id="teBulkState">Ready for a new import</span><span id="teBulkPercent">0%</span></div>
     <progress id="teBulkBar" max="500" value="0">0 / 500</progress><p class="te-bulk-status" id="teBulkMessage" role="status" aria-live="polite">The existing anime catalog is checked before importing. This may take several minutes. Keep this tab open.</p></div>
   <div class="te-bulk-controls"><button type="button" id="teBulkStart" class="te-bulk-primary">Import 500 New Anime</button><button type="button" id="teBulkCheck">Check Connection &amp; Database</button><button type="button" id="teBulkPause" hidden>Pause safely</button><button type="button" id="teBulkDiscard" hidden>Discard saved progress</button></div>
-  <details class="te-bulk-details"><summary>What will be imported?</summary><p>Titles, posters, synopsis, genres, studio, ratings, release dates, seasons and anime type. The importer also prioritizes a few directly related sequels, specials, remakes and alternate versions within the 500-title limit. Relationships are read from Tenrai and linked to other records in your library. The importer does not upload episodes or videos. Up to 30 characters are fetched during import where Tenrai provides them. Missing or conflicting metadata is left unlinked rather than inventing a watch order.</p><p>Progress is saved in this browser. If the page is closed, return to Admin and press Resume. Never run the importer in two tabs at the same time.</p></details>
+  <details class="te-bulk-details"><summary>What will be imported?</summary><p>Titles, posters, synopsis, genres, studio, ratings, release dates, seasons and anime type. New imports follow Tenrai popularity ranks from most popular to less popular, without skipping ahead for related entries. Sequel, prequel, special, remake and alternate-version relationships are still saved and linked to other records in your library. Paused imports created before v34 resume their original saved selection order. The importer does not upload episodes or videos. Up to 30 characters are fetched during import where Tenrai provides them. Missing or conflicting metadata is left unlinked rather than inventing a watch order.</p><p>Progress is saved in this browser. If the page is closed, return to Admin and press Resume. Never run the importer in two tabs at the same time.</p></details>
+  <p class="te-bulk-status" id="teBulkRankingMode">New imports follow MAL popularity ranks. Saved older batches resume in their original order.</p>
   <p class="te-bulk-status" id="teBulkCharacters">Character import: ready.</p>
   <ol id="teBulkLog" class="te-bulk-log" aria-label="Recent import activity"></ol>`;
 command.insertAdjacentElement('afterend',root);
@@ -145,7 +147,10 @@ function save(){if(!task)return;try{localStorage.setItem(storageKey(),JSON.strin
 function loadSaved(){try{const saved=JSON.parse(localStorage.getItem(storageKey())||'null');return saved?.version===16&&saved?.owner===userId&&saved?.goal===TARGET?saved:null;}catch{return null;}}
 function discardSaved(){try{localStorage.removeItem(storageKey());}catch{}}
 function shuffled(values){const copy=[...values];for(let i=copy.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[copy[i],copy[j]]=[copy[j],copy[i]];}return copy;}
-function newTask(){return {version:16,owner:userId,goal:TARGET,addedIds:[],skipped:0,errors:0,seen:[],pages:shuffled(Array.from({length:200},(_,i)=>i+1)),pageIndex:0,queue:[],pending:[],graph:{},finished:false,characterPopulated:0,characterUnavailable:0,lastError:'',started:new Date().toISOString()};}
+function newTask(){return {version:16,owner:userId,goal:TARGET,selectionMode:POPULAR_MODE,nextPopularPage:1,sourceExhausted:false,addedIds:[],skipped:0,errors:0,seen:[],pages:[],pageIndex:0,queue:[],pending:[],graph:{},finished:false,characterPopulated:0,characterUnavailable:0,lastError:'',started:new Date().toISOString()};}
+function isPopularTask(current=task){return current?.selectionMode===POPULAR_MODE;}
+function popularCatalogUrl(page){return `/anime?order_by=popularity&sort=asc&nulls=exclude&limit=25&page=${page}&sfw&sfw-strict`;}
+
 async function snapshotCatalog(){catalog=await admin.getBulkCatalog();existingNames=new Set();existingIds=new Set();existingMalIds=new Set();for(const a of catalog){existingIds.add(String(a.id));if(number(a.mal_id))existingMalIds.add(number(a.mal_id));for(const name of [a.title,a.season_label,...(a.title_aliases||[])]){const key=titleKey(name);if(key)existingNames.add(key);}}text('teBulkExisting',catalog.length);}
 function exists(a){if(existingMalIds.has(number(a?.mal_id)))return true;return aliases(a).some(alias=>existingNames.has(alias));}
 function updateState(message){const n=task?.addedIds.length||0;const total=TARGET;
@@ -154,6 +159,9 @@ function updateState(message){const n=task?.addedIds.length||0;const total=TARGE
  text('teBulkState',task?.finished?'Import complete':running?(pauseRequested?'Pausing after current batch…':'Importing anime…'):task?'Import paused — ready to resume':'Ready for a new import');
  if(message)text('teBulkMessage',message);
  text('teBulkCharacters',`Characters: ${task?.characterPopulated||0} new anime with cast · ${task?.characterUnavailable||0} unavailable / retry later`);
+ text('teBulkRankingMode',task&&!task.finished
+  ?(isPopularTask() ? `Current batch: Most Popular First · scanning MAL ranking from page ${task.nextPopularPage||1}.` : 'Current saved batch: original selection order preserved. Complete it with Resume; your next batch will use Most Popular First.')
+  :'New 500-anime batches follow Most Popular First. Existing anime are skipped; popularity-ranked entries with available metadata are selected in order.');
  const start=el('teBulkStart');start.disabled=running||!admin;start.textContent=task?(task.finished?'Import Another 500 Anime':'Resume Import'):'Import 500 New Anime';
  el('teBulkPause').hidden=!running;el('teBulkPause').disabled=pauseRequested;el('teBulkCheck').disabled=running||!admin;
  el('teBulkDiscard').hidden=!task||task.finished||running;
@@ -187,12 +195,34 @@ async function ensureSchema(){
 }
 async function getCandidate(){
  while(!task.queue.length){
-  if(task.pageIndex>=task.pages.length)throw Error('The available candidate pages were exhausted before 500 unique anime could be found. You can resume after updating the source range.');
+  if(isPopularTask()){
+   // v34: pages start at #1 and advance sequentially through Tenrai's
+   // popularity ranking. Do NOT shuffle pages, candidates, or inject sequels
+   // ahead of highly ranked works. A page cursor is persisted only after
+   // the page has been parsed and queued successfully.
+   if(task.sourceExhausted)return null; // Caller flushes the final partial batch before reporting exhaustion.
+   const page=Math.max(1,Number(task.nextPopularPage)||1);
+   let result;
+   try{result=await request(popularCatalogUrl(page));}
+   catch(error){throw Error(`Could not fetch popularity page ${page}. Your checkpoint is safe. ${error.message}`);}
+   if(!Array.isArray(result?.data))throw Error(`Invalid popularity results on page ${page}; no checkpoint was advanced.`);
+   const entries=result.data;
+   const next=entries.filter(item=>number(item?.mal_id)&&item?.title)
+     .map(item=>({mal_id:number(item.mal_id),title:item.title,title_english:item.title_english,title_japanese:item.title_japanese,titles:item.titles||[],title_synonyms:item.title_synonyms||[],depth:0}));
+   task.queue.push(...next);
+   task.nextPopularPage=page+1;
+   task.sourceExhausted=entries.length===0||result.pagination?.has_next_page===false;
+   save();
+   if(entries.length)log(`Read MAL popularity page ${page}; ${next.length} eligible candidates in ranked order.`);
+   continue;
+  }
+  // Existing paused v16-v33 jobs must finish with their saved shuffled pages
+  // and saved queue unchanged. This protects partial 500-title imports.
+  if(task.pageIndex>=task.pages.length){if(task.pending.length)await flush();throw Error('The available candidate pages were exhausted before 500 unique anime could be found. Your completed batches are saved.');}
   const page=task.pages[task.pageIndex++];save();
   const url=`/anime?order_by=popularity&sort=asc&limit=25&page=${page}&sfw&sfw-strict`;
   let result;
   try{result=await request(url);}catch(error){
-   // A transient or invalid page should not abort a successful partial run.
    if(/HTTP 400|HTTP 404/.test(error.message)){log(`Skipped unavailable catalog page ${page}.`);continue;}
    throw error;
   }
@@ -200,8 +230,10 @@ async function getCandidate(){
   task.queue.push(...shuffled(batch.filter(item=>number(item.mal_id)&&item.title).map(item=>({mal_id:number(item.mal_id),title:item.title,title_english:item.title_english,title_japanese:item.title_japanese,titles:item.titles||[],title_synonyms:item.title_synonyms||[],depth:0}))));
   save();
  }
+ if(isPopularTask())return task.queue[0]; // The current item stays queued until processed.
  const item=task.queue.shift();save();return item;
 }
+
 async function detailsFor(id){
  let anime;
  try{anime=(await request('/anime/'+id+'/full?sfw-strict'))?.data;}
@@ -215,6 +247,9 @@ async function detailsFor(id){
 }
 function duplicateFull(data){return exists(data)||[...task.pending].some(row=>row.mal_id===number(data.mal_id)||aliases(data).some(alias=>alias===titleKey(row.title)));}
 function prioritizeRelations(payload, candidate, seen){
+ // Ranked batches retain relations in metadata, but queueing arbitrary
+ // sequels early would violate the promised Most Popular First order.
+ if(isPopularTask())return;
  // Import connected titles as part of the 500, without recursively crawling
  // entire franchises and exhausting the source's rate limit.
  if(candidate.depth===1)return;
@@ -311,37 +346,48 @@ async function run(){
   updateState('Checking existing anime and importing new titles from Tenrai…');
   while(task.addedIds.length<TARGET&&!pauseRequested){
    if(task.pending.length>=BATCH_SIZE||task.addedIds.length+task.pending.length>=TARGET){await flush();continue;}
-   const candidate=await getCandidate();const id=number(candidate.mal_id);
-   if(seen.has(id))continue;
+   if(isPopularTask()&&task.sourceExhausted&&!task.queue.length){
+    if(task.pending.length)await flush();
+    throw Error('No more popularity-ranked titles were returned by Tenrai. All successfully found titles have been saved; the 500-title goal was not reached.');
+   }
+   const candidate=await getCandidate();
+   if(!candidate){if(task.pending.length)await flush();throw Error('No more popularity-ranked titles were returned by Tenrai. All successfully found titles have been saved; the 500-title goal was not reached.');}
+   const id=number(candidate.mal_id);
+   if(seen.has(id)){
+    if(!isPopularTask())continue;
+    // An interrupted v34 attempt may have saved 'seen' but not yet processed
+    // this still-queued candidate. Retry it on resume, not the next rank.
+    seen.delete(id);task.seen=task.seen.filter(value=>Number(value)!==id);
+   }
    seen.add(id);task.seen.push(id);
-   if(exists(candidate)||task.pending.some(row=>row.mal_id===id)){task.skipped++;save();continue;}
+   if(exists(candidate)||task.pending.some(row=>row.mal_id===id)){task.skipped++;if(isPopularTask())task.queue.shift();save();continue;}
    let result;
    try{result=await detailsFor(id);}catch(error){
-    if(/HTTP 404|Invalid detail response/.test(error.message)){task.errors++;save();log('No details for MAL #'+id);continue;}
+    if(/HTTP 404|Invalid detail response/.test(error.message)){task.errors++;if(isPopularTask())task.queue.shift();save();log('No details for MAL #'+id);continue;}
     // Do not lose a transiently unavailable title; allow retry on resume.
-    task.seen=task.seen.filter(x=>x!==id);seen.delete(id);save();throw error;
+    task.seen=task.seen.filter(x=>x!==id);seen.delete(id);if(!isPopularTask())task.queue.unshift(candidate);save();throw error;
    }
    const a=result.anime;
    const typ=String(a.type||'');
-   if(!ANIME_TYPES.has(typ)||/\b(Rx|Hentai)\b|R\+/i.test(String(a.rating||''))){task.skipped++;save();continue;}
-   if(duplicateFull(a)){task.skipped++;save();continue;}
+   if(!ANIME_TYPES.has(typ)||/\b(Rx|Hentai)\b|R\+/i.test(String(a.rating||''))){task.skipped++;if(isPopularTask())task.queue.shift();save();continue;}
+   if(duplicateFull(a)){task.skipped++;if(isPopularTask())task.queue.shift();save();continue;}
    const item=payloadFor(a,result.relations);
-   if(!item.image||!item.title||!item.mal_id){task.errors++;save();continue;}
-   if(existingIds.has(item.id)){task.skipped++;save();continue;}
+   if(!item.image||!item.title||!item.mal_id){task.errors++;if(isPopularTask())task.queue.shift();save();continue;}
+   if(existingIds.has(item.id)){task.skipped++;if(isPopularTask())task.queue.shift();save();continue;}
    // Fetch a real cast for each NEW record before its insert. Never modify older records.
    try{
     item.characters=await window.TECharacterAPIv23.fetchCharacters(id);
    }catch(error){
     // Do not save a NEW anime with missing cast because of a temporary API
     // failure. Put the candidate back so Resume retries the same title.
-    task.queue.unshift(candidate);
+    if(!isPopularTask())task.queue.unshift(candidate);
     task.seen=task.seen.filter(value=>Number(value)!==id);
     seen.delete(id);
     save();
     throw Error(`Character fetch failed for MAL #${id}; no record was saved for it. Resume to retry. ${error?.message||''}`);
    }
    task.graph[id]=graphInfo(item);
-   task.pending.push(item);prioritizeRelations(item,candidate,seen);save();
+   task.pending.push(item);if(isPopularTask())task.queue.shift();prioritizeRelations(item,candidate,seen);save();
    updateState(`Preparing ${displayName(a)} • ${task.addedIds.length} saved, ${task.pending.length} in the next batch.`);
   }
   if(task.pending.length)await flush();
@@ -367,13 +413,13 @@ async function initialize(){
  task=loadSaved();
  // The large duplicate-check index is requested only when an import starts.
  admin.client.from('site_anime').select('id',{count:'exact',head:true}).then(({count,error})=>{if(!error)text('teBulkExisting',count??'—');});
- if(task?.finished){log('Your last 500-anime import was completed. You may start another batch.');}
- else if(task){log(`Found saved progress: ${task.addedIds.length} new anime. Resume when ready.`);}
- updateState(task?.finished?'Previous import complete. Click Import Another 500 Anime to begin a new batch.':task?'Saved import found. Click Resume to continue from your last completed batch.':'Ready. A single click imports up to 500 new, nonduplicate anime.');
+ if(task?.finished){log('Your last 500-anime import was completed. The next batch starts from the most popular available titles.');}
+ else if(task){log(`Found saved progress: ${task.addedIds.length} new anime. Resume this ${isPopularTask()?'popularity-ranked':'original-order'} batch without resetting it.`);}
+ updateState(task?.finished?'Previous import complete. Next 500 will start at the most popular MAL-ranked titles.':task?'Saved import found. Click Resume to continue from your saved checkpoint.':'Ready. New imports take the most popular nonduplicate anime first.');
 }
 el('teBulkStart').onclick=async()=>{
  if(!admin||running)return;
- if(!task||task.finished){task=newTask();save();log('Started a new 500-anime import.');}
+ if(!task||task.finished){task=newTask();save();log('Started a new 500-anime import — most popular first, skipping titles already saved.');}
  task.lastError='';save();await run();
 };
 el('teBulkCheck').onclick=async()=>{

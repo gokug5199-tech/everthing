@@ -1,0 +1,25 @@
+The Everything — تنظيف الملفات القديمة بعد الدمج (النسخة الموحّدة)
+================================================================
+
+مهم: ZIP لا يحذف الملفات القديمة تلقائيًا عندما تستخرج محتواه فوق مستودع GitHub سابق.
+أزل الملفات الثمانية التالية من جذر المستودع؛ كل وظائف Episode Guides موجودة في الملفين الموحدين:
+
+episode-guides-v38.js
+episode-guides-v38.css
+episode-guides-v39.js
+episode-guides-v39.css
+README-v38-AR.txt
+README-v39-EN.txt
+INSTALL-v38-AR.txt
+INSTALL-v39-AR.txt
+
+إذا تستخدم Git محليًا، يمكن تنفيذ أمر واحد من جذر المشروع (عند وجود الملفات):
+git rm -- episode-guides-v38.js episode-guides-v38.css episode-guides-v39.js episode-guides-v39.css README-v38-AR.txt README-v39-EN.txt INSTALL-v38-AR.txt INSTALL-v39-AR.txt
+
+أو احذفها من GitHub يدويًا من المستودع؛ هذه ملفات قديمة فقط، وليست بيانات Supabase.
+
+ملفات التشغيل الجديدة:
+episode-guides.js
+episode-guides.css
+
+لا تحذف الملفات القديمة الأخرى التي تحمل أسماء إصدارات مختلفة مثل episode-activity-v37.js أو bulk-anime-v16.js؛ هذه ميزات منفصلة ما زالت مستخدمة.

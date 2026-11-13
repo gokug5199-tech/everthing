@@ -521,10 +521,11 @@ body.anime-detail-v2 .episode:focus-visible,body.anime-detail-v2 .te-episode-mor
     <link rel="stylesheet" href="te-unified-theme-v12.css?v=20261026-v12">
   <link rel="stylesheet" href="safari-perf-v15.css?v=15.0">
 <link rel="stylesheet" href="anime-relations-v16.css?v=25.0">
+<link rel="stylesheet" href="episode-guides.css?rev=20261113-episode-ui1">
 </head>
 <body class="anime-detail-v2 te-v5 te-v5-animedetails">
     <main class="page" id="animePage">
-        <div class="detail-top"><a data-back href="anime.html" class="back-button">← Back</a><a href="my-anime.html">♡ My Anime</a></div>
+        <div class="detail-top"><a href="anime.html" class="back-button" aria-label="Back to anime catalog">← Back to anime</a><a href="my-anime.html">♡ My Anime</a></div>
 
         <section class="anime-hero">
             <img id="animePoster" src="" alt="Anime poster" class="anime-poster">
@@ -551,6 +552,28 @@ body.anime-detail-v2 .episode:focus-visible,body.anime-detail-v2 .te-episode-mor
                 <label class="te-episode-search-label" for="teEpisodeSearch"><span aria-hidden="true">⌕</span><input id="teEpisodeSearch" type="search" placeholder="Find an episode number or title…" autocomplete="off" aria-label="Find an episode number or title"></label>
                 <span class="te-episode-counter" id="teEpisodeShowing" aria-live="polite"></span>
             </div>
+            <div class="te-guide-health" id="teGuideHealth" aria-live="polite" hidden>
+                <span class="te-guide-health-label">EPISODE GUIDE</span>
+                <span id="teGuideStatus">Checking verified episode metadata…</span>
+                <button id="teGuideRetry" type="button" hidden>Retry</button>
+            </div>
+            <div class="te-guide-controls" id="teGuideControls" hidden>
+                <div class="te-guide-select-wrap" id="teArcWrap" hidden>
+                    <label for="teArcSelect">STORY ARC</label>
+                    <select id="teArcSelect"><option value="">All arcs</option></select>
+                </div>
+                <div class="te-guide-select-wrap" id="teTypeWrap" hidden>
+                    <label for="teTypeSelect">EPISODE TYPE</label>
+                    <select id="teTypeSelect">
+                        <option value="all">All episodes</option>
+                        <option value="hide-filler">Hide filler</option>
+                        <option value="canon-only">Canon only (confirmed)</option>
+                        <option value="filler-only">Filler only</option>
+                    </select>
+                </div>
+                <div class="te-guide-summary" id="teGuideSummary" aria-live="polite"></div>
+            </div>
+            <p id="teGuideCredit" class="te-guide-credit" hidden></p>
             <p id="episodeLoadMessage" class="episodes-meta" role="status" hidden></p>
             <div class="episodes-grid" id="episodesGrid"></div>
             <button id="teEpisodeMore" class="te-episode-more" type="button" hidden>Show more episodes ↓</button>
@@ -580,7 +603,8 @@ body.anime-detail-v2 .episode:focus-visible,body.anime-detail-v2 .te-episode-mor
     <script src="anime-detail-quickstart-v22.js?v=22.0"></script>
     <script src="anime-detail-loader-v22.js?v=37.0"></script>
     <script src="episode-data.js?v=37.0"></script>
-    <script src="anime-details.js?v=37.0"></script>
+    <script src="episode-guides.js?rev=20261113-episode-ui1"></script>
+    <script src="anime-details.js?rev=20261113-episode-ui1"></script>
     <script src="anime-detail-features-v22.js?v=22.0"></script>
     <script src="anime-detail-auth-v22.js?v=22.0"></script>
 

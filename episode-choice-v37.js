@@ -15,12 +15,32 @@
   if(!animeId||!validNumber(season,100)||!validNumber(episode,2000)){
     setStatus('Invalid anime or episode number.',true);return;
   }
+  // Make Back to episodes available immediately, even if Supabase is slow.
+  const details=`anime-details.html?id=${encodeURIComponent(animeId)}`;
+  $('choiceBack').href=details;
+  // Returning from options must not put options back into the history stack.
+  // The destination is explicit, never inferred from document.referrer.
+  $('choiceBack').addEventListener('click',event=>{
+    if(event.defaultPrevented||event.button!==0||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
+    event.preventDefault();
+    // When the immediately preceding page is this anime's episode list, go
+    // back to its exact scroll/filter state (and avoid a duplicate history
+    // entry). A bookmarked/direct-open choice page uses a safe fixed URL.
+    let precedingIsEpisodeList=false;
+    try{
+      const previous=new URL(document.referrer);
+      const expected=new URL(details,location.href);
+      precedingIsEpisodeList=previous.origin===expected.origin &&
+        previous.pathname===expected.pathname &&
+        previous.searchParams.get('id')===animeId && history.length>1;
+    }catch(_){}
+    if(precedingIsEpisodeList)window.history.back();
+    else window.location.replace(details);
+  });
   try{
     await window.ANIME_READY;
     const anime=(window.ANIME_DATA||[]).find(item=>String(item.id)===animeId);
     if(!anime){setStatus('This anime could not be found.',true);return;}
-    const details=`anime-details.html?id=${encodeURIComponent(animeId)}`;
-    $('choiceBack').href=details;
     $('choiceBreadcrumb').textContent=`ANIME / ${String(anime.title||'ANIME').toUpperCase()} / EPISODE ${episode}`;
     $('choiceAnime').textContent=anime.title||'Anime';
     $('choiceEpisode').textContent=`S${season} · EP ${episode}`;
