@@ -1,11 +1,340 @@
-<!doctype html><html lang="en"><head>
-
-  <script src="safari-perf-v15.js?v=15.0"></script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>My Anime | The Everything</title><link rel="stylesheet" href="site-branding.css"><link rel="stylesheet" href="anime-features.css?v=20261023-clean"><script src="back-navigation.js"></script><style>body{margin:0;background:radial-gradient(at top left,#29213d66,transparent 55%),#080e16;font-family:Arial,sans-serif}</style><link rel="stylesheet" href="mobile-pwa.css?v=20261024-v3">    <link rel="stylesheet" href="redesign-mobile.css?v=20261025-mobile1">
-<link rel="stylesheet" href="te-v5.css?v=20261025-v5">
-    <link rel="stylesheet" href="mobile-stability-v10.css?v=20261026-v10">
-
-    <link rel="stylesheet" href="te-unified-theme-v12.css?v=20261026-v12">
+<!doctype html>
+<html lang="en">
+<head>
+  <script src="app-standalone-boot.js?v=app1"></script>
+  <script src="safari-perf-v15.js?v=15.0"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>My Anime | The Everything</title>
+  <link rel="stylesheet" href="site-branding.css">
+  <link rel="stylesheet" href="anime-features.css?v=20261114-pair02">
+  <script src="back-navigation.js"></script>
+  <link rel="stylesheet" href="mobile-pwa.css?v=20261024-v3">
+  <link rel="stylesheet" href="redesign-mobile.css?v=20261025-mobile1">
+  <link rel="stylesheet" href="te-v5.css?v=20261025-v5">
+  <link rel="stylesheet" href="mobile-stability-v10.css?v=20261026-v10">
+  <link rel="stylesheet" href="te-unified-theme-v12.css?v=20261026-v12">
   <link rel="stylesheet" href="safari-perf-v15.css?v=15.0">
-</head><body class="te-v5 te-v5-myanime"><main class="library-page"><header class="library-header"><a class="logo" href="index.html">THE EVERYTHING</a><a data-back href="anime.html">← Back</a></header><p class="eyebrow">YOUR PERSONAL COLLECTION</p><h1>Your next story.<br>Your favorite worlds.</h1><p>Keep the anime you love, the ones you are watching, and the stories still on your list.</p><div data-anime-library></div><a href="anime.html">Explore anime →</a></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="anime-data.js?v=library1"></script><script src="anime-library.js?v=library1"></script><script src="featured-public.js?v=20261024"></script><script src="mobile-pwa.js?v=20261026-v10"></script><script src="site-shell.js"></script><script src="redesign-mobile.js?v=20261025-mobile1"></script>
-<script src="te-v5.js?v=20261025-v5"></script>
-</body></html>
+  <link rel="stylesheet" href="app-standalone.css?v=app1">
+  <style>
+    :root{
+      --my-bg:#07101a;
+      --my-surface:linear-gradient(180deg,rgba(10,18,30,.92),rgba(7,13,24,.94));
+      --my-card:#0c1625;
+      --my-card-2:#101c30;
+      --my-border:rgba(147,126,255,.18);
+      --my-border-strong:rgba(147,126,255,.34);
+      --my-text:#f5f1ff;
+      --my-soft:#9fb1c8;
+      --my-accent:#9c6cff;
+      --my-accent-2:#4fd1ff;
+      --my-shadow:0 24px 70px rgba(0,0,0,.40);
+    }
+    *{box-sizing:border-box}
+    body.myanime-redesign{
+      margin:0;
+      min-height:100vh;
+      font-family:Arial,Helvetica,sans-serif;
+      color:var(--my-text);
+      background:
+        radial-gradient(circle at 10% 8%, rgba(128,88,255,.18), transparent 20%),
+        radial-gradient(circle at 88% 0%, rgba(54,168,255,.12), transparent 24%),
+        linear-gradient(180deg, #040914 0%, #060d17 100%);
+    }
+    .myanime-page{
+      width:min(1380px, calc(100% - 48px));
+      margin:0 auto;
+      padding:26px 0 90px;
+    }
+    .myanime-topbar{
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+      margin-bottom:22px;
+    }
+    .myanime-logo{
+      display:inline-flex; align-items:center; gap:12px; text-decoration:none; color:#fff;
+      font-weight:900; letter-spacing:.12em; text-transform:uppercase;
+      padding:13px 18px; border-radius:18px; background:rgba(9,17,29,.72);
+      border:1px solid rgba(255,255,255,.08); box-shadow:var(--my-shadow);
+    }
+    .myanime-logo small{display:block; color:#90a4bc; font-size:11px; letter-spacing:.18em; margin-top:2px}
+    .myanime-top-actions{display:flex; flex-wrap:wrap; gap:10px}
+    .myanime-pill{
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      min-height:44px; padding:0 18px; border-radius:14px; text-decoration:none;
+      color:#eff5ff; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08);
+      font-size:14px; font-weight:800; transition:.2s ease;
+    }
+    .myanime-pill:hover{transform:translateY(-1px); border-color:rgba(156,108,255,.45); background:rgba(156,108,255,.12)}
+    .myanime-pill.primary{background:linear-gradient(135deg, rgba(112,72,255,.96), rgba(60,178,255,.82)); border-color:rgba(255,255,255,.08)}
+    .myanime-hero{
+      position:relative; overflow:hidden; display:grid; grid-template-columns:minmax(0,1.2fr) minmax(320px,.8fr); gap:24px;
+      padding:36px; border-radius:30px; background:var(--my-surface);
+      border:1px solid rgba(255,255,255,.08); box-shadow:var(--my-shadow); margin-bottom:26px;
+    }
+    .myanime-hero::before{
+      content:""; position:absolute; inset:auto -90px -130px auto; width:320px; height:320px; border-radius:50%;
+      background:radial-gradient(circle, rgba(79,209,255,.16), transparent 70%); pointer-events:none;
+    }
+    .myanime-hero::after{
+      content:""; position:absolute; inset:-100px auto auto -70px; width:260px; height:260px; border-radius:50%;
+      background:radial-gradient(circle, rgba(156,108,255,.22), transparent 68%); pointer-events:none;
+    }
+    .myanime-eyebrow{display:inline-flex; align-items:center; gap:8px; color:#b896ff; font-size:12px; font-weight:900; letter-spacing:.22em; margin-bottom:14px}
+    .myanime-hero h1{margin:0 0 14px; font-size:clamp(40px,5vw,68px); line-height:.96; letter-spacing:-.045em}
+    .myanime-hero p{margin:0; max-width:760px; color:#a8bbd2; font-size:16px; line-height:1.75}
+    .myanime-hero-actions{display:flex; flex-wrap:wrap; gap:12px; margin-top:26px}
+    .myanime-summary{
+      display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:14px; align-self:stretch;
+    }
+    .myanime-stat{
+      position:relative; overflow:hidden; min-height:122px; padding:18px; border-radius:22px;
+      background:linear-gradient(180deg, rgba(14,25,42,.95), rgba(10,18,31,.98));
+      border:1px solid var(--my-border); box-shadow:inset 0 1px 0 rgba(255,255,255,.03);
+    }
+    .myanime-stat span{display:block; color:#89a0bd; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.16em; margin-bottom:10px}
+    .myanime-stat strong{display:block; font-size:34px; line-height:1; margin-bottom:10px}
+    .myanime-stat p{margin:0; font-size:13px; line-height:1.55; color:#a4b5cb}
+    .myanime-overview{display:grid; grid-template-columns:1.25fr .9fr .85fr; gap:18px; margin-bottom:26px}
+    .myanime-panel{
+      padding:24px; border-radius:28px; background:var(--my-surface);
+      border:1px solid rgba(255,255,255,.08); box-shadow:var(--my-shadow);
+    }
+    .myanime-panel h2,.myanime-panel h3{margin:0; letter-spacing:-.03em}
+    .myanime-panel p{margin:10px 0 0; color:#93a9c3; line-height:1.7}
+    .myanime-mini-grid{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:12px; margin-top:20px}
+    .myanime-mini{
+      padding:16px; border-radius:18px; background:rgba(255,255,255,.035); border:1px solid rgba(255,255,255,.08);
+      min-height:102px;
+    }
+    .myanime-mini em{display:block; font-style:normal; color:#88a1be; font-size:11px; letter-spacing:.14em; text-transform:uppercase; margin-bottom:10px}
+    .myanime-mini strong{display:block; font-size:28px; margin-bottom:6px}
+    .myanime-mini small{color:#98abc2; font-size:12px}
+    .myanime-list{display:grid; gap:12px; margin:18px 0 0; padding:0; list-style:none}
+    .myanime-list li{
+      display:flex; align-items:flex-start; gap:12px; padding:14px 15px; border-radius:18px;
+      background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06); color:#dce7f6;
+    }
+    .myanime-list i{display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:10px; background:rgba(156,108,255,.16); color:#cfb7ff; font-style:normal; font-weight:900; flex:none}
+    .myanime-chip-rail{display:flex; flex-wrap:wrap; gap:10px; margin-top:18px}
+    .myanime-chip{
+      display:inline-flex; align-items:center; gap:8px; padding:10px 13px; border-radius:999px; background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08); color:#dde8f7; font-size:13px; font-weight:800;
+    }
+    .myanime-chip b{font-size:12px; color:#90d7ff}
+    .myanime-quick-actions{display:grid; gap:12px; margin-top:20px}
+    .myanime-quick-actions a{
+      display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:56px; padding:0 16px; border-radius:18px;
+      text-decoration:none; color:#f0f5ff; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); font-weight:800;
+      transition:.18s ease;
+    }
+    .myanime-quick-actions a:hover{transform:translateY(-2px); border-color:rgba(156,108,255,.38); background:rgba(156,108,255,.12)}
+    .myanime-quick-actions a span small{display:block; margin-top:4px; font-weight:600; color:#95a9c4}
+    .myanime-surface{
+      padding:28px; border-radius:28px; background:var(--my-surface); border:1px solid rgba(255,255,255,.08); box-shadow:var(--my-shadow);
+    }
+    .myanime-section-head{display:flex; align-items:flex-end; justify-content:space-between; gap:18px; margin-bottom:22px}
+    .myanime-section-head h2{margin:0; font-size:32px; letter-spacing:-.03em}
+    .myanime-section-head p{margin:8px 0 0; color:#93a9c3; font-size:14px}
+    .myanime-hint{
+      padding:12px 14px; border-radius:14px; background:rgba(255,255,255,.035); border:1px solid rgba(255,255,255,.08);
+      color:#9ab0c8; font-size:13px; max-width:340px
+    }
+    .anime-library{display:flex; flex-direction:column; gap:18px}
+    .anime-library .library-tabs{display:flex; flex-wrap:wrap; gap:10px}
+    .anime-library .library-tabs button{
+      min-height:42px; padding:0 15px; border-radius:999px; border:1px solid rgba(255,255,255,.08); cursor:pointer;
+      background:rgba(255,255,255,.035); color:#d8e3f1; font-weight:800; font-size:13px; transition:.18s ease;
+    }
+    .anime-library .library-tabs button[aria-pressed="true"]{background:linear-gradient(135deg, rgba(123,79,255,.96), rgba(55,160,255,.88)); border-color:transparent; color:#fff; box-shadow:0 12px 30px rgba(94,72,255,.22)}
+    .anime-library .library-tabs button:hover{border-color:rgba(156,108,255,.42); transform:translateY(-1px)}
+    .anime-library .library-toolbar{display:grid; grid-template-columns:minmax(0,1fr) 240px; gap:12px}
+    .anime-library input,.anime-library select{
+      width:100%; min-height:50px; padding:0 16px; border-radius:16px; outline:none; border:1px solid rgba(255,255,255,.08);
+      background:rgba(9,18,31,.96); color:#eef4ff; font-size:14px; transition:.18s ease;
+    }
+    .anime-library input::placeholder{color:#6f87a2}
+    .anime-library input:focus,.anime-library select:focus{border-color:rgba(156,108,255,.55); box-shadow:0 0 0 3px rgba(156,108,255,.14)}
+    .anime-library .library-note{margin:2px 0 0; color:#8fa6c1; line-height:1.6; font-size:14px}
+    .anime-library .library-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:18px}
+    .anime-library .library-card{
+      display:flex; flex-direction:column; gap:12px; min-height:100%; padding:14px; border-radius:22px;
+      background:linear-gradient(180deg, rgba(11,20,34,.96), rgba(9,16,28,.98)); border:1px solid rgba(255,255,255,.07);
+      box-shadow:0 18px 38px rgba(0,0,0,.28); transition:.22s ease;
+    }
+    .anime-library .library-card:hover{transform:translateY(-3px); border-color:rgba(156,108,255,.28)}
+    .anime-library .library-poster{display:block; border-radius:18px; overflow:hidden; background:#0a1320; aspect-ratio:3/4}
+    .anime-library .library-poster img{display:block; width:100%; height:100%; object-fit:cover}
+    .anime-library .library-title{color:#fff; font-size:17px; font-weight:900; line-height:1.35; text-decoration:none}
+    .anime-library .library-title:hover{color:#cfb7ff}
+    .anime-library .library-status-badge{
+      display:inline-flex; align-items:center; align-self:flex-start; padding:8px 12px; border-radius:999px;
+      font-size:12px; font-weight:900; letter-spacing:.04em; border:1px solid transparent;
+    }
+    .anime-library .library-status-planned{background:rgba(78,152,255,.12); color:#8ac3ff; border-color:rgba(78,152,255,.22)}
+    .anime-library .library-status-watching{background:rgba(106,94,255,.14); color:#c7bcff; border-color:rgba(106,94,255,.24)}
+    .anime-library .library-status-completed{background:rgba(70,210,155,.14); color:#88e7c0; border-color:rgba(70,210,155,.24)}
+    .anime-library .library-status-paused{background:rgba(255,189,91,.14); color:#ffd58b; border-color:rgba(255,189,91,.24)}
+    .anime-library .library-status-dropped{background:rgba(255,102,124,.14); color:#ffb0bd; border-color:rgba(255,102,124,.24)}
+    .anime-library .library-actions{display:grid; gap:10px; margin-top:auto}
+    .anime-library .library-heart,
+    .anime-library .library-login,
+    .anime-library .library-more{
+      display:inline-flex; align-items:center; justify-content:center; min-height:46px; padding:0 14px; border-radius:14px;
+      border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.04); color:#edf3ff; font-weight:800; text-decoration:none; cursor:pointer;
+    }
+    .anime-library .library-heart[aria-pressed="true"]{background:linear-gradient(135deg, rgba(255,107,145,.22), rgba(255,151,203,.14)); color:#ffc1d0; border-color:rgba(255,144,177,.28)}
+    .anime-library .library-action-message{min-height:18px; font-size:12px; color:#8ca3be}
+    .anime-library .library-more{margin:6px auto 0; min-width:190px; background:linear-gradient(135deg, rgba(123,79,255,.96), rgba(55,160,255,.88)); border-color:transparent}
+    .anime-library .library-more[hidden]{display:none}
+    .myanime-footer-link{display:inline-flex; align-items:center; gap:8px; margin-top:18px; color:#bfa9ff; text-decoration:none; font-weight:800}
+    .myanime-footer-link:hover{color:#fff}
+    @media (max-width: 1180px){
+      .myanime-page{width:min(100% - 28px, 1380px)}
+      .myanime-hero{grid-template-columns:1fr}
+      .myanime-overview{grid-template-columns:1fr 1fr}
+      .myanime-summary{grid-template-columns:repeat(4, minmax(0,1fr))}
+    }
+    @media (max-width: 880px){
+      .myanime-topbar,.myanime-section-head{flex-direction:column; align-items:flex-start}
+      .myanime-hero{padding:24px}
+      .myanime-hero h1{font-size:42px}
+      .myanime-summary{grid-template-columns:repeat(2, minmax(0,1fr))}
+      .myanime-overview{grid-template-columns:1fr}
+      .myanime-mini-grid{grid-template-columns:repeat(2, minmax(0,1fr))}
+      .anime-library .library-toolbar{grid-template-columns:1fr}
+      .myanime-surface,.myanime-panel{padding:22px}
+    }
+    @media (max-width: 560px){
+      .myanime-page{width:min(100% - 18px, 1380px); padding-top:16px}
+      .myanime-logo{width:100%}
+      .myanime-top-actions{width:100%}
+      .myanime-top-actions .myanime-pill{flex:1}
+      .myanime-hero{padding:20px; border-radius:24px}
+      .myanime-hero h1{font-size:34px}
+      .myanime-hero p{font-size:14px; line-height:1.7}
+      .myanime-summary{grid-template-columns:1fr}
+      .myanime-stat{min-height:106px}
+      .myanime-section-head h2{font-size:24px}
+      .myanime-mini-grid{grid-template-columns:1fr 1fr}
+      .anime-library .library-grid{grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px}
+      .anime-library .library-card{padding:10px; border-radius:18px}
+      .anime-library .library-title{font-size:14px}
+      .anime-library .library-tabs{gap:8px}
+      .anime-library .library-tabs button{padding:0 12px; min-height:36px; font-size:12px}
+    }
+    @media (max-width: 390px){
+      .anime-library .library-grid,.myanime-mini-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body class="te-v5 te-v5-myanime myanime-redesign">
+  <main class="myanime-page">
+    <header class="myanime-topbar">
+      <a class="myanime-logo" href="index.html">
+        <span>THE EVERYTHING<small>YOUR PERSONAL COLLECTION</small></span>
+      </a>
+      <div class="myanime-top-actions">
+        <a class="myanime-pill" data-back href="anime.html">← Back</a>
+        <a class="myanime-pill primary" href="anime.html">Explore Anime</a>
+      </div>
+    </header>
+
+    <section class="myanime-hero">
+      <div>
+        <p class="myanime-eyebrow">● YOUR LIBRARY · YOUR RULES</p>
+        <h1>Your next story.<br>Your favorite worlds.</h1>
+        <p>Track what you love, switch between watch states instantly, and keep your anime collection organized in one clean space made just for your account.</p>
+        <div class="myanime-hero-actions">
+          <a class="myanime-pill primary" href="anime.html">Browse Anime</a>
+          <a class="myanime-pill" href="profile.html">Open Profile</a>
+          <a class="myanime-pill" href="schedule.html">Weekly Schedule</a>
+        </div>
+      </div>
+      <div class="myanime-summary">
+        <article class="myanime-stat">
+          <span>Saved titles</span>
+          <strong id="libraryCount">0</strong>
+          <p>Everything you saved across favorites, watchlist, and active watching.</p>
+        </article>
+        <article class="myanime-stat">
+          <span>Completed</span>
+          <strong id="completedAnimeCount">0</strong>
+          <p>Stories you already finished from your personal collection.</p>
+        </article>
+        <article class="myanime-stat">
+          <span>Favorites</span>
+          <strong id="favoriteAnimeCount">0</strong>
+          <p>Your most loved picks, kept ready to revisit any time.</p>
+        </article>
+        <article class="myanime-stat">
+          <span>Watching now</span>
+          <strong id="watchingAnimeCount">0</strong>
+          <p>Series you are currently following and might continue tonight.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="myanime-overview">
+      <article class="myanime-panel">
+        <p class="myanime-eyebrow">● COLLECTION BREAKDOWN</p>
+        <h2>See your whole library at a glance.</h2>
+        <p>Everything below updates automatically from your private anime library.</p>
+        <div class="myanime-mini-grid">
+          <div class="myanime-mini"><em>Plan to Watch</em><strong id="plannedAnimeCount">0</strong><small>Titles waiting for you.</small></div>
+          <div class="myanime-mini"><em>Watching</em><strong id="watchingAnimeCountMirror">0</strong><small>Currently in progress.</small></div>
+          <div class="myanime-mini"><em>Completed</em><strong id="completedAnimeCountMirror">0</strong><small>Finished stories.</small></div>
+          <div class="myanime-mini"><em>Paused</em><strong id="pausedAnimeCount">0</strong><small>Saved for later.</small></div>
+          <div class="myanime-mini"><em>Dropped</em><strong id="droppedAnimeCount">0</strong><small>Stopped titles.</small></div>
+          <div class="myanime-mini"><em>Favorites</em><strong id="favoriteAnimeCountMirror">0</strong><small>Your highlighted picks.</small></div>
+        </div>
+      </article>
+
+      <article class="myanime-panel">
+        <p class="myanime-eyebrow">● WHAT YOU CAN DO HERE</p>
+        <h3>Built for fast managing, not just browsing.</h3>
+        <ul class="myanime-list">
+          <li><i>1</i><div><strong>Search instantly</strong><br><span>Find a title fast by its library name.</span></div></li>
+          <li><i>2</i><div><strong>Filter by status</strong><br><span>Jump between Favorites, Watching, Completed, Paused, and more.</span></div></li>
+          <li><i>3</i><div><strong>Update without leaving</strong><br><span>Change watch status or favorite state directly from each card.</span></div></li>
+        </ul>
+      </article>
+
+      <article class="myanime-panel">
+        <p class="myanime-eyebrow">● QUICK ROUTES</p>
+        <h3>Open the places you use most.</h3>
+        <div class="myanime-chip-rail">
+          <span class="myanime-chip">Private library <b>Only you can see it</b></span>
+          <span class="myanime-chip">Fast controls <b>1 tap updates</b></span>
+        </div>
+        <div class="myanime-quick-actions">
+          <a href="anime.html"><span>Anime catalog<small>Discover more titles to add.</small></span><strong>→</strong></a>
+          <a href="profile.html"><span>Your profile<small>Open your account, wallpapers, and activity.</small></span><strong>→</strong></a>
+          <a href="index.html"><span>Home<small>Return to the main experience.</small></span><strong>→</strong></a>
+        </div>
+      </article>
+    </section>
+
+    <section class="myanime-surface">
+      <div class="myanime-section-head">
+        <div>
+          <p class="myanime-eyebrow">● LIBRARY BOARD</p>
+          <h2>Sort, filter, and keep going.</h2>
+          <p>Pick a watch state, search instantly, and manage each title without leaving the page.</p>
+        </div>
+        <div class="myanime-hint">Tip: open any title to view episodes, then come back here to update its status or mark it as favorite.</div>
+      </div>
+      <div data-anime-library></div>
+      <a class="myanime-footer-link" href="anime.html">Explore more anime →</a>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="anime-library.js?v=20261114-authrefresh1"></script>
+  <script src="featured-public.js?v=20261024"></script>
+  <script src="mobile-pwa.js?v=20261114-nav-pair1"></script>
+  <script src="site-shell.js"></script>
+  <script src="redesign-mobile.js?v=20261025-mobile1"></script>
+  <script src="te-v5.js?v=20261025-v5"></script>
+  <script src="app-standalone.js?v=app1"></script>
+</body>
+</html>

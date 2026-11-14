@@ -17,7 +17,7 @@
     try {
       // An unreliable external CDN must never prevent poster, characters, or episode loading.
       if (!window.supabase) await loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2');
-      if (!window.AnimeLibrary) await loadScript('anime-library.js?v=library1');
+      if (!window.AnimeLibrary) await loadScript('anime-library.js?v=20261114-authrefresh1');
       await window.ANIME_READY;
       const id = new URLSearchParams(location.search).get('id') || 'attack-on-titan';
       const anime = (window.ANIME_DATA || []).find(a => String(a.id) === String(id));

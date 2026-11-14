@@ -1,0 +1,291 @@
+/* THE EVERYTHING / HOME SCREEN APP
+ * Loaded LAST. Only applies to installed/standalone PWA on narrow screens.
+ * The normal mobile browser and all desktop/tablet layouts remain untouched.
+ * Never hide a data-bearing section globally; app-only replacements are explicit.
+ */
+@media (max-width: 767px) {
+  html.te-app-mode {
+    --app-bg: #080916;
+    --app-card: #14162a;
+    --app-elev: #1b1c33;
+    --app-line: rgba(190,176,255,.15);
+    --app-muted: #a5a8c4;
+    --app-purple: #a77cff;
+    --app-pink: #f07da8;
+    --app-blue: #79adff;
+    color-scheme: dark;
+    background: var(--app-bg);
+    scroll-padding-top: 92px;
+  }
+  html.te-app-mode body,
+  html.te-app-mode body.te-v5,
+  html.te-app-mode body.te-v6-anime,
+  html.te-app-mode body.te-episode-choice {
+    background: radial-gradient(ellipse at 89% 0%,rgba(99,68,196,.19),transparent 32%),
+      radial-gradient(ellipse at 5% 54%,rgba(46,80,177,.075),transparent 40%),#080916 !important;
+    color: #f8f5ff;
+    font-family: -apple-system, BlinkMacSystemFont, 'DM Sans', 'Segoe UI', sans-serif !important;
+    padding-bottom: calc(106px + env(safe-area-inset-bottom,0px)) !important;
+    overscroll-behavior-y: contain;
+    overflow-x: clip;
+  }
+  html.te-app-mode body:before,
+  html.te-app-mode .hm-atmosphere,
+  html.te-app-mode .v6-world-atmosphere,
+  html.te-app-mode .v6-ticker,
+  html.te-app-mode .hm-ticker,
+  html.te-app-mode .side-word,
+  html.te-app-mode .te-floating-brand,
+  html.te-app-mode .hm-header-wrap,
+  html.te-app-mode .top-header,
+  html.te-app-mode .choice-topbar,
+  html.te-app-mode .auth-header,
+  html.te-app-mode .te-info-header,
+  html.te-app-mode .te-film-nav,
+  html.te-app-mode .te-mobile-nav,
+  html.te-app-mode .v6-upper-caption,
+  html.te-app-mode .hm-hero-edge { display:none !important; }
+
+  html.te-app-mode :is(a,button,select,input,textarea):focus-visible {
+    outline: 2px solid #b99aff !important; outline-offset: 2px;
+  }
+  html.te-app-mode :is(button,a) { -webkit-tap-highlight-color: transparent; }
+  html.te-app-mode :is(input,textarea,select) { font-size: 16px; }
+  html.te-app-mode :is(.te-site-footer, footer):not(.te-app-dock) { margin-bottom: 12px; }
+
+  /* Actual native-app chrome, replacing the website's multiple header variants. */
+  html.te-app-mode .te-app-topbar {
+    position: sticky; z-index: 8900; top: 0; left: 0;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    min-height: calc(72px + env(safe-area-inset-top,0px));
+    width:100%; margin:0; padding: calc(11px + env(safe-area-inset-top,0px)) 17px 11px;
+    border-bottom: 1px solid rgba(202,189,255,.11);
+    background: rgba(9,10,25,.91);
+    -webkit-backdrop-filter: blur(22px); backdrop-filter: blur(22px);
+    box-shadow: 0 9px 26px rgba(0,0,0,.13);
+  }
+  html.te-app-mode .te-app-brand { min-width:0; display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none; }
+  html.te-app-mode .te-app-brand img { width:38px;height:38px;flex:none;object-fit:contain;border-radius:13px;background:linear-gradient(140deg,#241537,#152849);padding:3px;border:1px solid #aa83fa40; }
+  html.te-app-mode .te-app-brand-copy { display:flex;flex-direction:column;min-width:0;gap:2px; }
+  html.te-app-mode .te-app-brand-copy small {font-size:9px;letter-spacing:.15em;font-weight:850;color:#aa8ff5;white-space:nowrap;}
+  html.te-app-mode .te-app-brand-copy strong {font-size:17px;line-height:1.12;font-weight:820;letter-spacing:-.02em;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
+  html.te-app-mode .te-app-top-actions {display:flex;align-items:center;gap:9px;flex:none;}
+  html.te-app-mode .te-app-icon-button {
+    display:grid;place-items:center;width:39px;height:39px;border:1px solid #9281bd44;
+    border-radius:13px;background:rgba(130,109,199,.1);color:#e9e5ff;text-decoration:none;
+  }
+  html.te-app-mode .te-app-dock {
+    position:fixed;z-index:9200;bottom:0;left:0;right:0;display:grid !important;
+    grid-template-columns:repeat(5,minmax(0,1fr));align-items:stretch;gap:1px;
+    min-height:calc(69px + env(safe-area-inset-bottom,0px));
+    padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px));
+    border-top:1px solid #b4a2f63c;background:rgba(14,13,33,.97);
+    -webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);box-shadow:0 -10px 40px #0006;
+  }
+  html.te-app-mode .te-app-dock a {
+    min-width:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:3px;
+    border-radius:15px;padding:5px 0 4px;text-align:center;color:#9d9bb7;
+    font:700 9.5px/1.3 -apple-system,BlinkMacSystemFont,'DM Sans',sans-serif;text-decoration:none;
+  }
+  html.te-app-mode .te-app-dock .te-app-tab-icon {
+    width:37px;height:29px;display:grid;place-items:center;border-radius:12px;
+  }
+  html.te-app-mode .te-app-dock svg {width:20px;height:20px;}
+  html.te-app-mode .te-app-dock a[aria-current=page] {color:#eee4ff;}
+  html.te-app-mode .te-app-dock a[aria-current=page] .te-app-tab-icon {
+    color:#fff;background:linear-gradient(135deg,#834ee5,#5e68e7 70%,#c85da4);
+    box-shadow:0 4px 15px #653fd055;
+  }
+
+  /* APP HOME: deliberately not the public website hero/layout. */
+  html.te-app-mode .hm-main {width:100% !important;max-width:100% !important;margin:0 auto !important;padding:0 0 35px !important;}
+  html.te-app-mode .hm-home :is(.hm-hero,.hm-worlds,.hm-showcase,.hm-why,.hm-final) {display:none !important;}
+  html.te-app-mode .te-app-dashboard {padding:23px 17px 5px;display:flex;flex-direction:column;gap:19px;}
+  html.te-app-mode .te-app-eyebrow {display:block;color:#bd9bff;font-weight:850;letter-spacing:.17em;font-size:10px;margin-bottom:10px;}
+  html.te-app-mode .te-app-greeting h1 {font-weight:850;font-size:clamp(30px,8vw,42px);letter-spacing:-.065em;line-height:1.1;margin:0 0 10px;}
+  html.te-app-mode .te-app-greeting h1 em {font-style:normal;color:#b99cff;}
+  html.te-app-mode .te-app-greeting p {margin:0;color:#a8aac5;font-size:13px;line-height:1.65;max-width:340px;}
+  html.te-app-mode .te-app-feature-tile {position:relative;display:block;width:100%;min-height:310px;max-height:410px;aspect-ratio:1.1;overflow:hidden;border-radius:25px;border:1px solid #c5acff3a;background:#19182c;color:white;text-decoration:none;isolation:isolate;box-shadow:0 17px 45px #0006;}
+  html.te-app-mode .te-app-feature-tile>img {position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:50% 31%;}
+  html.te-app-mode .te-app-feature-shade {position:absolute;inset:0;background:linear-gradient(0deg,#070916fa 2%,#15102b96 48%,#080e1a05 100%);}
+  html.te-app-mode .te-app-feature-copy {position:absolute;left:20px;right:20px;bottom:22px;display:flex;flex-direction:column;gap:9px;}
+  html.te-app-mode .te-app-feature-copy small {font-size:10px;letter-spacing:.18em;color:#e6cfff;font-weight:850;}
+  html.te-app-mode .te-app-feature-copy strong {font-size:32px;line-height:1.04;letter-spacing:-.052em;font-weight:850;}
+  html.te-app-mode .te-app-feature-link {margin-top:2px;display:inline-flex;align-items:center;gap:8px;color:#f9f3ff;font-size:12px;font-weight:800;}
+  html.te-app-mode .te-app-feature-link svg {width:16px;height:16px;}
+  html.te-app-mode .te-app-shortcuts-title {display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin:5px 0 -8px;}
+  html.te-app-mode .te-app-shortcuts-title h2 {margin:0;font-size:20px;letter-spacing:-.035em;}
+  html.te-app-mode .te-app-shortcuts-title>span {font-size:10px;color:#9899b5;}
+  html.te-app-mode .te-app-shortcuts {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;}
+  html.te-app-mode .te-app-shortcut {position:relative;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;gap:11px;min-height:136px;padding:16px;border-radius:21px;border:1px solid #b99cff2f;background:linear-gradient(148deg,#20203a,#101528);color:#fff;text-decoration:none;overflow:hidden;}
+  html.te-app-mode .te-app-shortcut>span:not(.te-app-shortcut-icon) {position:relative;z-index:1;display:flex;flex-direction:column;gap:3px;font-size:15px;font-weight:800;}
+  html.te-app-mode .te-app-shortcut small {font-size:10px;color:#c1bbd7;font-weight:500;}
+  html.te-app-mode .te-app-shortcut>svg {position:absolute;z-index:2;top:16px;right:14px;width:18px;height:18px;opacity:.85;}
+  html.te-app-mode .te-app-shortcut-icon {display:grid;place-items:center;width:40px;height:40px;background:#7c64c02e;border:1px solid #ad8eff4f;border-radius:12px;color:#e8d8ff;}
+  html.te-app-mode .te-app-shortcut-wall {grid-row:span 2;min-height:283px;justify-content:flex-end;}
+  html.te-app-mode .te-app-shortcut-wall img {position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  html.te-app-mode .te-app-shortcut-wall:before {content:"";position:absolute;inset:0;background:linear-gradient(0deg,#080b1df0,transparent 78%);z-index:1;}
+  html.te-app-mode .te-app-shortcut-wall>span {font-size:17px !important;}
+  html.te-app-mode .te-app-shortcut-list {background:linear-gradient(135deg,#2d2054,#161738);}
+  html.te-app-mode .te-app-shortcut-calendar {background:linear-gradient(145deg,#132d4c,#172039);}
+  html.te-app-mode .te-continue-watching.hm-container {margin:20px 17px 4px !important;width:calc(100% - 34px) !important;max-width:none !important;padding:17px !important;border:1px solid #c4a9ff35 !important;border-radius:22px !important;background:linear-gradient(145deg,#211839,#131a31) !important;box-shadow:none !important;}
+  html.te-app-mode .te-cw-heading h2 {font-size:20px !important;line-height:1.15;}
+  html.te-app-mode .te-cw-heading {gap:9px;align-items:start;}
+  html.te-app-mode .te-cw-description {font-size:11px;line-height:1.55;color:#aca9c9;}
+  html.te-app-mode .te-cw-list {max-width:100%;}
+
+  /* ANIME: app title + full-bleed editorial poster, swipe releases, compact cards. */
+  html.te-app-mode .te-v6-anime .v6-main {box-sizing:border-box;width:100%!important;max-width:100%!important;padding:18px 16px 45px !important;overflow:visible!important;}
+  html.te-app-mode .te-app-anime-intro {display:flex;align-items:center;justify-content:space-between;gap:13px;margin:4px 0 18px;}
+  html.te-app-mode .te-app-anime-intro small {display:block;font-weight:850;color:#ad8cf5;letter-spacing:.14em;font-size:10px;margin-bottom:8px;}
+  html.te-app-mode .te-app-anime-intro h1 {margin:0;font-size:32px;line-height:1.08;letter-spacing:-.055em;}
+  html.te-app-mode .te-app-anime-intro em {font-style:normal;color:#bc9cff;}
+  html.te-app-mode .te-app-anime-intro>a {display:grid;place-items:center;flex:none;width:45px;height:45px;border-radius:15px;border:1px solid #9d83db5c;background:#261e45;color:#e4d4ff;}
+  html.te-app-mode .te-v6-anime .v6-hero {display:block!important;min-height:0!important;max-height:none!important;margin:0 0 25px!important;padding:0!important;background:transparent!important;border:0!important;box-shadow:none!important;overflow:visible!important;}
+  html.te-app-mode .te-v6-anime .v6-hero-copy {display:none !important;}
+  html.te-app-mode .te-v6-anime .v6-hero-stage {display:block!important;position:relative!important;width:100%!important;height:auto!important;min-height:290px!important;margin:0!important;padding:0!important;transform:none!important;}
+  html.te-app-mode .te-v6-anime .v6-featured-card {position:relative!important;inset:auto!important;display:block!important;width:100%!important;max-width:none!important;min-height:290px!important;height:clamp(295px,86vw,390px)!important;transform:none!important;border-radius:25px!important;overflow:hidden!important;border:1px solid #ae8ef34f!important;box-shadow:0 18px 46px #0007!important;}
+  html.te-app-mode .te-v6-anime .v6-featured-card>img {width:100%!important;height:100%!important;object-fit:cover!important;}
+  html.te-app-mode .te-v6-anime .v6-featured-info {max-width:100%!important;left:18px!important;right:18px!important;bottom:18px!important;padding:0!important;}
+  html.te-app-mode .te-v6-anime .v6-featured-info strong {font-size:clamp(22px,7vw,31px)!important;line-height:1.06!important;}
+  html.te-app-mode .te-v6-anime .v6-stage-orbit,
+  html.te-app-mode .te-v6-anime .v6-stage-light,
+  html.te-app-mode .te-v6-anime .v6-stage-small {display:none!important;}
+  html.te-app-mode .te-v6-anime .v7-hero-carousel-controls {z-index:7;bottom:6px;}
+  html.te-app-mode .te-v6-anime .v6-new-arrivals,
+  html.te-app-mode .te-v6-anime .v6-discovery,
+  html.te-app-mode .te-v6-anime .v6-library {margin:0 0 29px!important;padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important;}
+  html.te-app-mode .te-v6-anime .v6-section-title-row {margin:0 0 14px!important;align-items:baseline!important;}
+  html.te-app-mode .te-v6-anime .v6-section-title-row h2 {font-size:24px!important;letter-spacing:-.045em!important;}
+  html.te-app-mode .te-v6-anime .v6-section-title-row p {display:none!important;}
+  html.te-app-mode .te-v6-anime .te-discovery-intro h2 {font-size:23px!important;line-height:1.12!important;}
+  html.te-app-mode .te-v6-anime .te-discovery-intro p {display:none!important;}
+  html.te-app-mode .te-v6-anime .te-library-shortcuts {display:flex!important;gap:7px;flex-wrap:wrap;margin:12px 0!important;}
+  html.te-app-mode .te-v6-anime :is(.te-weekly-shortcut,.te-quick-library) {border-radius:999px!important;min-height:37px;padding:8px 12px!important;font-size:11px!important;background:#211a3b!important;border:1px solid #9072ce66!important;color:#e8dcff!important;}
+  html.te-app-mode .te-v6-anime .te-discovery-controls {display:flex!important;flex-wrap:wrap!important;gap:9px!important;margin-top:15px!important;}
+  html.te-app-mode .te-v6-anime .anime-search {flex-basis:100%!important;min-width:0!important;min-height:52px!important;border-radius:16px!important;background:#1a1931!important;border:1px solid #aa96ef53!important;box-shadow:none!important;}
+  html.te-app-mode .te-v6-anime .anime-search input {font-size:16px!important;color:#fff!important;min-height:48px;}
+  html.te-app-mode .te-v6-anime :is(.te-more-genres,.te-sort-control) {flex:1 1 0;min-width:0;border-radius:13px!important;background:#19172b!important;border:1px solid #9c86cb55!important;min-height:43px;}
+  html.te-app-mode .te-v6-anime .te-quick-genres {display:flex;overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;gap:7px;padding:6px 0 12px;}
+  html.te-app-mode .te-v6-anime .te-quick-genres > * {flex:none;}
+  html.te-app-mode .te-v6-anime .anime-grid {display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:13px 11px!important;width:100%!important;overflow:visible!important;}
+  html.te-app-mode .te-v6-anime .anime-card {background:#15162a!important;border:1px solid #a6a0d631!important;border-radius:16px!important;box-shadow:none!important;}
+  html.te-app-mode .te-v6-anime .anime-card .poster {aspect-ratio:3/4!important;}
+  html.te-app-mode .te-v6-anime .anime-info {padding:10px 10px 12px!important;}
+  html.te-app-mode .te-v6-anime .anime-info h3 {font-size:12px!important;line-height:1.37!important;}
+  html.te-app-mode .te-v6-anime .te-latest-section {margin-bottom:21px!important;}
+  html.te-app-mode .te-v6-anime .te-latest-grid {grid-auto-columns:minmax(138px,41vw)!important;gap:10px!important;}
+
+  /* WALLPAPERS: category chips, inset search, fast two-column image mosaic. */
+  html.te-app-mode body.te-v5-wallpaper .top-bar {display:grid!important;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:11px;padding:12px 16px!important;margin:0!important;background:transparent!important;}
+  html.te-app-mode body.te-v5-wallpaper .top-bar>.back-button {display:none!important;}
+  html.te-app-mode body.te-v5-wallpaper .wallpaper-search-box {grid-column:1/-1;grid-row:2;max-width:none!important;width:100%!important;background:#1b1a31!important;border:1px solid #a88bea57!important;border-radius:15px!important;min-height:49px!important;}
+  html.te-app-mode body.te-v5-wallpaper .wallpaper-search-box input {font-size:16px!important;}
+  html.te-app-mode body.te-v5-wallpaper .v6-wallpaper-library {grid-column:2;grid-row:1;display:inline-flex;align-items:center;min-height:39px;border-radius:13px!important;font-size:12px!important;}
+  html.te-app-mode body.te-v5-wallpaper .hero {display:block!important;min-height:0!important;height:auto!important;margin:6px 16px 19px!important;padding:20px!important;text-align:left!important;border-radius:24px!important;border:1px solid #aa84ee46!important;background:linear-gradient(125deg,#262044,#101a33)!important;box-shadow:none!important;}
+  html.te-app-mode body.te-v5-wallpaper .hero-content {width:100%!important;max-width:100%!important;padding:0!important;margin:0!important;text-align:left!important;}
+  html.te-app-mode body.te-v5-wallpaper .hero h1 {font-size:clamp(28px,7vw,35px)!important;line-height:1.07!important;letter-spacing:-.06em!important;max-width:300px!important;margin:9px 0!important;}
+  html.te-app-mode body.te-v5-wallpaper .hero-description {font-size:12px!important;line-height:1.55!important;max-width:280px!important;margin:7px 0 15px!important;}
+  html.te-app-mode body.te-v5-wallpaper .te-wallpaper-art {display:none!important;}
+  html.te-app-mode body.te-v5-wallpaper .categories {display:flex!important;flex-wrap:nowrap!important;overflow-x:auto!important;gap:7px!important;padding:6px 0!important;scrollbar-width:none;}
+  html.te-app-mode body.te-v5-wallpaper .category-button {flex:none;min-height:36px;border-radius:999px!important;padding:8px 14px!important;font-size:11px!important;}
+  html.te-app-mode body.te-v5-wallpaper .gallery-info {padding:4px 17px 12px!important;margin:0!important;font-size:12px!important;text-align:left!important;}
+  html.te-app-mode body.te-v5-wallpaper .gallery-wrapper {width:calc(100% - 28px)!important;max-width:none!important;margin:0 14px!important;padding:0!important;}
+  html.te-app-mode body.te-v5-wallpaper .wallpaper-grid {display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;width:100%!important;padding:0!important;overflow:visible!important;}
+  html.te-app-mode body.te-v5-wallpaper .wallpaper-card {min-width:0!important;max-width:none!important;width:100%!important;border-radius:15px!important;overflow:hidden!important;}
+  html.te-app-mode body.te-v5-wallpaper .wallpaper-card img {width:100%!important;object-fit:cover;}
+  html.te-app-mode body.te-v5-wallpaper #addWallpaperButton {display:flex!important;right:16px!important;bottom:calc(87px + env(safe-area-inset-bottom,0px))!important;border-radius:18px!important;box-shadow:0 12px 30px #0008!important;z-index:100!important;}
+
+  /* SECONDARY COLLECTIONS AND PROFILE: smaller single-purpose native screens. */
+  html.te-app-mode body.te-v5-mywallpapers .mw-v12-hero {width:calc(100% - 28px)!important;margin:15px 14px 17px!important;padding:21px!important;grid-template-columns:1fr!important;gap:14px!important;min-height:0!important;border-radius:22px!important;}
+  html.te-app-mode body.te-v5-mywallpapers .mw-v12-hero h1 {font-size:30px!important;line-height:1.1!important;}
+  html.te-app-mode body.te-v5-mywallpapers .mw-v12-art {height:152px!important;min-height:0!important;}
+  html.te-app-mode body.te-v5-mywallpapers .info-bar,
+  html.te-app-mode body.te-v5-mywallpapers .mw-v12-gallery-heading,
+  html.te-app-mode body.te-v5-mywallpapers .wallpaper-grid,
+  html.te-app-mode body.te-v5-mywallpapers .status-message {width:calc(100% - 28px)!important;max-width:none!important;margin-left:14px!important;margin-right:14px!important;}
+  html.te-app-mode body.te-v5-mywallpapers .wallpaper-grid {grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;}
+  html.te-app-mode body.te-v5-mywallpapers .wallpaper-card {height:210px!important;min-width:0!important;}
+  html.te-app-mode body.te-v5-myanime .library-page {width:100%!important;max-width:100%!important;margin:0!important;padding:13px 14px 25px!important;}
+  html.te-app-mode body.te-v5-myanime .library-header {background:transparent!important;border:0!important;padding:9px 0 16px!important;margin:0!important;}
+  html.te-app-mode body.te-v5-myanime .library-header h1 {font-size:30px!important;letter-spacing:-.055em!important;}
+  html.te-app-mode .library-tabs {display:flex!important;gap:8px!important;overflow-x:auto!important;flex-wrap:nowrap!important;scrollbar-width:none;padding:3px 0 12px!important;}
+  html.te-app-mode .library-tabs button {flex:none!important;border-radius:999px!important;min-height:37px!important;}
+  html.te-app-mode .library-toolbar {display:flex!important;flex-direction:column!important;gap:9px!important;}
+  html.te-app-mode .library-toolbar input,
+  html.te-app-mode .library-toolbar select {width:100%!important;min-height:47px!important;border-radius:13px!important;background:#19192e!important;color:#fafaff!important;border:1px solid #af93e14f!important;padding:10px!important;}
+  html.te-app-mode body.te-v5-myanime .library-grid {display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:11px!important;}
+  html.te-app-mode .library-card {min-width:0!important;border:1px solid #a68fdd36!important;border-radius:17px!important;background:#17182d!important;overflow:hidden;}
+  html.te-app-mode .library-card .library-poster img {max-width:100%;width:100%;object-fit:cover;}
+  html.te-app-mode .library-title {font-size:12px!important;line-height:1.3!important;}
+  html.te-app-mode body.te-v5-profile .page {width:100%!important;max-width:100%!important;margin:0!important;padding:13px 14px 32px!important;}
+  html.te-app-mode body.te-v5-profile .profile-layout {display:block!important;max-width:100%!important;}
+  html.te-app-mode body.te-v5-profile :is(.profile-hero,.card,.profile-episode-activity,.profile-v9-explore) {margin:0 0 15px!important;border-radius:22px!important;border:1px solid #b39cdd2c!important;background-color:#17182b!important;box-shadow:none!important;}
+  html.te-app-mode body.te-v5-profile .profile-hero {padding:17px!important;}
+  html.te-app-mode body.te-v5-profile .profile-episode-activity {padding:15px!important;}
+  html.te-app-mode body.te-v5-settings .page {width:100%!important;max-width:100%!important;margin:0!important;padding:12px 14px 30px!important;}
+  html.te-app-mode body.te-v5-settings .st-v12-banner {border-radius:22px!important;padding:21px!important;min-height:0!important;margin:9px 0 16px!important;}
+  html.te-app-mode body.te-v5-settings .st-v12-banner h1 {font-size:30px!important;}
+  html.te-app-mode body.te-v5-settings .settings-layout {display:block!important;}
+  html.te-app-mode body.te-v5-settings .settings-card {width:100%!important;margin:0 0 13px!important;padding:17px!important;border-radius:19px!important;background:#18192e!important;box-shadow:none!important;}
+
+  /* Anime details and playback: functional controls stay in original DOM/JS. */
+  html.te-app-mode body.anime-detail-v2 .page {width:100%!important;max-width:100%!important;padding:14px 14px 32px!important;margin:0!important;}
+  html.te-app-mode body.anime-detail-v2 .detail-top {margin:8px 0 14px!important;}
+  html.te-app-mode body.anime-detail-v2 .anime-hero {display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:15px!important;margin:0 0 19px!important;padding:16px!important;background:linear-gradient(135deg,#221a37,#131b33)!important;border:1px solid #a48bd544!important;border-radius:23px!important;}
+  html.te-app-mode body.anime-detail-v2 .anime-poster {display:block!important;width:125px!important;height:174px!important;object-fit:cover!important;border-radius:14px!important;}
+  html.te-app-mode body.anime-detail-v2 .anime-details {min-width:0;width:100%;}
+  html.te-app-mode body.anime-detail-v2 .anime-details h1 {font-size:26px!important;line-height:1.12!important;}
+  html.te-app-mode body.anime-detail-v2 :is(.episodes-section,.detail-features) {margin:0 0 16px!important;padding:16px!important;border-radius:20px!important;border:1px solid #a48bd533!important;background:#15162a!important;box-shadow:none!important;}
+  html.te-app-mode body.anime-detail-v2 #teEpisodeSearch {min-height:44px;font-size:16px!important;}
+  html.te-app-mode body.anime-detail-v2 :is(.episode-card,.episode-item) {border-radius:13px!important;}
+  html.te-app-mode body.te-episode-choice .choice-layout {width:calc(100% - 28px)!important;max-width:none!important;min-height:0!important;margin:0 14px!important;padding:15px 0 20px!important;}
+  html.te-app-mode body.te-episode-choice .choice-breadcrumb {margin:4px 0 12px!important;}
+  html.te-app-mode body.te-episode-choice .choice-hero {display:block!important;border-radius:23px!important;background:#16182f!important;border:1px solid #ac8be942!important;}
+  html.te-app-mode body.te-episode-choice .choice-visual {height:177px!important;min-height:0!important;max-height:none!important;}
+  html.te-app-mode body.te-episode-choice .choice-main {padding:19px!important;}
+  html.te-app-mode body.te-episode-choice .choice-main h1 {font-size:28px!important;}
+  html.te-app-mode body.te-episode-choice .choice-option {border-radius:16px!important;min-height:75px!important;}
+  html.te-app-mode body.te-v5-watch .watch-page {max-width:100%!important;width:100%!important;margin:0!important;padding:12px 13px 32px!important;}
+  html.te-app-mode body.te-v5-watch .watch-masthead {padding:16px!important;border-radius:18px!important;margin:8px 0 16px!important;}
+  html.te-app-mode body.te-v5-watch .player-card {padding:10px!important;border:1px solid #b39adc35!important;border-radius:18px!important;overflow:hidden!important;}
+  html.te-app-mode body.te-v5-watch iframe {width:100%!important;max-width:100%!important;}
+  html.te-app-mode body.te-v5-watch .episode-navigation {display:flex!important;flex-wrap:wrap!important;gap:9px!important;}
+  html.te-app-mode body.te-weekly-page .v6-main {padding:15px 14px 30px!important;max-width:100%!important;width:100%!important;}
+  html.te-app-mode body.te-weekly-page .te-weekly {border-radius:21px!important;padding:15px!important;margin:10px 0!important;background:#14162b!important;border:1px solid #ae91ed44!important;}
+  html.te-app-mode body.te-weekly-page .te-weekly h1 {font-size:29px!important;}
+  html.te-app-mode body.te-v5-films .te-film-main {width:100%!important;padding:12px 14px 25px!important;margin:0!important;}
+  html.te-app-mode body.te-v5-films .te-film-hero {border-radius:23px!important;min-height:0!important;padding:20px!important;}
+  html.te-app-mode body.te-v5-login .auth-layout {width:100%!important;max-width:100%!important;margin:0!important;padding:14px!important;}
+  html.te-app-mode body.te-v5-login .auth-story {display:none!important;}
+  html.te-app-mode body.te-v5-login :is(.auth-card,.auth-form) {width:100%!important;max-width:100%!important;}
+  html.te-app-mode body.te-v5-about :is(.te-info-main),
+  html.te-app-mode body.te-v5-privacy :is(.te-info-main),
+  html.te-app-mode body.te-v5-terms :is(.te-info-main) {padding:16px!important;width:100%!important;max-width:100%!important;}
+  html.te-app-mode body.te-v5-admin .te-admin-layout {max-width:100%!important;width:100%!important;margin:0!important;padding:14px!important;}
+
+  /* App-friendly handling of drawers / modal overlays and device insets. */
+  html.te-app-mode .genre-drawer,
+  html.te-app-mode :is(.upload-wallpaper-modal,.preview,.delete-modal,.edit-modal,.password-modal) {z-index:9500!important;}
+  html.te-app-mode .te-app-topbar, html.te-app-mode .te-app-dock {box-sizing:border-box;}
+  html.te-app-mode .te-app-topbar *, html.te-app-mode .te-app-dock * {box-sizing:border-box;}
+}
+@media (max-width: 350px) {
+  html.te-app-mode .te-app-dock a {font-size:8.4px;}
+  html.te-app-mode .te-app-greeting h1 {font-size:29px;}
+  html.te-app-mode .te-app-top-actions {gap:5px;}
+  html.te-app-mode .te-app-icon-button {width:35px;height:35px;}
+}
+@media (prefers-reduced-motion: reduce) {
+  html.te-app-mode *, html.te-app-mode *::before, html.te-app-mode *::after {
+    scroll-behavior:auto!important;transition-duration:.001ms!important;animation-duration:.001ms!important;
+  }
+}
+/* Final app-specific cleanup: avoid duplicating the native header on Library. */
+@media (max-width:767px) {
+  html.te-app-mode body.te-v5-myanime .library-header {display:none!important;}
+  html.te-app-mode body.te-v5-myanime .library-page > .eyebrow {color:#b399ff!important;font-size:10px!important;letter-spacing:.14em!important;margin:11px 0 9px!important;}
+  html.te-app-mode body.te-v5-myanime .library-page > h1 {font-size:clamp(29px,7.7vw,36px)!important;line-height:1.1!important;letter-spacing:-.055em!important;margin:0 0 12px!important;}
+  html.te-app-mode body.te-v5-myanime .library-page > p:not(.eyebrow) {font-size:13px!important;line-height:1.6!important;max-width:350px!important;margin:0 0 16px!important;}
+  html.te-app-mode body.te-v5-myanime .library-page > a {display:inline-flex;min-height:39px;align-items:center;margin-bottom:12px;padding:8px 13px;border-radius:999px;border:1px solid #a085e45c;background:#211c3d;text-decoration:none;color:#e6d9ff!important;font-size:12px;font-weight:700;}
+}

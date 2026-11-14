@@ -9,8 +9,9 @@ body.te-v5-profile {
   background: radial-gradient(ellipse at 6% 8%,rgba(83,43,168,.25),transparent 32%), radial-gradient(ellipse at 100% 66%,rgba(27,82,141,.21),transparent 36%),#050713;
   color:#f4f6ff;
 }
+/* A personal page image must win over the global theme's background: ... !important. */
 body.te-v5-profile.has-page-background {
-  background-image:linear-gradient(rgba(5,8,19,.44),rgba(5,8,19,.68)),var(--profile-page-image);
+  background-image:linear-gradient(rgba(5,8,19,.44),rgba(5,8,19,.68)),var(--profile-page-image)!important;
   background-position:center!important;
   background-attachment:fixed!important;
   background-size:cover!important;
@@ -121,6 +122,16 @@ body.te-v5-profile #animeCollection {scroll-margin-top:108px;height:auto!importa
 body.te-v5-profile .cover-dialog {background:#11182b!important;border-color:#9e93ea4d!important;color:#f9f8ff!important;box-shadow:0 35px 100px #000b;}
 body.te-v5-profile .cover-dialog button {color:#e3e1ff;background:#262447;border-color:#b2a0ff40;}
 body.te-v5-profile .cover-dialog :is(#coverSave,#pageCoverSave) {color:#fff;background:linear-gradient(110deg,#7449ff,#426cf0);}
+/* Keep the personal page image even when the installed app shell sets its own body background. */
+@media (max-width:767px) {
+  html.te-app-mode body.te-v5-profile.has-page-background {
+    background-image:linear-gradient(rgba(5,8,19,.44),rgba(5,8,19,.68)),var(--profile-page-image)!important;
+    background-position:center!important;
+    background-attachment:fixed!important;
+    background-size:cover!important;
+    background-repeat:no-repeat!important;
+  }
+}
 /* Respect the private user-selected background even with old mobile override. */
 @media (max-width:1100px){
   body.te-v5-profile .profile-hero {grid-template-columns:125px minmax(0,1fr)!important;grid-template-areas:'heading heading' 'avatar identity' 'actions actions' 'stats stats'!important;}

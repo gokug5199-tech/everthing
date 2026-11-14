@@ -1,4 +1,4 @@
-/* The Everything — mobile navigation and optional PWA install (stability v10). */
+/* The Everything — mobile navigation and optional PWA install (unified episode navigation). */
 (function () {
   'use strict';
 
@@ -7,7 +7,7 @@
   const pageNames = {
     '': 'Home', 'index': 'Home', 'home': 'Home',
     'anime': 'Anime', 'anime-details': 'Anime', 'my-anime': 'Anime',
-    'watch': 'Anime', 'attack-on-titan': 'Anime',
+    'watch': 'Anime', 'episode-choice': 'Anime', 'attack-on-titan': 'Anime',
     'wallpaper': 'Wallpapers', 'wallpapers': 'Wallpapers',
     'my-wallpapers': 'Wallpapers', 'user-wallpapers': 'Wallpapers',
     'profile': 'Profile', 'settings': 'Profile'

@@ -23,8 +23,8 @@ function env(fetchMock){
 }
 function jsonResponse(body,status=200){return {ok:status>=200&&status<300,status,headers:{get:()=> 'application/json'},json:async()=>body};}
 async function main(){
-  assert.match(html,/src="episode-guides\.js\?rev=20261113-episode-ui1"/);
-  assert.match(html,/href="episode-guides\.css\?rev=20261113-episode-ui1"/);
+  assert.match(html,/src="episode-guides\.js\?rev=[^"]+"/);
+  assert.match(html,/href="episode-guides\.css\?rev=[^"]+"/);
   assert.match(details,/window\.TEEpisodeGuides/);
   assert.doesNotMatch(html,/episode-guides-v3[89]/);
   assert.doesNotMatch(css,/@import/);
@@ -32,8 +32,8 @@ async function main(){
   assert.match(css,/\.te-guide-health/);
   assert.match(html, /id="teGuideHealth"[^>]*hidden/);
   assert.match(css,/\.te-guide-health\[hidden\]\{display:none!important\}/);
-  assert.match(html, /<div class="detail-top"><a href="anime.html"[^>]*>← Back to anime<\/a>/);
-  assert.doesNotMatch(html, /<div class="detail-top"><a data-back/);
+  assert.match(html, /<div class="detail-top[^"]*"><a href="anime.html"[^>]*>← Back to anime<\/a>/);
+  assert.doesNotMatch(html, /<div class="detail-top[^"]*"><a data-back/);
   assert.doesNotMatch(fs.readFileSync(path.join(root,'watch.html'),'utf8'), /<a data-back id="backButton"/);
   assert.match(fs.readFileSync(path.join(root,'episode-choice-v37.js'),'utf8'), /window\.history\.back\(\)/);
   assert.match(fs.readFileSync(path.join(root,'episode-choice-v37.js'),'utf8'), /window\.location\.replace\(details\)/);

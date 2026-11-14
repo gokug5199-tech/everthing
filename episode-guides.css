@@ -1,13 +1,11 @@
 /* The Everything — Episode Guides: all core styles and status styles in one stylesheet. */
 body.anime-detail-v2 .te-guide-controls{display:flex;align-items:flex-end;flex-wrap:wrap;gap:12px;margin:0 0 16px;padding:14px;border:1px solid rgba(154,129,236,.23);border-radius:14px;background:linear-gradient(115deg,rgba(37,31,79,.7),rgba(15,20,41,.86))}
-body.anime-detail-v2 .te-guide-controls[hidden],body.anime-detail-v2 .te-guide-select-wrap[hidden],body.anime-detail-v2 .te-guide-credit[hidden]{display:none!important}
+body.anime-detail-v2 .te-guide-controls[hidden],body.anime-detail-v2 .te-guide-select-wrap[hidden]{display:none!important}
 body.anime-detail-v2 .te-guide-select-wrap{display:flex;flex-direction:column;gap:6px;min-width:150px;max-width:340px;flex:1 1 175px}
 body.anime-detail-v2 .te-guide-select-wrap label{font:800 10px/1.4 'DM Sans',sans-serif;letter-spacing:.1em;color:#bcaafc}
 body.anime-detail-v2 .te-guide-select-wrap select{appearance:auto;width:100%;min-height:40px;border:1px solid #49416f;border-radius:10px;background:#11162d;color:#f3ecff;padding:7px 11px;font-size:12px;font-weight:650;cursor:pointer}
 body.anime-detail-v2 .te-guide-select-wrap select:focus-visible{outline:2px solid #d8b7ff;outline-offset:2px}
 body.anime-detail-v2 .te-guide-summary{font-size:11px;color:#b4abd1;white-space:nowrap;padding-bottom:11px}
-body.anime-detail-v2 .te-guide-credit{margin:0 0 16px;color:#929dbd;font-size:10px;line-height:1.7}
-body.anime-detail-v2 .te-guide-credit a{color:#c5b6ff;text-decoration:underline;text-underline-offset:3px}
 body.anime-detail-v2 .te-arc-heading{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin:12px 0 1px;padding:10px 14px 11px;border-bottom:1px solid rgba(141,103,221,.33);background:linear-gradient(90deg,rgba(107,68,190,.18),transparent);border-radius:9px 9px 0 0}
 body.anime-detail-v2 .te-arc-name{font-size:15px;letter-spacing:-.015em;font-weight:850;color:#eadfff}
 body.anime-detail-v2 .te-arc-range{font-size:10px;letter-spacing:.12em;font-weight:800;color:#bcadfd}
@@ -29,3 +27,8 @@ body.anime-detail-v2 #teGuideRetry[hidden]{display:none}
 body.anime-detail-v2 .te-guide-health[data-state="ready"]{border-color:rgba(74,185,159,.36)}
 body.anime-detail-v2 .te-guide-health[data-state="offline"]{border-color:rgba(233,183,105,.44)}
 body.anime-detail-v2 .te-guide-health[data-state="unknown"]{opacity:.79}
+
+/* Keep episode grids focused. Dataset attribution lives in About, accessible from the page footer. */
+body.anime-detail-v2 .te-details-credits{margin:34px 0 0;padding:18px 0 0;border-top:1px solid rgba(160,141,211,.12);text-align:center}
+body.anime-detail-v2 .te-details-credits a{color:#afa7c6;font-size:11px;line-height:1.5;text-decoration:underline;text-decoration-color:rgba(175,167,198,.45);text-underline-offset:4px}
+body.anime-detail-v2 .te-details-credits a:hover,body.anime-detail-v2 .te-details-credits a:focus-visible{color:#e9ddff;text-decoration-color:#e9ddff}

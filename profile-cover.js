@@ -10,7 +10,10 @@ window.initProfileCover = async function (client, user) {
     const close = document.getElementById('coverClose');
     const message = document.getElementById('coverMessage');
     const bucket = client.storage.from('profile-covers');
-    let path = null, blob = null, previewURL = null, busy = false, selection = 0;
+    const fast = window.TEProfileBackgroundFast;
+    const cached = fast.restore('cover', user.id, hero, '--profile-cover-image', 'has-cover');
+    let path = cached ? cached.path : null, blob = null, previewURL = null, busy = false, selection = 0;
+    let requestId = 0;
     function state(working) {
         busy = working;
         save.disabled = working || !blob;
@@ -33,15 +36,7 @@ window.initProfileCover = async function (client, user) {
         state(false);
     }
     async function paint() {
-        if (!path) {
-            hero.style.removeProperty('--profile-cover-image');
-            hero.classList.remove('has-cover');
-            return;
-        }
-        const result = await bucket.createSignedUrl(path, 3600);
-        if (result.error) throw result.error;
-        hero.style.setProperty('--profile-cover-image', 'url(' + JSON.stringify(result.data.signedUrl) + ')');
-        hero.classList.add('has-cover');
+        await fast.paint('cover', user.id, path, bucket, hero, '--profile-cover-image', 'has-cover');
     }
     open.disabled = false;
     open.addEventListener('click', () => { clearPreview(); message.textContent = ''; dialog.showModal(); });
@@ -75,7 +70,7 @@ window.initProfileCover = async function (client, user) {
             const scale = Math.max(1600 / bitmap.width, 900 / bitmap.height);
             const width = bitmap.width * scale, height = bitmap.height * scale;
             ctx.drawImage(bitmap, (1600 - width) / 2, (900 - height) / 2, width, height);
-            const converted = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', .88));
+            const converted = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', .84));
             if (!converted) throw new Error('This image could not be processed.');
             if (token !== selection) return;
             blob = converted;
@@ -88,11 +83,12 @@ window.initProfileCover = async function (client, user) {
     });
     save.addEventListener('click', async () => {
         if (!blob || busy) return;
+        ++requestId;
         state(true); message.textContent = 'Uploading background...';
         const newPath = user.id + '/' + crypto.randomUUID() + '.jpg';
         let uploaded = false, committed = false;
         try {
-            const upload = await bucket.upload(newPath, blob, { contentType: 'image/jpeg', upsert: false });
+            const upload = await bucket.upload(newPath, blob, { contentType: 'image/jpeg', cacheControl: '3600', upsert: false });
             if (upload.error) throw upload.error;
             uploaded = true;
             const update = await client.from('profile_covers').upsert({user_id: user.id, file_path: newPath}, {onConflict:'user_id'}).select('file_path').single();
@@ -113,6 +109,7 @@ window.initProfileCover = async function (client, user) {
     });
     remove.addEventListener('click', async () => {
         if (!path || busy) return;
+        ++requestId;
         state(true); message.textContent = 'Removing background...';
         try {
             const result = await client.from('profile_covers').delete().eq('user_id', user.id).select('user_id');
@@ -126,8 +123,10 @@ window.initProfileCover = async function (client, user) {
     });
     async function load() {
         if (busy) return;
+        const generation = ++requestId;
         const result = await client.from('profile_covers').select('file_path').eq('user_id', user.id).maybeSingle();
         if (result.error) throw result.error;
+        if (generation !== requestId || busy) return;
         path = result.data?.file_path || null;
         await paint();
         state(false);

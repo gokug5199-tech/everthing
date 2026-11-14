@@ -1,4 +1,52 @@
+## 2026-11-14 — JWT Expired Recovery في Anime Library
+- `anime-library.js`: استرجاع الجلسة عند انتهاء JWT في قراءة المكتبة وحفظ/حذف حالات الأنمي والمفضلة، ومقارنة المستخدم قبل كل كتابة.
+- `my-anime.html`, `profile.html`, `anime-detail-auth-v22.js`: cache busting للملف المُصلح.
+- رسالة Log in again عند تعذر التجديد بدل عرض JWT expired الخام.
+- لا SQL ولا تعديل بيانات؛ اختبار محلي Mock، ولم يتم اختبار الحساب الحقيقي.
+
+## 2026-11-14 — تسريع صور خلفيات Profile
+- إضافة `profile-background-fast.js`، كاش `sessionStorage` محدود المدة لكل مستخدم ولكل صورة؛ لا إعادة إنشاء Signed URL في كل دخول إلى Profile أثناء الجلسة.
+- تعديل `profile-cover.js` و`profile-page-background.js` لجعل خلفيتي الصفحة والبطاقة تظهران من الكاش قبل انتظار الشبكة، مع تحقق خلفي من Supabase، ومعالجة الحذف والحسابات والروابط المنتهية.
+- ضبط ضغط JPEG للصور الجديدة عند 1600×900 إلى 0.84 و`cacheControl` ساعة. الصور القديمة لم تتغير.
+- `profile.html`: ملف الكاش الجديد وpreconnect وcache-busting للسكريبتين.
+- اختبارات `profile-images-fast-smoke.cjs` و`profile-background-css-smoke.py` محليًا، دون اتصال حقيقي بـCloudflare أو Supabase.
+- لا SQL، لا تعديل بيانات، ولا أي مساس بتصميم المتصفح أو التطبيق.
+
+## 2026-11-14 — Profile background browser visibility fix
+- `profile-v9.css`: جعل خلفية صفحة Profile الشخصية تتقدم على خلفية الثيم العامة ذات `background: ... !important`، وإضافة قاعدة محددة لنسخة التطبيق المثبتة فقط.
+- `profile.html`: cache-busting خاص بملف CSS المعدل.
+- لا تعديل على Supabase أو صور المستخدم أو SQL أو وظائف رفع/إزالة الخلفيات. مراجعة: `14-PROFILE-PAGE-BACKGROUND-BROWSER-FIX-AR.md`.
+- تحقق ثابت من CSS وHTML وفحوص JavaScript المحلية؛ لم يتم اختبار Supabase أو Cloudflare المنشورين.
+
+## 2026-11-14 — APP-SHELL-01: تصميم PWA مستقل عن نسخة المتصفح
+- 23 صفحة HTML أصبحت تحمل بوت كشف standalone مبكرًا، CSS تطبيق منفصلًا في آخر Head، وسكربت لتكوين الرأس والتبويبات.
+- شريط تطبيق علوي، تنقل سفلي من 5 تبويبات Home/Anime/Wallpapers/Library/Profile.
+- Home App Dashboard جديدة وواجهة Featured/بحث/أركات/خلفيات/مكتبة/بروفايل مناسبة للمس؛ بيانات Supabase ومنطق الاستيراد والأركات لم تتغير.
+- نافذة المتصفح المعتادة (بما فيها Safari/Chrome على الجوال) لم تتغير إلا بتحميل ملفات صغيرة تظل غير نشطة خارج standalone.
+- لا SQL. الاختبارات محلية ومحدودة؛ ليس اختبارًا لإنتاج Cloudflare أو iOS/Android الفعلي. التفاصيل في `13-STANDALONE-APP-REDESIGN-AR.md`.
+
+## 2026-11-14 — PWA Pair 02: Continue Watching + Paused/Dropped
+- `continue-watching.js` و`continue-watching.css` وقسم Home الجديد: يظهر فقط بعد تسجيل دخول له سجل فتح حلقات من v37، ويعرض أحدث حلقة فُتحت لكل أنمي؛ يحترم الخصوصية ويبقي خيار Watch/Download.
+- توسيع `anime-library.js` إلى `paused` و`dropped` مع شارات وتبويبات؛ تعديل `anime-detail-auth-v22.js` لتحديث cache-busting.
+- `SUPABASE-PAIR02-LIBRARY-STATUSES.sql` يعدل CHECK constraint فحسب، ولا يتعامل مع بيانات صفوف المستخدمين. يحتاج تشغيلًا يدويًا من المالك.
+- اختبار Fake Supabase للميزة، ولا ادعاء اختبار حسابات أو أجهزة حقيقية.
+
+## 2026-11-14 — PWA Pair 01: Library Performance + Episode Choice Navigation
+- إزالة `anime-data.js` من My Anime وProfile؛ `anime-library.js` يجلب بيانات الأنمي المرتبطة بمكتبة الحساب فحسب، مع أعمدة محددة بدلاً من `select=*` للكتالوج.
+- تفعيل شريط الجوال المشترك في `episode-choice.html`، وربط الصفحة بتبويب Anime؛ تحديث query versions للـPWA في HTML لمنع الكاش القديم.
+- توثيق التعديل في `11-PHASE-A-PAIR-01-AR.md` وإضافة فحص Fake Supabase/PWA Navigation.
+- لا SQL ولا تغييرات بالبيانات أو الروابط. الاختبار المحلي فقط؛ Cloudflare/Supabase الحقيقيان بحاجة تحقق.
+
 # سجل التغييرات
+
+## 2026-11-14 — اعتمادات Episode Guides داخل About بدل قائمة الحلقات
+- إزالة النص التفصيلي عن FillerLists والرخصة من تحت الفلاتر في `anime-details.html` و`anime-details.js`، مع إزالة CSS القديم لهذه السطر.
+- إضافة رابط صغير `Data Sources & Credits` في أسفل صفحة تفاصيل الأنمي يؤدي إلى `about.html#data-sources-credits`.
+- إنشاء قسم الاعتمادات في About: FillerLists والمصادر الأصلية، CC BY-SA 4.0، وصف التعديلات ونشر المرجع المحلي تحت رخصة المشاركة بالمثل، مع روابط المصادر.
+- لا تغيير في فلترة الحلقات أو الأركات أو طلبات الشبكة أو Supabase أو روابط الفيديو. لا SQL.
+- زيادة رقم استعلام cache-busting لـCSS/JS صفحة التفاصيل فقط.
+- الملفات: `anime-details.html`, `anime-details.js`, `episode-guides.css`, `about.html`, `PROJECT-DOCS/00-START-HERE-AR.md`, `PROJECT-DOCS/04-CHANGELOG-AR.md`, `PROJECT-DOCS/05-DEPLOY-AND-TEST-AR.md`, `PROJECT-DOCS/09-TEST-RESULTS-AR.md`, `PROJECT-DOCS/RELEASE-MANIFEST.json`, `PROJECT-DOCS/TESTS/credits-smoke.py`, `PROJECT-DOCS/TESTS/episode-guide-smoke.cjs` (إزالة تثبيت رقم الإصدار في الاختبار).
+
 
 ## 2026-11-13 — تحسين Episode Guides والرجوع (بعد التوحيد)
 **الهدف:** معالجة ملاحظات المستخدم المصورة دون تغيير Supabase أو إعادة بناء الموقع.

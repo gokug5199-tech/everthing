@@ -17,3 +17,12 @@ body.anime-detail-v2{background:#080e16;color:#e8f2f5}.anime-detail-v2 .page{max
 .anime-detail-v2 .characters-show-all:focus-visible{outline:2px solid #8ce7ce;outline-offset:3px}
 @media(max-width:700px){.anime-detail-v2 .character-section .character-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:380px){.anime-detail-v2 .character-section .character-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* PWA pair 02 — library watch statuses, without altering the desktop grid. */
+.library-status-badge{display:inline-flex;align-items:center;max-width:100%;margin:0 3px 11px;padding:5px 10px;border-radius:999px;background:#312344;color:#d8baff;border:1px solid #9c71d544;font-size:11px;font-weight:700;line-height:1.3}
+.library-status-paused{color:#ffd29b;background:#483222;border-color:#ffbf7552}
+.library-status-dropped{color:#c4b8d2;background:#28202f;border-color:#6a5e765e}
+.library-status-watching{color:#9bdcef;background:#163746;border-color:#52b9d750}
+.library-status-completed{color:#b4f1cc;background:#173b31;border-color:#64da9666}
+.library-status-planned{color:#d9befb;background:#2b2240;border-color:#9571d760}
+.library-card .library-actions select{min-height:42px}

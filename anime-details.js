@@ -54,7 +54,6 @@
     const typeSelect = document.getElementById('teTypeSelect');
     const guideControls = document.getElementById('teGuideControls');
     const guideSummary = document.getElementById('teGuideSummary');
-    const guideCredit = document.getElementById('teGuideCredit');
     const guideHealth = document.getElementById('teGuideHealth');
     const guideStatus = document.getElementById('teGuideStatus');
     const guideRetry = document.getElementById('teGuideRetry');
@@ -92,8 +91,6 @@
         }
         if(chosenArc&&!arcRanges.has(chosenArc))chosenArc='';
         arcSelect.value=chosenArc;
-        const hasAnyGuide=!!guide&&episodes.some(ep=>Number(ep.season_number)===Number(selected)&&
-            (guideFor(ep)?.type||guideFor(ep)?.arc));
         const hasArcs=arcRanges.size>0;
         const hasConfirmedTypes=!!guide&&episodes.some(ep=>Number(ep.season_number)===Number(selected)&&guideFor(ep)?.type);
         const canonOption=typeSelect.querySelector('option[value="canon-only"]');
@@ -105,24 +102,6 @@
         arcWrap.hidden=!hasArcs;
         typeWrap.hidden=!hasConfirmedTypes;
         guideSummary.textContent=hasArcs?`${arcRanges.size} story arcs available`:(hasConfirmedTypes?'Episode types available':'');
-        guideCredit.replaceChildren();
-        guideCredit.hidden=!hasAnyGuide;
-        if(hasAnyGuide){
-            guideCredit.append(document.createTextNode('Episode guide: '));
-            const link=document.createElement('a');link.textContent=guide.source;link.href=guide.sourceUrl||guide.attributionUrl||'#';
-            link.target='_blank';link.rel='noopener noreferrer';guideCredit.append(link);
-            if(guide.license){
-                guideCredit.append(document.createTextNode(' · '));
-                const license=document.createElement('a');license.textContent='CC BY-SA 4.0';
-                license.href='https://creativecommons.org/licenses/by-sa/4.0/';
-                license.target='_blank';license.rel='noopener noreferrer';guideCredit.append(license);
-                guideCredit.append(document.createTextNode(' · '));
-                const attribution=document.createElement('a');attribution.textContent='Data & credits';attribution.href=guide.attributionUrl||guide.sourceUrl||'#';
-                attribution.target='_blank';attribution.rel='noopener noreferrer';guideCredit.append(attribution);
-                guideCredit.append(document.createTextNode(' · Adapted classification and arc data.'));
-            }
-            guideCredit.append(document.createTextNode(' · Unclassified episodes are not assumed to be canon.'));
-        }
     }
     function filteredEpisodes() {
         const term = (search?.value || '').trim().toLocaleLowerCase();

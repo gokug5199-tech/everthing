@@ -1,28 +1,13 @@
 {
   "project": "The Everything",
-  "release": "2026-11-13-episode-ui1",
-  "purpose": "Hide empty guide UI, faster parallel/local Bleach arcs, deterministic navigation fixes",
-  "runtime_entrypoint": "anime-details.html",
-  "episode_guides": {
-    "javascript": "episode-guides.js",
-    "stylesheet": "episode-guides.css",
-    "global": "window.TEEpisodeGuides",
-    "function": "functions/api/episode-guide.js"
-  },
-  "added": [
-    "episode-guides.js",
-    "episode-guides.css",
-    "README.md",
-    "PROJECT-DOCS/"
-  ],
+  "release": "2026-11-14-LIBRARY-JWT-RECOVERY",
+  "base_release": "TheEverything-MYANIME-DETAILS-REDESIGN-FULL.zip",
+  "summary_ar": "إصلاح JWT expired عند حفظ Anime Library بإعادة تجديد الجلسة مرة وإعادة طلب الكتابة إن أمكن، وإظهار تسجيل الدخول عند انتهاء الجلسة نهائيا.",
   "modified": [
-    "anime-details.html",
-    "anime-details.js",
-    "episode-guides.js",
-    "episode-guides.css",
-    "episode-choice.html",
-    "episode-choice-v37.js",
-    "watch.html",
+    "anime-library.js",
+    "anime-detail-auth-v22.js",
+    "my-anime.html",
+    "profile.html",
     "PROJECT-DOCS/00-START-HERE-AR.md",
     "PROJECT-DOCS/04-CHANGELOG-AR.md",
     "PROJECT-DOCS/05-DEPLOY-AND-TEST-AR.md",
@@ -30,27 +15,21 @@
     "PROJECT-DOCS/09-TEST-RESULTS-AR.md",
     "PROJECT-DOCS/RELEASE-MANIFEST.json",
     "PROJECT-DOCS/TESTS/episode-guide-smoke.cjs",
-    "PROJECT-DOCS/TESTS/episode-ui-browser.py"
+    "PROJECT-DOCS/TESTS/pwa-pair02-smoke.cjs"
   ],
-  "removed": [
-    "episode-guides-v38.js",
-    "episode-guides-v38.css",
-    "episode-guides-v39.js",
-    "episode-guides-v39.css",
-    "README-v38-AR.txt",
-    "README-v39-EN.txt",
-    "INSTALL-v38-AR.txt",
-    "INSTALL-v39-AR.txt"
+  "added": [
+    "PROJECT-DOCS/18-JWT-EXPIRED-AUTH-RECOVERY-AR.md",
+    "PROJECT-DOCS/TESTS/library-jwt-refresh-smoke.cjs"
   ],
+  "removed": [],
   "sql_required": false,
-  "live_cloudflare_tested": false,
   "live_supabase_tested": false,
-  "live_fillerlists_tested": false,
-  "source_attribution": {
-    "bleach": "https://fillerlists.com/bleach",
-    "guide": "https://fillerlists.com/data",
-    "license": "https://creativecommons.org/licenses/by-sa/4.0/"
-  },
-  "headless_browser_tested": false,
-  "headless_browser_test_blocker": "ERR_BLOCKED_BY_ADMINISTRATOR blocked all navigation in sandbox"
+  "live_cloudflare_tested": false,
+  "real_installed_device_tested": false,
+  "tests": [
+    "JWT expired retry mocked: write/delete, refresh failure, changed user",
+    "Existing PWA and episode-guide smoke regressions",
+    "Node JS syntax checks",
+    "Local HTML asset references"
+  ]
 }
